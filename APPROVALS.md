@@ -7,7 +7,7 @@
 | Deep Ink | Two original porcelain-blue octopus mockups + full-bleed scrolling videos | Archive and preservation notes added | 2 approved PNG designs and 2 approved MP4 files |
 | ZEBRA | Dramatic zebras-crossing fashion identity and full shopping demo | **Original interactive storefront uploaded and runnable through its loader** | Original standalone campaign mockup image and reference preview, optional |
 | Cloud Cart | Good things float; direct online retail of groceries, home essentials and local favourites | **Interactive landing page and browser presentation uploaded** | Final approved rendered presentation PNG and full-page image |
-| ONE | Business management UI, Deep Navy colourway | Approved specifications recorded | Original Deep Navy interactive HTML and its previews (when cleared for public release) |
+| ONE | Business management UI, Deep Navy colourway | **Approved interactive Deep Navy HTML uploaded** | Optional desktop and mobile preview PNGs |
 | Childfree, Unapologetically | Mixed whimsical, soft and everyday enamel pin collection | Approved directions recorded | Final concept-sheet PNG |
 | Vinyl Lounge | Diverse customers drinking coffee, eating and dancing on a vinyl record | Approved directions recorded | Latest approved still PNG, not rejected previous versions |
 | The Lemon Sun | Main artwork + separate editorial companion page | Concept reference recorded | Approved main illustration and companion page |

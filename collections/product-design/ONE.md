@@ -2,4 +2,4 @@
 
 Approved direction: professional, mature, M-PESA-informed management experience. Final colour choice **Deep Navy**, not Charcoal/Emerald. Includes transactions, sales, customers, staff, business templates, inventory and a simulated payment workflow. Real payment integrations were never activated.
 
-The approved standalone HTML and previews exist in the studio's local backup. This registry does not imply they are present on GitHub until the original files are published.
+[Open the approved Deep Navy interactive demo](./one-deep-navy.html). This is a public-safe, local-only prototype using fictional sample data, not a real M-PESA connection or production database. The desktop and mobile preview PNGs still need media upload.
