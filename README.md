@@ -8,7 +8,7 @@ A public creative playground for **art direction, product design, experimental l
 - [ZEBRA fashion store](./projects/zebra-fashion/) · **interactive approved storefront**
 - [Cloud Cart](./projects/cloud-cart/) · **interactive grocery and essentials store concept**
 - [Cloud Cart presentation](./projects/cloud-cart/presentation.html)
-- [Deep Ink](./projects/deep-ink/) · **original art and scroll videos approved; binary media upload outstanding**
+- [Deep Ink](./projects/deep-ink/) · **two approved illustrations and both original scroll videos archived**
 - [ONE management system](./collections/product-design/ONE.md) · Deep Navy selected
 - [Childfree enamel pins](./collections/illustration/CHILDFREE.md) · collection approved
 - [Vinyl Lounge](./collections/motion/VINYL_LOUNGE.md) · diverse restaurant/dancing still approved
