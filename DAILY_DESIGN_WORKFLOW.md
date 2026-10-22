@@ -11,7 +11,7 @@
 - The studio homepage is the independently shareable gallery. It holds category filters, featured work, and a link to the user's professional portfolio.
 - Each finished major project has a scrollable case study: opening visual, project overview, creative decisions, gallery of the actual approved source images, a real video when available, and an interactive demo if available.
 - Storefront demo checkouts are simulated; price tags are examples and clearly labeled accordingly.
-- ZEBRA and Deep Ink are preserved in the form approved. Cloud Cart's prior floating-cart concept is archived as its origin, and the user-directed product-first redesign is the current site.
+- ZEBRA and Deep Ink remain preserved in their approved original forms. Withdrawn designs must not appear in public galleries, dated journals, or demo routes.
 
 ## Five-minute stop-the-loop rule
 - Stop retrying the same blocked tool step after a repeated failure or five minutes without real progress.
