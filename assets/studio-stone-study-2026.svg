@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 420" role="img" aria-labelledby="title desc"><title id="title">A study in balance</title><desc id="desc">Three organically shaped, naturally textured river stones in amethyst, limestone and deep plum, with editorial studio shadows and a hairline gold orbit.</desc><defs>
+<linearGradient id="basalt" x1=".12" y1=".01" x2=".94" y2=".93"><stop stop-color="#896d8b"/><stop offset=".19" stop-color="#5a405e"/><stop offset=".45" stop-color="#34243d"/><stop offset=".83" stop-color="#1f192b"/><stop offset="1" stop-color="#140f1a"/></linearGradient>
+<linearGradient id="chalk" x1=".16" y1="0" x2=".9" y2=".95"><stop stop-color="#fff9ee"/><stop offset=".24" stop-color="#ebe3da"/><stop offset=".58" stop-color="#c4b3b2"/><stop offset=".86" stop-color="#aa9398"/><stop offset="1" stop-color="#736871"/></linearGradient>
+<radialGradient id="amethyst" cx=".26" cy=".08" r="1"><stop stop-color="#ba9ab4"/><stop offset=".26" stop-color="#76567f"/><stop offset=".66" stop-color="#4f3159"/><stop offset="1" stop-color="#2d1b39"/></radialGradient>
+<filter id="rockgrain" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".11" numOctaves="4" seed="13" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feComponentTransfer in="g"><feFuncA type="linear" slope=".27"/></feComponentTransfer><feBlend in="SourceGraphic" in2="g" mode="multiply"/></filter>
+<filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="6" dy="11" stdDeviation="13" flood-color="#28192e" flood-opacity=".21"/></filter>
+<radialGradient id="floor"><stop stop-color="#3c2545" stop-opacity=".24"/><stop offset="1" stop-color="#3c2545" stop-opacity="0"/></radialGradient>
+</defs>
+<ellipse cx="216" cy="382" rx="192" ry="33" fill="url(#floor)"/>
+<g filter="url(#shadow)">
+<path d="M57 297 C84 260 143 249 202 254 C273 253 348 266 369 303 C392 341 364 362 321 373 C274 383 142 389 85 364 C42 345 35 324 57 297Z" fill="url(#basalt)" filter="url(#rockgrain)"/>
+<path d="M79 303 C147 268 240 269 342 307" stroke="#ac90b0" stroke-width="2" opacity=".18" fill="none"/>
+<path d="M111 201 C135 174 170 160 232 163 C293 162 332 183 342 219 C352 259 324 278 272 287 C209 300 137 292 106 271 C79 252 80 223 111 201Z" fill="url(#chalk)" filter="url(#rockgrain)"/>
+<path d="M119 216 C174 185 268 184 323 220" stroke="#fffaf0" opacity=".34" stroke-width="3" fill="none"/>
+<path d="M150 106 C164 78 211 61 245 72 C277 81 296 104 294 135 C292 157 274 173 244 179 C215 184 159 173 142 153 C129 139 138 120 150 106Z" fill="url(#amethyst)" filter="url(#rockgrain)"/>
+<path d="M164 108 C194 84 245 82 270 108" stroke="#eee0f3" stroke-width="2" fill="none" opacity=".25"/>
+</g>
+<path d="M78 315 C50 281 52 238 84 213" stroke="#cba16d" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+<path d="M344 96 C396 131 399 194 359 232" stroke="#cba16d" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+<path d="M352 221 l6 14 12 -9" stroke="#cba16d" stroke-width="1.7" fill="none" stroke-linejoin="round"/>
+<g stroke="#342438" stroke-width="1.6" stroke-linecap="round"><path d="M365 59 v31 M350 74 h31 M355 64 l21 21 M375 63 l-21 21"/></g>
+<g fill="#c69655"><circle cx="95" cy="155" r="1.8"/><circle cx="111" cy="140" r="1.2"/><circle cx="91" cy="175" r="1.2"/><circle cx="339" cy="353" r="1.4"/></g>
+</svg>
