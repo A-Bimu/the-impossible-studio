@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#252037">
+  <meta name="description" content="View, print and save the eight original approved Poster Studies artworks, one at a time.">
+  <title>Individual Poster Studies | The Impossible Studio</title>
+  <style>
+    :root{color-scheme:light;--ink:#242037;--paper:#f8f4f0;--line:#d8d0d1;--muted:#615d69}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+    a{color:inherit}
+    button,select{font:inherit}
+    a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #ab7594;outline-offset:4px}
+    header{background:var(--ink);color:#fff}
+    .shell{width:min(1280px,calc(100% - 40px));margin:auto}
+    .top{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.09em}
+    .back{font-size:12px}
+    .intro{padding:42px 0 24px}
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#9a637d}
+    h1{font:normal clamp(46px,7vw,92px)/1.02 Georgia,serif;letter-spacing:-.05em;margin:10px 0}
+    .intro p{max-width:680px;color:var(--muted)}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,320px);gap:clamp(20px,4vw,58px);align-items:start;padding:15px 0 80px}
+    .art{margin:0;background:#e9e2de;padding:clamp(8px,2vw,24px);display:grid;place-items:center}
+    .art img{display:block;width:100%;height:auto;max-width:720px;aspect-ratio:1086/1448;object-fit:contain;background:#e1d9d5}
+    .controls{position:sticky;top:24px}
+    .controls h2{font:normal clamp(30px,3vw,44px)/1.1 Georgia,serif;margin:14px 0}
+    .controls p{color:var(--muted)}
+    label{display:block;font-size:12px;font-weight:700;margin:25px 0 8px}
+    select{display:block;width:100%;padding:12px;background:#fff;border:1px solid #a99ca5;border-radius:0;color:var(--ink)}
+    .pager,.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    button,.action{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:10px 15px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;font-size:12px;font-weight:700;cursor:pointer}
+    button:disabled{opacity:.35;cursor:not-allowed}
+    .action.secondary{background:transparent;color:var(--ink)}
+    .note{border-top:1px solid var(--line);margin-top:28px;padding-top:18px;font-size:12px}
+    .count{font-size:12px;font-weight:800;letter-spacing:.14em}
+    @media(max-width:780px){.workspace{grid-template-columns:1fr}.controls{position:static;order:-1}.intro{padding-top:26px}.top{flex-wrap:wrap;padding:16px 0}}
+    @media print{
+      @page{size:A4 portrait;margin:0}
+      html,body,main,.workspace,.art{margin:0!important;padding:0!important;background:white!important}
+      header,.intro,.controls{display:none!important}
+      .shell{width:100%!important;max-width:none!important}
+      .workspace{display:block!important}
+      .art{width:210mm;height:297mm;display:flex;align-items:center;justify-content:center}
+      .art img{width:auto!important;height:auto!important;max-width:210mm!important;max-height:297mm!important;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+  <header><div class="shell top"><a class="brand" href="../../">THE IMPOSSIBLE STUDIO.</a><a class="back" href="./">← Poster Studies and design notes</a></div></header>
+  <main class="shell">
+    <section class="intro"><div class="eyebrow">Original approved artwork / Individual viewing room</div><h1>One poster.<br>One moment.</h1><p>Explore the eight original poster images individually. Open the untouched image file, save it, or print the selected artwork. These are fictional event concepts, not ticket offers.</p></section>
+    <div class="workspace">
+      <figure class="art"><img id="poster-image" src="media/midnight_grove_festival_poster.png" width="1086" height="1448" alt="Midnight Grove original approved poster"></figure>
+      <aside class="controls" aria-label="Poster navigation">
+        <div class="count" id="count" aria-live="polite">01 / 08</div>
+        <h2 id="poster-title">Midnight Grove</h2>
+        <p id="poster-description">Open-air music and sunset, imagined as an editorial event.</p>
+        <label for="poster-select">Choose an original poster</label>
+        <select id="poster-select"></select>
+        <div class="pager"><button type="button" id="previous" aria-label="Previous poster">← Previous</button><button type="button" id="next" aria-label="Next poster">Next →</button></div>
+        <div class="actions">
+          <a class="action" id="open-original" href="media/midnight_grove_festival_poster.png" target="_blank" rel="noopener">Open original ↗</a>
+          <a class="action secondary" id="save-original" href="media/midnight_grove_festival_poster.png" download>Save PNG ↓</a>
+          <button type="button" id="print-poster">Print poster</button>
+        </div>
+        <p class="note">The image is never cropped, redrawn or overlaid. Print output depends on your printer settings. Use the original PNG for the highest-quality source available here.</p>
+      </aside>
+    </div>
+  </main>
+  <script>
+    (() => {
+      "use strict";
+      const posters = [
+        ["midnight-grove","Midnight Grove","midnight_grove_festival_poster.png","Open-air music and sunset, imagined as an editorial event."],
+        ["sana-sana","Sana Sana","sana_sana_wellness_festival_poster.png","A playful fictional gathering for wellness, makers and music."],
+        ["ritual","Ritual","ritual_experimental_light_and_sound.png","An experimental encounter between light, sound and movement."],
+        ["the-outside","The Outside","the_outside_festival_picnic.png","An imagined open-air picnic and music festival."],
+        ["afterhours","Afterhours","afterhours_neon_night_party.png","A nocturnal fictional gathering for DJs and visual art."],
+        ["capsule","Capsule","capsule_art_fashion_culture.png","An editorial study of fashion and art culture."],
+        ["horizon-cinema","Horizon Cinema","horizon_cinema_sunset_film_night.png","An outdoor cinema concept under the evening sky."],
+        ["market-day-social","Market Day Social","market_day_social_poster.png","An imagined gathering of independent makers and food stalls."]
+      ];
+      const $ = id => document.getElementById(id);
+      const select = $("poster-select");
+      posters.forEach(([slug,name],i) => {
+        const option = document.createElement("option");
+        option.value = slug;
+        option.textContent = String(i+1).padStart(2,"0") + " / " + name;
+        select.append(option);
+      });
+      let current = 0;
+      function show(index, updateHash = true) {
+        if(index < 0 || index >= posters.length) return;
+        current = index;
+        const [slug,name,file,description] = posters[index];
+        const url = "media/" + file;
+        $("poster-image").src = url;
+        $("poster-image").alt = name + " original approved fictional event poster";
+        $("poster-title").textContent = name;
+        $("poster-description").textContent = description;
+        $("count").textContent = String(index+1).padStart(2,"0") + " / 08";
+        $("open-original").href = url;
+        $("save-original").href = url;
+        $("save-original").download = file;
+        $("previous").disabled = index === 0;
+        $("next").disabled = index === posters.length-1;
+        select.value = slug;
+        document.title = name + " | Poster Studies | The Impossible Studio";
+        if(updateHash && location.hash.slice(1) !== slug) history.replaceState(null,"","#"+slug);
+      }
+      function fromHash() {
+        const slug = decodeURIComponent(location.hash.slice(1));
+        const index = posters.findIndex(p => p[0] === slug);
+        show(index < 0 ? 0 : index,false);
+      }
+      select.addEventListener("change", () => show(posters.findIndex(p => p[0] === select.value)));
+      $("previous").addEventListener("click", () => show(current-1));
+      $("next").addEventListener("click", () => show(current+1));
+      $("print-poster").addEventListener("click", () => window.print());
+      window.addEventListener("hashchange",fromHash);
+      document.addEventListener("keydown", e => {
+        if(e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(document.activeElement.tagName)) return;
+        if(e.key === "ArrowLeft") show(current-1);
+        if(e.key === "ArrowRight") show(current+1);
+      });
+      fromHash();
+    })();
+  </script>
+</body>
+</html>
