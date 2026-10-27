@@ -1,1 +1,27 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deep Ink | Approved Scroll Videos</title><style>body{background:#ecece6;color:#253782;margin:0;font:16px/1.5 Georgia,serif;text-align:center}main{max-width:720px;margin:auto;padding:30px 18px}h1{font-size:clamp(48px,8vw,88px);margin:10px 0;letter-spacing:-.05em}video{display:block;width:auto;height:75vh;max-width:100%;margin:26px auto;box-shadow:0 18px 50px #10182844;background:#12182b}a{color:inherit}button{cursor:pointer;background:#253782;color:#fff;border:0;padding:12px 18px;margin:6px}#note{font:13px/1.5 Arial,sans-serif}</style><main><a href="../">← Deep Ink Gallery</a><h1>Deep Ink in Motion · II.</h1><p>Approved original full-bleed scrolling composition. Your source video is restored without visual alteration.</p><div id="note">Reconstructing the original video from archived parts…</div><video id="v" controls muted playsinline loop></video><button id="download" hidden>Download original MP4</button></main><script>(async()=>{try{const p=await Promise.all(Array.from({length:8},(_,i)=>fetch('concept-02-full-bleed.mp4.b64/part-'+String(i).padStart(2,'0')+'.txt').then(r=>{if(!r.ok)throw Error('Part '+i);return r.text()})));const binary=atob(p.join(''));const bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);const blob=new Blob([bytes],{type:'video/mp4'});const url=URL.createObjectURL(blob);const v=document.querySelector('#v');v.src=url;v.play().catch(()=>{});document.querySelector('#note').textContent='Full-bleed original video · tap Play if autoplay is blocked';const b=document.querySelector('#download');b.hidden=false;b.onclick=()=>{const a=document.createElement('a');a.href=url;a.download='Deep_Ink_Concept_02_Original.mp4';a.click()}}catch(e){document.querySelector('#note').textContent='Video requires GitHub Pages or a web server. '+e.message}})()</script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deep Ink | Approved Scroll Video, Concept 02</title>
+<style>body{background:#ecece6;color:#253782;margin:0;font:16px/1.5 Georgia,serif;text-align:center}main{max-width:760px;margin:auto;padding:30px 18px}h1{font-size:clamp(48px,8vw,88px);margin:10px 0;letter-spacing:-.05em}video{display:block;width:auto;height:75vh;max-width:100%;margin:26px auto;box-shadow:0 18px 50px #10182844;background:#12182b}a{color:inherit}button{cursor:pointer;background:#253782;color:#fff;border:0;padding:12px 18px;margin:6px}#note{font:13px/1.5 Arial,sans-serif;min-height:3em}</style>
+</head>
+<body>
+<main>
+<a href="../">← Deep Ink Gallery</a>
+<h1>Deep Ink in Motion · II.</h1>
+<p>Approved original full-bleed scrolling composition, the vertical companion to Concept 01. The archived source video is restored bit for bit, without visual alteration. <a href="./">Watch Concept 01 →</a></p>
+
+<figure style="margin:0" data-di-player
+        data-src="./concept-02-full-bleed.mp4.b64"
+        data-parts="8"
+        data-size="4.8 MB"
+        data-note="Concept_02_Ideas_Have_A_Way_Of_Escaping">
+  <div id="note" data-role="status">Reconstructing the original video from archived parts…</div>
+  <video controls muted loop playsinline preload="none" poster="./poster-concept-02.webp" aria-label="Deep Ink Concept 02 approved motion study"></video>
+  <button type="button" data-role="download" hidden>Download original MP4</button>
+</figure>
+</main>
+<script src="./player.js"></script>
+</body>
+</html>

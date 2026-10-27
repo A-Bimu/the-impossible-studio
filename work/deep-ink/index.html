@@ -1,6 +1,128 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#0a1016"><title>Deep Ink | The Impossible Studio</title><meta name="description" content="Immersive digital design / Illustration / Motion"><link rel="stylesheet" href="../../studio.css"></head><body><header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header><main><div class="shell"><div class="breadcrumbs"><a href="../../#work">All work</a><span>/</span>Deep Ink</div><section class="project-head"><div><div class="eyebrow">Immersive digital design / Illustration / Motion</div><h1>Deep Ink<span style="color:var(--accent)">.</span></h1><p class="subtitle">Ideas have a way of escaping.</p></div><aside>A living blue-and-white world where a creature becomes the navigation.</aside></section></div><div class="shell"><img class="project-hero board" src="../../assets/deep-ink-original.webp" alt="Deep Ink original design" fetchpriority="high"><div class="caption"><span>Original design / Concept and presentation</span><span>Immersive digital design / Illustration / Motion</span></div></div>
-<div class="shell"><section class="page-section"><div class="split"><div><div class="eyebrow">01 / The project</div><h2>Behind the <em>idea.</em></h2></div><p>Deep Ink gives curiosity a character. A porcelain-blue octopus winds through editorial content, guiding attention to new sections, menus and moments below the surface.</p></div><div class="facts"><div><small>What was designed</small><strong>Original illustration concepts, mobile study, interaction direction and two actual MP4 scrolling studies</strong></div><div><small>What works</small><strong>Both original MP4 motion studies are archived and playable in the project section below.</strong></div><div><small>What is conceptual</small><strong>Mouse-following eyes, hover-reactive tentacles and complete website interactions are proposed behavior, not proven finished functionality.</strong></div></div></section>
-<section class="page-section"><div class="split"><div><div class="eyebrow">02 / Art direction</div><h2>Designed with <em>intent.</em></h2></div><p>The concept uses the creature as an interaction device instead of a decorative logo. The visual language combines pale porcelain, intense cobalt, underwater depth and carefully controlled typography.</p></div><div class="visual-grid"><figure><img src="../../assets/deep-ink-original.webp" loading="lazy" alt="Deep Ink original composition"><figcaption>Approved original composition, displayed in full to preserve the detailed layout.</figcaption></figure><figure><img src="../../assets/deep-ink-cover.webp" loading="lazy" alt="Deep Ink detailed visual"><figcaption>Closer visual study of the octopus and blue porcelain aesthetic.</figcaption></figure></div></section>
-<section class="page-section"><div class="eyebrow">03 / Visual presentation</div><h2 class="section-title">See the whole <em>picture.</em></h2><figure class="wide-art"><img src="../../assets/deep-ink-original.webp" loading="lazy" alt="Original Deep Ink complete presentation"><figcaption>Original presentation shown at its full proportions. Click the demo below to explore the working parts.</figcaption></figure></section>
-<section class="page-section"><div class="eyebrow">04 / Actual motion studies</div><h2 class="section-title">When the artwork moves.</h2><p style="color:#b2c0c9;max-width:740px">These are the two original approved scrolling videos, not a static image with a camera pan invented for this presentation. Each player loads the archived video from its source files.</p><div class="deep-video"><iframe loading="lazy" title="Deep Ink original motion study one" src="../../projects/deep-ink/videos/"></iframe><iframe loading="lazy" title="Deep Ink original motion study two" src="../../projects/deep-ink/videos/concept-02.html"></iframe></div></section>
-<section class="demo-area"><div class="demo-heading"><div><div class="eyebrow">05 / Interactive experience</div><h2 class="section-title">Beyond the <em>still.</em></h2></div><a class="action" href="../../projects/deep-ink/" target="_blank" rel="noopener">Open the original demo <i>↗</i></a></div><p>Both original MP4 motion studies are archived and playable in the project section below.</p><iframe class="demo-window" title="Deep Ink interactive demo" loading="lazy" src="../../projects/deep-ink/"></iframe><p>Some interactive features may work best when you open the standalone experience.</p></section><div class="project-next"><a href="../../#work">← All projects</a><a href="../zebra/">Next: ZEBRA →</a></div></div></main><footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a1016">
+<title>Deep Ink | The Impossible Studio</title>
+<meta name="description" content="Immersive digital design / Illustration / Motion">
+<link rel="stylesheet" href="../../studio.css">
+<style>
+/* Deep Ink page only. Scoped so the shared studio.css stays untouched. */
+.di-plate{margin:0;background:#fff}
+.di-plate img{width:100%;max-height:1050px;object-fit:contain}
+.di-plate figcaption{font-size:12px;color:#4d575c;padding:14px 18px}
+.di-motion-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}
+.di-motion{margin:0;display:flex;flex-direction:column;gap:12px}
+.di-motion .di-frame{border:1px solid #344654;background:#0a1016;display:flex;align-items:center;justify-content:center}
+.di-motion video{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain;background:#0a1016}
+.di-motion .di-name{font:700 13px 'Manrope',sans-serif;letter-spacing:.02em;margin:0}
+.di-motion .di-credit{font-size:12px;color:#8f9da7;margin:0}
+.di-motion [data-role=status]{font-size:12px;color:#9eacb6;margin:0;min-height:2.6em}
+.di-motion [data-role=download],.di-download{background:transparent;color:var(--ink);border:1px solid #778994;font:700 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:10px 14px;align-self:start}
+.di-motion [data-role=download]:hover,.di-download:hover{background:#182b39}
+.di-note{font-size:12px;color:#9eacb6;max-width:760px;margin-top:26px;line-height:1.8}
+.di-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.di-links a{border:1px solid #778994;padding:11px 15px;font:700 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.di-links a:hover{background:#182b39}
+@media(max-width:900px){.di-motion-grid{grid-template-columns:1fr}.di-motion video{max-height:none}}
+</style>
+</head>
+<body>
+<header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header>
+<main>
+<div class="shell">
+<div class="breadcrumbs"><a href="../../#work">All work</a><span>/</span>Deep Ink</div>
+<section class="project-head">
+<div>
+<div class="eyebrow">Immersive digital design / Illustration / Motion</div>
+<h1>Deep Ink<span style="color:var(--accent)">.</span></h1>
+<p class="subtitle">Ideas have a way of escaping.</p>
+</div>
+<aside>A living blue-and-white world where a creature becomes the navigation. Two approved design boards and two approved 18 second scroll studies, kept exactly as approved.</aside>
+</section>
+</div>
+
+<div class="shell">
+<figure class="di-plate">
+<img src="../../assets/deep-ink-original.webp" alt="Deep Ink approved design board: five phone screens plus detail panels for the porcelain-blue octopus concept" fetchpriority="high">
+<figcaption>Plate 01 / The approved design board · 1214 x 1295 · five screens, detail panels, menu states and the porcelain-blue palette</figcaption>
+</figure>
+</div>
+
+<div class="shell">
+<section class="page-section">
+<div class="split">
+<div><div class="eyebrow">01 / The project</div><h2>Behind the <em>idea.</em></h2></div>
+<p>Deep Ink gives curiosity a character. A porcelain-blue octopus winds through editorial content, guiding attention to new sections, menus and moments below the surface. The creature is an interaction device rather than a decorative logo, which is why the two scroll studies matter: they show the idea behaving, not just existing.</p>
+</div>
+<div class="facts">
+<div><small>What exists</small><strong>Two approved original design boards and two approved 18 second full-bleed scroll studies, archived in this repository.</strong></div>
+<div><small>What plays here</small><strong>Both approved studies play on this page. Each player restores its archived file and reports the real resolution and duration.</strong></div>
+<div><small>What is conceptual</small><strong>Mouse-following eyes, hover-reactive tentacles and a fully coded website are proposed behaviour, not finished functionality.</strong></div>
+</div>
+</section>
+
+<section class="page-section">
+<div class="split">
+<div><div class="eyebrow">02 / Art direction</div><h2>Designed with <em>intent.</em></h2></div>
+<p>The visual language combines pale porcelain, intense cobalt, underwater depth and controlled editorial typography. Concept 01 keeps the ivory page light so the creature reads as an illustration; Concept 02 inverts the same world into deep blue so the sea becomes the page.</p>
+</div>
+<div class="visual-grid">
+<figure><img src="../../assets/deep-ink-original.webp" loading="lazy" alt="Deep Ink approved design board"><figcaption>Plate 01 again at column size: the approved board carries its own typography, palette and detail panels.</figcaption></figure>
+<figure><img src="../../assets/deep-ink-cover.webp" loading="lazy" alt="Deep Ink vertical key visual"><figcaption>Plate 02 / Key visual · 600 x 720 · the octopus cropped for vertical use.</figcaption></figure>
+</div>
+</section>
+
+<section class="page-section">
+<div class="eyebrow">03 / The approved motion studies</div>
+<h2 class="section-title">When the artwork <em>moves.</em></h2>
+<p class="di-note">These are the two approved originals, not a camera pan invented around a still. Each player reassembles its approved MP4 from the archived parts stored in this repository, plays it here, and can hand you the untouched file. Players load lazily as you scroll so the reading experience comes first.</p>
+
+<div class="di-motion-grid">
+<figure class="di-motion" data-di-player data-src="../../projects/deep-ink/videos/concept-01-full-bleed.mp4.b64" data-parts="13" data-size="8.3 MB" data-note="Concept_01_Wonders_Beneath_The_Surface">
+<div class="di-frame"><video controls muted loop playsinline preload="none" poster="../../projects/deep-ink/videos/poster-concept-01.webp" aria-label="Deep Ink Concept 01 approved motion study"></video></div>
+<p class="di-name">Concept 01 · Wonders Beneath the Surface</p>
+<p class="di-credit">Plate 03 / 1080 x 1080 · 18 s · full-bleed scroll study · ivory</p>
+<p data-role="status">Archived original, loading when this section scrolls into view.</p>
+<button type="button" data-role="download" hidden>Download the original MP4</button>
+</figure>
+
+<figure class="di-motion" data-di-player data-src="../../projects/deep-ink/videos/concept-02-full-bleed.mp4.b64" data-parts="8" data-size="4.8 MB" data-note="Concept_02_Ideas_Have_A_Way_Of_Escaping">
+<div class="di-frame"><video controls muted loop playsinline preload="none" poster="../../projects/deep-ink/videos/poster-concept-02.webp" aria-label="Deep Ink Concept 02 approved motion study"></video></div>
+<p class="di-name">Concept 02 · Ideas have a way of escaping</p>
+<p class="di-credit">Plate 04 / 1080 x 1920 · 18 s · full-bleed scroll study · deep blue</p>
+<p data-role="status">Archived original, loading when this section scrolls into view.</p>
+<button type="button" data-role="download" hidden>Download the original MP4</button>
+</figure>
+</div>
+
+<p class="di-note">Together the two originals are about 13 MB. If a browser cannot fetch the archive, for example when a page is opened straight from disk instead of over http, use the standalone video pages linked below; they restore the same files and keep a download button.</p>
+
+<div class="di-links">
+<a href="../../projects/deep-ink/" >Open the artwork gallery ↗</a>
+<a href="../../projects/deep-ink/videos/">Concept 01 video page ↗</a>
+<a href="../../projects/deep-ink/videos/concept-02.html">Concept 02 video page ↗</a>
+</div>
+</section>
+
+<section class="page-section">
+<div class="split">
+<div><div class="eyebrow">04 / Provenance</div><h2>What is <em>real.</em></h2></div>
+<p>Approved designs are the source of truth, so nothing here is a re-render. The approved boards are shown as they were approved, and the approved motion studies are restored from their archived bytes rather than approximated. Later simplified 3D octopus variants were not approved replacements and are not used anywhere on this page.</p>
+</div>
+<div class="facts">
+<div><small>Boards</small><strong>concept-01-original and concept-02-original, untouched, under projects/deep-ink/artwork/.</strong></div>
+<div><small>Motion</small><strong>concept-01 and concept-02 full-bleed MP4s, H.264 and AAC, 24 fps, archived as base64 parts.</strong></div>
+<div><small>This page</small><strong>Native video players. The approved bytes are reassembled in the browser, then played and downloadable.</strong></div>
+</div>
+</section>
+
+<div class="project-next"><a href="../../#work">← All projects</a><a href="../zebra/">Next: ZEBRA →</a></div>
+</div>
+</main>
+<footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer>
+<script src="../../projects/deep-ink/videos/player.js"></script>
+</body>
+</html>

@@ -1,1 +1,147 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#0a1016"><title>Vinyl Lounge | The Impossible Studio</title><meta name="description" content="Concept illustration / Music culture"><link rel="stylesheet" href="../../studio.css"></head><body><header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header><main class="shell"><div class="breadcrumbs"><a href="../../#archive">All work</a><span>/</span>Vinyl Lounge</div><section class="project-head"><div><div class="eyebrow">Concept illustration / Music culture</div><h1>Vinyl Lounge<span style="color:var(--accent)">.</span></h1><p class="subtitle">A record becomes a place to meet.</p></div><aside>From the studio archive. Presented in its actual medium, with an honest account of what exists and what remains conceptual.</aside></section><div class="art-study"><div class="art-frame"><img src="../../assets/vinyl-original.webp" alt="Vinyl Lounge approved original artwork"></div><div class="caption"><span>Actual archived artwork / Original presentation</span><span>Concept illustration / Music culture</span></div><div class="artcopy"><div class="eyebrow">01 / The concept</div><p>An oversized vinyl record transformed into a miniature social world where people gather, eat and dance. This is an illustration concept about music as shared public space.</p><div class="eyebrow">02 / The decisions</div><p>The scene transforms a familiar object by changing its scale and purpose. The artwork carries the concept; it should not be presented as a working app.</p><div class="eyebrow">03 / Provenance</div><p><b>What exists:</b> One approved visual artwork.<br><b>What's conceptual:</b> No corresponding motion film or production venue has been built.</p></div><p class="mini">This project is a visual artwork, not an interactive website or video.</p></div><div class="project-next"><a href="../../#archive">← All studio projects</a><a href="../../daily/">See daily journal →</a></div></main><footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a1016">
+<title>Vinyl Lounge | The Impossible Studio</title>
+<meta name="description" content="Concept illustration / Music culture">
+<link rel="stylesheet" href="../../studio.css">
+<style>
+/* Vinyl Lounge page only. Scoped so the shared studio.css stays untouched. */
+.vl-plate{margin:0;border:1px solid #2b3742;background:#0c1116;display:flex;align-items:center;justify-content:center}
+.vl-plate img{width:100%;max-width:900px;height:auto;max-height:88vh;object-fit:contain;margin:auto}
+.vl-caption{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;padding:14px 2px;border-bottom:1px solid #30404c;font-size:11px;letter-spacing:.02em;color:#9eacb6}
+.js .vl-reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .vl-reveal.is-in{opacity:1;transform:none}
+.vl-module{display:grid;grid-template-columns:minmax(230px,340px) 1fr;gap:clamp(24px,5vw,64px);align-items:center;margin-top:38px;border-top:1px solid #30404c;border-bottom:1px solid #30404c;padding:38px 0}
+.vl-platter{width:100%;height:auto;display:block}
+.vl-spin{transform-box:fill-box;transform-origin:center;animation:vl-turn 18s linear infinite}
+.vl-module[data-paused] .vl-spin{animation-play-state:paused}
+@keyframes vl-turn{to{transform:rotate(360deg)}}
+.vl-legend h3{font:400 26px Georgia,serif;letter-spacing:-.02em;margin:0 0 10px}
+.vl-legend p{font-size:15px;line-height:1.85;color:#b3bfc6;margin:0 0 16px;max-width:52ch}
+.vl-legend .vl-readout{font:700 11px 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+.vl-toggle{background:transparent;color:var(--ink);border:1px solid #778994;font:700 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:10px 15px}
+.vl-toggle:hover{background:#182b39}
+.vl-notes{margin-top:70px;border-top:1px solid #30404c}
+.vl-note-row{display:grid;grid-template-columns:70px minmax(160px,240px) 1fr;gap:clamp(16px,3vw,48px);padding:30px 0;border-bottom:1px solid #26343f}
+.vl-note-row .vl-num{font:700 11px 'Manrope',sans-serif;letter-spacing:.14em;color:var(--accent);padding-top:6px}
+.vl-note-row h3{font:400 clamp(22px,2.1vw,30px)/1.15 Georgia,serif;letter-spacing:-.03em;margin:0}
+.vl-note-row p{margin:0;font-size:16px;line-height:1.9;color:#aebbc3}
+@media(max-width:900px){.vl-module{grid-template-columns:1fr}.vl-note-row{grid-template-columns:56px 1fr}.vl-note-row p{grid-column:2}}
+@media(max-width:520px){.vl-note-row{grid-template-columns:1fr;gap:10px}.vl-note-row p{grid-column:1}}
+@media(prefers-reduced-motion:reduce){.js .vl-reveal{opacity:1;transform:none;transition:none}.vl-spin{animation:none}}
+</style>
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+<header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header>
+<main class="shell">
+<div class="breadcrumbs"><a href="../../#archive">All work</a><span>/</span>Vinyl Lounge</div>
+
+<section class="project-head">
+<div>
+<div class="eyebrow">Concept illustration / Music culture</div>
+<h1>Vinyl Lounge<span style="color:var(--accent)">.</span></h1>
+<p class="subtitle">A record becomes a place to meet.</p>
+</div>
+<aside>From the studio archive. Presented in its actual medium, with an honest account of what exists and what remains conceptual.</aside>
+</section>
+
+<figure class="vl-plate vl-reveal">
+<img src="../../assets/vinyl-original.webp" alt="Vinyl Lounge approved illustration: a turntable seen from above, its record covered edge to edge with a night scene of ruins, flowers, ribbons and a full moon" fetchpriority="high">
+</figure>
+<div class="vl-caption"><span>Plate 01 / The approved artwork · 900 x 1599 · untouched</span><span>Concept illustration / Music culture</span></div>
+
+<section class="page-section">
+<div class="split">
+<div><div class="eyebrow">01 / Motion, kept restrained</div><h2>Nothing here is <em>spun.</em></h2></div>
+<p>The approved artwork in Plate 01 does not move. It is not stretched, re-coloured, wobbled or rotated to invent a film that was never made. Rotation is shown as a diagram instead: an exact drawing of the record turning, at true speed divided by ten.</p>
+</div>
+
+<div class="vl-module vl-reveal" data-platter>
+<svg class="vl-platter" viewBox="0 0 440 440" role="img" aria-label="Diagram of a vinyl record turning at 33 and one third revolutions per minute, shown at one tenth speed">
+<g class="vl-spin" fill="none" stroke="#e6ebee" stroke-opacity=".16">
+<circle cx="220" cy="220" r="196"/><circle cx="220" cy="220" r="188"/><circle cx="220" cy="220" r="180"/><circle cx="220" cy="220" r="172"/>
+<circle cx="220" cy="220" r="164"/><circle cx="220" cy="220" r="156"/><circle cx="220" cy="220" r="148"/><circle cx="220" cy="220" r="140"/>
+<circle cx="220" cy="220" r="132"/><circle cx="220" cy="220" r="124"/><circle cx="220" cy="220" r="116"/><circle cx="220" cy="220" r="108"/>
+<circle cx="220" cy="220" r="100"/>
+<line x1="220" y1="46" x2="220" y2="196" stroke="#cfa78e" stroke-opacity=".85" stroke-width="2"/>
+<circle cx="220" cy="220" r="20" stroke="#cfa78e" stroke-opacity=".6"/>
+</g>
+<line x1="220" y1="6" x2="220" y2="28" stroke="#f1f0ed" stroke-width="2"/>
+<circle cx="220" cy="220" r="5" fill="#f1f0ed"/>
+</svg>
+<div class="vl-legend">
+<p class="vl-readout">33⅓ rpm · one tenth speed · 18 s per turn</p>
+<h3>The record turns, the artwork stays still.</h3>
+<p>One radial index mark is drawn on the disc, so the slow rotation is legible rather than a hidden loop. The grooves, the spindle and the fixed outer pointer are drawn from geometry in this page, not lifted from the illustration.</p>
+<button type="button" class="vl-toggle" data-role="toggle" aria-pressed="false">Pause the diagram</button>
+</div>
+</div>
+
+<div class="vl-notes vl-reveal">
+<div class="vl-note-row">
+<div class="vl-num">02</div>
+<h3>The concept</h3>
+<p>An oversized record becomes a world. The file archived here shows a turntable photographed from above, its disc covered edge to edge with a night scene: a full moon, classical ruins, ribbons, blossom and a gilded sun.</p>
+</div>
+<div class="vl-note-row">
+<div class="vl-num">03</div>
+<h3>The decisions</h3>
+<p>Scale does the conceptual work. A familiar object is enlarged until its surface becomes landscape, and a second, smaller record sits at the centre of the collage exactly where the label would be, so the piece contains its own turntable at two scales. The night palette of crimson, bone and gold, the grain of the vinyl and the tonearm resting where it would actually sit all keep the scene reading as a real object rather than a flat graphic.</p>
+</div>
+<div class="vl-note-row">
+<div class="vl-num">04</div>
+<h3>Provenance</h3>
+<p><b>What is held here:</b> one artwork, assets/vinyl-original.webp, 900 x 1599, shown above at its native proportions and untouched. <b>Discrepancy:</b> the studio registry describes an approved version in which very small figures eat, drink coffee and dance across the record, and calls that the accepted visual. The file archived here shows a celestial composition instead, so one of the two records is out of date. The missing version has not been invented to fill the gap, and this page describes only what the archive actually contains. <b>What is conceptual:</b> no motion film, venue or interactive build has been produced, and the diagram above is a diagram, not an animated version of the illustration. Motion is a goal rather than a delivery: any animation has to be made and approved before it can be described as an animation.</p>
+</div>
+</div>
+
+<div class="split" style="margin-top:70px">
+<div><div class="eyebrow">05 / Status</div><h2>Presented as <em>drawn.</em></h2></div>
+<p>This project is a visual artwork, not an interactive website or video. The page adds motion around the artwork rather than motion inside it, so the approved illustration stays exactly as it was approved. If your system asks for reduced motion, every animation on this page stops and the plate appears immediately.</p>
+</div>
+</section>
+
+<div class="project-next"><a href="../../#archive">← All studio projects</a><a href="../../daily/">See daily journal →</a></div>
+</main>
+<footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer>
+<script>
+(function () {
+  var reveals = document.querySelectorAll('.vl-reveal');
+  if (!('IntersectionObserver' in window)) {
+    for (var i = 0; i < reveals.length; i += 1) reveals[i].classList.add('is-in');
+    return;
+  }
+  var watcher = new IntersectionObserver(function (entries) {
+    for (var j = 0; j < entries.length; j += 1) {
+      if (entries[j].isIntersecting) {
+        entries[j].target.classList.add('is-in');
+        watcher.unobserve(entries[j].target);
+      }
+    }
+  }, { rootMargin: '0px 0px -12% 0px' });
+  for (var k = 0; k < reveals.length; k += 1) watcher.observe(reveals[k]);
+})();
+
+(function () {
+  var module = document.querySelector('[data-platter]');
+  if (!module) return;
+  var button = module.querySelector('[data-role="toggle"]');
+  button.addEventListener('click', function () {
+    var paused = module.hasAttribute('data-paused');
+    if (paused) {
+      module.removeAttribute('data-paused');
+    } else {
+      module.setAttribute('data-paused', '');
+    }
+    button.textContent = paused ? 'Pause the diagram' : 'Start the diagram';
+    button.setAttribute('aria-pressed', paused ? 'false' : 'true');
+  });
+})();
+</script>
+</body>
+</html>
