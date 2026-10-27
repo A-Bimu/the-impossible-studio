@@ -1,1 +1,195 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#0a1016"><title>ONE | The Impossible Studio</title><meta name="description" content="Product interface / Management systems"><link rel="stylesheet" href="../../studio.css"></head><body><header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header><main class="shell"><div class="breadcrumbs"><a href="../../#archive">All work</a><span>/</span>ONE</div><section class="project-head"><div><div class="eyebrow">Product interface / Management systems</div><h1>ONE<span style="color:var(--accent)">.</span></h1><p class="subtitle">One place for the moving parts of a business.</p></div><aside>From the studio archive. Presented in its actual medium, with an honest account of what exists and what remains conceptual.</aside></section><div class="art-study"><div class="art-frame"><img src="../../assets/one-original.webp" alt="ONE approved original artwork"></div><div class="caption"><span>Actual archived artwork / Original presentation</span><span>Product interface / Management systems</span></div><div class="artcopy"><div class="eyebrow">01 / The concept</div><p>A professional Deep Navy exploration of multi-industry management software. Visual hierarchy, restrained colour and dense-but-readable dashboards create an operational system with a calmer rhythm.</p><div class="eyebrow">02 / The decisions</div><p>Instead of dressing business software in unrelated decoration, the design puts the information architecture first. Charts, navigation and actions are visually distinct without taking attention away from operational tasks.</p><div class="eyebrow">03 / Provenance</div><p><b>What exists:</b> Working HTML dashboard prototype and approved desktop/mobile previews.<br><b>What's conceptual:</b> Business metrics and contents in the prototype are illustrative, not connected to a commercial database.</p></div><a class="action" href="../../collections/product-design/one-deep-navy.html">Open the working prototype <i>↗</i></a></div><div class="project-next"><a href="../../#archive">← All studio projects</a><a href="../../daily/">See daily journal →</a></div></main><footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a1016">
+<title>ONE | The Impossible Studio</title>
+<meta name="description" content="Product interface / Management systems. A working Deep Navy management prototype for a fictional Kenyan business.">
+<link rel="stylesheet" href="../../studio.css">
+<style id="one-demo-frame">
+.demo-area{scroll-margin-top:90px}
+.demo-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:26px 0 14px}
+.demo-screens{display:flex;flex-wrap:wrap;gap:6px}
+.demo-screens button{background:transparent;border:1px solid #4d5d68;color:#cfd7dc;border-radius:30px;padding:9px 14px;font:600 11px 'Manrope',sans-serif;letter-spacing:.02em}
+.demo-screens button:hover{border-color:#8fa0aa;color:#fff}
+.demo-screens button[aria-pressed="true"]{background:#ece9e2;border-color:#ece9e2;color:#16212a}
+.demo-size{display:flex;gap:6px}
+.demo-size button{background:transparent;border:1px solid #4d5d68;color:#a9b6bf;border-radius:30px;padding:9px 13px;font:600 11px 'Manrope',sans-serif}
+.demo-size button[aria-pressed="true"]{background:#24343f;border-color:#7d8f9a;color:#fff}
+.demo-stage{display:flex;justify-content:center;background:#0c1219;border:1px solid #53616b;padding:0;transition:padding .25s ease}
+.demo-stage.phone{padding:22px 0;background:#0b1117}
+.demo-stage iframe{display:block;width:100%;max-width:100%;height:760px;border:0;background:#F5F7FB}
+.demo-stage.phone iframe{width:390px;height:780px;border:1px solid #384754;border-radius:14px;box-shadow:0 18px 50px #0006}
+.demo-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;padding:15px 0;border-bottom:1px solid #415363;color:#9eacb6;font-size:11px}
+.demo-meta code{font:600 11px 'DM Sans',sans-serif;color:#cfa78e}
+.one-support{margin-top:70px;border-top:1px solid #344650;padding-top:32px}
+.one-support h2{font:400 clamp(30px,3.4vw,46px)/1.1 Georgia,serif;letter-spacing:-.045em;margin:10px 0 8px}
+.one-support p{max-width:620px;color:#a9b7c0;font-size:13px;line-height:1.8}
+.one-support figure{margin:26px 0 0;background:#161c20;padding:22px;display:grid;place-items:center}
+.one-support figure img{max-height:620px;width:auto;object-fit:contain}
+.one-support figcaption{font-size:11px;color:#94a3ad;padding:12px 2px}
+@media(max-width:760px){
+  .demo-stage iframe{height:640px}
+  .demo-stage.phone iframe{width:100%;max-width:390px;height:700px}
+  .demo-toolbar{display:block}
+  .demo-size{margin-top:10px}
+}
+</style>
+</head>
+<body>
+<header class="nav shell">
+<a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a>
+<nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#work">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#studio">About</a></nav>
+<a class="navlink" href="../../daily/">Studio journal ↗</a>
+</header>
+<main class="shell">
+<div class="breadcrumbs"><a href="../../#work">All work</a><span>/</span>ONE</div>
+<section class="project-head">
+<div>
+<div class="eyebrow">Product interface / Management systems</div>
+<h1>ONE<span style="color:var(--accent)">.</span></h1>
+<p class="subtitle">One place for the moving parts of a business.</p>
+</div>
+<aside>A working Deep Navy management interface, embedded below. Every screen is live: sales, stock, customers, staff, expenses and reports. The figures are demo data.</aside>
+</section>
+
+<section class="demo-area" id="experience">
+<div class="demo-heading">
+<div>
+<div class="eyebrow">01 / The working experience</div>
+<h2 class="section-title">The interface,<br><em>not a picture of it.</em></h2>
+</div>
+<a class="action" href="../../collections/product-design/one-deep-navy.html" target="_blank" rel="noopener">Open full screen <i>↗</i></a>
+</div>
+<p>Pick a screen to load it inside the prototype. Selling, stock changes, new customers and expenses all update the running demo in your browser.</p>
+
+<div class="demo-toolbar">
+<div class="demo-screens" role="group" aria-label="Demo screens">
+<button type="button" data-screen="overview" aria-pressed="true">Overview</button>
+<button type="button" data-screen="sell" aria-pressed="false">Sell</button>
+<button type="button" data-screen="activity" aria-pressed="false">Transactions</button>
+<button type="button" data-screen="customers" aria-pressed="false">Customers</button>
+<button type="button" data-screen="inventory" aria-pressed="false">Inventory</button>
+<button type="button" data-screen="reports" aria-pressed="false">Reports</button>
+</div>
+<div class="demo-size" role="group" aria-label="Preview width">
+<button type="button" data-size="desktop" aria-pressed="true">Desktop</button>
+<button type="button" data-size="phone" aria-pressed="false">Phone</button>
+</div>
+</div>
+
+<div class="demo-stage" id="demo-stage">
+<iframe id="one-demo" title="ONE Deep Navy interactive prototype" src="../../collections/product-design/one-deep-navy.html#overview" loading="lazy"></iframe>
+</div>
+<div class="demo-meta">
+<span>Deep Navy colourway / Approved direction</span>
+<span>Prototype: <code>collections/product-design/one-deep-navy.html</code></span>
+</div>
+<p style="margin-top:14px">No payments are collected and nothing leaves this browser. The prototype stores its demo edits in local storage so a sale you record stays on the screen when you move between pages.</p>
+
+<div class="one-support">
+<div class="eyebrow">02 / The archived artwork</div>
+<h2>The approved still, kept as reference.</h2>
+<p>The original artwork below is preserved unchanged as supporting media. The interface above is the project; the image is the record of the direction it came from.</p>
+<figure>
+<img src="../../assets/one-original.webp" alt="ONE original archived artwork, an earlier business dashboard presentation">
+<figcaption>Archived ONE artwork / Original presentation, retained in the studio record.</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="page-section">
+<div class="split">
+<div>
+<div class="eyebrow">03 / The concept</div>
+<h2>A calmer<br><em>operating system.</em></h2>
+</div>
+<p>A professional Deep Navy exploration of multi-industry management software. Visual hierarchy, restrained colour and dense-but-readable dashboards create an operational system with a calmer rhythm. The same shell adapts to a retail shop, a salon, a restaurant or a services business, so the working day starts in one place instead of five.</p>
+</div>
+<div class="facts">
+<div><small>What exists</small><strong>Working HTML prototype: overview, sell, transactions, customers, inventory, expenses, team, reports and settings</strong></div>
+<div><small>What works</small><strong>Recording a sale, adding stock and customers, switching business templates, exporting the demo ledger</strong></div>
+<div><small>What's conceptual</small><strong>Fictional Kenyan business data; no M-PESA or bank connection and no production database</strong></div>
+</div>
+</section>
+
+<section class="page-section">
+<div class="split">
+<div>
+<div class="eyebrow">04 / The decisions</div>
+<h2>Information<br><em>first.</em></h2>
+</div>
+<p>Instead of dressing business software in unrelated decoration, the design puts the information architecture first. Charts, navigation and actions are visually distinct without taking attention away from operational tasks. Money is stated plainly in KES, pending mobile payments are separated from confirmed cash, and the mobile layout collapses to a bottom bar rather than shrinking the desktop sidebar.</p>
+</div>
+<div class="facts">
+<div><small>Colour</small><strong>Deep Navy, the approved colourway, with a warm sand accent</strong></div>
+<div><small>Responsive</small><strong>Desktop sidebar becomes a bottom tab bar on small screens</strong></div>
+<div><small>Honesty</small><strong>Every screen is labelled demo data; no real charge is possible</strong></div>
+</div>
+</section>
+
+<section class="page-section">
+<div class="split">
+<div>
+<div class="eyebrow">05 / Provenance</div>
+<h2>What is<br><em>real here.</em></h2>
+</div>
+<p><b>What exists:</b> the working Deep Navy HTML prototype embedded above, plus the approved desktop and mobile previews in the collection folder.<br><b>What is conceptual:</b> the business, its staff, its customers and its money. The prototype is a design demonstration and is not connected to a commercial database or payment provider.</p>
+</div>
+<div class="facts">
+<div><small>Prototype</small><strong><a href="../../collections/product-design/one-deep-navy.html" style="text-decoration:underline;text-underline-offset:4px">one-deep-navy.html</a></strong></div>
+<div><small>Previews</small><strong><a href="../../collections/product-design/desktop-preview.png" style="text-decoration:underline;text-underline-offset:4px">Desktop</a> / <a href="../../collections/product-design/mobile-preview.png" style="text-decoration:underline;text-underline-offset:4px">Mobile</a></strong></div>
+<div><small>Notes</small><strong><a href="../../collections/product-design/ONE.md" style="text-decoration:underline;text-underline-offset:4px">Collection record</a></strong></div>
+</div>
+</section>
+
+<div class="project-next">
+<a href="../../#work">← All studio work</a>
+<a href="../../daily/">See daily journal →</a>
+</div>
+</main>
+<footer class="footer shell">
+<div>
+<a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a>
+<p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p>
+</div>
+<div class="links">
+<a href="../../#work">Selected work</a>
+<a href="../../#work">Full archive</a>
+<a href="../../daily/">Daily journal</a>
+<a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a>
+<a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a>
+</div>
+</footer>
+<script>
+(function(){
+  var base='../../collections/product-design/one-deep-navy.html';
+  var frame=document.getElementById('one-demo');
+  var stage=document.getElementById('demo-stage');
+  var screen='overview';
+  var size='desktop';
+  function load(){
+    var next=base+'#'+screen;
+    if(frame.getAttribute('src')!==next) frame.setAttribute('src',next);
+  }
+  document.querySelectorAll('[data-screen]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      screen=btn.getAttribute('data-screen');
+      document.querySelectorAll('[data-screen]').forEach(function(b){b.setAttribute('aria-pressed',String(b===btn))});
+      load();
+    });
+  });
+  document.querySelectorAll('[data-size]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      size=btn.getAttribute('data-size');
+      document.querySelectorAll('[data-size]').forEach(function(b){b.setAttribute('aria-pressed',String(b===btn))});
+      stage.classList.toggle('phone',size==='phone');
+      frame.setAttribute('title',size==='phone'?'ONE Deep Navy prototype, phone width':'ONE Deep Navy interactive prototype');
+    });
+  });
+})();
+</script>
+</body>
+</html>
