@@ -1,0 +1,28 @@
+# Read-only checks for the fictional TERRA Spa design draft.
+name: TERRA Spa demo checks
+
+on:
+  pull_request:
+    paths:
+      - 'drafts/2026-10-28-terra-spa/**'
+      - '.github/workflows/terra-spa-demo-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  terra-logic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse the module
+        run: node --check drafts/2026-10-28-terra-spa/app.mjs
+      - name: Test schedule and booking rules
+        run: node --test drafts/2026-10-28-terra-spa/app.test.mjs
