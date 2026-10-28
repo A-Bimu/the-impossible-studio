@@ -12,6 +12,7 @@ const SRCSET = /(?:^|[\s<])srcset\s*=\s*(["'])(.*?)\1/gi;
 const STYLE_BLOCK = /<style\b[^>]*>([\s\S]*?)<\/style>/gi;
 const STYLE_ATTRIBUTE = /(?:^|[\s<])style\s*=\s*(["'])(.*?)\1/gi;
 const CSS_URL = /url\(\s*(?:(["'])(.*?)\1|([^)]*?))\s*\)/gi;
+const CSS_IMPORT = /@import\s+(["'])(.*?)\1/gi;
 
 export function resolveLocalReference(root, page, value) {
   const reference = value.trim().replaceAll('&amp;', '&');
@@ -44,7 +45,11 @@ function collectReferences(root, page, references, fileExists = existsSync) {
 }
 
 function cssReferences(css) {
-  return [...css.matchAll(CSS_URL)].map(match => (match[2] ?? match[3]).trim());
+  // url(...) already covers @import url(...); quoted @import needs a separate check.
+  return [
+    ...[...css.matchAll(CSS_URL)].map(match => (match[2] ?? match[3]).trim()),
+    ...[...css.matchAll(CSS_IMPORT)].map(match => match[2].trim()),
+  ];
 }
 
 export function auditCss(root, stylesheet, css, fileExists = existsSync) {
