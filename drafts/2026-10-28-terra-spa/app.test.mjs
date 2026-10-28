@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES } from './app.mjs';
+import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, validDate, validStoredRecord } from './app.mjs';
 
 test('week navigation uses Monday first, including month/year boundaries', () => {
   assert.equal(startOfWeek('2026-10-28'),'2026-10-26');
@@ -44,4 +44,19 @@ test('daily metrics exclude cancellations and never call scheduled value revenue
   ];
   assert.deepEqual(statsFor(records,date),{bookings:2,completed:1,value:8300,available:6});
   assert.deepEqual(statsFor(records,'2026-10-29'),{bookings:0,completed:0,value:0,available:8});
+});
+
+test('rejects impossible dates and corrupt persisted demo records', () => {
+  assert.equal(validDate('2028-02-29'),true);
+  for(const bad of ['2026-02-29','2026-02-31','2026-13-01','2026-00-01','0000-01-01','not-a-date']) {
+    assert.equal(validDate(bad),false,bad);
+    assert.equal(canBook([],{id:'b',date:bad,time:'10:00',service:'facial',status:'booked'}),false,bad);
+  }
+  const good={id:'a',guest:'Demo guest',date:'2026-10-28',time:'16:00',service:'massage',status:'booked'};
+  assert.equal(validStoredRecord(good),true);
+  assert.equal(validStoredRecord({...good,time:'17:00'}),false);
+  assert.equal(validStoredRecord({...good,time:'16:00',service:'ritual'}),false);
+  assert.equal(validStoredRecord({...good,date:'2026-02-31'}),false);
+  assert.equal(validStoredRecord({...good,guest:'   '}),false);
+  assert.equal(validStoredRecord({...good,status:'unknown'}),false);
 });

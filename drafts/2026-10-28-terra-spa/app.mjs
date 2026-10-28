@@ -21,11 +21,24 @@ export function startOfWeek(iso) {
   const day = new Date(iso + 'T12:00:00Z').getUTCDay();
   return addDays(iso, -((day+6)%7));
 }
+export function validDate(iso) {
+  if (typeof iso !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(iso) || iso.startsWith('0000-')) return false;
+  const date = new Date(iso + 'T12:00:00Z');
+  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0,10) === iso;
+}
 export function minutes(time) {
   const [h,m] = time.split(':').map(Number);
   return h*60+m;
 }
 export function serviceById(id) { return SERVICES.find(service => service.id === id); }
+export function validStoredRecord(item) {
+  const service = item && serviceById(item.service);
+  return Boolean(item && typeof item.id === 'string' && item.id.length > 0 &&
+    typeof item.guest === 'string' && item.guest.trim().length > 0 &&
+    validDate(item.date) && SLOTS.includes(item.time) && service &&
+    minutes(item.time) + service.minutes <= 17*60 &&
+    ['booked','completed','cancelled'].includes(item.status));
+}
 export function overlaps(a, b) {
   if (a.date !== b.date || a.status === 'cancelled' || b.status === 'cancelled') return false;
   const aService = serviceById(a.service), bService = serviceById(b.service);
@@ -35,7 +48,7 @@ export function overlaps(a, b) {
 }
 export function canBook(records, candidate) {
   const service = serviceById(candidate.service);
-  if (!service || !SLOTS.includes(candidate.time) || !/^\d{4}-\d{2}-\d{2}$/.test(candidate.date)) return false;
+  if (!service || !SLOTS.includes(candidate.time) || !validDate(candidate.date)) return false;
   if (minutes(candidate.time)+service.minutes > 17*60) return false;
   return !records.some(item => item.id !== candidate.id && overlaps(item,candidate));
 }
@@ -58,7 +71,7 @@ export function seedRecords(today) {
 function safeLoad(today) {
   try {
     const parsed = JSON.parse(localStorage.getItem(KEY));
-    if (parsed?.day === today && Array.isArray(parsed.records) && parsed.records.every(item => item && typeof item.id === 'string' && typeof item.guest === 'string' && serviceById(item.service) && ['booked','completed','cancelled'].includes(item.status))) return parsed.records;
+    if (parsed?.day === today && Array.isArray(parsed.records) && parsed.records.every(validStoredRecord)) return parsed.records;
   } catch { /* private browsing or corrupt demo state: use sample records */ }
   return seedRecords(today);
 }
@@ -161,7 +174,7 @@ function boot() {
   function updateBooking(status) {
     const item=records.find(entry=>entry.id===selectedBooking);
     if(!item)return;
-    item.status=status;persist();close(detailDialog);render();
+    item.status=status;persist();lastFocus=$('selected-date');close(detailDialog);render();
   }
   for(const service of SERVICES){
     const option=el('option','',service.name+' · '+service.minutes+' min · '+money.format(service.price));
