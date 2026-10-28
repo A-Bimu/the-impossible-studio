@@ -39,8 +39,17 @@
   const print = document.createElement("button");
   print.type = "button";
   print.className = "print-month";
-  print.textContent = "Print this month's art + dates ↗";
-  print.addEventListener("click", () => window.print());
+  print.disabled = true;
+  print.textContent = "Preparing artwork for print…";
+  const thumbs = document.getElementById("month-thumbs");
+  function syncPrintState() {
+    const ready = !!thumbs && thumbs.querySelectorAll(".mini").length === 12;
+    print.disabled = !ready;
+    print.textContent = ready ? "Print this month's art + dates ↗" : "Preparing artwork for print…";
+  }
+  if (thumbs) new MutationObserver(syncPrintState).observe(thumbs, { childList: true });
+  syncPrintState();
+  print.addEventListener("click", () => { if (!print.disabled) window.print(); });
   panel.append(intro, table, note, print);
   side.insertBefore(panel, download);
 
