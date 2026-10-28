@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f0e9d9">
+<meta name="description" content="A fictional bureau that certifies everyday victories. An interactive editorial print experiment from The Impossible Studio.">
+<title>The Bureau of Small Wins | Studio draft</title>
+<style>
+:root{color-scheme:light;--paper:#f0e9d9;--ink:#242321;--red:#ae382e;--line:#b8b09f;--cream:#faf6eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#d8d0c0;color:var(--ink);font:16px/1.45 Georgia,'Times New Roman',serif}button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--red);outline-offset:4px}a{color:inherit}
+.site-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:18px clamp(20px,4vw,64px);background:var(--ink);color:var(--paper);font:700 11px/1.4 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase}.site-header a{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px}.draft{color:#e9aa9b}
+.workspace{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr);gap:clamp(20px,4vw,64px);max-width:1560px;margin:auto;padding:clamp(20px,4vw,64px);align-items:start}
+.paper{position:relative;isolation:isolate;background:var(--paper);min-height:740px;padding:clamp(25px,4vw,62px);box-shadow:2px 4px 0 #a49c8e,11px 18px 28px #3b332a25;overflow:hidden}.paper:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.18;pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent 0 2px,#fff 3px 4px)}.paper:after{content:"";position:absolute;inset:16px;border:1px solid var(--line);pointer-events:none}
+.folio{display:flex;justify-content:space-between;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:15px;font:700 10px/1.6 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase}.seal{width:80px;height:80px;border:2px solid var(--red);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--red);font:700 10px/1.15 Arial,sans-serif;letter-spacing:.08em;transform:rotate(-11deg);margin:26px 0 14px}.seal span{border:1px dashed var(--red);border-radius:50%;width:65px;height:65px;display:grid;place-items:center;padding:6px}
+.title-kicker{font:700 12px/1.5 'Courier New',monospace;text-transform:uppercase;letter-spacing:.2em;margin:22px 0 12px}.paper h1{font-size:clamp(52px,7.3vw,118px);line-height:.83;letter-spacing:-.075em;margin:0 0 30px;font-weight:900;text-transform:uppercase;max-width:850px}.paper h1 em{font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.085em}.red-rule{height:7px;background:var(--red);margin:30px 0 34px}.intro{max-width:470px;font-size:clamp(17px,2vw,23px);line-height:1.3;margin:0 0 45px}
+.record{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:15px 0 22px}.record-label{font:700 11px/1.6 'Courier New',monospace;text-transform:uppercase;letter-spacing:.12em}.record-quote{font-size:clamp(26px,3.5vw,48px);font-style:italic;line-height:1.15;letter-spacing:-.045em;margin:22px 0 26px;overflow-wrap:anywhere;min-height:92px}.record-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:700 10px/1.5 'Courier New',monospace;letter-spacing:.08em;text-transform:uppercase}.bottom{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-top:38px}.stamp{display:inline-block;border:5px double var(--red);padding:9px 15px;color:var(--red);font:900 clamp(22px,3vw,43px)/1 Arial,sans-serif;letter-spacing:-.04em;text-transform:uppercase;transform:rotate(-7deg)}.fineprint{max-width:210px;text-align:right;font:10px/1.6 'Courier New',monospace;text-transform:uppercase}.micro-footer{margin-top:48px;padding-top:12px;border-top:1px solid var(--line);font:9px/1.5 'Courier New',monospace;letter-spacing:.1em;text-transform:uppercase}
+.panel{position:sticky;top:20px;background:var(--cream);border:1px solid #ada594;padding:clamp(22px,3vw,42px);box-shadow:6px 6px 0 #9d9587}.panel .number{font:700 12px/1.5 'Courier New',monospace;color:var(--red)}.panel h2{font-size:clamp(31px,3vw,48px);letter-spacing:-.05em;line-height:1.03;margin:16px 0}.panel p{font-size:16px;line-height:1.5;margin:0 0 30px}.panel label{display:block;font:700 12px/1.5 'Courier New',monospace;text-transform:uppercase;letter-spacing:.05em;margin:20px 0 10px}.panel textarea{width:100%;resize:vertical;min-height:120px;padding:14px;border:1px solid #938a79;border-radius:0;background:#fffdf7;color:var(--ink);font:18px/1.4 Georgia,serif}.count{text-align:right;font:11px/1.5 'Courier New',monospace;color:#625a4e}.choices{display:grid;gap:8px}.choices label{margin:0}.choice{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #aaa18f;background:transparent;text-align:left;width:100%;font:700 12px/1.5 'Courier New',monospace;text-transform:uppercase;letter-spacing:.03em}.choice[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}.choice .mark{font-size:18px;line-height:1}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.primary,.secondary{padding:14px 17px;border:1px solid var(--ink);font:700 12px/1.4 'Courier New',monospace;text-transform:uppercase;letter-spacing:.06em}.primary{background:var(--red);color:#fff;border-color:var(--red)}.primary:hover{background:#852a23}.secondary{background:transparent;color:var(--ink)}.secondary:hover{background:#e5ddcd}.notice{min-height:24px;font:12px/1.4 'Courier New',monospace;color:#6d302b;margin-top:14px}.privacy{margin-top:28px;padding-top:17px;border-top:1px solid #c2b9aa;font:11px/1.6 'Courier New',monospace;color:#655e54}
+@media(max-width:960px){.workspace{grid-template-columns:1fr}.panel{position:static;order:-1}.paper{min-height:700px}.paper h1{font-size:clamp(60px,11vw,110px)}}
+@media(max-width:560px){.site-header{flex-wrap:wrap}.workspace{padding:14px;gap:18px}.paper{min-height:0;padding:32px 25px 38px}.paper:after{inset:10px}.paper h1{font-size:clamp(55px,14vw,82px)}.intro{margin-bottom:32px}.record-quote{min-height:0}.bottom{align-items:start;flex-direction:column}.fineprint{text-align:left}.panel{padding:24px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4 portrait;margin:0}
+@media print{html,body{width:210mm;background:white!important}.site-header,.panel{display:none!important}.workspace{display:block;max-width:none;margin:0;padding:0}.paper{width:210mm;height:297mm;min-height:297mm;box-shadow:none;margin:0;padding:23mm 20mm;break-after:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}.paper:after{inset:10mm}.paper h1{font-size:79px}.record-quote{font-size:35px}.stamp{font-size:32px}.micro-footer{position:absolute;bottom:22mm;left:20mm;right:20mm}}
+</style>
+</head>
+<body>
+<header class="site-header"><span>The Impossible Studio / Paper experiments</span><span class="draft">Concept draft / Not published</span><a href="../../">Studio source ↗</a></header>
+<main class="workspace">
+<article class="paper" aria-label="Printable certificate preview" id="certificate">
+  <div class="folio"><span>Department of Everyday Achievements</span><span>Form No. 001 / Est. whenever</span></div>
+  <div class="seal" aria-hidden="true"><span>OFFICIALLY<br>UNOFFICIAL</span></div>
+  <div class="title-kicker">The Bureau of</div>
+  <h1>Small<br><em>Wins.</em></h1>
+  <div class="red-rule"></div>
+  <p class="intro">Not every victory gets a trophy. Some deserve a very serious piece of paper.</p>
+  <section class="record" aria-labelledby="record-heading"><div class="record-label" id="record-heading">This certifies that somebody</div><p class="record-quote" id="win-preview">“Finally replied to that email.”</p><div class="record-meta"><span id="date-preview">Issued today</span><span id="serial-preview">Ref. SW-0000</span></div></section>
+  <div class="bottom"><strong class="stamp" id="stamp-preview">Certified</strong><div class="fineprint">No witnesses required.<br>No minimum achievement threshold.<br>Valid indefinitely.</div></div>
+  <div class="micro-footer">Filed under: Things worth noticing. / Keep this somewhere visible.</div>
+</article>
+<aside class="panel" aria-labelledby="form-heading"><div class="number">Application / 01</div><h2 id="form-heading">Make it official.</h2><p>Did something small but meaningful? The Bureau would like to recognise it with entirely unnecessary paperwork.</p>
+  <label for="win-input">What did you do?</label><textarea id="win-input" maxlength="110" placeholder="I finally replied to that email." aria-describedby="char-count"></textarea><div class="count" id="char-count">0 / 110</div>
+  <label id="category-heading">Choose your stamp</label><div class="choices" role="group" aria-labelledby="category-heading"><button type="button" class="choice" data-stamp="Certified" aria-pressed="true"><span class="mark" aria-hidden="true">◎</span> Finished something</button><button type="button" class="choice" data-stamp="Attempted" aria-pressed="false"><span class="mark" aria-hidden="true">◇</span> Tried anyway</button><button type="button" class="choice" data-stamp="Present" aria-pressed="false"><span class="mark" aria-hidden="true">✳</span> Showed up</button></div>
+  <div class="actions"><button type="button" class="primary" id="issue">Issue certificate ↗</button><button type="button" class="secondary" id="print">Print / Save PDF</button></div><div class="notice" id="status" role="status" aria-live="polite"></div>
+  <div class="privacy">Nothing is sent or saved. This little office operates entirely in your browser. Print or save a PDF to keep your certificate.</div>
+</aside>
+</main>
+<script>
+(() => {
+  const input = document.getElementById('win-input');
+  const count = document.getElementById('char-count');
+  const preview = document.getElementById('win-preview');
+  const stamp = document.getElementById('stamp-preview');
+  const status = document.getElementById('status');
+  const choices = [...document.querySelectorAll('[data-stamp]')];
+  let selected = 'Certified';
+  let issued = false;
+  const now = new Date();
+  document.getElementById('date-preview').textContent = 'Issued ' + new Intl.DateTimeFormat('en-GB', { day:'2-digit', month:'short', year:'numeric' }).format(now);
+  document.getElementById('serial-preview').textContent = 'Ref. SW-' + String(now.getFullYear()).slice(-2) + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
+  input.addEventListener('input', () => { count.textContent = input.value.length + ' / 110'; issued = false; status.textContent = ''; });
+  choices.forEach(choice => choice.addEventListener('click', () => {
+    selected = choice.dataset.stamp;
+    choices.forEach(item => item.setAttribute('aria-pressed', String(item === choice)));
+    issued = false; status.textContent = '';
+  }));
+  document.getElementById('issue').addEventListener('click', () => {
+    const value = input.value.trim().replace(/\s+/g,' ');
+    if (!value) { status.textContent = 'Write a small win first.'; input.focus(); return; }
+    preview.textContent = '“' + value + '”';
+    stamp.textContent = selected;
+    issued = true;
+    status.textContent = 'Filed and certified. You can print it now.';
+    if (window.matchMedia('(max-width: 960px)').matches) document.getElementById('certificate').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  document.getElementById('print').addEventListener('click', () => {
+    if (!issued) { status.textContent = 'Issue your certificate before printing.'; input.focus(); return; }
+    window.print();
+  });
+})();
+</script>
+</body>
+</html>
