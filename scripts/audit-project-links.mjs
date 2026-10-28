@@ -7,7 +7,11 @@ import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
 const SCAN_DIRS = ['work', 'calendars', 'daily', 'case-studies'];
-const ATTRIBUTE = /\b(?:href|src|poster)\s*=\s*(["'])(.*?)\1/gi;
+const ATTRIBUTE = /(?:^|[\s<])(?:href|src|poster)\s*=\s*(["'])(.*?)\1/gi;
+const SRCSET = /(?:^|[\s<])srcset\s*=\s*(["'])(.*?)\1/gi;
+const STYLE_BLOCK = /<style\b[^>]*>([\s\S]*?)<\/style>/gi;
+const STYLE_ATTRIBUTE = /(?:^|[\s<])style\s*=\s*(["'])(.*?)\1/gi;
+const CSS_URL = /url\(\s*(?:(["'])(.*?)\1|([^)]*?))\s*\)/gi;
 
 export function resolveLocalReference(root, page, value) {
   const reference = value.trim().replaceAll('&amp;', '&');
@@ -24,10 +28,9 @@ export function resolveLocalReference(root, page, value) {
   return target;
 }
 
-export function auditHtml(root, page, html, fileExists = existsSync) {
+function collectReferences(root, page, references, fileExists = existsSync) {
   const missing = [];
-  for (const match of html.matchAll(ATTRIBUTE)) {
-    const reference = match[2];
+  for (const reference of references) {
     try {
       const target = resolveLocalReference(root, page, reference);
       if (target && !fileExists(target)) {
@@ -40,27 +43,54 @@ export function auditHtml(root, page, html, fileExists = existsSync) {
   return missing;
 }
 
-async function htmlFiles(dir) {
+function cssReferences(css) {
+  return [...css.matchAll(CSS_URL)].map(match => (match[2] ?? match[3]).trim());
+}
+
+export function auditCss(root, stylesheet, css, fileExists = existsSync) {
+  return collectReferences(root, stylesheet, cssReferences(css), fileExists);
+}
+
+export function auditHtml(root, page, html, fileExists = existsSync) {
+  const references = [...html.matchAll(ATTRIBUTE)].map(match => match[2]);
+  for (const match of html.matchAll(SRCSET)) {
+    // Data URIs contain commas; skip mixed data-URI srcsets rather than invent false paths.
+    if (match[2].includes('data:')) continue;
+    for (const candidate of match[2].split(',')) {
+      const url = candidate.trim().split(/\s+/)[0];
+      if (url) references.push(url);
+    }
+  }
+  for (const match of html.matchAll(STYLE_BLOCK)) references.push(...cssReferences(match[1]));
+  for (const match of html.matchAll(STYLE_ATTRIBUTE)) references.push(...cssReferences(match[2]));
+  return collectReferences(root, page, references, fileExists);
+}
+
+async function filesWithExtension(dir, extension) {
   const files = [];
   if (!existsSync(dir)) return files;
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const location = path.join(dir, entry.name);
-    if (entry.isDirectory()) files.push(...await htmlFiles(location));
-    else if (entry.isFile() && entry.name.endsWith('.html')) files.push(location);
+    if (entry.isDirectory()) files.push(...await filesWithExtension(location, extension));
+    else if (entry.isFile() && entry.name.toLowerCase().endsWith(extension)) files.push(location);
   }
   return files;
 }
 
 export async function auditProjectPages(root = REPO_ROOT) {
-  const pages = (await Promise.all(SCAN_DIRS.map(dir => htmlFiles(path.join(root, dir))))).flat().sort();
+  const directories = SCAN_DIRS.map(dir => path.join(root, dir));
+  const pages = (await Promise.all(directories.map(dir => filesWithExtension(dir, '.html')))).flat().sort();
+  const stylesheets = (await Promise.all(directories.map(dir => filesWithExtension(dir, '.css')))).flat().sort();
   const broken = [];
   for (const page of pages) {
     const html = await readFile(page, 'utf8');
-    for (const item of auditHtml(root, page, html)) {
-      broken.push({ page: path.relative(root, page), ...item });
-    }
+    for (const item of auditHtml(root, page, html)) broken.push({ page: path.relative(root, page), ...item });
   }
-  return { pages: pages.length, broken };
+  for (const stylesheet of stylesheets) {
+    const css = await readFile(stylesheet, 'utf8');
+    for (const item of auditCss(root, stylesheet, css)) broken.push({ page: path.relative(root, stylesheet), ...item });
+  }
+  return { pages: pages.length, stylesheets: stylesheets.length, broken };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -68,6 +98,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   for (const item of result.broken) {
     console.error(item.page + ': ' + item.reference + ' -> ' + (item.target ?? item.error));
   }
-  console.log('Checked ' + result.pages + ' Studio project HTML pages; ' + result.broken.length + ' missing local references.');
+  console.log('Checked ' + result.pages + ' Studio HTML pages and ' + result.stylesheets + ' stylesheets; ' + result.broken.length + ' missing local references.');
   if (result.broken.length) process.exitCode = 1;
 }
