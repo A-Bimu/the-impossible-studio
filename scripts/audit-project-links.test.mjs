@@ -86,3 +86,20 @@ test('checks quoted CSS @import paths without duplicating url() imports', () => 
     { reference: '../shared/layout.css', target: 'work/zebra/shared/layout.css' },
   ]);
 });
+
+test('audits the shared root stylesheet as well as project CSS', async () => {
+  const temp = await mkdtemp(path.join(os.tmpdir(), 'studio-shared-css-'));
+  try {
+    await mkdir(path.join(temp, 'work', 'one'), { recursive: true });
+    await writeFile(path.join(temp, 'work', 'one', 'index.html'), '<link href="../../studio.css" rel="stylesheet">');
+    await writeFile(path.join(temp, 'studio.css'), '.hero { background: url("./assets/missing-hero.webp"); }');
+    const result = await auditProjectPages(temp);
+    assert.equal(result.pages, 1);
+    assert.equal(result.stylesheets, 1);
+    assert.deepEqual(result.broken, [
+      { page: 'studio.css', reference: './assets/missing-hero.webp', target: 'assets/missing-hero.webp' },
+    ]);
+  } finally {
+    await rm(temp, { recursive: true, force: true });
+  }
+});
