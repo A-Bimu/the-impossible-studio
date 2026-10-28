@@ -6,7 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
-const SCAN_DIRS = ['work', 'calendars', 'daily', 'case-studies'];
+const SCAN_DIRS = ['work', 'projects', 'collections', 'pitch-decks', 'calendars', 'daily', 'case-studies'];
+const ROOT_PAGES = ['index.html'];
 const SHARED_STYLESHEETS = ['studio.css'];
 const ATTRIBUTE = /(?:^|[\s<])(?:href|src|poster)\s*=\s*(["'])(.*?)\1/gi;
 const SRCSET = /(?:^|[\s<])srcset\s*=\s*(["'])(.*?)\1/gi;
@@ -85,7 +86,8 @@ async function filesWithExtension(dir, extension) {
 
 export async function auditProjectPages(root = REPO_ROOT) {
   const directories = SCAN_DIRS.map(dir => path.join(root, dir));
-  const pages = (await Promise.all(directories.map(dir => filesWithExtension(dir, '.html')))).flat().sort();
+  const rootPages = ROOT_PAGES.map(file => path.join(root, file)).filter(existsSync);
+  const pages = [...(await Promise.all(directories.map(dir => filesWithExtension(dir, '.html')))).flat(), ...rootPages].sort();
   const scopedStylesheets = (await Promise.all(directories.map(dir => filesWithExtension(dir, '.css')))).flat();
   const sharedStylesheets = SHARED_STYLESHEETS.map(file => path.join(root, file)).filter(existsSync);
   const stylesheets = [...scopedStylesheets, ...sharedStylesheets].sort();

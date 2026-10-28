@@ -65,7 +65,7 @@ test('walker checks both HTML and CSS in scoped directories', async () => {
     await writeFile(path.join(temp, 'index.html'), '<title>Home</title>');
     await writeFile(path.join(temp, 'work', 'one', 'page.css'), '.a{background:url(../../assets/missing.webp)}');
     const result = await auditProjectPages(temp);
-    assert.equal(result.pages, 1);
+    assert.equal(result.pages, 2); // Includes the root homepage without modifying it.
     assert.equal(result.stylesheets, 1);
     assert.deepEqual(result.broken, [{ page: 'work/one/page.css', reference: '../../assets/missing.webp', target: 'assets/missing.webp' }]);
   } finally {
@@ -99,6 +99,34 @@ test('audits the shared root stylesheet as well as project CSS', async () => {
     assert.deepEqual(result.broken, [
       { page: 'studio.css', reference: './assets/missing-hero.webp', target: 'assets/missing-hero.webp' },
     ]);
+  } finally {
+    await rm(temp, { recursive: true, force: true });
+  }
+});
+
+test('covers root homepage and interactive project, collection and pitch-deck pages', async () => {
+  const temp = await mkdtemp(path.join(os.tmpdir(), 'studio-all-pages-'));
+  try {
+    const fixtures = [
+      ['index.html', '<img src="./assets/missing-home.webp">'],
+      ['projects/deep-ink/index.html', '<img src="../../assets/missing-project.webp">'],
+      ['collections/product-design/one.html', '<a href="../../missing-collection.html">Missing</a>'],
+      ['pitch-decks/sample/index.html', '<img src="../../assets/missing-deck.png">'],
+    ];
+    for (const [file, content] of fixtures) {
+      await mkdir(path.dirname(path.join(temp, file)), { recursive: true });
+      await writeFile(path.join(temp, file), content);
+    }
+    const result = await auditProjectPages(temp);
+    assert.equal(result.pages, fixtures.length);
+    assert.equal(result.stylesheets, 0);
+    assert.deepEqual(result.broken.map(item => item.page).sort(), fixtures.map(([file]) => file).sort());
+    assert.deepEqual(result.broken.map(item => item.target).sort(), [
+      'assets/missing-home.webp',
+      'assets/missing-project.webp',
+      'assets/missing-deck.png',
+      'missing-collection.html',
+    ].sort());
   } finally {
     await rm(temp, { recursive: true, force: true });
   }
