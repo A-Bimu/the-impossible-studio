@@ -21,6 +21,16 @@ export function startOfWeek(iso) {
   const day = new Date(iso + 'T12:00:00Z').getUTCDay();
   return addDays(iso, -((day+6)%7));
 }
+// Calendar keyboard navigation returns a new ISO date or null for unrelated keys.
+export function dateForCalendarKey(iso, key) {
+  if (key === 'ArrowLeft') return addDays(iso, -1);
+  if (key === 'ArrowRight') return addDays(iso, 1);
+  if (key === 'ArrowUp') return addDays(iso, -7);
+  if (key === 'ArrowDown') return addDays(iso, 7);
+  if (key === 'Home') return startOfWeek(iso);
+  if (key === 'End') return addDays(startOfWeek(iso), 6);
+  return null;
+}
 export function validDate(iso) {
   if (typeof iso !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(iso) || iso.startsWith('0000-')) return false;
   const date = new Date(iso + 'T12:00:00Z');
@@ -113,6 +123,9 @@ function boot() {
     return node;
   }
   function setText(id,value) { $(id).textContent=String(value); }
+  function focusSelectedDay() {
+    $('week-days').querySelector('[aria-pressed="true"]')?.focus();
+  }
   function renderWeek() {
     const last = addDays(week,6);
     setText('week-label',weekFormatter.format(dateObject(week))+' – '+weekFormatter.format(dateObject(last)));
@@ -120,9 +133,17 @@ function boot() {
     for(let i=0;i<7;i++){
       const iso=addDays(week,i),day=el('button','day');
       day.type='button';day.setAttribute('aria-pressed',String(iso===selectedDay));
+      day.tabIndex=iso===selectedDay?0:-1;
       day.setAttribute('aria-label',dateLabel(iso));
       day.append(el('span','weekday',WEEKDAYS[i]),el('span','daynum',String(Number(iso.slice(-2)))));
-      day.addEventListener('click',()=>{selectedDay=iso;render();});
+      day.addEventListener('click',()=>{selectedDay=iso;render();focusSelectedDay();});
+      day.addEventListener('keydown',event=>{
+        const target=dateForCalendarKey(iso,event.key);
+        if(!target)return;
+        event.preventDefault();
+        selectedDay=target;week=startOfWeek(target);
+        render();focusSelectedDay();
+      });
       wrap.append(day);
     }
   }

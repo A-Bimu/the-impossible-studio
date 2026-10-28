@@ -1,12 +1,22 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, validDate, validStoredRecord, validStoredSchedule } from './app.mjs';
+import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, validDate, validStoredRecord, validStoredSchedule, dateForCalendarKey } from './app.mjs';
 
 test('week navigation uses Monday first, including month/year boundaries', () => {
   assert.equal(startOfWeek('2026-10-28'),'2026-10-26');
   assert.equal(startOfWeek('2027-01-01'),'2026-12-28');
   assert.equal(addDays('2026-12-31',1),'2027-01-01');
   assert.equal(toISODate(new Date(2026,9,28)),'2026-10-28');
+});
+
+test('calendar keyboard navigation crosses week and year boundaries correctly', () => {
+  assert.equal(dateForCalendarKey('2026-10-28','ArrowLeft'),'2026-10-27');
+  assert.equal(dateForCalendarKey('2026-10-28','ArrowRight'),'2026-10-29');
+  assert.equal(dateForCalendarKey('2026-12-30','ArrowDown'),'2027-01-06');
+  assert.equal(dateForCalendarKey('2027-01-01','ArrowUp'),'2026-12-25');
+  assert.equal(dateForCalendarKey('2027-01-01','Home'),'2026-12-28');
+  assert.equal(dateForCalendarKey('2027-01-01','End'),'2027-01-03');
+  assert.equal(dateForCalendarKey('2027-01-01','Enter'),null);
 });
 
 test('fictional seed data has known services and valid non-overlapping times', () => {
