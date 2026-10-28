@@ -72,3 +72,17 @@ test('walker checks both HTML and CSS in scoped directories', async () => {
     await rm(temp, { recursive: true, force: true });
   }
 });
+
+
+test('checks quoted CSS @import paths without duplicating url() imports', () => {
+  const stylesheet = path.join(root, 'work', 'zebra', 'styles', 'page.css');
+  const css = `@import "./missing-type.css";
+    @import '../shared/layout.css' screen and (min-width: 40rem);
+    @import url('./existing-grid.css');
+    @import "https://cdn.example.com/theme.css";`;
+  const existing = new Set([path.join(root, 'work', 'zebra', 'styles', 'existing-grid.css')]);
+  assert.deepEqual(auditCss(root, stylesheet, css, target => existing.has(target)), [
+    { reference: './missing-type.css', target: 'work/zebra/styles/missing-type.css' },
+    { reference: '../shared/layout.css', target: 'work/zebra/shared/layout.css' },
+  ]);
+});
