@@ -39,6 +39,21 @@ export function validStoredRecord(item) {
     minutes(item.time) + service.minutes <= 17*60 &&
     ['booked','completed','cancelled'].includes(item.status));
 }
+// Restore only a coherent schedule: individual validity alone cannot detect
+// duplicate identifiers or conflicting active bookings in browser storage.
+export function validStoredSchedule(records) {
+  if (!Array.isArray(records) || !records.every(validStoredRecord)) return false;
+  const seen = new Set();
+  for (let i = 0; i < records.length; i++) {
+    const item = records[i];
+    if (seen.has(item.id)) return false;
+    seen.add(item.id);
+    for (let j = 0; j < i; j++) {
+      if (overlaps(records[j], item)) return false;
+    }
+  }
+  return true;
+}
 export function overlaps(a, b) {
   if (a.date !== b.date || a.status === 'cancelled' || b.status === 'cancelled') return false;
   const aService = serviceById(a.service), bService = serviceById(b.service);
@@ -71,7 +86,7 @@ export function seedRecords(today) {
 function safeLoad(today) {
   try {
     const parsed = JSON.parse(localStorage.getItem(KEY));
-    if (parsed?.day === today && Array.isArray(parsed.records) && parsed.records.every(validStoredRecord)) return parsed.records;
+    if (parsed?.day === today && validStoredSchedule(parsed.records)) return parsed.records;
   } catch { /* private browsing or corrupt demo state: use sample records */ }
   return seedRecords(today);
 }
