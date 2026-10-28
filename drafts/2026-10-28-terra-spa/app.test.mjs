@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, validDate, validStoredRecord } from './app.mjs';
+import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, validDate, validStoredRecord, validStoredSchedule } from './app.mjs';
 
 test('week navigation uses Monday first, including month/year boundaries', () => {
   assert.equal(startOfWeek('2026-10-28'),'2026-10-26');
@@ -59,4 +59,16 @@ test('rejects impossible dates and corrupt persisted demo records', () => {
   assert.equal(validStoredRecord({...good,date:'2026-02-31'}),false);
   assert.equal(validStoredRecord({...good,guest:'   '}),false);
   assert.equal(validStoredRecord({...good,status:'unknown'}),false);
+});
+
+test('saved schedule rejects duplicate IDs and conflicting active bookings', () => {
+  const date='2026-10-28';
+  const records=seedRecords(date);
+  assert.equal(validStoredSchedule(records),true);
+  assert.equal(validStoredSchedule(null),false);
+  assert.equal(validStoredSchedule([null]),false);
+  assert.equal(validStoredSchedule([...records,{...records[0],date:'2026-10-29'}]),false,'duplicate id');
+  assert.equal(validStoredSchedule([...records,{...records[0],id:'another-id'}]),false,'overlapping active booking');
+  assert.equal(validStoredSchedule([...records,{...records[0],id:'cancelled-id',status:'cancelled'}]),true,'cancelled records do not block time');
+  assert.equal(validStoredSchedule([...records,{...records[0],id:'complete-id',status:'completed'}]),false,'completed appointments still occupy time');
 });
