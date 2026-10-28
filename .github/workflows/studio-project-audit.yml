@@ -1,0 +1,39 @@
+# Read-only regression checks for Studio project links and approved media references.
+# This workflow does not build, publish, merge, or deploy the site.
+name: Studio project asset audit
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/studio-project-audit.yml'
+      - 'scripts/audit-project-links.mjs'
+      - 'scripts/audit-project-links.test.mjs'
+      - 'work/**'
+      - 'calendars/**'
+      - 'daily/**'
+      - 'case-studies/**'
+      - 'studio.css'
+      - 'assets/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-project-audit:
+    name: Test scanner and audit full checkout
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out pull request contents
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run scanner regression tests
+        run: node --test scripts/audit-project-links.test.mjs
+      - name: Check Studio project references
+        run: node scripts/audit-project-links.mjs
