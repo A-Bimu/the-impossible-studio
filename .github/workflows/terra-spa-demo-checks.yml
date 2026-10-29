@@ -43,5 +43,15 @@ jobs:
         run: npm install --no-save --no-package-lock playwright@1.56.0
       - name: Install Chromium for browser tests
         run: npx playwright install --with-deps chromium
-      - name: Run real-browser smoke checks
+      - name: Run real-browser smoke checks and capture review images
+        env:
+          TERRA_QA_SCREENSHOTS: ${{ runner.temp }}/terra-spa-qa
         run: node --test drafts/2026-10-28-terra-spa/browser.test.mjs
+      - name: Attach desktop, tablet and mobile screenshots for creative review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terra-spa-visual-review
+          path: ${{ runner.temp }}/terra-spa-qa/*.png
+          if-no-files-found: warn
+          retention-days: 7

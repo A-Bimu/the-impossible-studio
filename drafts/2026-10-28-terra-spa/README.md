@@ -30,6 +30,11 @@ A separate **test-only** Chromium smoke check now exercises actual keyboard date
 
 The GitHub Actions draft workflow runs both the existing logic suite and the Chromium smoke test on pull requests. The browser test dependency is installed only in the CI/testing environment; it is not loaded by the delivered interface. Passing automated tests does **not** replace visual inspection on real desktop/mobile devices or screen-reader review.
 
+## Visual review evidence
+The pull-request Chromium workflow captures **eight full-page PNGs**: desktop (1280px) and 320px, 375px and 768px viewports, each showing the dashboard and the booking dialog. Download the `terra-spa-visual-review` artifact from the latest successful **TERRA Spa demo checks** run in GitHub Actions. Artifacts expire after seven days and are not committed to the repository. For a local run, set `TERRA_QA_SCREENSHOTS` to an existing or writable output directory before running `browser.test.mjs`; without that variable the test creates no screenshots.
+
+These screenshots are **evidence for human review, not proof of visual approval**. Check text clipping, hierarchy, readability, dialog spacing and focus appearance on real devices. Screen-reader testing remains outstanding.
+
 ## Review and publication gates
 1. Review visual direction, layout, and the value of the concept in the Studio's Day 1 queue.
 2. Review actual desktop/mobile presentation and assistive-technology behavior, including dialog behavior and narrow-width overflow.

@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -41,10 +41,17 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
   let browser;
   try {
     browser = await chromium.launch({ headless: true });
+    // Optional CI-only evidence for owner review; never stored in the repository.
+    const screenshots = process.env.TERRA_QA_SCREENSHOTS;
+    if (screenshots) await mkdir(screenshots, { recursive: true });
+    const capture = async (page, name) => {
+      if (screenshots) await page.screenshot({ path: path.join(screenshots, name + '.png'), fullPage: true });
+    };
     const desktop = await browser.newPage({ viewport: { width: 1280, height: 800 } });
     const pageErrors = [];
     desktop.on('pageerror', error => pageErrors.push(error.message));
     await desktop.goto(address);
+    await capture(desktop, 'desktop-1280-dashboard');
 
     // The week selector should keep one keyboard tab stop and preserve focus.
     const selected = desktop.locator('#week-days button[aria-pressed="true"]');
@@ -59,6 +66,7 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     // leaves 15:00 as its only free start time on the selected day.
     await desktop.locator('#add-booking').click();
     assert.equal(await desktop.locator('#booking-dialog').evaluate(node => node.open), true);
+    await capture(desktop, 'desktop-1280-booking-dialog');
     await desktop.locator('#booking-service').selectOption('ritual');
     assert.equal(await desktop.locator('#booking-time option[value="16:00"]').isDisabled(), true);
     assert.equal(await desktop.locator('#booking-time').inputValue(), '15:00');
@@ -110,6 +118,7 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
       });
       try {
         await page.goto(address);
+        await capture(page, 'viewport-' + width + '-dashboard');
         const checkLayout = async context => {
           const bounds = await page.evaluate(() => {
             const doc = document.documentElement;
@@ -133,6 +142,7 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
         await checkLayout('Dashboard');
         await page.locator('#add-booking').click();
         assert.equal(await page.locator('#booking-dialog').evaluate(node => node.open), true);
+        await capture(page, 'viewport-' + width + '-booking-dialog');
         await checkLayout('Booking form');
         await page.locator('#close-booking').click();
         assert.equal(await page.locator('#booking-dialog').evaluate(node => node.open), false);
