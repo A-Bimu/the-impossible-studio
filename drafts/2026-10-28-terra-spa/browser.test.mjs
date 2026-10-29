@@ -74,6 +74,12 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     await desktop.locator('#mark-complete').click();
     await desktop.waitForFunction(() => document.activeElement?.id === 'selected-date');
 
+    // A completed treatment is read-only; it cannot later be cancelled.
+    await guest.click();
+    assert.equal(await desktop.locator('#mark-complete').isDisabled(), true);
+    assert.equal(await desktop.locator('#cancel-selected').isDisabled(), true);
+    await desktop.locator('#close-detail').click();
+
     // Reset clears the test appointment; Escape returns focus to its trigger.
     await desktop.locator('#reset-demo').click();
     assert.equal(await guest.count(), 0);
