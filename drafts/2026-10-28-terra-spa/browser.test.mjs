@@ -74,6 +74,11 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     await desktop.locator('#booking-submit').click();
     const guest = desktop.locator('#appointments button[aria-label*="Browser Demo Guest"]');
     await guest.waitFor();
+    // Closing the booking dialog should announce success and focus the new record,
+    // not return keyboard users to the generic New appointment trigger.
+    assert.equal(await guest.evaluate(node => node === document.activeElement), true);
+    assert.match(await desktop.locator('#booking-confirmation').textContent(),
+      /Appointment added for Browser Demo Guest/);
 
     // Reload exercises actual localStorage persistence, not just the pure logic.
     await desktop.reload();
@@ -94,6 +99,7 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     // Reset feedback belongs beside its action, not in a false empty diary panel.
     assert.equal(await desktop.locator('#schedule-status').isHidden(), true);
     assert.match(await desktop.locator('#reset-status').innerText(), /Demo restored/);
+    assert.equal(await desktop.locator('#booking-confirmation').textContent(), '');
     await desktop.locator('#add-booking').click();
     await desktop.keyboard.press('Escape');
     await desktop.waitForFunction(() => document.activeElement?.id === 'add-booking');
