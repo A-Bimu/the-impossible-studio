@@ -7,6 +7,7 @@ on:
     paths:
       - 'daily/index.html'
       - 'pitch-decks/index.html'
+      - 'work/**/index.html'
       - 'tests/studio-navigation.test.mjs'
       - '.github/workflows/studio-navigation-checks.yml'
   workflow_dispatch:
@@ -25,5 +26,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify homepage section links from journal and pitch decks
+      - name: Verify homepage section links across Studio pages
         run: node --test tests/studio-navigation.test.mjs
