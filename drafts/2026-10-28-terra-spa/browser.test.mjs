@@ -101,9 +101,23 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     await guest.click();
     await desktop.locator('#mark-complete').click();
     await desktop.waitForFunction(() => document.activeElement?.id === 'selected-date');
+    assert.equal(await desktop.locator('#booking-confirmation').textContent(),
+      'Appointment for Browser Demo Guest marked completed.');
 
     // A completed treatment is read-only; it cannot later be cancelled.
     await guest.click();
+    assert.equal(await desktop.locator('#mark-complete').isDisabled(), true);
+    assert.equal(await desktop.locator('#cancel-selected').isDisabled(), true);
+    await desktop.locator('#close-detail').click();
+
+    // Cancellation also announces the outcome and preserves the final state.
+    const cancellable = desktop.locator('#appointments button[aria-label*="Sam M."]');
+    await cancellable.click();
+    await desktop.locator('#cancel-selected').click();
+    await desktop.waitForFunction(() => document.activeElement?.id === 'selected-date');
+    assert.equal(await desktop.locator('#booking-confirmation').textContent(),
+      'Appointment for Sam M. cancelled.');
+    await cancellable.click();
     assert.equal(await desktop.locator('#mark-complete').isDisabled(), true);
     assert.equal(await desktop.locator('#cancel-selected').isDisabled(), true);
     await desktop.locator('#close-detail').click();
