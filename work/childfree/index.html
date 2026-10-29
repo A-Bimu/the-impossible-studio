@@ -1,1 +1,495 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#0a1016"><title>Childfree, Unapologetically | The Impossible Studio</title><meta name="description" content="Wearable identity / Graphic art"><link rel="stylesheet" href="../../studio.css"></head><body><header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header><main class="shell"><div class="breadcrumbs"><a href="../../#archive">All work</a><span>/</span>Childfree, Unapologetically</div><section class="project-head"><div><div class="eyebrow">Wearable identity / Graphic art</div><h1>Childfree, Unapologetically<span style="color:var(--accent)">.</span></h1><p class="subtitle">Small pins with large personalities.</p></div><aside>From the studio archive. Presented in its actual medium, with an honest account of what exists and what remains conceptual.</aside></section><div class="art-study"><div class="art-frame"><img src="../../assets/childfree-original.webp" alt="Childfree, Unapologetically approved original artwork"></div><div class="caption"><span>Actual archived artwork / Original presentation</span><span>Wearable identity / Graphic art</span></div><div class="artcopy"><div class="eyebrow">01 / The concept</div><p>A playful collection of original enamel-pin designs built around confident, humorous statements, bold lettering and physical product constraints.</p><div class="eyebrow">02 / The decisions</div><p>Designed to be charming and readable at small scales. A strong pin collection should feel like wearable objects, not just slogan posters.</p><div class="eyebrow">03 / Provenance</div><p><b>What exists:</b> Approved illustration and design board.<br><b>What's conceptual:</b> These are product concepts; no manufacturing or customer orders are connected.</p></div><p class="mini">This project is a visual artwork, not an interactive website or video.</p></div><div class="project-next"><a href="../../#archive">← All studio projects</a><a href="../../daily/">See daily journal →</a></div></main><footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f7e5e8">
+<title>Childfree, Unapologetically | The Impossible Studio</title>
+<meta name="description" content="Enamel pin collection concept: nine designs in three moods, browsable from the approved concept sheet, with the production decisions behind each pin.">
+<link rel="stylesheet" href="../../studio.css">
+<style>
+/* Childfree: one scoped style block. The site chrome (nav, breadcrumbs, project head, footer)
+   stays in studio.css, so the light-on-dark defaults are re-pointed at this page's palette. */
+.pin-page{--ground:#f7e5e8;--ground-2:#fbf0f1;--card:#fffaf9;--ink:#181216;--ink-soft:#4a3f43;
+  --line:#e2c6cb;--gold:#8a6a24;--gold-bright:#c9a24a;--red:#a51f2b;--accent:#8f2f2f;
+  background:var(--ground);color:var(--ink);color-scheme:light}
+.pin-page .eyebrow{color:var(--gold)}
+.pin-page .mini,.pin-page .caption{color:#6a5b60}
+.pin-page .nav{border-bottom-color:var(--line)}
+.pin-page .nav nav a{color:#4f4247}
+.pin-page .nav nav a:hover{color:var(--ink)}
+.pin-page .nav .navlink{border-color:#b08d94;color:var(--ink)}
+.pin-page .nav .navlink:hover{border-color:var(--ink)}
+.pin-page .project-head .subtitle{color:#8f4a45}
+.pin-page .project-head aside{color:#4f4247}
+.pin-page .action{background:var(--ink);color:#fdf7f4;border-color:var(--ink)}
+.pin-page .action:hover{background:#2b2126}
+.pin-page .footer{border-top-color:var(--line)}
+.pin-page .footer p{color:#6a5b60}
+.pin-page .footer a:hover{color:var(--ink)}
+.pin-page .project-next{border-top:1px solid var(--line);color:var(--ink)}
+.pin-page .project-next a{color:var(--ink)}
+.pin-page .breadcrumbs{color:#5d4f54}
+.pin-page .breadcrumbs a{color:inherit}
+
+/* Section scaffolding */
+.pin-section{padding-top:clamp(58px,7vw,104px);padding-bottom:clamp(30px,4vw,50px)}
+.pin-section>.shell>.lede{max-width:760px}
+.pin-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:34px}
+.pin-head h2{font:400 clamp(38px,4.7vw,72px)/1.08 Georgia,serif;letter-spacing:-.05em;margin:12px 0 0}
+.pin-head h2 em{color:#a4453f;font-style:italic}
+.pin-head p{max-width:390px;color:var(--ink-soft);line-height:1.8;margin:0}
+.pin-page h3{font:400 clamp(23px,2.1vw,29px)/1.2 Georgia,serif;letter-spacing:-.04em;margin:16px 0 6px}
+.pin-page .body-copy{font-size:17px;line-height:1.9;color:var(--ink-soft);max-width:820px}
+
+/* The approved sheet, shown whole and untouched */
+.sheet-frame{margin:0;background:var(--ground-2);border:1px solid var(--line);
+  padding:clamp(12px,2vw,26px);display:grid;place-items:center}
+.sheet-frame img{width:100%;max-width:860px;height:auto;background:#f7e5e8}
+.sheet-caption{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding-block:15px;font-size:11px;color:#6a5b60;border-bottom:1px solid var(--line)}
+
+/* Facts block used for provenance */
+.pin-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:44px 0 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
+.pin-facts small{display:block;font:700 10px 'Manrope',sans-serif;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold)}
+.pin-facts strong{display:block;margin-top:12px;font-size:14px;font-weight:500;line-height:1.7}
+
+/* Mood filters */
+.pin-filterbar{border-top:1px solid var(--line);padding:22px 0;
+  display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
+.pin-moods{display:flex;flex-wrap:wrap;gap:8px}
+.pin-moods button{background:transparent;border:1px solid #c49aa1;border-radius:30px;color:#4a3f43;
+  padding:12px 17px;font:600 12px 'Manrope',sans-serif;min-height:44px}
+.pin-moods button:hover{border-color:var(--ink)}
+.pin-moods button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fdf7f4}
+.pin-count{font:700 10px 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+
+/* The collection */
+.pin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:30px}
+.pin-card{background:var(--card);border:1px solid var(--line);padding:22px 22px 24px;min-width:0;
+  display:flex;flex-direction:column}
+.pin-card[hidden]{display:none}
+.pin-card .card-index{font:700 10px 'Manrope',sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);display:flex;justify-content:space-between;gap:12px}
+.pin-statement{font:italic 17px Georgia,serif;color:#8f2f2f;margin:2px 0 0}
+.pin-spec{margin:14px 0 0;padding:14px 0 0;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:12px}
+.pin-spec dt{color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:10px;
+  padding-top:2px}
+.pin-spec dd{margin:0;color:var(--ink-soft)}
+.pin-note{font-size:13px;line-height:1.8;color:var(--ink-soft);margin:14px 0 18px}
+.pin-open{align-self:start;margin-top:auto;background:transparent;border:1px solid #c49aa1;
+  border-radius:30px;color:var(--ink);padding:12px 16px;font:600 12px 'Manrope',sans-serif;min-height:44px}
+.pin-open:hover{background:var(--ink);border-color:var(--ink);color:#fdf7f4}
+.pin-noscript{font-size:12px;color:#6a5b60;margin-top:16px}
+
+/* Pin artwork. Each card carries its own crop of the approved sheet, saved as a
+   small derivative image under pins/, so no neighbouring pin or sheet label ever
+   intrudes. The crop is shown whole and contained, never stretched or re-drawn. */
+.pin-art{width:100%;max-width:320px;margin:6px auto 0;aspect-ratio:1;background:#f7e5e8;
+  border:1px solid var(--line);padding:16px;display:grid;place-items:center}
+.pin-art img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
+
+/* Production notes */
+.making{display:grid;grid-template-columns:1fr 1fr;gap:10%;align-items:start}
+.making-list{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.making-list li{border-bottom:1px solid var(--line);padding:16px 0;font-size:15px;line-height:1.75;
+  color:var(--ink-soft)}
+.making-list b{color:var(--ink);font-weight:600}
+
+/* Detail panel */
+.pin-dialog{border:1px solid #d0aeb4;background:var(--card);color:var(--ink);padding:0;
+  width:min(880px,92vw);max-height:88vh;overflow:auto}
+.pin-dialog::backdrop{background:#170f12cc;backdrop-filter:blur(3px)}
+.pin-dialog .dialog-in{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);
+  gap:clamp(20px,3vw,44px);padding:clamp(20px,3vw,38px)}
+.pin-dialog .dialog-art{width:100%;max-width:320px;align-self:start}
+.pin-dialog .dialog-art img{width:auto;height:auto;max-width:100%;max-height:56vh;object-fit:contain;
+  background:#f7e5e8;border:1px solid var(--line);padding:14px;box-sizing:border-box}
+.pin-dialog h2{font:400 clamp(30px,3vw,42px)/1.1 Georgia,serif;letter-spacing:-.045em;margin:10px 0 4px}
+.pin-dialog .dialog-body p{font-size:15px;line-height:1.85;color:var(--ink-soft)}
+.dialog-top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.pin-close{background:transparent;border:1px solid #c49aa1;border-radius:30px;color:var(--ink);
+  padding:11px 15px;font:600 12px 'Manrope',sans-serif;min-height:44px;min-width:44px}
+.pin-close:hover{background:var(--ink);border-color:var(--ink);color:#fdf7f4}
+
+.pin-page:focus-within .pin-art{border-color:#c49aa1}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
+
+@media(max-width:1100px){
+  .pin-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:860px){
+  .pin-head{display:block}
+  .pin-head p{margin-top:18px;max-width:none}
+  .pin-page .project-head h1{font-size:clamp(42px,10.4vw,72px);letter-spacing:-.06em}
+  .pin-facts{grid-template-columns:1fr}
+  .making{grid-template-columns:1fr;gap:34px}
+  .pin-dialog .dialog-in{grid-template-columns:1fr}
+  .pin-dialog{width:min(560px,94vw)}
+  .pin-dialog .dialog-art{max-width:320px}
+}
+@media(max-width:640px){
+  .pin-grid{grid-template-columns:1fr;gap:20px}
+  .pin-art{max-width:100%}
+  .pin-moods{gap:6px}
+  .pin-moods button{flex:0 1 auto;font-size:11px;padding:11px 14px}
+  .pin-filterbar{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .pin-page *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body class="pin-page">
+<a class="sr-only" href="#collection">Skip to the pin collection</a>
+<header class="nav shell">
+<a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a>
+<nav aria-label="Primary navigation">
+<a href="../../#work">Work</a>
+<a href="../../#studio">Studio</a>
+<a href="../../daily/">Daily designs</a>
+</nav>
+<a class="navlink" href="../../#work">All studio projects ↗</a>
+</header>
+<main class="shell">
+<div class="breadcrumbs">
+<a href="../../#work">All work</a>
+<span>/</span>Childfree, Unapologetically</div>
+<section class="project-head">
+<div>
+<div class="eyebrow">Wearable identity / Graphic art</div>
+<h1>Childfree, Unapologetically<span style="color:var(--accent)">.</span></h1>
+<p class="subtitle">Small pins with large personalities.</p>
+</div>
+<aside>A nine-pin enamel collection concept in three moods, built to be browsed like a catalogue. Every pin below is a detail cut from the approved concept sheet, and the sheet itself is shown whole.</aside>
+</section>
+
+<section class="pin-section" id="sheet">
+<div class="pin-head">
+<div>
+<div class="eyebrow">01 / The approved sheet</div>
+<h2>Nine pins.<br><em>One sheet.</em></h2>
+</div>
+<p>The approved concept sheet is the source of truth for this collection. Nothing here is a re-drawing, a render or a stand-in: the artwork you browse is the artwork that was approved.</p>
+</div>
+<figure class="sheet-frame">
+<img src="../../assets/childfree-original.webp" alt="Childfree, Unapologetically approved concept sheet: nine enamel pin designs arranged in three rows, labelled Whimsical or soft rebellion, Chilled or everyday wearable, and Bold or cheeky statement." width="800" height="1000" fetchpriority="high" decoding="async">
+</figure>
+<div class="sheet-caption">
+<span>Approved concept sheet / Nine pin designs in three moods</span>
+<span>Wearable identity / Graphic art</span>
+</div>
+<div class="pin-facts">
+<div>
+<small>What exists</small>
+<strong>One approved concept sheet with nine pin designs, archived in this repository as assets/childfree-original.webp.</strong>
+</div>
+<div>
+<small>What this page adds</small>
+<strong>A browsable presentation: filter by mood, compare silhouettes, and read the design notes behind each pin.</strong>
+</div>
+<div>
+<small>What stays conceptual</small>
+<strong>No pin has been manufactured, no sample exists, and no orders, prices or shop are connected to this collection.</strong>
+</div>
+</div>
+</section>
+
+<section class="pin-section" id="collection">
+<div class="pin-head">
+<div>
+<div class="eyebrow">02 / Browse the collection</div>
+<h2>Three moods.<br><em>Nine statements.</em></h2>
+</div>
+<p>The set is organised as three small collections rather than one uniform batch. Filter by mood, then open a pin for its silhouette, palette and production notes.</p>
+</div>
+<div class="pin-filterbar">
+<div class="pin-moods" role="group" aria-label="Filter pins by mood">
+<button type="button" data-mood="all" aria-pressed="true" aria-controls="pin-grid">All nine</button>
+<button type="button" data-mood="whimsical" aria-pressed="false" aria-controls="pin-grid">Whimsical / soft rebellion</button>
+<button type="button" data-mood="chilled" aria-pressed="false" aria-controls="pin-grid">Chilled / everyday wearable</button>
+<button type="button" data-mood="bold" aria-pressed="false" aria-controls="pin-grid">Bold / cheeky statement</button>
+</div>
+<p class="pin-count" id="pin-count" aria-live="polite">Showing 9 of 9 pins</p>
+</div>
+
+<div class="pin-grid" id="pin-grid">
+
+<article class="pin-card" data-mood="whimsical">
+<div class="card-index"><span>Pin 01</span><span>Whimsical</span></div>
+<div class="pin-art">
+<img src="pins/pin-01.webp" width="532" height="428" alt="Detail from the approved sheet: a ribbon banner pin reading Childfree. By Choice., framed by white daisies and green leaves on a blush ground with a gold outline." loading="lazy" decoding="async">
+</div>
+<h3>Childfree, By Choice</h3>
+<p class="pin-statement">Childfree by choice.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Whimsical / soft rebellion</dd>
+<dt>Silhouette</dt><dd>Ribbon banner</dd>
+<dt>Enamel</dt><dd>Ivory, blush and garden green on gold plate</dd>
+</dl>
+<p class="pin-note">A banner holds the longest readable line in the set. Daisies soften the message without weakening it, so the pin reads as a small bouquet first and a statement second.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="whimsical">
+<div class="card-index"><span>Pin 02</span><span>Whimsical</span></div>
+<div class="pin-art">
+<img src="pins/pin-02.webp" width="408" height="488" alt="Detail from the approved sheet: a black enamel plaque pin with a large pink bow, reading No Heirs. Just Earrings., with a dangling pair of heart earrings on a chain." loading="lazy" decoding="async">
+</div>
+<h3>No Heirs, Just Earrings</h3>
+<p class="pin-statement">No heirs. Just earrings.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Whimsical / soft rebellion</dd>
+<dt>Silhouette</dt><dd>Black plaque with a pink bow</dd>
+<dt>Enamel</dt><dd>Black, blush and pink on gold plate</dd>
+</dl>
+<p class="pin-note">The bow sits above the line and a pair of earrings hangs below on a jump ring, so the joke lands twice: once as jewellery, once as a sentence.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="whimsical">
+<div class="card-index"><span>Pin 03</span><span>Whimsical</span></div>
+<div class="pin-art">
+<img src="pins/pin-03.webp" width="472" height="492" alt="Detail from the approved sheet: a lilac cloud pin with a crescent moon, stars and pearl clouds, reading Just Me. Enough." loading="lazy" decoding="async">
+</div>
+<h3>Just Me, Enough</h3>
+<p class="pin-statement">Just me. Enough.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Whimsical / soft rebellion</dd>
+<dt>Silhouette</dt><dd>Cloud with a crescent moon</dd>
+<dt>Enamel</dt><dd>Lilac, pearl and gold</dd>
+</dl>
+<p class="pin-note">Cloud silhouettes need a generous outline to keep their shape at size. The stars are cut as small enamel wells, close enough to read as sparkle without turning into noise.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="chilled">
+<div class="card-index"><span>Pin 04</span><span>Chilled</span></div>
+<div class="pin-art">
+<img src="pins/pin-04.webp" width="524" height="520" alt="Detail from the approved sheet: a pink twin-bell alarm clock pin with daisies, the clock face replaced by a mute symbol, reading My Biological Clock Is On Silent." loading="lazy" decoding="async">
+</div>
+<h3>My Biological Clock Is On Silent</h3>
+<p class="pin-statement">My biological clock is on silent.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Chilled / everyday wearable</dd>
+<dt>Silhouette</dt><dd>Twin-bell alarm clock</dd>
+<dt>Enamel</dt><dd>Blush, ivory and black on gold plate</dd>
+</dl>
+<p class="pin-note">A familiar household object carries the punchline. The mute mark replaces the clock face detail entirely, so the joke reads from across a room without any lettering competing for attention.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="chilled">
+<div class="card-index"><span>Pin 05</span><span>Chilled</span></div>
+<div class="pin-art">
+<img src="pins/pin-05.webp" width="496" height="488" alt="Detail from the approved sheet: an ivory and blush ribbon banner pin reading Motherhood Is Optional., framed by green leaves and daisies." loading="lazy" decoding="async">
+</div>
+<h3>Motherhood Is Optional</h3>
+<p class="pin-statement">Motherhood is optional.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Chilled / everyday wearable</dd>
+<dt>Silhouette</dt><dd>Ribbon banner with foliage</dd>
+<dt>Enamel</dt><dd>Ivory, sage and blush</dd>
+</dl>
+<p class="pin-note">The second banner in the set, deliberately softer than the first: green foliage and an ivory ground instead of black, so the same kind of message reads calm rather than defiant.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="chilled">
+<div class="card-index"><span>Pin 06</span><span>Chilled</span></div>
+<div class="pin-art">
+<img src="pins/pin-06.webp" width="488" height="508" alt="Detail from the approved sheet: a round gold-outlined pin reading Complete As I Am, with a sunrise over green hills, cloud shapes and daisies." loading="lazy" decoding="async">
+</div>
+<h3>Complete As I Am</h3>
+<p class="pin-statement">Complete as I am.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Chilled / everyday wearable</dd>
+<dt>Silhouette</dt><dd>Round badge</dd>
+<dt>Enamel</dt><dd>Gold, green and sky on gold plate</dd>
+</dl>
+<p class="pin-note">The only full circle in the collection. A sunrise over hills answers the line on its own, which keeps the words small and the pin wearable every day.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="bold">
+<div class="card-index"><span>Pin 07</span><span>Bold</span></div>
+<div class="pin-art">
+<img src="pins/pin-07.webp" width="568" height="480" alt="Detail from the approved sheet: a black shield-shaped pin reading Womanhood is not Motherhood, with a large inequality sign and red hibiscus flowers." loading="lazy" decoding="async">
+</div>
+<h3>Womanhood is not Motherhood</h3>
+<p class="pin-statement">Womanhood ≠ Motherhood.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Bold / cheeky statement</dd>
+<dt>Silhouette</dt><dd>Shield plaque</dd>
+<dt>Enamel</dt><dd>Black, hibiscus red and gold</dd>
+</dl>
+<p class="pin-note">The one pin that states the idea with a symbol instead of a sentence. The inequality sign is the largest single element in the whole set, and the red hibiscus keeps it from feeling like a lecture.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="bold">
+<div class="card-index"><span>Pin 08</span><span>Bold</span></div>
+<div class="pin-art">
+<img src="pins/pin-08.webp" width="476" height="496" alt="Detail from the approved sheet: an ivory round pin shaped as an artist palette with colour wells, hearts and a paintbrush, reading My Life. My Design." loading="lazy" decoding="async">
+</div>
+<h3>My Life, My Design</h3>
+<p class="pin-statement">My life. My design.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Bold / cheeky statement</dd>
+<dt>Silhouette</dt><dd>Palette disc with brush</dd>
+<dt>Enamel</dt><dd>Ivory ground with primary accents</dd>
+</dl>
+<p class="pin-note">An artist palette used as a personal statement. The brush breaks the circle at one edge, which stops the shape from reading as a plain round badge and gives the pin a clear front and back.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+<article class="pin-card" data-mood="bold">
+<div class="card-index"><span>Pin 09</span><span>Bold</span></div>
+<div class="pin-art">
+<img src="pins/pin-09.webp" width="440" height="440" alt="Detail from the approved sheet: a deep red heart pin crossed by an ivory ribbon reading Childfree, Not Childless., with daisies on a gold outline." loading="lazy" decoding="async">
+</div>
+<h3>Childfree, Not Childless</h3>
+<p class="pin-statement">Childfree, not childless.</p>
+<dl class="pin-spec">
+<dt>Mood</dt><dd>Bold / cheeky statement</dd>
+<dt>Silhouette</dt><dd>Heart with ribbon</dd>
+<dt>Enamel</dt><dd>Oxblood, ivory and gold</dd>
+</dl>
+<p class="pin-note">The closing note of the collection, and the warmest. A ribbon crosses the heart in the same banner language as pin 01, which brings the set back to where it started.</p>
+<button class="pin-open" type="button">Open design notes ↗</button>
+</article>
+
+</div>
+<p class="pin-noscript">Without JavaScript the filters and the detail panel stay closed. The sheet above still shows all nine designs, and every card below keeps its full description.</p>
+</section>
+
+<section class="pin-section" id="making">
+<div class="making">
+<div>
+<div class="eyebrow">03 / Making a set like this</div>
+<h2 class="section-title" style="margin-top:12px">Designed to be <em>worn.</em></h2>
+<p class="body-copy" style="margin-top:22px">The collection was drawn around the limits of hard enamel rather than around a screen. Those limits are what keep nine different ideas readable as physical objects, and they are as much a part of the design as the typography.</p>
+</div>
+<ul class="making-list">
+<li><b>Scale.</b> Each pin sits between 22 and 25 mm across, small enough that nine designs can share one card and still sit together on a jacket.</li>
+<li><b>Finish.</b> Hard enamel, polished flat, on a gold-plated outline. The outline carries every edge, which is why the lettering can stay thin and still hold.</li>
+<li><b>Colour.</b> Four enamel wells per pin at most. Fewer wells means a cleaner read at size and a simpler die to cut.</li>
+<li><b>Lettering.</b> One statement per pin, held to a single line wherever the silhouette allows. Below roughly 4 mm cap height the letters stop working in enamel.</li>
+<li><b>Hardware.</b> Flat pins use a single butterfly clutch. The pin with a dangling earring charm needs a reinforced jump ring instead.</li>
+<li><b>Making.</b> Nothing has been quoted, sampled or manufactured yet. These are the production decisions the artwork assumes, not a purchase.</li>
+</ul>
+</div>
+</section>
+
+<div class="project-next">
+<a href="../../#work">← All studio projects</a>
+<a href="../lemon-sun/">Next: The Lemon Sun →</a>
+</div>
+</main>
+<footer class="footer shell">
+<div>
+<a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a>
+<p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p>
+</div>
+<div class="links">
+<a href="../../#work">Selected work</a>
+<a href="../../calendars/">Calendars</a>
+<a href="../../daily/">Daily journal</a>
+<a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a>
+<a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a>
+</div>
+</footer>
+
+<dialog class="pin-dialog" id="pin-detail" aria-labelledby="pin-detail-title">
+<div class="dialog-in">
+<div class="dialog-art" id="pin-detail-art"></div>
+<div class="dialog-body">
+<div class="dialog-top">
+<div>
+<div class="eyebrow" id="pin-detail-index">Pin</div>
+<h2 id="pin-detail-title">Pin</h2>
+<p class="pin-statement" id="pin-detail-statement"></p>
+</div>
+<button class="pin-close" type="button" id="pin-detail-close">Close</button>
+</div>
+<dl class="pin-spec" id="pin-detail-spec"></dl>
+<p class="pin-note" id="pin-detail-note"></p>
+<p class="mini">Detail cut from the approved concept sheet. The artwork itself is unchanged.</p>
+</div>
+</div>
+</dialog>
+
+<script>
+(function(){
+  var grid = document.getElementById('pin-grid');
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.pin-card'));
+  var count = document.getElementById('pin-count');
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-mood]'));
+  var labels = {whimsical:'Whimsical', chilled:'Chilled', bold:'Bold'};
+
+  function applyFilter(mood){
+    var shown = 0;
+    cards.forEach(function(card){
+      var match = mood === 'all' || card.dataset.mood === mood;
+      card.hidden = !match;
+      if(match){ shown++; }
+    });
+    count.textContent = 'Showing ' + shown + ' of ' + cards.length + ' pins';
+    buttons.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.mood === mood)); });
+  }
+
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){ applyFilter(b.dataset.mood); });
+  });
+
+  var dialog = document.getElementById('pin-detail');
+  if(dialog && typeof dialog.showModal === 'function'){
+    var art = document.getElementById('pin-detail-art');
+    var index = document.getElementById('pin-detail-index');
+    var title = document.getElementById('pin-detail-title');
+    var statement = document.getElementById('pin-detail-statement');
+    var spec = document.getElementById('pin-detail-spec');
+    var note = document.getElementById('pin-detail-note');
+    var closeBtn = document.getElementById('pin-detail-close');
+    var opener = null;
+
+    cards.forEach(function(card){
+      var btn = card.querySelector('.pin-open');
+      btn.addEventListener('click', function(){
+        var figure = card.querySelector('.pin-art img').cloneNode(false);
+        figure.loading = 'eager';
+        art.innerHTML = '';
+        art.appendChild(figure);
+        index.textContent = card.querySelector('.card-index span').textContent + ' / ' + card.querySelector('.card-index span:last-child').textContent;
+        title.textContent = card.querySelector('h3').textContent;
+        statement.textContent = card.querySelector('.pin-statement').textContent;
+        spec.innerHTML = card.querySelector('.pin-spec').innerHTML;
+        note.textContent = card.querySelector('.pin-note').textContent;
+        opener = btn;
+        dialog.showModal();
+        closeBtn.focus();
+      });
+    });
+
+    closeBtn.addEventListener('click', function(){ dialog.close(); });
+    dialog.addEventListener('click', function(event){
+      if(event.target === dialog){ dialog.close(); }
+    });
+    dialog.addEventListener('close', function(){
+      if(opener){ opener.focus(); }
+    });
+  } else {
+    Array.prototype.slice.call(document.querySelectorAll('.pin-open')).forEach(function(b){
+      b.disabled = true;
+      b.setAttribute('aria-disabled', 'true');
+    });
+  }
+})();
+</script>
+</body>
+</html>
