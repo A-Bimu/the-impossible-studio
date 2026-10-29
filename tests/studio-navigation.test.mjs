@@ -79,12 +79,12 @@ for (const page of htmlPages) {
     const html = await cachedHtml(page);
     // Static href/src attributes only. Remote sites and dynamic JS routes are
     // deliberately outside this repository-local integrity check.
-    for (const match of html.matchAll(/\\b(?:href|src)\\s*=\\s*(["'])(.*?)\\1/g)) {
+    for (const match of html.matchAll(/\b(?:href|src)\s*=\s*(["'])(.*?)\1/g)) {
       const value = match[2];
       const target = new URL(value, new URL(page, `${siteOrigin}/`));
       if (target.origin !== siteOrigin) continue;
 
-      const relative = decodeURIComponent(target.pathname).replace(/^\\//, '');
+      const relative = decodeURIComponent(target.pathname).replace(/^\//, '');
       const targetPage = !relative || relative.endsWith('/')
         ? `${relative}index.html`
         : relative;
@@ -96,7 +96,7 @@ for (const page of htmlPages) {
       if (target.hash && targetPage.endsWith('.html')) {
         const destination = await cachedHtml(targetPage);
         const destinationIds = new Set(
-          [...destination.matchAll(/\\bid=["']([^"']+)["']/g)].map(found => found[1]),
+          [...destination.matchAll(/\bid=["']([^"']+)["']/g)].map(found => found[1]),
         );
         const fragment = decodeURIComponent(target.hash.slice(1));
         assert.ok(
