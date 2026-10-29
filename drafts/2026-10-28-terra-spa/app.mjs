@@ -237,6 +237,7 @@ function boot() {
     const item=records.find(entry=>entry.id===selectedBooking);
     if(!canTransition(item,status))return;
     item.status=status;persist();setText('reset-status','');lastFocus=$('selected-date');close(detailDialog);render();
+    setText('booking-confirmation','Appointment for '+item.guest+(status==='completed'?' marked completed.':' cancelled.'));
   }
   for(const service of SERVICES){
     const option=el('option','',service.name+' · '+service.minutes+' min · '+money.format(service.price));
