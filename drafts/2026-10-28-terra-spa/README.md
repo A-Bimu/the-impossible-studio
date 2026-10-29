@@ -7,7 +7,7 @@ A quiet, editorial operations workspace for a boutique spa. The interface makes 
 
 ## What is actually implemented
 - Responsive desktop, tablet and mobile layout with a weekly date picker and previous/next/today controls.
-- Appointment diary, guest/service search, booking details, completion and cancellation.
+- Appointment diary, guest/service search, booking details, completion and cancellation. Only booked appointments can be completed or cancelled; both outcomes are final and read-only in this fictional demo.
 - New appointment form with service duration, 09:00–17:00 demo hours, overlap rejection, and live available-start-time choices. Unavailable times are disabled and the form explains when a day is fully booked.
 - Selected-day counts, **scheduled value** (not revenue), completed bookings, and available one-hour slots.
 - Service mix chart that updates as bookings change.
