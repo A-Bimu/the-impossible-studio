@@ -11,6 +11,10 @@ const targetIds = new Set([...homepage.matchAll(/\bid=["']([^"']+)["']/g)].map(m
 const pages = [
   'daily/index.html',
   'pitch-decks/index.html',
+  'calendars/index.html',
+  'calendars/roots-2027/index.html',
+  'calendars/atlas-africa-2027/index.html',
+  'calendars/heritage-africa-2027/index.html',
   'work/childfree/index.html',
   'work/lemon-sun/index.html',
   'work/vinyl-lounge/index.html',
@@ -43,5 +47,15 @@ for (const page of pages.filter(path => path.startsWith('work/'))) {
     assert.match(html, /href="\.\.\/\.\.\/#work">Gallery<\/a>/);
     assert.match(html, /href="\.\.\/\.\.\/#studio">Studio<\/a>/);
     assert.match(html, /href="\.\.\/\.\.\/#work">Work gallery<\/a>/);
+  });
+}
+
+for (const page of pages.filter(path => path.startsWith('calendars/'))) {
+  test(`${page}: archive navigation reaches the real gallery`, async () => {
+    const html = await read(page);
+    const relative = page === 'calendars/index.html' ? '../' : '../../';
+    const label = page === 'calendars/index.html' ? 'All work' : 'Work gallery';
+    assert.ok(html.includes(`href="${relative}#work">${label}</a>`), `${page}: expected gallery link and label`);
+    assert.doesNotMatch(html, /href=["'](?:\.\.\/)+#archive["']/);
   });
 }

@@ -8,6 +8,8 @@ on:
       - 'daily/index.html'
       - 'pitch-decks/index.html'
       - 'work/**/index.html'
+      - 'calendars/index.html'
+      - 'calendars/**/index.html'
       - 'tests/studio-navigation.test.mjs'
       - '.github/workflows/studio-navigation-checks.yml'
   workflow_dispatch:
