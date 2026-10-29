@@ -8,7 +8,7 @@ A quiet, editorial operations workspace for a boutique spa. The interface makes 
 ## What is actually implemented
 - Responsive desktop, tablet and mobile layout with a weekly date picker and previous/next/today controls.
 - Appointment diary, guest/service search, booking details, completion and cancellation.
-- New appointment form with service duration, 09:00–17:00 demo hours, and overlap rejection.
+- New appointment form with service duration, 09:00–17:00 demo hours, overlap rejection, and live available-start-time choices. Unavailable times are disabled and the form explains when a day is fully booked.
 - Selected-day counts, **scheduled value** (not revenue), completed bookings, and available one-hour slots.
 - Service mix chart that updates as bookings change.
 - Browser-only demo persistence; reset button restores fictional sample data. On reload, malformed records, duplicate booking IDs and overlapping active appointments invalidate the saved demo schedule, which safely resets to sample data.
@@ -22,7 +22,7 @@ Open index.html in a modern browser, or serve the folder with any local static H
 
     node --test drafts/2026-10-28-terra-spa/app.test.mjs
 
-The test suite covers week boundaries, calendar keyboard-date calculations, sample integrity, time overlaps, cancellation, closing hours, daily metrics and saved-schedule consistency (including duplicate IDs and conflicting appointments). Manual keyboard and screen-reader verification is still required.
+The test suite covers week boundaries, calendar keyboard-date calculations, sample integrity, time overlaps, available start times, cancellation, closing hours, daily metrics and saved-schedule consistency (including duplicate IDs and conflicting appointments). Manual keyboard and screen-reader verification is still required.
 
 ## Review and publication gates
 1. Review visual direction, layout, and the value of the concept in the Studio's Day 1 queue.

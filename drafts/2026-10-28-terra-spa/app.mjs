@@ -77,6 +77,10 @@ export function canBook(records, candidate) {
   if (minutes(candidate.time)+service.minutes > 17*60) return false;
   return !records.some(item => item.id !== candidate.id && overlaps(item,candidate));
 }
+// Keep the booking form's choices in sync with duration, opening hours and existing bookings.
+export function availableSlots(records, date, service) {
+  return SLOTS.filter(time => canBook(records, {date, time, service, status:'booked'}));
+}
 export function statsFor(records, date) {
   const day = records.filter(item => item.date === date && item.status !== 'cancelled');
   const completed = day.filter(item => item.status === 'completed').length;
@@ -186,11 +190,22 @@ function boot() {
   }
   function render() {renderWeek();renderMetrics();renderAppointments();renderMix();}
   function close(dialog) { dialog.close(); }
+  function refreshBookingTimes() {
+    const available=availableSlots(records,$('booking-date').value,$('booking-service').value);
+    const timeSelect=$('booking-time');
+    for(const option of timeSelect.options) option.disabled=!available.includes(option.value);
+    if(!available.includes(timeSelect.value)) timeSelect.value=available[0] ?? '';
+    $('booking-submit').disabled=available.length===0;
+    setText('booking-availability',available.length
+      ? available.length+' start time'+(available.length===1?'':'s')+' available for this date and service.'
+      : 'No available start times for this date and service. Choose another date or treatment.');
+    $('booking-error').textContent='';
+  }
   function openBooking() {
     lastFocus=document.activeElement;
     $('booking-form').reset();
     $('booking-date').value=selectedDay;
-    $('booking-error').textContent='';
+    refreshBookingTimes();
     bookingDialog.showModal();
     $('guest').focus();
   }
@@ -217,6 +232,8 @@ function boot() {
     option.value=service.id;$('booking-service').append(option);
   }
   for(const time of SLOTS){const option=el('option','',time);option.value=time;$('booking-time').append(option);}
+  $('booking-date').addEventListener('change',refreshBookingTimes);
+  $('booking-service').addEventListener('change',refreshBookingTimes);
   $('add-booking').addEventListener('click',openBooking);
   $('close-booking').addEventListener('click',()=>close(bookingDialog));
   $('cancel-booking').addEventListener('click',()=>close(bookingDialog));

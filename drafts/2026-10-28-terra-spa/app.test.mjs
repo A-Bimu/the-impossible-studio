@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, validDate, validStoredRecord, validStoredSchedule, dateForCalendarKey } from './app.mjs';
+import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, SLOTS, validDate, validStoredRecord, validStoredSchedule, dateForCalendarKey, availableSlots } from './app.mjs';
 
 test('week navigation uses Monday first, including month/year boundaries', () => {
   assert.equal(startOfWeek('2026-10-28'),'2026-10-26');
@@ -81,4 +81,15 @@ test('saved schedule rejects duplicate IDs and conflicting active bookings', () 
   assert.equal(validStoredSchedule([...records,{...records[0],id:'another-id'}]),false,'overlapping active booking');
   assert.equal(validStoredSchedule([...records,{...records[0],id:'cancelled-id',status:'cancelled'}]),true,'cancelled records do not block time');
   assert.equal(validStoredSchedule([...records,{...records[0],id:'complete-id',status:'completed'}]),false,'completed appointments still occupy time');
+});
+
+test('booking form offers only available start times for the selected treatment', () => {
+  const date='2026-10-28';
+  const records=seedRecords(date);
+  assert.deepEqual(availableSlots(records,date,'massage'),['10:00','13:00','15:00','16:00']);
+  assert.deepEqual(availableSlots(records,date,'ritual'),['15:00']);
+  assert.equal(availableSlots(records,date,'unknown').length,0);
+  assert.equal(availableSlots(records,'2026-02-31','massage').length,0);
+  const fullDay=SLOTS.map((time,i)=>({id:'filled-'+i,date,time,service:'massage',status:'booked'}));
+  assert.deepEqual(availableSlots(fullDay,date,'massage'),[]);
 });
