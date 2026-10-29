@@ -83,6 +83,9 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     // Reset clears the test appointment; Escape returns focus to its trigger.
     await desktop.locator('#reset-demo').click();
     assert.equal(await guest.count(), 0);
+    // Reset feedback belongs beside its action, not in a false empty diary panel.
+    assert.equal(await desktop.locator('#schedule-status').isHidden(), true);
+    assert.match(await desktop.locator('#reset-status').innerText(), /Demo restored/);
     await desktop.locator('#add-booking').click();
     await desktop.keyboard.press('Escape');
     await desktop.waitForFunction(() => document.activeElement?.id === 'add-booking');

@@ -230,7 +230,7 @@ function boot() {
   function updateBooking(status) {
     const item=records.find(entry=>entry.id===selectedBooking);
     if(!canTransition(item,status))return;
-    item.status=status;persist();lastFocus=$('selected-date');close(detailDialog);render();
+    item.status=status;persist();setText('reset-status','');lastFocus=$('selected-date');close(detailDialog);render();
   }
   for(const service of SERVICES){
     const option=el('option','',service.name+' · '+service.minutes+' min · '+money.format(service.price));
@@ -251,7 +251,7 @@ function boot() {
     if(!guest){setText('booking-error','Enter a guest name.');return;}
     const candidate={id:'local-'+Date.now()+'-'+records.length,guest,date,time,service,status:'booked'};
     if(!canBook(records,candidate)){setText('booking-error','This time overlaps an existing booking or extends beyond 17:00. Choose another time.');return;}
-    records.push(candidate);persist();selectedDay=date;week=startOfWeek(date);
+    records.push(candidate);persist();setText('reset-status','');selectedDay=date;week=startOfWeek(date);
     $('booking-search').value='';close(bookingDialog);render();
   });
   $('booking-search').addEventListener('input',renderAppointments);
@@ -261,7 +261,7 @@ function boot() {
   $('reset-demo').addEventListener('click',()=>{
     records=seedRecords(today);selectedDay=today;week=startOfWeek(today);
     $('booking-search').value='';persist();render();
-    $('schedule-status').hidden=false;setText('schedule-status','Demo restored to its original sample appointments.');
+    setText('reset-status','Demo restored to its original sample appointments.');
   });
   for(const dialog of [bookingDialog,detailDialog]){
     dialog.addEventListener('close',()=>{if(lastFocus?.isConnected)lastFocus.focus();lastFocus=null;});
