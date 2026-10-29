@@ -175,6 +175,7 @@ function boot() {
       li.append(el('span','time',item.time));
       const button=el('button');button.type='button';
       button.setAttribute('aria-label','View appointment for '+item.guest+' at '+item.time);
+      button.dataset.bookingId=item.id;
       button.append(el('strong','',item.guest),el('span','service',serviceById(item.service).name));
       button.addEventListener('click',()=>openDetail(item.id,button));
       li.append(button,el('span','badge '+(item.status==='completed'?'completed':item.status==='cancelled'?'cancelled':''),item.status));
@@ -209,6 +210,7 @@ function boot() {
   function openBooking() {
     lastFocus=document.activeElement;
     $('booking-form').reset();
+    setText('booking-confirmation','');
     $('booking-date').value=selectedDay;
     refreshBookingTimes();
     bookingDialog.showModal();
@@ -252,7 +254,9 @@ function boot() {
     const candidate={id:'local-'+Date.now()+'-'+records.length,guest,date,time,service,status:'booked'};
     if(!canBook(records,candidate)){setText('booking-error','This time overlaps an existing booking or extends beyond 17:00. Choose another time.');return;}
     records.push(candidate);persist();setText('reset-status','');selectedDay=date;week=startOfWeek(date);
-    $('booking-search').value='';close(bookingDialog);render();
+    $('booking-search').value='';lastFocus=null;close(bookingDialog);render();
+    setText('booking-confirmation','Appointment added for '+guest+' on '+dateLabel(date)+' at '+time+'.');
+    [...$('appointments').querySelectorAll('button')].find(button => button.dataset.bookingId===candidate.id)?.focus();
   });
   $('booking-search').addEventListener('input',renderAppointments);
   $('prev-week').addEventListener('click',()=>{week=addDays(week,-7);selectedDay=week;render();});
@@ -261,6 +265,7 @@ function boot() {
   $('reset-demo').addEventListener('click',()=>{
     records=seedRecords(today);selectedDay=today;week=startOfWeek(today);
     $('booking-search').value='';persist();render();
+    setText('booking-confirmation','');
     setText('reset-status','Demo restored to its original sample appointments.');
   });
   for(const dialog of [bookingDialog,detailDialog]){
