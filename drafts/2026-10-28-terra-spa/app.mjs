@@ -77,6 +77,11 @@ export function canBook(records, candidate) {
   if (minutes(candidate.time)+service.minutes > 17*60) return false;
   return !records.some(item => item.id !== candidate.id && overlaps(item,candidate));
 }
+// Appointment outcomes are terminal in this fictional demo: a finished or
+// cancelled treatment cannot be changed to another outcome.
+export function canTransition(item, nextStatus) {
+  return Boolean(item && item.status === 'booked' && (nextStatus === 'completed' || nextStatus === 'cancelled'));
+}
 // Keep the booking form's choices in sync with duration, opening hours and existing bookings.
 export function availableSlots(records, date, service) {
   return SLOTS.filter(time => canBook(records, {date, time, service, status:'booked'}));
@@ -218,13 +223,13 @@ function boot() {
     for(const [label,value] of [['Date',dateLabel(item.date)],['Time',item.time],['Service',serviceById(item.service).name],['Duration',serviceById(item.service).minutes+' minutes'],['Value',money.format(serviceById(item.service).price)],['Status',item.status]]){
       const line=el('div','detail-line');line.append(el('strong','',label),document.createTextNode(value));wrap.append(line);
     }
-    $('mark-complete').disabled=item.status!=='booked';
-    $('cancel-selected').disabled=item.status==='cancelled';
+    $('mark-complete').disabled=!canTransition(item,'completed');
+    $('cancel-selected').disabled=!canTransition(item,'cancelled');
     detailDialog.showModal();
   }
   function updateBooking(status) {
     const item=records.find(entry=>entry.id===selectedBooking);
-    if(!item)return;
+    if(!canTransition(item,status))return;
     item.status=status;persist();lastFocus=$('selected-date');close(detailDialog);render();
   }
   for(const service of SERVICES){
