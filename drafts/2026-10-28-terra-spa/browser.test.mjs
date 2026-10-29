@@ -88,20 +88,55 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     await desktop.waitForFunction(() => document.activeElement?.id === 'add-booking');
     assert.deepEqual(pageErrors, []);
 
-    // A narrow touch viewport should not introduce document-level side scrolling.
-    const mobile = await browser.newPage({
-      viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true
+    // Corrupt browser state must not silently restore a conflicting diary.
+    await desktop.evaluate(() => {
+      const key = 'terra-spa-demo-v1';
+      const saved = JSON.parse(localStorage.getItem(key));
+      saved.records.push({ ...saved.records[0], id: 'duplicate-slot', status: 'booked' });
+      localStorage.setItem(key, JSON.stringify(saved));
     });
-    await mobile.goto(address);
-    const widths = await mobile.evaluate(() => ({
-      scroll: document.documentElement.scrollWidth,
-      viewport: document.documentElement.clientWidth
-    }));
-    assert.ok(widths.scroll <= widths.viewport + 1, 'Mobile horizontal overflow: ' + JSON.stringify(widths));
-    await mobile.locator('#add-booking').click();
-    assert.equal(await mobile.locator('#booking-dialog').evaluate(node => node.open), true);
-    await mobile.locator('#close-booking').click();
-    assert.equal(await mobile.locator('#booking-dialog').evaluate(node => node.open), false);
+    await desktop.reload();
+    assert.equal(await desktop.locator('#appointments .appointment').count(), 3);
+    assert.deepEqual(pageErrors, []);
+
+    // Check small phones, standard phones and tablets, including the modal.
+    // The dialog must remain inside the visual viewport without sideways scroll.
+    for (const width of [320, 375, 768]) {
+      const page = await browser.newPage({
+        viewport: { width, height: 812 }, isMobile: width < 600, hasTouch: width < 600
+      });
+      try {
+        await page.goto(address);
+        const checkLayout = async context => {
+          const bounds = await page.evaluate(() => {
+            const doc = document.documentElement;
+            const dialog = document.querySelector('#booking-dialog');
+            const rect = dialog.open ? dialog.getBoundingClientRect() : null;
+            return {
+              scroll: doc.scrollWidth, viewport: doc.clientWidth,
+              dialog: rect ? { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom } : null,
+              height: window.innerHeight
+            };
+          });
+          assert.ok(bounds.scroll <= bounds.viewport + 1,
+            context + ' horizontal overflow at ' + width + 'px: ' + JSON.stringify(bounds));
+          if (bounds.dialog) {
+            assert.ok(bounds.dialog.left >= -1 && bounds.dialog.right <= bounds.viewport + 1,
+              context + ' dialog outside viewport at ' + width + 'px: ' + JSON.stringify(bounds));
+            assert.ok(bounds.dialog.top >= -1 && bounds.dialog.bottom <= bounds.height + 1,
+              context + ' dialog too tall at ' + width + 'px: ' + JSON.stringify(bounds));
+          }
+        };
+        await checkLayout('Dashboard');
+        await page.locator('#add-booking').click();
+        assert.equal(await page.locator('#booking-dialog').evaluate(node => node.open), true);
+        await checkLayout('Booking form');
+        await page.locator('#close-booking').click();
+        assert.equal(await page.locator('#booking-dialog').evaluate(node => node.open), false);
+      } finally {
+        await page.close();
+      }
+    }
   } finally {
     await browser?.close();
     await new Promise(resolve => server.close(resolve));
