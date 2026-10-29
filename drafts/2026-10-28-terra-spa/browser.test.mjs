@@ -83,6 +83,21 @@ test('Chromium desktop and mobile: calendar, booking, persistence and focus', { 
     // Reload exercises actual localStorage persistence, not just the pure logic.
     await desktop.reload();
     await guest.waitFor();
+    // Filtering should announce the number of matches, including zero results,
+    // without moving keyboard focus away from the search field.
+    const search = desktop.locator('#booking-search');
+    await search.fill('Browser Demo');
+    assert.equal(await desktop.locator('#appointments .appointment').count(), 1);
+    assert.equal(await desktop.locator('#search-summary').textContent(),
+      '1 of 4 appointments match your search.');
+    assert.equal(await search.evaluate(node => node === document.activeElement), true);
+    await search.fill('No such guest');
+    assert.equal(await desktop.locator('#appointments .appointment').count(), 0);
+    assert.equal(await desktop.locator('#search-summary').textContent(),
+      '0 of 4 appointments match your search.');
+    await search.fill('');
+    assert.equal(await desktop.locator('#appointments .appointment').count(), 4);
+    assert.equal(await desktop.locator('#search-summary').textContent(), '');
     await guest.click();
     await desktop.locator('#mark-complete').click();
     await desktop.waitForFunction(() => document.activeElement?.id === 'selected-date');
