@@ -13,7 +13,7 @@ A quiet, editorial operations workspace for a boutique spa. The interface makes 
 - Service mix chart that updates as bookings change.
 - Browser-only demo persistence; reset button restores fictional sample data. On reload, malformed records, duplicate booking IDs and overlapping active appointments invalidate the saved demo schedule, which safely resets to sample data.
 - Native modal dialogs, keyboard-operable controls, visible focus styles, status messaging and reduced-motion support. The weekly date picker uses one Tab stop, arrow keys to move by day or week, and Home/End to jump within a week; focus follows the selected date even when crossing weeks.
-- After adding an appointment, the dialog closes, a polite status message confirms the guest/date/time, and keyboard focus moves to the newly created appointment in the diary. Reset clears the old confirmation.
+- After adding an appointment, the dialog closes, a polite status message confirms the guest/date/time, and keyboard focus moves to the newly created appointment in the diary. Completing or cancelling an appointment announces the outcome in the same live region and returns focus to the selected-day heading. Reset clears the old confirmation.
 
 ## Design decisions
 Warm paper, dark plum, muted rose and Georgia editorial headings distinguish TERRA from generic medical/booking software. No external images, paid fonts, stock imagery, third-party scripts in the delivered interface, or AI-generated art. Copy and UI label the product **fictional**. All data stays in the browser; no backend, payment, staff or customer accounts exist.
@@ -40,7 +40,7 @@ These screenshots are **evidence for human review, not proof of visual approval*
 1. With NVDA + Firefox or VoiceOver + Safari, use the skip link and navigate to the appointment diary. Confirm that the selected date and date controls have meaningful names.
 2. Open **New appointment** with the keyboard. Verify the dialog title, labelled fields, available-time feedback, and Escape/cancel focus restoration.
 3. Add a fictional appointment. Confirm that the success message is announced and focus reaches the newly added diary entry, without jumping back to **New appointment**.
-4. Complete or cancel a booking. Confirm that the updated status is readable and focus returns to the selected-date heading. Test 320px mobile zoom and a physical keyboard where available.
+4. Complete or cancel a booking. Confirm that the outcome is announced once in the diary's polite live region, the updated status is readable, and focus returns to the selected-date heading. Test 320px mobile zoom and a physical keyboard where available.
 
 These are acceptance steps for a human reviewer, **not claims that screen-reader testing has passed**.
 
