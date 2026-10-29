@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, SLOTS, validDate, validStoredRecord, validStoredSchedule, dateForCalendarKey, availableSlots } from './app.mjs';
+import { addDays, startOfWeek, toISODate, overlaps, canBook, statsFor, seedRecords, SERVICES, SLOTS, validDate, validStoredRecord, validStoredSchedule, dateForCalendarKey, availableSlots, canTransition } from './app.mjs';
 
 test('week navigation uses Monday first, including month/year boundaries', () => {
   assert.equal(startOfWeek('2026-10-28'),'2026-10-26');
@@ -92,4 +92,14 @@ test('booking form offers only available start times for the selected treatment'
   assert.equal(availableSlots(records,'2026-02-31','massage').length,0);
   const fullDay=SLOTS.map((time,i)=>({id:'filled-'+i,date,time,service:'massage',status:'booked'}));
   assert.deepEqual(availableSlots(fullDay,date,'massage'),[]);
+});
+
+test('appointment outcomes are terminal and only booked records can change', () => {
+  assert.equal(canTransition({status:'booked'},'completed'),true);
+  assert.equal(canTransition({status:'booked'},'cancelled'),true);
+  assert.equal(canTransition({status:'completed'},'cancelled'),false);
+  assert.equal(canTransition({status:'cancelled'},'completed'),false);
+  assert.equal(canTransition({status:'completed'},'completed'),false);
+  assert.equal(canTransition(null,'completed'),false);
+  assert.equal(canTransition({status:'booked'},'unknown'),false);
 });
