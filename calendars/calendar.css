@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
-:root{--ink:#191813;--bg:#f5f0e7;--gold:#b18a5c;--line:#ddd3c4;--muted:#77756e;--night:#0e1011}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',sans-serif}img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ac8456;outline-offset:3px}.wrap{max-width:1400px;padding:0 clamp(20px,5vw,76px);margin:auto}.nav{padding:25px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:15px}.nav-brand{font:600 15px/1.2 'DM Sans';letter-spacing:.08em}.nav-links{display:flex;gap:25px;align-items:center;font-size:12px}.nav-links a:hover{color:#936a46}.eyebrow{font:700 10px 'DM Sans';letter-spacing:.2em;text-transform:uppercase;color:#a27c55}.series-head{padding:84px 0 45px}.series-head h1,.detail-head h1{font:400 clamp(64px,8vw,124px)/.96 'Playfair Display',Georgia,serif;letter-spacing:-.07em;margin:17px 0}.series-head p{color:#615e57;max-width:650px;font-size:18px}.series-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:95px}.series-grid article{background:#fff;border:1px solid var(--line);padding-bottom:30px}.series-grid article>a>img{width:100%;aspect-ratio:1.25;object-fit:cover}.series-grid article>div{padding:24px 25px 0}.series-grid h2{font:400 37px 'Playfair Display',Georgia,serif;letter-spacing:-.035em;margin:8px 0}.series-grid p{color:#69665f;line-height:1.7}.enter{display:inline-block;border-bottom:1px solid var(--ink);padding:13px 0;font-weight:700;font-size:12px}.detail-head{padding:70px 0 50px}.detail-head h1{font-size:clamp(66px,9vw,130px)}.detail-head h1 em{font-weight:400;color:#9a714a}.detail-head p{max-width:650px;font-size:18px;color:#57544b}.presentation{background:#090909;padding:25px;position:relative}.presentation img{width:100%;height:auto;display:block}.caption{display:flex;justify-content:space-between;gap:15px;align-items:center;border-bottom:1px solid var(--line);padding:16px 0;color:#716c64;font-size:12px}.story-head{margin:95px 0 25px}.story-head h2{font:400 clamp(47px,6vw,86px)/1.05 'Playfair Display',serif;letter-spacing:-.06em;margin:10px 0 20px}.story-head p{color:#6b675e;max-width:600px}.month-section{padding:20px 0 75px}.month-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(230px,.6fr);gap:32px;align-items:start}.page-outer{background:#151515;padding:17px;box-shadow:0 22px 60px #27201520}.page-outer canvas{width:100%;height:auto;display:block;aspect-ratio:760/1075;background:#161616}.month-side{position:sticky;top:15px;padding:22px 0}.month-side h3{font:400 53px/1.1 'Playfair Display',Georgia,serif;letter-spacing:-.05em;margin:13px 0}.month-side p{color:#6c6860}.navmonths{display:flex;gap:8px;align-items:center;margin:24px 0}.navmonths button,.download{background:var(--ink);color:white;border:0;padding:12px 17px;font-size:12px}.navmonths button:disabled{opacity:.3;cursor:not-allowed}.month-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:25px}.month-mini button{border:2px solid transparent;background:#ece5d9;padding:3px;color:#373126}.month-mini button.active{border-color:#ac8054}.month-mini canvas{width:100%;display:block}.download{display:inline-block;margin-top:20px}.sheet{padding:10px 0 100px}.sheet img{width:min(100%,1050px);margin:auto;border:14px solid #141414;box-shadow:0 24px 55px #29201324}.cultural-note{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:10px 0 35px;color:#645d55;font-size:13px;max-width:800px}.backrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:65px auto;font-size:12px;font-weight:700}.footer{background:#101112;color:#ddd9d3;margin-top:70px;padding:48px 0;font-size:12px}.footer a:hover{color:#f5bc82}.footer-in{display:flex;align-items:center;justify-content:space-between;gap:16px}.other-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.other-grid a{display:flex;gap:15px;padding:18px;border:1px solid var(--line);align-items:center}.other-grid img{width:145px;height:100px;object-fit:cover}.other-grid b{font-size:14px}.other-grid small{display:block;color:#777}.hidden{display:none!important}
+:root{--ink:#191813;--bg:#f5f0e7;--gold:#b18a5c;--line:#ddd3c4;--muted:#77756e;--night:#0e1011}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',sans-serif}img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ac8456;outline-offset:3px}.wrap{max-width:1400px;padding:0 clamp(20px,5vw,76px);margin:auto}.nav{padding:25px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:15px}.nav-brand{font:600 15px/1.2 'DM Sans';letter-spacing:.08em}.nav-links{display:flex;gap:25px;align-items:center;font-size:12px}.nav-links a:hover{color:#936a46}.eyebrow{font:700 10px 'DM Sans';letter-spacing:.2em;text-transform:uppercase;color:#a27c55}.series-head{padding:84px 0 45px}.series-head h1,.detail-head h1{font:400 clamp(64px,8vw,124px)/.96 'Playfair Display',Georgia,serif;letter-spacing:-.07em;margin:17px 0}.series-head p{color:#615e57;max-width:650px;font-size:18px}.series-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:95px}.series-grid article{background:#fff;border:1px solid var(--line);padding-bottom:30px}.series-grid article>a>img{width:100%;aspect-ratio:1.25;object-fit:cover}.series-grid article>div{padding:24px 25px 0}.series-grid h2{font:400 37px 'Playfair Display',Georgia,serif;letter-spacing:-.035em;margin:8px 0}.series-grid p{color:#69665f;line-height:1.7}.enter{display:inline-block;border-bottom:1px solid var(--ink);padding:13px 0;font-weight:700;font-size:12px}
+.enter + .enter{margin-left:16px}.detail-head{padding:70px 0 50px}.detail-head h1{font-size:clamp(66px,9vw,130px)}.detail-head h1 em{font-weight:400;color:#9a714a}.detail-head p{max-width:650px;font-size:18px;color:#57544b}.presentation{background:#090909;padding:25px;position:relative}.presentation img{width:100%;height:auto;display:block}.caption{display:flex;justify-content:space-between;gap:15px;align-items:center;border-bottom:1px solid var(--line);padding:16px 0;color:#716c64;font-size:12px}.story-head{margin:95px 0 25px}.story-head h2{font:400 clamp(47px,6vw,86px)/1.05 'Playfair Display',serif;letter-spacing:-.06em;margin:10px 0 20px}.story-head p{color:#6b675e;max-width:600px}.month-section{padding:20px 0 75px}.month-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(230px,.6fr);gap:32px;align-items:start}.page-outer{background:#151515;padding:17px;box-shadow:0 22px 60px #27201520}.page-outer canvas{width:100%;height:auto;display:block;aspect-ratio:760/1075;background:#161616}.month-side{position:sticky;top:15px;padding:22px 0}.month-side h3{font:400 53px/1.1 'Playfair Display',Georgia,serif;letter-spacing:-.05em;margin:13px 0}.month-side p{color:#6c6860}.navmonths{display:flex;gap:8px;align-items:center;margin:24px 0}.navmonths button,.download{background:var(--ink);color:white;border:0;padding:12px 17px;font-size:12px}.navmonths button:disabled{opacity:.3;cursor:not-allowed}.month-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:25px}.month-mini button{border:2px solid transparent;background:#ece5d9;padding:3px;color:#373126}.month-mini button.active{border-color:#ac8054}.month-mini canvas{width:100%;display:block}.download{display:inline-block;margin-top:20px}.sheet{padding:10px 0 100px}.sheet img{width:min(100%,1050px);margin:auto;border:14px solid #141414;box-shadow:0 24px 55px #29201324}.cultural-note{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:10px 0 35px;color:#645d55;font-size:13px;max-width:800px}.backrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:65px auto;font-size:12px;font-weight:700}.footer{background:#101112;color:#ddd9d3;margin-top:70px;padding:48px 0;font-size:12px}.footer a:hover{color:#f5bc82}.footer-in{display:flex;align-items:center;justify-content:space-between;gap:16px}.other-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.other-grid a{display:flex;gap:15px;padding:18px;border:1px solid var(--line);align-items:center}.other-grid img{width:145px;height:100px;object-fit:cover}.other-grid b{font-size:14px}.other-grid small{display:block;color:#777}.hidden{display:none!important}
 @media(max-width:900px){.series-grid{grid-template-columns:1fr 1fr}.month-layout{grid-template-columns:1fr}.month-side{position:static}.month-mini{grid-template-columns:repeat(6,1fr)}}@media(max-width:590px){.nav-links{gap:9px;font-size:11px}.series-grid{grid-template-columns:1fr}.detail-head h1{font-size:66px}.month-mini{grid-template-columns:repeat(4,1fr)}.presentation{padding:8px}.other-grid{grid-template-columns:1fr}.footer-in{display:block}}
 
 
@@ -93,4 +94,82 @@ html,body{max-width:100%;overflow-x:clip}
   .navmonths button{flex:1}
   .caption{flex-wrap:wrap}
   .other-grid img{width:94px;height:72px}
+}
+
+/* ---------------------------------------------------------------------------
+   2027 rebuild: year context, a readable date grid, and print / export paths.
+   The artwork pages stay untouched; these additions make the calendar usable
+   as text, printable as A4 and navigable by month and year.
+   --------------------------------------------------------------------------- */
+.year-bar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:14px 0;margin:0 0 22px;max-width:1120px;margin-inline:auto
+}
+.year-chip{background:var(--ink);color:#fff;font-weight:700;font-size:12px;padding:6px 13px;letter-spacing:.06em}
+.year-note{font-size:12px;color:#736d64;max-width:660px;line-height:1.6}
+.grid-panel{
+  margin:34px auto 0;max-width:1120px;background:#fff;
+  border:1px solid var(--line);padding:clamp(18px,2.6vw,34px)
+}
+.grid-head h3{font:400 clamp(26px,3vw,40px)/1.1 'Playfair Display',Georgia,serif;letter-spacing:-.04em;margin:9px 0 7px}
+.grid-head p{color:#6b675e;font-size:13.5px;max-width:680px;margin:0;line-height:1.7}
+.dategrid{width:100%;border-collapse:collapse;margin-top:22px;table-layout:fixed}
+.dategrid caption{text-align:left;font:700 11px 'DM Sans';letter-spacing:.16em;text-transform:uppercase;color:#a27c55;padding-bottom:10px}
+.dategrid th{font:700 10px 'DM Sans';letter-spacing:.14em;text-transform:uppercase;color:#877f73;text-align:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.dategrid th .long{display:none}
+.dategrid td{text-align:center;padding:11px 0;border-bottom:1px solid #ece5da;font-size:15px;font-variant-numeric:tabular-nums}
+.dategrid td.weekend{color:#a1795a;background:#faf6ef}
+.dategrid td.empty{border-bottom-color:transparent}
+@media(min-width:700px){
+  .dategrid th .long{display:inline}
+  .dategrid th span:first-child{display:none}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.print-intro{padding:52px 0 24px;max-width:920px}
+.print-intro h1{font:400 clamp(42px,6vw,82px)/1.02 'Playfair Display',Georgia,serif;letter-spacing:-.06em;margin:16px 0 10px}
+.print-intro .eyebrow{margin-bottom:4px}
+.print-intro p{color:#5e5a52;font-size:16px;max-width:700px;line-height:1.75}
+.print-steps{margin:20px 0;padding-left:20px;color:#5e5a52;font-size:14px;line-height:1.9}
+.print-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 40px}
+.print-actions button,.print-actions a{border:1px solid #b0a18b;background:#fff;color:var(--ink);padding:13px 18px;font:700 12px 'DM Sans';display:inline-flex;align-items:center}
+.print-actions button,.print-actions .primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.print-actions button:hover,.print-actions a:hover{border-color:#8a6f4a}
+.print-page{
+  position:relative;width:100%;max-width:210mm;margin:0 auto 20px;
+  aspect-ratio:210/297;overflow:hidden;background:#101010;border:1px solid var(--line)
+}
+.print-page img{position:absolute;left:0;top:0;width:300%;height:400%;max-width:none;display:block}
+@media(max-width:590px){
+  .dategrid td{padding:8px 0;font-size:13px}
+  .dategrid th{font-size:9px;letter-spacing:.08em}
+  .print-page{margin-bottom:12px}
+}
+
+/* Print: the artwork is the print-ready file.
+   Detail pages print the current month as one A4 sheet;
+   print sets output the twelve designed pages, one per sheet. */
+@media print{
+  @page{size:A4 portrait;margin:0}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:#fff!important;margin:0!important;padding:0!important}
+  .nav,.detail-head,.presentation,.media-tools,.caption,.story-head,.month-side,
+  .grid-panel,.sheet,.other-grid,.backrow,.footer,.cultural-note,.year-bar,
+  .series-head,.print-intro,.no-print,.eyebrow{display:none!important}
+  .wrap{padding:0;max-width:none}
+  .month-section{padding:0;overflow:hidden}
+  .month-layout{display:block;max-width:none;gap:0;overflow:hidden}
+  .page-outer{padding:0;background:#fff;box-shadow:none;display:block;border-radius:0;overflow:hidden}
+  /* One A4 sheet: the artwork fills the sheet with a hair to spare so no blank page follows. */
+  .page-outer canvas{
+    display:block;margin:0 auto;
+    width:209.8mm!important;height:296.7mm!important;
+    max-width:none!important;max-height:none!important;aspect-ratio:auto
+  }
+  .print-page{
+    width:210mm;height:297mm;max-width:none;margin:0;border:0;border-radius:0;
+    aspect-ratio:auto;background:#101010;
+    break-after:page;page-break-after:always
+  }
+  .print-page:last-of-type{break-after:auto;page-break-after:auto}
 }

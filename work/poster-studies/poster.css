@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:wght@500;600;700&family=DM+Serif+Display&family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=Italiana&family=Lilita+One&family=Prata&display=swap');
+
+/* The Impossible Studio: Poster Studies series stylesheet.
+   Shared by the series index and the eight individual poster pages.
+   The eight approved poster PNGs are presented unchanged, never redrawn. */
+
+:root{--paper:#f8f4f0;--ink:#212033;--sub:#6d6975;--accent:#ab7594}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.7 Inter,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid #ab7594;outline-offset:4px}
+img{max-width:100%}
+.container{width:min(1400px,calc(100% - 7vw));margin:auto}
+.skip{position:absolute;left:-9999px;top:0;background:#252037;color:#fff;padding:12px 18px;z-index:99}
+.skip:focus{left:12px;top:12px}
+.header{position:sticky;top:0;z-index:60;background:#252037f2;color:#fff;backdrop-filter:blur(16px)}
+.header .container{display:flex;align-items:center;justify-content:space-between;min-height:68px;gap:22px}
+.header a{font-size:12px;font-weight:800;letter-spacing:.02em}
+.header nav{display:flex;gap:26px}
+.header nav a{font-size:11px}
+.header nav a:hover{color:#f3bad6}
+.intro{padding:92px 0 77px;background:#241f36;color:#fdf5f1;position:relative;overflow:hidden}
+.intro:after{content:"✳";font-family:Georgia,serif;font-size:290px;position:absolute;right:0;top:-100px;color:#c88ab22a;pointer-events:none}
+.intro h1{font:600 clamp(67px,10vw,154px)/.92 'Cormorant Garamond',serif;letter-spacing:-.057em;margin:25px 0}
+.intro p{max-width:660px;font-size:17px;color:#e0d7e0}
+.eyebrow,.kicker{font-weight:800;letter-spacing:.2em;text-transform:uppercase;font-size:10px}
+.intro-note{display:inline-block;margin-top:16px;border:1px solid #efdbed66;padding:11px 18px;border-radius:40px;font-size:12px}
+.series-nav{display:flex;flex-wrap:wrap;gap:12px;padding:29px 0 15px}
+.series-nav a{border:1px solid #d4c7c8;border-radius:30px;padding:8px 13px;font-size:11px;font-weight:700}
+.series-nav a:hover{background:#252037;color:#fff}
+.collection{padding:35px 0 115px}
+.study{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:clamp(28px,4vw,80px);align-items:center;padding:75px 0 92px;border-bottom:1px solid #dcd2d2;scroll-margin-top:75px}
+.study:nth-child(even) .showcase{order:2}
+.study:nth-child(even) .casecopy{order:1}
+.showcase{width:100%;padding:27px;background:#e7e1db;box-shadow:0 16px 38px #2d29401a}
+.case-top{display:flex;gap:14px;justify-content:space-between;align-items:center}
+.kicker{color:#b46483}
+.badge-kind{font-size:10px;color:#8b7885;border:1px solid #cdbdc8;border-radius:30px;padding:6px 12px}
+.casecopy h2{font:600 clamp(40px,4.5vw,69px)/1 'Cormorant Garamond',serif;letter-spacing:-.04em;margin:28px 0 15px}
+.description{font-size:16px;line-height:1.8;color:#464452}
+.casecopy dl{margin-top:32px;border-top:1px solid #d7cbcd}
+.casecopy dl div{padding:15px 0;border-bottom:1px solid #d7cbcd}
+.casecopy dt{font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:#9e7186;margin-bottom:5px}
+.casecopy dd{margin:0;color:#575463;font-size:13px;line-height:1.75}
+.casecopy dd b{color:#242033}
+.case-footer{display:flex;gap:8px;align-items:center;margin-top:24px;flex-wrap:wrap}
+.swatch{width:25px;height:25px;border-radius:50%;border:1px solid #2222}
+.label{font-size:9px;letter-spacing:.11em;font-weight:800;color:#8b8089;margin-left:10px}
+.study-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.study-links a{border:1px solid #cdbdc8;border-radius:30px;padding:11px 16px;font-size:12px;font-weight:750;background:#fff}
+.study-links a:hover{border-color:#252037}
+.study-links a.primary{background:#252037;color:#fff;border-color:#252037}
+.closing{padding:100px 0;background:#242037;color:#fff}
+.closing h2{font:600 clamp(54px,7vw,100px)/1 'Cormorant Garamond',serif;margin:15px 0}
+.closing p{max-width:620px;color:#ded6e0}
+.closing a{display:inline-block;margin:24px 14px 0 0;border:1px solid #ead4e7;border-radius:30px;padding:12px 20px;font-size:12px;font-weight:750}
+.closing a:hover{background:#fff;color:#242037}
+.approved-artwork{padding:12px;background:#e7e1db}
+.approved-artwork img{width:100%;height:auto;display:block;object-fit:contain;aspect-ratio:1086/1448}
+.study:nth-child(even) .approved-artwork{order:2}
+
+/* Individual poster pages */
+.crumbs{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:26px 0 8px;font-size:11px;font-weight:800;color:#8b8089}
+.crumbs a{border-bottom:1px solid transparent}
+.crumbs a:hover{color:#b46483;border-bottom-color:#b46483}
+.cover{padding:34px 0 42px;border-bottom:1px solid #dcd2d2}
+.cover .eyebrow{color:#b46483}
+.cover h1{font:600 clamp(46px,7.6vw,116px)/.94 'Cormorant Garamond',serif;letter-spacing:-.05em;margin:14px 0 0;overflow-wrap:anywhere}
+.cover .tagline{font-size:clamp(15px,1.6vw,19px);color:#575463;margin:18px 0 0;max-width:640px}
+.detail{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(300px,.86fr);gap:clamp(28px,4vw,70px);align-items:start;padding:44px 0 80px}
+.sheet{margin:0;background:#e7e1db;padding:clamp(12px,2vw,26px);box-shadow:0 18px 42px #2d29401f}
+.sheet img{display:block;width:100%;height:auto;aspect-ratio:1086/1448;object-fit:contain}
+.art-meta{display:flex;justify-content:space-between;gap:14px;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8b8089;padding:14px 2px 0}
+.export{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.export a,.export button{display:inline-flex;align-items:center;gap:7px;border:1px solid #cdbdc8;border-radius:30px;padding:11px 16px;font:750 12px Inter,Arial,sans-serif;background:#fff;color:var(--ink);cursor:pointer}
+.export a:hover,.export button:hover{border-color:#252037}
+.export a.primary,.export button.primary{background:#252037;color:#fff;border-color:#252037}
+.export-note{font-size:11px;line-height:1.7;color:#7d7885;margin:14px 0 0;max-width:460px}
+.notes h2{font:600 clamp(26px,2.6vw,38px)/1.15 'Cormorant Garamond',serif;letter-spacing:-.03em;margin:0 0 12px}
+.notes p{color:#4e4b59;font-size:14px;line-height:1.8}
+.notes section{margin-top:38px}
+.notes section:first-child{margin-top:0}
+.notes dl{border-top:1px solid #d7cbcd;margin:14px 0 0}
+.notes dl div{display:grid;grid-template-columns:132px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid #d7cbcd}
+.notes dt{font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:#9e7186}
+.notes dd{margin:0;font-size:13.5px;color:#3d3a48;line-height:1.7}
+.notes ul{margin:0;padding-left:16px}
+.notes li{font-size:13.5px;color:#3d3a48}
+.palette{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px}
+.palette div{width:92px}
+.palette span{display:block;height:54px;border:1px solid #25203722;border-radius:2px}
+.palette small{display:block;font-size:9.5px;letter-spacing:.07em;color:#6d6975;margin-top:7px;text-transform:uppercase;font-weight:700}
+.poster-nav{border-top:1px solid #dcd2d2;padding:24px 0 60px;display:flex;justify-content:space-between;gap:18px;align-items:center}
+.poster-nav a{font-size:12px;font-weight:800;max-width:46%}
+.poster-nav a:hover{color:#b46483}
+.poster-nav a.next{text-align:right;margin-left:auto}
+.poster-nav a span{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#9e7186;margin-bottom:6px}
+.poster-nav.all{display:block;text-align:center;border-top:none;padding-top:0}
+
+@media(max-width:1100px){
+  .study,.detail{grid-template-columns:1fr}
+  .study:nth-child(even) .showcase,.study:nth-child(even) .casecopy,.study:nth-child(even) .approved-artwork{order:initial}
+  .showcase,.casecopy,.sheet{max-width:690px;margin:auto}
+  .detail{gap:40px}
+  .notes{max-width:690px;margin:auto}
+}
+@media(max-width:620px){
+  .container{width:calc(100% - 32px)}
+  .intro{padding:64px 0}
+  .header nav{gap:10px}
+  .header nav a{font-size:10px}
+  .study{padding:48px 0 62px}
+  .showcase{padding:10px}
+  .casecopy h2{font-size:50px}
+  .series-nav a{font-size:10px}
+  .label{width:100%;margin:6px 0 0}
+  .approved-artwork{padding:7px}
+  .cover{padding:22px 0 30px}
+  .sheet{padding:8px}
+  .export a,.export button{width:100%;justify-content:center}
+  .notes dl div{grid-template-columns:1fr;gap:4px}
+  .poster-nav{display:block;text-align:left}
+  .poster-nav a{display:block;max-width:100%;margin-bottom:16px}
+  .poster-nav a.next{text-align:left}
+}
+
+/* Print: the poster page exports as its own A4 portrait sheet, artwork only. */
+@media print{
+  @page{size:A4 portrait;margin:10mm}
+  html,body{background:#fff!important;margin:0!important;padding:0!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .header,.crumbs,.cover,.export,.export-note,.poster-nav,.closing,.skip,.art-meta,.notes,.eyebrow{display:none!important}
+  .container{width:100%!important;max-width:none!important;padding:0!important;margin:0!important}
+  .detail{display:block;padding:0;gap:0}
+  .sheet{background:#fff;padding:0;box-shadow:none;margin:0}
+  .sheet img{display:block;width:100%;height:auto;max-height:254mm;object-fit:contain;margin:0 auto}
+  .sheet:after{content:"The Impossible Studio / Poster Studies - speculative design, not a real event";display:block;font:400 8pt Inter,Arial,sans-serif;color:#555;padding-top:6mm;text-align:center}
+}
