@@ -166,7 +166,11 @@ function boot() {
   function renderAppointments() {
     setText('selected-date',dateLabel(selectedDay));
     const query=$('booking-search').value.trim().toLocaleLowerCase();
-    const list=records.filter(item=>item.date===selectedDay && (item.guest+' '+serviceById(item.service).name).toLocaleLowerCase().includes(query)).sort((a,b)=>a.time.localeCompare(b.time));
+    const dayRecords=records.filter(item=>item.date===selectedDay);
+    const list=dayRecords.filter(item=>(item.guest+' '+serviceById(item.service).name).toLocaleLowerCase().includes(query)).sort((a,b)=>a.time.localeCompare(b.time));
+    setText('search-summary',query
+      ? list.length+' of '+dayRecords.length+' appointments match your search.'
+      : '');
     const wrap=$('appointments');wrap.replaceChildren();
     $('schedule-status').hidden=list.length>0;
     if(!list.length) setText('schedule-status',query?'No matching appointments for this day.':'No appointments for this day. Add a demo booking to get started.');
