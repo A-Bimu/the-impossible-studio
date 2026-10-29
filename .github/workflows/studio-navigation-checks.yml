@@ -1,0 +1,29 @@
+# Read-only regression guard for Studio cross-project navigation.
+# Does not deploy, merge, or change the homepage.
+name: Studio section-link checks
+
+on:
+  pull_request:
+    paths:
+      - 'daily/index.html'
+      - 'pitch-decks/index.html'
+      - 'tests/studio-navigation.test.mjs'
+      - '.github/workflows/studio-navigation-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  section-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify homepage section links from journal and pitch decks
+        run: node --test tests/studio-navigation.test.mjs
