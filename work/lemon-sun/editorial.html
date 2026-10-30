@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#f6f2e7">
+<title>The Lemon Sun · Companion editorial | The Impossible Studio</title>
+<meta name="description" content="The Lemon Sun read as an editorial spread: the artwork's own story set in live type, with detail plates from the original illustration.">
+<link rel="stylesheet" href="../../studio.css">
+<style>
+/* The Lemon Sun, page two. An ivory editorial spread inside the studio shell.
+   Scoped in this file so the shared studio.css stays untouched. */
+.le-page{background:#f6f2e7;color:#1d3a6d;padding:0}
+.le-inner{max-width:1180px;margin:auto;padding:clamp(30px,5vw,74px) clamp(20px,5vw,88px) clamp(40px,6vw,90px)}
+.le-masthead{display:flex;flex-wrap:wrap;gap:10px 30px;justify-content:space-between;border-bottom:1px solid #1d3a6d38;padding-bottom:16px;font:700 10px/1.7 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#61728f}
+.le-title{font:400 clamp(46px,9.4vw,124px)/.95 Georgia,serif;letter-spacing:-.055em;margin:clamp(26px,4vw,52px) 0 0;max-width:15ch}
+.le-title em{font-style:italic;color:#b08a1f}
+.le-sub{font:700 11px 'Manrope',sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#61728f;margin:22px 0 0}
+.le-byline{display:flex;flex-wrap:wrap;gap:6px 26px;justify-content:space-between;border-top:1px solid #1d3a6d38;border-bottom:1px solid #1d3a6d38;padding:14px 0;margin:clamp(24px,4vw,44px) 0 0;font-size:12px;color:#4c6086}
+.le-standfirst{font:400 clamp(19px,2.1vw,26px)/1.62 Georgia,serif;color:#223d70;max-width:46ch;margin:clamp(30px,4.4vw,56px) 0 0}
+.le-standfirst::first-letter{float:left;font-size:4.05em;line-height:.8;padding:6px 10px 0 0;color:#1d3a6d}
+.le-plate{margin:clamp(38px,5vw,68px) 0 0;text-align:center}
+.le-plate img{width:100%;max-width:900px;height:auto;display:inline-block;border:1px solid #1d3a6d24}
+.le-plate figcaption{max-width:900px;margin:16px auto 0;text-align:left;display:flex;flex-wrap:wrap;gap:8px 26px;justify-content:space-between;border-top:1px solid #1d3a6d2e;padding-top:13px;font:700 10px/1.6 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5f7091}
+.le-section-head{display:flex;flex-wrap:wrap;gap:12px 30px;align-items:baseline;justify-content:space-between;border-top:2px solid #1d3a6d;margin:clamp(44px,6vw,86px) 0 clamp(24px,3vw,40px);padding-top:14px}
+.le-section-head h2{font:400 clamp(24px,3vw,38px)/1.1 Georgia,serif;letter-spacing:-.035em;margin:0}
+.le-section-head span{font:700 10px 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#61728f}
+.le-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,58px);align-items:start;padding:clamp(26px,3.4vw,44px) 0;border-bottom:1px solid #1d3a6d26}
+.le-feature[data-side="right"] figure{order:2}
+.le-feature figure{margin:0}
+.le-feature img{width:100%;height:auto;display:block;border:1px solid #1d3a6d24}
+.le-feature figcaption{margin-top:12px;font:700 10px/1.7 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5f7091}
+.le-feature h3{font:700 11px 'Manrope',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#a8892f;margin:0 0 14px}
+.le-feature p{margin:0;font-size:16.5px;line-height:1.92;color:#2b4468}
+.le-feature p+p{margin-top:15px}
+.le-quote{margin:clamp(48px,6vw,90px) 0;text-align:center;border-top:1px solid #1d3a6d38;border-bottom:1px solid #1d3a6d38;padding:clamp(30px,4.4vw,58px) 0}
+.le-quote p{font:italic 400 clamp(24px,3.6vw,46px)/1.24 Georgia,serif;letter-spacing:-.03em;margin:0 auto;max-width:24ch}
+.le-quote span{display:block;margin-top:20px;font:700 10px 'Manrope',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#61728f}
+.le-notes{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:clamp(26px,4vw,64px);align-items:start}
+.le-note{padding:22px 0;border-bottom:1px solid #1d3a6d26}
+.le-note b{display:block;font:700 10px 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a8892f;margin-bottom:10px}
+.le-note p{margin:0;font-size:15.5px;line-height:1.9;color:#2b4468}
+.le-margin img{width:100%;height:auto;display:block;border:1px solid #1d3a6d24}
+.le-margin figcaption{margin-top:12px;font:700 10px/1.7 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5f7091}
+.le-status{background:var(--bg);color:var(--ink);margin-top:0;padding:clamp(46px,6vw,92px) 0 clamp(30px,4vw,56px)}
+.le-status .facts{border-color:#344650}
+.le-status .facts small{color:#bc9c85}
+@media(max-width:860px){.le-feature{grid-template-columns:1fr}.le-feature[data-side="right"] figure{order:0}.le-notes{grid-template-columns:1fr}.le-margin{max-width:280px}}
+</style>
+</head>
+<body>
+<header class="nav shell"><a class="brand" href="../../" aria-label="The Impossible Studio homepage">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><nav aria-label="Primary navigation"><a href="../../#work">Work</a><a href="../../#archive">Experiments</a><a href="../../daily/">Daily designs</a><a href="../../#about">About</a></nav><a class="navlink" href="../../daily/">Studio journal ↗</a></header>
+<main>
+<div class="breadcrumbs shell"><a href="../../#archive">All work</a><span>/</span><a href="./">The Lemon Sun</a><span>/</span>Companion editorial</div>
+
+<div class="le-page">
+<div class="le-inner">
+
+<div class="le-masthead"><span>The Impossible Studio · Editorial companion</span><span>Page two · The botanical story page</span></div>
+
+<h1 class="le-title">A Summer That <em>Never Ends</em></h1>
+<p class="le-sub">A true story</p>
+<div class="le-byline"><span>Illustration and story: the approved artwork</span><span>Page two · set as live type, 2026</span></div>
+
+<p class="le-standfirst">In a small coastal town, there is a place where time moves differently. The sun here is a lemon, the walls are painted with flowers, and every day feels like the first day of summer.</p>
+
+<figure class="le-plate">
+<img src="../../assets/lemon-original.webp" alt="The Lemon Sun, the approved artwork: a giant lemon slice in a tiled arch, a blue coastal inlet, lemon branches and majolica tiles, with a typeset story and three arch vignettes down the right side.">
+<figcaption><span>Page one, reproduced · The approved artwork, 900 x 1125</span><span>Watercolour and majolica tile pattern</span></figcaption>
+</figure>
+
+<div class="le-section-head"><h2>The story, set in type</h2><span>Page two · three passages from the artwork</span></div>
+
+<div class="le-feature">
+<figure>
+<img src="./details/sun-disc.webp" alt="Detail from the artwork: a translucent lemon slice drawn at the scale of a sun, its segments open like rays.">
+<figcaption>Detail A / The lemon sun</figcaption>
+</figure>
+<div>
+<h3>The Lemon Sun</h3>
+<p>Every morning, the lemon sun rises over the sea, filling the town with golden light. It never sets, because here summer always finds a way to stay.</p>
+<p>The slice is drawn at the scale of a sun and lit from inside, so the palette can travel from ceramic blue to warm yellow without inventing a sunset.</p>
+</div>
+</div>
+
+<div class="le-feature" data-side="right">
+<figure>
+<img src="./details/balcony.webp" alt="Detail from the artwork: a majolica balustrade above a blue inlet, with lemon trees, a small sailing boat and a headland in the distance.">
+<figcaption>Detail B / The terrace</figcaption>
+</figure>
+<div>
+<h3>A Place to Belong</h3>
+<p>The streets are lined with lemon trees and hand-painted tiles. The air smells like citrus and the sea. It is a place where beauty lives in the details and you are always welcome.</p>
+<p>A single boat is held at the same small scale as the tiles and the foliage. Nothing in the scene is more important than the pattern it sits in.</p>
+</div>
+</div>
+
+<div class="le-feature">
+<figure>
+<img src="./details/coastline.webp" alt="Detail from the artwork: an arch-shaped vignette of a distant coastline with a cliff, a hill village, cypresses and a sailing boat on blue water.">
+<figcaption>Detail C / The coastline</figcaption>
+</figure>
+<div>
+<h3>A Feeling, Not a Place</h3>
+<p>Maybe this town does not exist on a map. But it lives in the moments that make you feel alive. It is the warmth on your skin, the taste of something sweet, and the reminder that summer can live inside you, always.</p>
+<p>Each passage is framed by the same arch. The repetition of a window, rather than of a subject, is what holds the column together.</p>
+</div>
+</div>
+
+<div class="le-quote">
+<p>A little taste of summer, wherever you are.</p>
+<span>Closing line of the artwork</span>
+</div>
+
+<div class="le-section-head"><h2>Notes on the making</h2><span>Editorial notes by the studio</span></div>
+
+<div class="le-notes">
+<div>
+<div class="le-note"><b>Medium</b><p>Watercolour with painted tile pattern and a lettered margin. The piece borrows the structure of a Mediterranean majolica panel: a decorated field, a picture inside it, and a margin that keeps working after the picture stops. It responds to that family of ceramic traditions without copying one historical panel.</p></div>
+<div class="le-note"><b>Composition</b><p>The lemon slice is the only light source, so the illustration never needs weather. The arches are cropped as windows rather than frames: a branch, a terrace, a coastline, each a different distance from the same town.</p></div>
+<div class="le-note"><b>This page</b><p>The story text belongs to the artwork. Typesetting it as live text is a reading aid, not a new piece: the words, the spelling and the punctuation follow the illustration, and the artwork itself is shown unaltered above.</p></div>
+<div class="le-note"><b>What is not here</b><p>No motion film, no animated sun, no invented sequel. The approved direction was a main artwork with a separate framed botanical story page, and the two stay in separate files. Nothing has been added to the artwork to make this page work.</p></div>
+</div>
+<figure class="le-margin">
+<img src="./details/majolica-border.webp" alt="Detail from the artwork: a vertical strip of hand-painted blue and white majolica tiles with lemons and blossom.">
+<figcaption>Detail D / The margin</figcaption>
+</figure>
+</div>
+
+</div>
+</div>
+
+<div class="le-status">
+<div class="shell">
+<div class="split">
+<div><div class="eyebrow">Status</div><h2>What is <em>real.</em></h2></div>
+<p>The approved artwork is shown unaltered on page one and reproduced here at native size. The four detail plates are crops taken from that same file, labelled as details so they are never mistaken for separate works. The illustration, its palette and its lettering are the approved source of truth.</p>
+</div>
+<div class="facts">
+<div><small>Artwork</small><strong>One approved illustration, assets/lemon-original.webp, 900 x 1125, untouched.</strong></div>
+<div><small>Details</small><strong>Four crops of the same file, under work/lemon-sun/details/, used only as supporting plates.</strong></div>
+<div><small>Text</small><strong>The story is the artwork's own copy, set in live type for readability on small screens.</strong></div>
+</div>
+</div>
+</div>
+
+<div class="shell">
+<div class="project-next"><a href="./">← Page one: the artwork</a><a href="../../#archive">All studio projects →</a></div>
+</div>
+</main>
+<footer class="footer shell"><div><a class="brand" href="../../">THE IMPOSSIBLE<br>STUDIO<span>.</span></a><p>A home for original design experiments, <br>independent ideas and thoughtful creative work.</p></div><div class="links"><a href="../../#work">Selected work</a><a href="../../#archive">Full archive</a><a href="../../daily/">Daily journal</a><a href="https://v0-personal-portfolio-design-sand.vercel.app">Professional portfolio ↗</a><a href="https://github.com/A-Bimu/the-impossible-studio">Source repository</a></div></footer>
+</body>
+</html>
