@@ -51,7 +51,12 @@ function setup({supportsDialog = true} = {}) {
   const classes = new Set();
   const document = {
     body: {classList: {add: name => classes.add(name), contains: name => classes.has(name)}},
-    getElementById: id => ids[id], querySelectorAll: () => buttons
+    getElementById: id => ids[id],
+    querySelectorAll(selector) {
+      if (selector === '.pin-moods button[data-mood]') return buttons;
+      if (selector === '.pin-open') return cards.map(card => card.open);
+      throw new Error('Unexpected document selector in Childfree test: ' + selector);
+    }
   };
   new Script(script).runInNewContext({document});
   return {cards, buttons, ids, dialog, document};
@@ -108,5 +113,6 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
   assert.equal(supported.document.body.classList.contains('pin-enhanced'), true);
   const unsupported = setup({supportsDialog: false});
   assert.equal(unsupported.document.body.classList.contains('pin-enhanced'), false);
-  assert.equal(unsupported.cards[0].open.disabled, true);
+  assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
+  assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
 });
