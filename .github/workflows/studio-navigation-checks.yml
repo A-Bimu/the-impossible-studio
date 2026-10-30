@@ -1,17 +1,11 @@
 # Read-only regression guard for Studio cross-project navigation.
-# Does not deploy, merge, or change the homepage.
+# Run on every pull request update: changes to any HTML, media or other
+# linked asset can break a route even when the navigation test itself is
+# untouched. No deploy, merge, or homepage changes are performed.
 name: Studio section-link checks
 
 on:
   pull_request:
-    paths:
-      - 'daily/index.html'
-      - 'pitch-decks/index.html'
-      - 'work/**/index.html'
-      - 'calendars/index.html'
-      - 'calendars/**/index.html'
-      - 'tests/studio-navigation.test.mjs'
-      - '.github/workflows/studio-navigation-checks.yml'
   workflow_dispatch:
 
 permissions:
