@@ -4,6 +4,7 @@ on:
     paths:
       - 'work/childfree/**'
       - 'tests/childfree-canonical-dialog.test.mjs'
+      - 'tests/childfree-artwork-integrity.test.mjs'
       - '.github/workflows/childfree-canonical-dialog.yml'
   push:
     branches:
@@ -19,4 +20,4 @@ jobs:
         with:
           node-version: '22'
       - name: Verify filtered dialog paging and focus
-        run: node --test tests/childfree-canonical-dialog.test.mjs
+        run: node --test tests/childfree-canonical-dialog.test.mjs tests/childfree-artwork-integrity.test.mjs
