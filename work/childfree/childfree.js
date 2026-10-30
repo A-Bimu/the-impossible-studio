@@ -30,8 +30,19 @@
   showConcept(card);
   dialog.showModal();
  }));
- previous.addEventListener('click',()=>{if(index>0)showConcept(visibleCards[index-1]);});
- next.addEventListener('click',()=>{if(index>=0&&index<visibleCards.length-1)showConcept(visibleCards[index+1]);});
+ previous.addEventListener('click',()=>{
+  if(index>0){
+   showConcept(visibleCards[index-1]);
+   // A focused disabled control is an unreliable keyboard landing point.
+   if(previous.disabled)next.focus();
+  }
+ });
+ next.addEventListener('click',()=>{
+  if(index>=0&&index<visibleCards.length-1){
+   showConcept(visibleCards[index+1]);
+   if(next.disabled)previous.focus();
+  }
+ });
  dialog.querySelector('[data-close-dialog]').addEventListener('click',()=>dialog.close());
  dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
  dialog.addEventListener('close',()=>{if(trigger&&!trigger.hidden)trigger.focus();});
