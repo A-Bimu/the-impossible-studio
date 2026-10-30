@@ -36,6 +36,7 @@ test('all-concept paging stops at boundaries and restores focus',()=>{
  for(let i=1;i<9;i++)v.next.fire('click');
  assert.equal(v.title.textContent,'Concept 9');
  assert.equal(v.next.disabled,true);
+ assert.equal(v.previous.focusCount,1,'focus moves to Previous when Next becomes disabled');
  v.next.fire('click');assert.equal(v.title.textContent,'Concept 9');
  assert.equal(v.position.textContent,'9 of 9: Concept 9');
  v.close.fire('click');assert.equal(v.cards[0].focusCount,1);
@@ -51,5 +52,6 @@ test('paging stays within selected category and restores the originating card',(
  v.previous.fire('click');v.previous.fire('click');
  assert.equal(v.title.textContent,'Concept 4');
  assert.equal(v.previous.disabled,true);
+ assert.equal(v.next.focusCount,1,'focus moves to Next when Previous becomes disabled');
  v.close.fire('click');assert.equal(v.cards[4].focusCount,1);
 });
