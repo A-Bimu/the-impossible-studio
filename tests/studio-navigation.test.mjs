@@ -44,7 +44,7 @@ for (const page of pages) {
       const value = match[2];
       const target = new URL(value, new URL(page, `${siteOrigin}/`));
       if (target.origin !== siteOrigin) continue;
-      const relative = decodeURIComponent(target.pathname).replace(/^\\//, '');
+      const relative = decodeURIComponent(target.pathname).slice(1);
       const targetPage = !relative || relative.endsWith('/') ? `${relative}index.html` : relative;
       await assert.doesNotReject(access(new URL(targetPage, root)), `${page}: missing local link ${value}`);
       if (target.hash && targetPage === 'index.html') {
