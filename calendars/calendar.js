@@ -121,14 +121,19 @@ if (edition && editions[edition]) {
       monthTradition.textContent = config.traditions[i];
       pageNum.textContent = String(i + 1).padStart(2, "0") + " / 12";
       const canvas = el("month-canvas");
-      const pageWidth = Math.round(sprite.naturalWidth / 3), pageHeight = Math.round(sprite.naturalHeight / 4);
-      canvas.width = pageWidth;
-      canvas.height = pageHeight;
-      const context = canvas.getContext("2d");
-      context.imageSmoothingEnabled = true;
-      context.imageSmoothingQuality = "high";
-      crop(context, i, pageWidth, pageHeight);
-      canvas.setAttribute("aria-label", months[i] + " " + YEAR + " calendar page for " + config.title + ": " + config.countries[i] + ", " + config.traditions[i]);
+      const artworkReady = sprite.complete && sprite.naturalWidth > 0 && sprite.naturalHeight > 0;
+      if (artworkReady) {
+        const pageWidth = Math.round(sprite.naturalWidth / 3), pageHeight = Math.round(sprite.naturalHeight / 4);
+        canvas.width = pageWidth;
+        canvas.height = pageHeight;
+        const context = canvas.getContext("2d");
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+        crop(context, i, pageWidth, pageHeight);
+      }
+      canvas.setAttribute("aria-label", artworkReady
+        ? months[i] + " " + YEAR + " calendar page for " + config.title + ": " + config.countries[i] + ", " + config.traditions[i]
+        : "Artwork unavailable for " + months[i] + " " + YEAR + "; use the readable date grid below.");
       if (gridHost) {
         gridHost.textContent = "";
         gridHost.appendChild(buildDateGrid(i, config));
@@ -146,31 +151,56 @@ if (edition && editions[edition]) {
       }
     }
 
-    sprite.onload = () => {
+    function makeThumbnails() {
       const thumbs = el("month-thumbs");
+      thumbs.textContent = "";
       for (let i = 0; i < 12; i++) {
         const button = document.createElement("button");
         button.className = "mini";
         button.type = "button";
         button.title = months[i] + " · " + config.countries[i];
         button.setAttribute("aria-label", "Show " + months[i] + " " + YEAR + ", " + config.countries[i]);
-        const thumb = document.createElement("canvas");
-        thumb.width = 112;
-        thumb.height = 159;
-        crop(thumb.getContext("2d"), i, 112, 159);
-        button.appendChild(thumb);
+        if (sprite.complete && sprite.naturalWidth > 0) {
+          const thumb = document.createElement("canvas");
+          thumb.width = 112;
+          thumb.height = 159;
+          crop(thumb.getContext("2d"), i, 112, 159);
+          button.appendChild(thumb);
+        } else {
+          const label = document.createElement("span");
+          label.textContent = months[i].slice(0, 3);
+          button.appendChild(label);
+        }
         button.onclick = () => show(i, true);
         thumbs.appendChild(button);
       }
+    }
+
+    // Announce the selected month to assistive technology without stealing focus.
+    monthTitle.setAttribute("aria-live", "polite");
+    monthTitle.setAttribute("aria-atomic", "true");
+    sprite.onload = () => {
+      makeThumbnails();
       const fromHash = monthFromHash();
       show(fromHash === -1 ? 0 : fromHash, false);
     };
     sprite.onerror = () => {
-      monthTradition.textContent = "The monthly artwork could not be loaded. Please refresh.";
-      if (gridHost) {
-        gridHost.textContent = "";
-        gridHost.appendChild(buildDateGrid(current, config));
-      }
+      const canvas = el("month-canvas");
+      canvas.classList.add("hidden");
+      const message = document.createElement("p");
+      message.className = "artwork-error";
+      message.setAttribute("role", "status");
+      message.textContent = "The calendar artwork could not load. Month browsing and the readable 2027 date grids still work. Reload to retry the artwork.";
+      canvas.parentNode.appendChild(message);
+      // Never offer an empty PNG or an empty A4 page when the sprite is missing.
+      el("save-page").disabled = true;
+      document.querySelectorAll("[data-print]").forEach((button) => {
+        button.disabled = true;
+        button.title = "Printing this month requires the calendar artwork";
+      });
+      makeThumbnails();
+      const fromHash = monthFromHash();
+      show(fromHash === -1 ? 0 : fromHash, false);
     };
     el("prev").onclick = () => show(current - 1, true);
     el("next").onclick = () => show(current + 1, true);

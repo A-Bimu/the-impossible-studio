@@ -6,6 +6,7 @@ on:
       - 'calendars/**'
       - 'tests/calendar-print-navigation.test.mjs'
       - 'tests/calendar-keyboard.test.mjs'
+      - 'tests/calendar-artwork-fallback.test.mjs'
       - '.github/workflows/calendar-print-navigation.yml'
   workflow_dispatch:
 
@@ -24,4 +25,4 @@ jobs:
         with:
           node-version: '22'
       - name: Verify print routes and calendar keyboard navigation
-        run: node --test tests/calendar-print-navigation.test.mjs tests/calendar-keyboard.test.mjs
+        run: node --test tests/calendar-print-navigation.test.mjs tests/calendar-keyboard.test.mjs tests/calendar-artwork-fallback.test.mjs
