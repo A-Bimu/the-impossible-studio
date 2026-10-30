@@ -178,10 +178,20 @@ if (edition && editions[edition]) {
       const index = monthFromHash();
       if (index !== -1 && index !== current) show(index, false);
     });
+    // Arrow keys belong to the month controls, not to the entire document.
+    // This preserves normal page scrolling and editing shortcuts elsewhere.
     document.addEventListener("keydown", (event) => {
-      if (event.target.closest("input,textarea,select")) return;
-      if (event.key === "ArrowLeft") show(current - 1, true);
-      if (event.key === "ArrowRight") show(current + 1, true);
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      const target = event.target;
+      if (!target || typeof target.closest !== "function") return;
+      if (!target.closest(".navmonths, .month-mini")) return;
+      if (target.closest("input, textarea, select, [contenteditable]")) return;
+      if (!sprite.complete || !sprite.naturalWidth) return;
+      const nextMonth = current + (event.key === "ArrowLeft" ? -1 : 1);
+      if (nextMonth < 0 || nextMonth > 11) return;
+      event.preventDefault();
+      show(nextMonth, true);
     });
     el("save-page").onclick = () => {
       if (!sprite.complete || !sprite.naturalWidth) return;
