@@ -116,6 +116,12 @@
 .pin-close{background:transparent;border:1px solid #c49aa1;border-radius:30px;color:var(--ink);
   padding:11px 15px;font:600 12px 'Manrope',sans-serif;min-height:44px;min-width:44px}
 .pin-close:hover{background:var(--ink);border-color:var(--ink);color:#fdf7f4}
+.dialog-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0 20px}
+.dialog-controls button{min-height:44px;min-width:44px;border:1px solid #c49aa1;border-radius:30px;background:transparent;color:var(--ink);padding:11px 15px;font:600 12px 'Manrope',sans-serif}
+.dialog-controls button:hover:not(:disabled){background:var(--ink);color:#fdf7f4}
+.dialog-controls button:disabled{opacity:.45;cursor:not-allowed}
+.dialog-controls button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+#pin-detail-position{font-size:12px;color:var(--ink-soft)}
 
 .pin-page:focus-within .pin-art{border-color:#c49aa1}
 .sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;
@@ -418,6 +424,11 @@
 </div>
 <button class="pin-close" type="button" id="pin-detail-close">Close</button>
 </div>
+<div class="dialog-controls" role="group" aria-label="Browse visible pin concepts">
+<button type="button" id="pin-detail-prev" aria-label="Previous pin concept">← Previous</button>
+<span id="pin-detail-position" role="status" aria-live="polite" aria-atomic="true"></span>
+<button type="button" id="pin-detail-next" aria-label="Next pin concept">Next →</button>
+</div>
 <dl class="pin-spec" id="pin-detail-spec"></dl>
 <p class="pin-note" id="pin-detail-note"></p>
 <p class="mini">Detail cut from the approved concept sheet: the crop follows the pin's own outline, and the sheet's background texture around it has been cleaned away. The pin artwork itself is unchanged.</p>
@@ -460,24 +471,52 @@
     var spec = document.getElementById('pin-detail-spec');
     var note = document.getElementById('pin-detail-note');
     var closeBtn = document.getElementById('pin-detail-close');
+    var previousBtn = document.getElementById('pin-detail-prev');
+    var nextBtn = document.getElementById('pin-detail-next');
+    var position = document.getElementById('pin-detail-position');
     var opener = null;
+    var visibleCards = [];
+    var activeIndex = -1;
+
+    function displayConcept(card){
+      activeIndex = visibleCards.indexOf(card);
+      if(activeIndex < 0){ return; }
+      var figure = card.querySelector('.pin-art img').cloneNode(false);
+      figure.loading = 'eager';
+      art.innerHTML = '';
+      art.appendChild(figure);
+      index.textContent = card.querySelector('.card-index span').textContent + ' / ' + card.querySelector('.card-index span:last-child').textContent;
+      title.textContent = card.querySelector('h3').textContent;
+      statement.textContent = card.querySelector('.pin-statement').textContent;
+      spec.innerHTML = card.querySelector('.pin-spec').innerHTML;
+      note.textContent = card.querySelector('.pin-note').textContent;
+      position.textContent = (activeIndex + 1) + ' of ' + visibleCards.length + ': ' + title.textContent;
+      previousBtn.disabled = activeIndex === 0;
+      nextBtn.disabled = activeIndex === visibleCards.length - 1;
+    }
 
     cards.forEach(function(card){
       var btn = card.querySelector('.pin-open');
       btn.addEventListener('click', function(){
-        var figure = card.querySelector('.pin-art img').cloneNode(false);
-        figure.loading = 'eager';
-        art.innerHTML = '';
-        art.appendChild(figure);
-        index.textContent = card.querySelector('.card-index span').textContent + ' / ' + card.querySelector('.card-index span:last-child').textContent;
-        title.textContent = card.querySelector('h3').textContent;
-        statement.textContent = card.querySelector('.pin-statement').textContent;
-        spec.innerHTML = card.querySelector('.pin-spec').innerHTML;
-        note.textContent = card.querySelector('.pin-note').textContent;
         opener = btn;
+        visibleCards = cards.filter(function(item){ return !item.hidden; });
+        displayConcept(card);
         dialog.showModal();
         closeBtn.focus();
       });
+    });
+
+    previousBtn.addEventListener('click', function(){
+      if(activeIndex > 0){
+        displayConcept(visibleCards[activeIndex - 1]);
+        if(previousBtn.disabled){ nextBtn.focus(); }
+      }
+    });
+    nextBtn.addEventListener('click', function(){
+      if(activeIndex >= 0 && activeIndex < visibleCards.length - 1){
+        displayConcept(visibleCards[activeIndex + 1]);
+        if(nextBtn.disabled){ previousBtn.focus(); }
+      }
     });
 
     closeBtn.addEventListener('click', function(){ dialog.close(); });
