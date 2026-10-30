@@ -23,3 +23,11 @@
 @media(max-width:760px){.childfree__board{margin-bottom:45px}.childfree__collection{padding:25px 18px;margin-inline:-20px}.pin-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pin-card{padding:7px 7px 14px}.pin-card strong{font-size:20px}.childfree__notes{padding-bottom:35px}}
 @media(max-width:430px){.pin-card strong{font-size:18px}.pin-filters button{padding:9px 12px}.pin-dialog{padding:13px}}
 @media(prefers-reduced-motion:reduce){.pin-card{transition:none}}
+
+/* Dialog paging uses explicit buttons rather than global arrow shortcuts. */
+.pin-dialog__controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 15px}
+.pin-dialog__controls button{flex-shrink:0;background:#382736;color:#fff;border:1px solid #382736;padding:9px 12px;font:700 12px/1.3 'Manrope',sans-serif}
+.pin-dialog__controls button:disabled{opacity:.4;cursor:not-allowed}
+.pin-dialog__controls span{font-size:12px;line-height:1.45;text-align:center;overflow-wrap:anywhere}
+.pin-dialog button:focus-visible,.pin-filters button:focus-visible,.pin-card:focus-visible{outline:3px solid #9b456d;outline-offset:3px}
+@media(max-width:430px){.pin-dialog__controls{gap:6px}.pin-dialog__controls button{padding:8px 7px;font-size:11px}.pin-dialog__controls span{font-size:11px}}
