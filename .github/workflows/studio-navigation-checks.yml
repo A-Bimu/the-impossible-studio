@@ -1,0 +1,26 @@
+# Read-only regression guard for Studio cross-project navigation.
+# Run on every pull request update: changes to any HTML, media or other
+# linked asset can break a route even when the navigation test itself is
+# untouched. No deploy, merge, or homepage changes are performed.
+name: Studio section-link checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  section-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify homepage section links across Studio pages
+        run: node --test tests/studio-navigation.test.mjs
