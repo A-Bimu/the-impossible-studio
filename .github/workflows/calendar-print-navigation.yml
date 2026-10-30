@@ -1,0 +1,28 @@
+name: Calendar print-page navigation
+
+on:
+  pull_request:
+    paths:
+      - 'calendars/**'
+      - 'tests/calendar-print-navigation.test.mjs'
+      - 'tests/calendar-keyboard.test.mjs'
+      - 'tests/calendar-artwork-fallback.test.mjs'
+      - '.github/workflows/calendar-print-navigation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  print-navigation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify print routes and calendar keyboard navigation
+        run: node --test tests/calendar-print-navigation.test.mjs tests/calendar-keyboard.test.mjs tests/calendar-artwork-fallback.test.mjs

@@ -1,0 +1,26 @@
+name: Poster study keyboard navigation
+
+on:
+  pull_request:
+    paths:
+      - 'work/poster-studies/poster.js'
+      - 'tests/poster-keyboard.test.mjs'
+      - '.github/workflows/poster-keyboard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  poster-keyboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify poster navigation, scrolling and print controls
+        run: node --test tests/poster-keyboard.test.mjs
