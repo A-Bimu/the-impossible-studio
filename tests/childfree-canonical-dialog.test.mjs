@@ -20,7 +20,7 @@ function element(dataset = {}) {
   };
 }
 
-function setup() {
+function setup({supportsDialog = true} = {}) {
   const cards = Array.from({length: 9}, (_, i) => {
     const mood = ['whimsical', 'chilled', 'bold'][Math.floor(i / 3)];
     const card = element({mood});
@@ -45,12 +45,16 @@ function setup() {
     'pin-detail-prev', 'pin-detail-next', 'pin-detail-position'].map(id => [id, element()]));
   ids['pin-grid'] = {querySelectorAll: () => cards};
   const dialog = element();
-  dialog.showModal = () => { dialog.open = true; };
+  if(supportsDialog) dialog.showModal = () => { dialog.open = true; };
   dialog.close = () => { dialog.open = false; dialog.fire('close'); };
   ids['pin-detail'] = dialog;
-  const document = {getElementById: id => ids[id], querySelectorAll: () => buttons};
+  const classes = new Set();
+  const document = {
+    body: {classList: {add: name => classes.add(name), contains: name => classes.has(name)}},
+    getElementById: id => ids[id], querySelectorAll: () => buttons
+  };
   new Script(script).runInNewContext({document});
-  return {cards, buttons, ids, dialog};
+  return {cards, buttons, ids, dialog, document};
 }
 
 test('detail controls are accessible and announce current concept', () => {
@@ -93,4 +97,16 @@ test('filtering limits detail paging to the selected three pins', () => {
   assert.equal(ids['pin-detail-next'].focusCount, 1, 'focus leaves newly disabled Previous button');
   ids['pin-detail-close'].fire('click');
   assert.equal(cards[4].open.focusCount, 1);
+});
+
+
+test('no-JavaScript and unsupported-dialog fallback never offers inert detail controls', () => {
+  assert.match(html, /\.pin-page:not\(\.pin-enhanced\) \.pin-open\{display:none\}/);
+  assert.match(html, /document\.body\.classList\.add\('pin-enhanced'\)/);
+  assert.match(html, /<p class="pin-note">[^<]+<\/p>/, 'notes remain readable without JavaScript');
+  const supported = setup();
+  assert.equal(supported.document.body.classList.contains('pin-enhanced'), true);
+  const unsupported = setup({supportsDialog: false});
+  assert.equal(unsupported.document.body.classList.contains('pin-enhanced'), false);
+  assert.equal(unsupported.cards[0].open.disabled, true);
 });
