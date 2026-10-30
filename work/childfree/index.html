@@ -84,6 +84,9 @@
 .pin-open{align-self:start;margin-top:auto;background:transparent;border:1px solid #c49aa1;
   border-radius:30px;color:var(--ink);padding:12px 16px;font:600 12px 'Manrope',sans-serif;min-height:44px}
 .pin-open:hover{background:var(--ink);border-color:var(--ink);color:#fdf7f4}
+/* Progressive enhancement: without a working dialog, every card's notes stay
+   readable and no inert Open design notes button is offered. */
+.pin-page:not(.pin-enhanced) .pin-open{display:none}
 .pin-noscript{font-size:12px;color:#6a5b60;margin-top:16px}
 
 /* Pin artwork. Each card carries its own crop of the approved sheet, saved as a
@@ -526,6 +529,8 @@
     dialog.addEventListener('close', function(){
       if(opener){ opener.focus(); }
     });
+    // Reveal detail controls only after all handlers and the native dialog are ready.
+    document.body.classList.add('pin-enhanced');
   } else {
     Array.prototype.slice.call(document.querySelectorAll('.pin-open')).forEach(function(b){
       b.disabled = true;
