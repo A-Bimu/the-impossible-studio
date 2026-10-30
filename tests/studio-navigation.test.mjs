@@ -40,7 +40,7 @@ const siteOrigin = 'https://studio.invalid';
 for (const page of pages) {
   test(`${page}: local links and homepage fragments resolve`, async () => {
     const html = await read(page);
-    for (const match of html.matchAll(/\\bhref\\s*=\\s*(["'])(.*?)\\1/g)) {
+    for (const match of html.matchAll(/\bhref\s*=\s*(["'])(.*?)\1/g)) {
       const value = match[2];
       const target = new URL(value, new URL(page, `${siteOrigin}/`));
       if (target.origin !== siteOrigin) continue;
