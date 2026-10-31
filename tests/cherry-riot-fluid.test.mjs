@@ -17,7 +17,7 @@ test('real CHERRY RIOT hero is beneath the scroll-scrubbed jam canvas',async()=>
 test('motion script parses and scrubs genuine liquid silhouette against scrolling',async()=>{
  const js=await readFile(new URL('jam-fluid.js',base),'utf8');
  assert.doesNotThrow(()=>new Script(js,{filename:'jam-fluid.js'}));
- for(const needle of ['requestAnimationFrame','Path2D','ctx.clip(liquid)','texture.naturalWidth','scrollY','prefers-reduced-motion','liquid.bezierCurveTo'])assert.ok(js.includes(needle),needle);
+ for(const needle of ['requestAnimationFrame','Path2D','ctx.clip(liquid)','texture.naturalWidth','scrollY','prefers-reduced-motion','path.bezierCurveTo'])assert.ok(js.includes(needle),needle);
 });
 test('original macro jam texture is checked into the repository',async()=>{
  const bytes=await readFile(new URL('jam-texture.webp',base));
