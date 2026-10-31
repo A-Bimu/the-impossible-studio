@@ -118,3 +118,21 @@ test('filling the final room from New arrival avoids focusing a disabled button'
   assert.equal(app.ids.add.disabled, true);
   assert.equal(app.getFocused(), app.room(202));
 });
+
+test('New arrival check-in focuses the assigned room even while the New arrival button stays enabled', async () => {
+  const app = setup();
+  app.ids.add.fire('click');
+  app.submit(102);
+  await Promise.resolve();
+  assert.equal(app.ids.add.disabled, false, 'more rooms are still available');
+  assert.equal(app.room(102).dataset.state, 'occupied');
+  assert.equal(app.getFocused(), app.room(102), 'focus should follow the completed check-in');
+});
+
+test('cancelling New arrival restores focus to its original button', async () => {
+  const app = setup();
+  app.ids.add.fire('click');
+  app.ids.close.fire('click');
+  await Promise.resolve();
+  assert.equal(app.getFocused(), app.ids.add);
+});
