@@ -151,6 +151,16 @@ test('undo restores the most recently checked-out guest and focuses their room',
   assert.equal(app.ids.undo.hidden, true, 'undo is consumed after restoration');
 });
 
+test('checkout live announcement identifies the guest and the available recovery action', () => {
+  const app = setup();
+  app.room(101).fire('click');
+  assert.equal(app.ids.status.textContent, 'Avery Reed checked out of room 101. Undo checkout available.');
+  assert.equal(app.ids.undo.hidden, false);
+  app.room(203).fire('click');
+  assert.equal(app.ids.status.textContent, 'Sol Kim checked out of room 203. Undo checkout available.');
+  assert.equal(app.ids.undo['aria-label'], 'Undo checkout for Sol Kim, room 203');
+});
+
 test('undo button identifies the guest and room, updating after consecutive checkouts', () => {
   const app = setup();
   assert.equal(app.ids.undo.hidden, true);
