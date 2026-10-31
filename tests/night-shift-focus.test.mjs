@@ -34,6 +34,7 @@ function setup() {
       }
     }
     setAttribute(name, value) { this[name] = value; }
+    reset() { this.values = {}; }
     focus() { if (this.isConnected && !this.disabled) focused = this; }
     querySelector(selector) {
       if (selector === 'input') return input;
