@@ -169,9 +169,9 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
 });
 
 test('mood filters are hidden until their handlers are installed', () => {
-  assert.match(html, /\\.pin-page:not\\(\\.pin-filters-ready\\) \\.pin-moods\\{display:none\\}/);
+  assert.match(html, /\.pin-page:not\(\.pin-filters-ready\) \.pin-moods\{display:none\}/);
   assert.match(html, /<body class="pin-page">/, 'initial HTML does not expose inactive controls');
-  assert.match(html, /document\\.body\\.classList\\.add\\('pin-filters-ready'\\)/);
+  assert.match(html, /document\.body\.classList\.add\('pin-filters-ready'\)/);
   assert.match(html, /Without JavaScript, mood filters and detail buttons are hidden/);
   const supported = setup();
   assert.equal(supported.document.body.classList.contains('pin-filters-ready'), true);
