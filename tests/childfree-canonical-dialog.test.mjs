@@ -167,3 +167,18 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
   assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
   assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
 });
+
+test('mood filters are hidden until their handlers are installed', () => {
+  assert.match(html, /\\.pin-page:not\\(\\.pin-filters-ready\\) \\.pin-moods\\{display:none\\}/);
+  assert.match(html, /<body class="pin-page">/, 'initial HTML does not expose inactive controls');
+  assert.match(html, /document\\.body\\.classList\\.add\\('pin-filters-ready'\\)/);
+  assert.match(html, /Without JavaScript, mood filters and detail buttons are hidden/);
+  const supported = setup();
+  assert.equal(supported.document.body.classList.contains('pin-filters-ready'), true);
+  const unsupported = setup({supportsDialog: false});
+  assert.equal(unsupported.document.body.classList.contains('pin-filters-ready'), true,
+    'mood filtering remains available when the native dialog is unsupported');
+  unsupported.buttons[3].fire('click');
+  assert.equal(unsupported.cards.filter(card => !card.hidden).length, 3);
+  assert.equal(unsupported.ids['pin-count'].textContent, 'Showing 3 of 9 pins');
+});
