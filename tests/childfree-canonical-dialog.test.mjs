@@ -105,6 +105,57 @@ test('filtering limits detail paging to the selected three pins', () => {
 });
 
 
+
+test('dialog arrow keys browse only visible pins and respect filter boundaries', () => {
+  const {cards, buttons, ids, dialog} = setup();
+  buttons[2].fire('click'); // Chilled: pins 4, 5, 6.
+  cards[3].open.fire('click');
+  let prevented = 0;
+  const arrow = (key, modifiers = {}) => dialog.fire('keydown', {
+    key, target: ids['pin-detail-close'], preventDefault() { prevented++; }, ...modifiers
+  });
+  arrow('ArrowLeft'); // At first visible pin: do not wrap or prevent scrolling.
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 4');
+  assert.equal(prevented, 0);
+  arrow('ArrowRight');
+  assert.equal(ids['pin-detail-position'].textContent, '2 of 3: Pin concept 5');
+  arrow('ArrowRight');
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 6');
+  assert.equal(prevented, 2);
+  arrow('ArrowRight'); // At last visible pin: do not wrap.
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 6');
+  assert.equal(prevented, 2);
+  arrow('ArrowLeft', {ctrlKey: true}); // Preserve browser shortcuts.
+  arrow('ArrowLeft', {shiftKey: true});
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 6');
+  assert.equal(prevented, 2);
+  arrow('ArrowLeft');
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 5');
+  dialog.close();
+  arrow('ArrowLeft'); // Closed dialog must ignore keys.
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 5');
+  assert.equal(prevented, 3);
+  assert.match(html, /Keyboard: use the left and right arrow keys to browse visible pins/);
+});
+
+test('arrow paging restores focus if the active paging button becomes disabled', () => {
+  const {cards, ids, dialog} = setup();
+  cards[7].open.fire('click');
+  dialog.fire('keydown', {
+    key: 'ArrowRight', target: ids['pin-detail-next'], preventDefault() {}
+  });
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 9');
+  assert.equal(ids['pin-detail-next'].disabled, true);
+  assert.equal(ids['pin-detail-prev'].focusCount, 1);
+  for(let i = 0; i < 8; i++) dialog.fire('keydown', {
+    key: 'ArrowLeft', target: ids['pin-detail-prev'], preventDefault() {}
+  });
+  assert.equal(ids['pin-detail-title'].textContent, 'Pin concept 1');
+  assert.equal(ids['pin-detail-prev'].disabled, true);
+  assert.equal(ids['pin-detail-next'].focusCount, 1);
+});
+
+
 test('no-JavaScript and unsupported-dialog fallback never offers inert detail controls', () => {
   assert.match(html, /\.pin-page:not\(\.pin-enhanced\) \.pin-open\{display:none\}/);
   assert.match(html, /document\.body\.classList\.add\('pin-enhanced'\)/);
