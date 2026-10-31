@@ -432,6 +432,7 @@
 <span id="pin-detail-position" role="status" aria-live="polite" aria-atomic="true"></span>
 <button type="button" id="pin-detail-next" aria-label="Next pin concept">Next →</button>
 </div>
+<p class="mini">Keyboard: use the left and right arrow keys to browse visible pins.</p>
 <dl class="pin-spec" id="pin-detail-spec"></dl>
 <p class="pin-note" id="pin-detail-note"></p>
 <p class="mini">Detail cut from the approved concept sheet: the crop follows the pin's own outline, and the sheet's background texture around it has been cleaned away. The pin artwork itself is unchanged.</p>
@@ -520,6 +521,20 @@
         displayConcept(visibleCards[activeIndex + 1]);
         if(nextBtn.disabled){ previousBtn.focus(); }
       }
+    });
+
+    // Keyboard paging respects the active mood filter and never wraps past a boundary.
+    // Do not intercept modified arrow shortcuts or ordinary dialog scrolling at an edge.
+    dialog.addEventListener('keydown', function(event){
+      if(!dialog.open || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey){ return; }
+      var step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+      if(!step){ return; }
+      var targetIndex = activeIndex + step;
+      if(targetIndex < 0 || targetIndex >= visibleCards.length){ return; }
+      event.preventDefault();
+      displayConcept(visibleCards[targetIndex]);
+      if(event.target === nextBtn && nextBtn.disabled){ previousBtn.focus(); }
+      if(event.target === previousBtn && previousBtn.disabled){ nextBtn.focus(); }
     });
 
     closeBtn.addEventListener('click', function(){ dialog.close(); });
