@@ -151,6 +151,30 @@ test('undo restores the most recently checked-out guest and focuses their room',
   assert.equal(app.ids.undo.hidden, true, 'undo is consumed after restoration');
 });
 
+test('undo button identifies the guest and room, updating after consecutive checkouts', () => {
+  const app = setup();
+  assert.equal(app.ids.undo.hidden, true);
+  app.room(101).fire('click');
+  assert.equal(app.ids.undo.textContent, 'Undo checkout · Room 101');
+  assert.equal(app.ids.undo['aria-label'], 'Undo checkout for Avery Reed, room 101');
+  app.room(203).fire('click');
+  assert.equal(app.ids.undo.textContent, 'Undo checkout · Room 203');
+  assert.equal(app.ids.undo['aria-label'], 'Undo checkout for Sol Kim, room 203');
+});
+
+test('undo button returns to its neutral label after restoration or reset', () => {
+  const app = setup();
+  app.room(101).fire('click');
+  app.ids.undo.fire('click');
+  assert.equal(app.ids.undo.hidden, true);
+  assert.equal(app.ids.undo.textContent, 'Undo last checkout');
+  assert.equal(app.ids.undo['aria-label'], 'Undo last checkout');
+  app.room(203).fire('click');
+  app.ids.reset.fire('click');
+  assert.equal(app.ids.undo.hidden, true);
+  assert.equal(app.ids.undo['aria-label'], 'Undo last checkout');
+});
+
 test('a second checkout replaces the previous undo instead of restoring both guests', () => {
   const app = setup();
   app.room(101).fire('click');
