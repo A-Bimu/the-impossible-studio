@@ -23,7 +23,6 @@ test('all mockup screens are working demo pages, not unrelated placeholders',asy
 test('presentation resizes actual embedded website screens',async()=>{
   const js=await file('presentation/presentation.js');
   assert.doesNotThrow(()=>new Script(js,{filename:'presentation.js'}));
-  for(const marker of ['ResizeObserver','querySelectorAll',"'390'"]) {} // no-op
   assert.ok(js.includes('sourceWidth = mobile ? 390 : 1360'));
   assert.ok(js.includes("scale("));
 });
