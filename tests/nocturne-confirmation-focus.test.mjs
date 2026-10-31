@@ -7,7 +7,7 @@ const html = readFileSync(new URL('../daily/2026-10-31-night-shift/index.html', 
 const script = html.match(/<script>\s*([\s\S]*?)\s*<\/script>/)?.[1];
 assert.ok(script, 'the guest booking page has executable JavaScript');
 
-function setup() {
+function setup({ open = true } = {}) {
   let focused = null;
   class Element {
     constructor(tag = 'div') {
@@ -58,7 +58,7 @@ function setup() {
   assert.ok(firstRoom, 'the room collection renders');
   const button = firstRoom.children[1].children[3].children[1];
   assert.equal(button.tag, 'button');
-  button.fire('click');
+  if (open) button.fire('click');
   return { ids, button, focused: () => focused };
 }
 
@@ -88,4 +88,32 @@ test('an incomplete demo booking does not reveal or focus the confirmation', () 
   assert.equal(app.ids.reservationForm.hidden, false);
   assert.equal(app.ids.confirmation.hidden, true);
   assert.equal(app.focused(), app.ids.guestName);
+});
+
+
+test('clearing check-in keeps a valid checkout minimum and blocks booking until dates recover', () => {
+  const app = setup({ open: false });
+  const validMinimum = app.ids.checkout.min;
+  app.ids.checkin.value = '';
+  app.ids.checkin.fire('change');
+  assert.equal(app.ids.checkout.min, validMinimum);
+  assert.doesNotMatch(app.ids.checkout.min, /NaN|undefined/);
+  app.button.fire('click');
+  assert.equal(app.ids.reservation.open, false);
+  assert.match(app.ids.searchStatus.textContent, /valid stay/);
+
+  app.ids.checkin.value = app.ids.checkin.min;
+  app.ids.checkin.fire('change');
+  app.ids.checkout.value = app.ids.checkout.min;
+  app.button.fire('click');
+  assert.equal(app.ids.reservation.open, true, 'valid dates must still open the demo');
+});
+
+test('a past check-in cannot be booked even if the date range spans valid nights', () => {
+  const app = setup({ open: false });
+  app.ids.checkin.value = '2000-01-01';
+  app.ids.checkout.value = '2000-01-03';
+  app.button.fire('click');
+  assert.equal(app.ids.reservation.open, false);
+  assert.match(app.ids.searchStatus.textContent, /valid stay/);
 });
