@@ -18,7 +18,7 @@ assert.ok(html.includes('aria-label'));
 test('Hotel Nocturne is a guest-facing booking experience with demo confirmation',async()=>{
 const html=await read('daily/2026-10-31-night-shift/index.html');
 for(const id of ['searchForm','roomGrid','checkin','checkout','guests','reservation','reservationForm','guestName','guestEmail','confirmation'])assert.ok(html.includes('id="'+id+'"'),id);
-assert.ok(html.includes('bookings')===false,'old employee dashboard replaced');
+assert.ok(!html.includes('id="ledger"'),'old staff ledger must be removed');
 assert.ok(html.includes('room.price*nights'));
 assert.ok(html.includes('no payment'));
 assert.ok(html.includes('dialog.showModal()'));
