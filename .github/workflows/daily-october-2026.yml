@@ -4,12 +4,14 @@ on:
     paths:
       - 'daily/**'
       - 'tests/daily-october-2026.test.mjs'
+      - 'tests/nocturne-confirmation-focus.test.mjs'
       - '.github/workflows/daily-october-2026.yml'
   push:
     branches: [main]
     paths:
       - 'daily/**'
       - 'tests/daily-october-2026.test.mjs'
+      - 'tests/nocturne-confirmation-focus.test.mjs'
 jobs:
   verify-daily:
     runs-on: ubuntu-latest
@@ -20,4 +22,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/daily-october-2026.test.mjs
+      - run: node --test tests/daily-october-2026.test.mjs tests/nocturne-confirmation-focus.test.mjs
