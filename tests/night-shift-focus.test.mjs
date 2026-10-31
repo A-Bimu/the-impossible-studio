@@ -225,9 +225,9 @@ test('long guest names remain readable in the narrow-screen ledger', async () =>
   await Promise.resolve();
   const ledgerNames = app.ids.ledger.children.map(item => item.children[0]?.children[0]?.textContent);
   assert.ok(ledgerNames.includes(longName), 'the complete guest name is retained in the ledger');
-  assert.match(html, /\\.booking>div\\{min-width:0\\}/, 'ledger text can shrink inside its flex row');
-  assert.match(html, /\\.booking strong\\{display:block;overflow-wrap:anywhere\\}/,
+  assert.match(html, /\.booking>div\{min-width:0\}/, 'ledger text can shrink inside its flex row');
+  assert.match(html, /\.booking strong\{display:block;overflow-wrap:anywhere\}/,
     'unbroken guest names can wrap instead of overflowing');
-  assert.match(html, /@media\\(max-width:600px\\)\\{\\.panel-head\\{flex-wrap:wrap;align-items:flex-start\\}/,
+  assert.match(html, /@media\(max-width:600px\)\{\.panel-head\{flex-wrap:wrap;align-items:flex-start\}/,
     'front-desk and ledger controls can wrap below headings on narrow screens');
 });
