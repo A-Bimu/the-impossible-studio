@@ -17,6 +17,7 @@ function setup() {
       this.dataset = {};
       this.isConnected = true;
       this.disabled = false;
+      this.hidden = false;
       this.textContent = '';
     }
     addEventListener(name, callback) { (this.listeners[name] ??= []).push(callback); }
@@ -45,7 +46,7 @@ function setup() {
   }
   const input = new Element('input');
   const ids = Object.fromEntries(['rooms', 'ledger', 'booking', 'form', 'roomChoice',
-    'occupancy', 'status', 'add', 'close', 'reset', 'print'].map(id => [id, new Element()]));
+    'occupancy', 'status', 'add', 'close', 'reset', 'undo', 'print'].map(id => [id, new Element()]));
   const dialog = ids.booking;
   dialog.open = false;
   dialog.showModal = () => { dialog.open = true; };
@@ -135,4 +136,49 @@ test('cancelling New arrival restores focus to its original button', async () =>
   app.ids.close.fire('click');
   await Promise.resolve();
   assert.equal(app.getFocused(), app.ids.add);
+});
+
+
+test('undo restores the most recently checked-out guest and focuses their room', () => {
+  const app = setup();
+  app.room(101).fire('click');
+  assert.equal(app.room(101).dataset.state, 'available');
+  assert.equal(app.ids.undo.hidden, false, 'undo is offered after checkout');
+  app.ids.undo.fire('click');
+  assert.equal(app.room(101).dataset.state, 'occupied');
+  assert.match(app.room(101)['aria-label'], /Avery Reed/);
+  assert.equal(app.getFocused(), app.room(101));
+  assert.equal(app.ids.undo.hidden, true, 'undo is consumed after restoration');
+});
+
+test('a second checkout replaces the previous undo instead of restoring both guests', () => {
+  const app = setup();
+  app.room(101).fire('click');
+  app.room(203).fire('click');
+  app.ids.undo.fire('click');
+  assert.equal(app.room(101).dataset.state, 'available');
+  assert.equal(app.room(203).dataset.state, 'occupied');
+  assert.equal(app.ids.undo.hidden, true);
+});
+
+test('new check-in invalidates checkout undo so it cannot resurrect stale bookings', async () => {
+  const app = setup();
+  app.room(101).fire('click');
+  app.room(102).fire('click');
+  app.submit(102);
+  await Promise.resolve();
+  assert.equal(app.ids.undo.hidden, true);
+  app.ids.undo.fire('click');
+  assert.equal(app.room(101).dataset.state, 'available');
+  assert.equal(app.room(102).dataset.state, 'occupied');
+});
+
+test('reset restores the original ledger and clears the checkout undo', () => {
+  const app = setup();
+  app.room(101).fire('click');
+  app.ids.reset.fire('click');
+  assert.equal(app.room(101).dataset.state, 'occupied');
+  assert.equal(app.ids.undo.hidden, true);
+  app.ids.undo.fire('click');
+  assert.equal(app.ids.status.textContent, 'Demo guest ledger restored.');
 });
