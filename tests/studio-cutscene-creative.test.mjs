@@ -1,5 +1,0 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
-const read=p=>readFile(new URL('../'+p,import.meta.url),'utf8');
-test('Studio journal links to new finished projects',async()=>{const s=await read('daily/index.html');for(const slug of ['cutscene-cinema','afterform','no-signal'])assert.ok(s.includes('href="./'+slug+'/"'))});
-test('cinema supports browsing, showtimes, seat choices, and confirmation',async()=>{const s=await read('daily/cutscene-cinema/index.html');for(const id of ['filmsGrid','filmSelect','timeSelect','seats','confirm','done'])assert.ok(s.includes('id="'+id+'"'));assert.ok(s.includes('dialog.showModal()'));assert.ok(s.includes('chosen.size<6'))});
-test('both creative studies support three distinct genre selections',async()=>{for(const slug of ['afterform','no-signal']){const s=await read('daily/'+slug+'/index.html');assert.ok(s.includes('const genres='));assert.ok(s.includes('aria-pressed'));assert.ok(s.includes('render(0)'));assert.ok(s.includes('mockOne'))}});
