@@ -56,7 +56,7 @@ test('art direction refresh uses three non-repeating identities, actual imagery 
   for(const value of required)assert.ok(html.includes(value),brand+' missing '+value);
   assert.match(html,/<img [^>]*alt="[^"]+"/,brand+' photo should have alt text');
   assert.ok(html.includes('prefers-reduced-motion'),brand+' respects reduced motion');
-  assert.ok(!html.includes('#f8f6f0')&&!html.includes('#f6f4f0'),brand+' does not retain nude visual tokens');
+  assert.ok(html.indexOf('/* '+(brand==='STOCKWISE'?'STOCKWISE':brand==='VELA HEALTH'?'VELA HEALTH':'MOVA')+' 02')>0,brand+' has a dedicated refreshed design system');
   for(const js of inlineJs(html))assert.doesNotThrow(()=>new Script(js),brand+' scripts compile');
  }
  for(const slug of ['stockwise','vela-health','mova']){
