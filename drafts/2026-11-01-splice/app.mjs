@@ -20,6 +20,23 @@ function titleLines(value) {
   if(cut < 10) cut=20;
   return [value.slice(0,cut).trim(),value.slice(cut).trim()];
 }
+// Keep unusually wide editable copy inside the physical sleeve's type area.
+// SVG textLength is only applied when a conservative glyph-width estimate
+// exceeds the available space; the same rule applies to preview and export.
+function fitTextAttributes(value, fontSize, maxWidth, tracking=0) {
+  let units=0;
+  for(const glyph of value) {
+    if(/[MWmw@%&]/u.test(glyph)) units+=1.05;
+    else if(/[ilI1!.,:;'\x60|]/u.test(glyph)) units+=0.42;
+    else if(/\\s/u.test(glyph)) units+=0.38;
+    else if(/[fjrt]/u.test(glyph)) units+=0.55;
+    else if(/[A-Z0-9]/u.test(glyph)) units+=0.85;
+    else if(/[a-z]/u.test(glyph)) units+=0.70;
+    else units+=1.10;
+  }
+  const estimate=units*fontSize+Math.max(0,Array.from(value).length-1)*tracking;
+  return estimate>maxWidth?' textLength="'+maxWidth+'" lengthAdjust="spacingAndGlyphs"':'';
+}
 function artwork(layout, p) {
   if(layout === 'fold') return [
     '<path d="M-80 160L480 -60L930 140L350 380Z" fill="'+p.highlight+'"/>',
@@ -51,7 +68,7 @@ export function renderSleeve(options={}) {
   const descId=options.preview===true?'phone-sleeve-desc':'sleeve-desc';
   const lines=titleLines(title);
   const fontSize=Math.max(...lines.map(line=>line.length))>20?49:62;
-  const titles=lines.map((line,i)=>'<text x="56" y="'+(748+i*64)+'" font-family="Georgia,serif" font-size="'+fontSize+'" font-weight="700" letter-spacing="-2" fill="'+p.ink+'">'+escapeXml(line)+'</text>').join('');
+  const titles=lines.map((line,i)=>'<text data-role="release-title" x="56" y="'+(748+i*64)+'" font-family="Georgia,serif" font-size="'+fontSize+'" font-weight="700" letter-spacing="-2"'+fitTextAttributes(line,fontSize,788,-2)+' fill="'+p.ink+'">'+escapeXml(line)+'</text>').join('');
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900" role="img" aria-labelledby="'+titleId+' '+descId+'">',
     '<title id="'+titleId+'">'+escapeXml(title)+' by '+escapeXml(artist)+'</title>',
@@ -62,7 +79,7 @@ export function renderSleeve(options={}) {
     '<rect x="0" y="648" width="900" height="252" fill="'+p.paper+'"/>',
     '<path d="M0 648H900" stroke="'+p.accent+'" stroke-width="9"/>',
     titles,
-    '<text x="58" y="861" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="'+p.ink+'">'+escapeXml(artist.toUpperCase())+'</text>',
+    '<text data-role="artist" x="58" y="861" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4"'+fitTextAttributes(artist.toUpperCase(),24,710,4)+' fill="'+p.ink+'">'+escapeXml(artist.toUpperCase())+'</text>',
     '<circle cx="835" cy="833" r="21" fill="'+p.accent+'"/>',
     '</svg>'
   ].join('');
