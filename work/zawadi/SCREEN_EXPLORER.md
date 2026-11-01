@@ -10,6 +10,7 @@ The existing Zawadi page is a **fictional fintech brand and 28-screen product de
 - Each of the 28 existing screen cards gets a **View screen** button when JavaScript is available.
 - A native modal displays a larger, scrollable copy of that screen, its existing caption and its place in the sequence.
 - Previous/Next buttons and left/right arrow keys navigate between screens, with safe first/last boundaries.
+- A labeled **Jump to screen** selector lists all 28 original screen titles, so visitors can go directly to a particular design without 27 repeated clicks. The selector stays synchronized with buttons and arrow navigation and retains native keyboard behavior.
 - Escape and the Close button dismiss the dialog, returning keyboard focus to the originating screen.
 - The original gallery remains fully readable with JavaScript disabled or in browsers without `dialog.showModal()`.
 
