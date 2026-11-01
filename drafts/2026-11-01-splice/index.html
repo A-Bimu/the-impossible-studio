@@ -74,7 +74,7 @@ function render(announce=false){
   const artist=cleanText(artistInput.value,28)||'LOW ORBIT';
   const svg=renderSleeve({title,artist,layout:state.layout,palette:state.palette});
   document.getElementById('cover').innerHTML=svg;
-  document.getElementById('phone-cover').innerHTML=svg;
+  document.getElementById('phone-cover').innerHTML=renderSleeve({title,artist,layout:state.layout,palette:state.palette,preview:true});
   document.getElementById('phone-title').textContent=title;
   document.getElementById('phone-artist').textContent=artist;
   for(const button of document.querySelectorAll('[data-layout]')) button.setAttribute('aria-pressed',String(button.dataset.layout===state.layout));
