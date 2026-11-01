@@ -4,9 +4,9 @@
 
 | Work | Approved direction | GitHub state | Remaining media |
 | --- | --- | --- | --- |
-| STOCKWISE | Approved 1 Nov 2026: inventory, invoicing and customer management responsive website | **Working HTML source and case study committed on a feature branch; production awaiting release** | None. Original identity and mockup compositions are created with HTML/CSS, and device frames display actual source. |
-| VELA HEALTH | Approved 1 Nov 2026: doctor discovery, services and simulated appointment booking | **Working HTML source and case study committed on a feature branch; production awaiting release** | None. People are conceptual illustrations, not photographs of actual clinicians. |
-| MOVA | Approved 1 Nov 2026: fictional shipments, tracking and dispatch website | **Working HTML source and case study committed on a feature branch; production awaiting release** | None. The map and tracking are fictional; no real shipment telemetry. |
+| STOCKWISE | Approved 1 Nov 2026: inventory, invoicing and customer management responsive website | **Merged into main in PR #55; Vercel production blocked by free-tier daily deployment limit** | None. Original identity and mockup compositions are created with HTML/CSS, and device frames display actual source. |
+| VELA HEALTH | Approved 1 Nov 2026: doctor discovery, services and simulated appointment booking | **Merged into main in PR #55; Vercel production blocked by free-tier daily deployment limit** | None. People are conceptual illustrations, not photographs of actual clinicians. |
+| MOVA | Approved 1 Nov 2026: fictional shipments, tracking and dispatch website | **Merged into main in PR #55; Vercel production blocked by free-tier daily deployment limit** | None. The map and tracking are fictional; no real shipment telemetry. |
 | Deep Ink | Two original porcelain-blue octopus mockups + full-bleed scrolling videos | **Both original PNG designs and both MP4s uploaded, viewable via the project's gallery and video pages** | None. Large originals are losslessly reconstructed in the browser from GitHub file chunks. |
 | ZEBRA | Dramatic zebras-crossing fashion identity and full shopping demo | **Original interactive storefront uploaded and runnable through its loader** | Original standalone campaign mockup image and reference preview, optional |
 | ONE | Business management UI, Deep Navy colourway | **Approved interactive Deep Navy HTML uploaded** | None for the approved Deep Navy prototype and the two previews |
