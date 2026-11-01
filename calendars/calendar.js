@@ -183,7 +183,7 @@ if (edition && editions[edition]) {
       makeThumbnails();
       const fromHash = monthFromHash();
       show(fromHash === -1 ? 0 : fromHash, false);
-      if(new URLSearchParams(location.search).has("preview"))requestAnimationFrame(()=>document.querySelector(".month-section")?.scrollIntoView());
+      if(typeof URLSearchParams!=="undefined"&&typeof location!=="undefined"&&new URLSearchParams(location.search).has("preview"))requestAnimationFrame(()=>document.querySelector(".month-section")?.scrollIntoView());
     };
     sprite.onerror = () => {
       const canvas = el("month-canvas");
