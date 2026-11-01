@@ -1,0 +1,43 @@
+# Read-only real-browser checks for the fictional Zawadi screen explorer.
+# Never deploys, publishes, merges or changes the Studio homepage.
+name: Zawadi screen explorer QA
+
+on:
+  pull_request:
+    paths:
+      - 'work/zawadi/**'
+      - '.github/workflows/zawadi-screen-explorer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate explorer JavaScript
+        run: node --check work/zawadi/viewer.js
+      - name: Install pinned Playwright
+        run: npm install --no-save --no-package-lock playwright@1.56.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Exercise 28 screens, keyboard, and mobile dialog
+        env:
+          ZAWADI_QA_SCREENSHOTS: ${{ runner.temp }}/zawadi-review
+        run: node --test work/zawadi/viewer.test.mjs
+      - name: Save review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zawadi-screen-explorer-review
+          path: ${{ runner.temp }}/zawadi-review/*.png
+          if-no-files-found: warn
+          retention-days: 7
