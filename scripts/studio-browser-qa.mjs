@@ -17,6 +17,8 @@ const routes=[
 async function inspect(page,tag){
  const metrics=await page.evaluate(()=>({viewport:innerWidth,body:document.body.scrollWidth,html:document.documentElement.scrollWidth,top:document.documentElement.scrollHeight,images:[...document.images].filter(i=>i.getBoundingClientRect().width>0&&i.getBoundingClientRect().height>0).map(i=>({src:i.currentSrc||i.src,ready:i.complete&&i.naturalWidth>0}))}));
  if(metrics.html>metrics.viewport+4||metrics.body>metrics.viewport+4)issues.push(tag+' horizontal overflow '+JSON.stringify({html:metrics.html,body:metrics.body,viewport:metrics.viewport}));
+ const hidden=await page.locator('[data-reveal]').evaluateAll(els=>els.filter(el=>{const css=getComputedStyle(el),r=el.getBoundingClientRect();return r.width>10&&r.height>10&&Number(css.opacity)<.8}).length);
+ if(hidden)issues.push(tag+' revealed content is still visually hidden ('+hidden+' sections)');
  return metrics;
 }
 async function capture(page,tag,ready){
