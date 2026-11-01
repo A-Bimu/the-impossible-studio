@@ -19,6 +19,12 @@ The Studio homepage and journal publish more than four interactive/page-based pr
 | Childfree, Unapologetically | `work/childfree/` | Interactive catalogue | 3 desktop project sections + 5 genuine mobile pin-card sections; mood filters and notes dialog preserved |
 | Zawadi | `work/zawadi/` (direct URL, **not homepage-linked**) | Fintech product visual case study | 3 desktop case-study sections + 5 mobile case-study flow sections; coded design concept only, not a working banking service |
 
+## Art-led pages now given truthful device presentations
+- Deep Ink (`work/deep-ink/`): original illustration in laptop context and actual approved motion page in phone context; original video files untouched.
+- Vinyl Lounge (`work/vinyl-lounge/`): original illustration displayed in real laptop- and phone-width pages, preserving the independently animated record diagram.
+- The Lemon Sun (`work/lemon-sun/`): real approved artwork page on laptop and real companion editorial page on phone.
+- The consolidated public index `presentations/` links all 13 Studio presentations, distinguishes full experiences from art-first work, and is linked from the Studio homepage and journal.
+
 ## Artwork pages that should not have invented five-screen applications
 - `work/deep-ink/` is an approved illustrated design-board and two original motion studies, not five coded product routes. It requires an art/motion presentation, not a fabricated interactive app.
 - `work/vinyl-lounge/` presents one approved conceptual illustration with a separate animated explanatory diagram; not an ecommerce app.
