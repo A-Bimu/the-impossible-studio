@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
-const SCAN_DIRS = ['work', 'projects', 'collections', 'pitch-decks', 'calendars', 'daily', 'case-studies'];
+const SCAN_DIRS = ['work', 'projects', 'collections', 'pitch-decks', 'calendars', 'daily', 'case-studies', 'presentations'];
 const ROOT_PAGES = ['index.html'];
 const SHARED_STYLESHEETS = ['studio.css'];
 const ATTRIBUTE = /(?:^|[\s<])(?:href|src|poster)\s*=\s*(["'])(.*?)\1/gi;
@@ -61,9 +61,11 @@ export function auditCss(root, stylesheet, css, fileExists = existsSync) {
 export function auditHtml(root, page, html, fileExists = existsSync) {
   const references = [...html.matchAll(ATTRIBUTE)].map(match => match[2]);
   for (const match of html.matchAll(SRCSET)) {
-    // Data URIs contain commas; skip mixed data-URI srcsets rather than invent false paths.
-    if (match[2].includes('data:')) continue;
-    for (const candidate of match[2].split(',')) {
+    // A data URI contains an internal comma; remove the whole data candidate
+    // before splitting the remaining local/remote srcset alternatives.
+    // This also keeps checking local fallbacks alongside inline image data.
+    const withoutDataUris = match[2].replace(/(?:^|,)\s*data:[^\s]+(?:\s+\d+(?:\.\d+)?[wx])?/gi, '');
+    for (const candidate of withoutDataUris.split(',')) {
       const url = candidate.trim().split(/\s+/)[0];
       if (url) references.push(url);
     }

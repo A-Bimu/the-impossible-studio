@@ -52,9 +52,22 @@ test('CSS URLs resolve relative to the stylesheet, not the HTML page', () => {
   ]);
 });
 
-test('mixed data-URI srcsets are skipped rather than producing fake missing paths', () => {
-  const html = '<img srcset="data:image/png;base64,AAAA 1x, ../../assets/other.webp 2x">';
-  assert.deepEqual(auditHtml(root, page, html, () => false), []);
+test('audits local srcset alternatives even when mixed with data URIs', () => {
+  const html = `<img srcset="data:image/png;base64,AAAA 1x, ../../assets/other.webp 2x">
+    <source srcset="../../assets/first.webp 1x, data:image/svg+xml,%3Csvg%3E 2x, ../../assets/third.webp 3x">
+    <img srcset="data:image/png;base64,AAAA, ../../assets/fallback.webp 2x">`;
+  assert.deepEqual(auditHtml(root, page, html, () => false).map(item => item.reference), [
+    '../../assets/other.webp', '../../assets/first.webp',
+    '../../assets/third.webp', '../../assets/fallback.webp',
+  ]);
+});
+
+test('data-only srcsets are ignored without losing ordinary compact srcsets', () => {
+  const html = `<img srcset="data:image/png;base64,AAAA 1x">
+    <img srcset="../../assets/one.webp 1x,../../assets/two.webp 2x">`;
+  assert.deepEqual(auditHtml(root, page, html, () => false).map(item => item.reference), [
+    '../../assets/one.webp', '../../assets/two.webp',
+  ]);
 });
 
 test('walker checks both HTML and CSS in scoped directories', async () => {
@@ -130,4 +143,31 @@ test('covers root homepage and interactive project, collection and pitch-deck pa
   } finally {
     await rm(temp, { recursive: true, force: true });
   }
+});
+
+test('presentation collection pages are included in the asset audit', async () => {
+  const temp = await mkdtemp(path.join(os.tmpdir(), 'studio-presentations-'));
+  try {
+    await mkdir(path.join(temp, 'presentations'), { recursive: true });
+    await writeFile(path.join(temp, 'presentations', 'index.html'), '<img src="../assets/missing-cover.webp">');
+    const result = await auditProjectPages(temp);
+    assert.equal(result.pages, 1);
+    assert.deepEqual(result.broken, [{
+      page: 'presentations/index.html',
+      reference: '../assets/missing-cover.webp',
+      target: 'assets/missing-cover.webp',
+    }]);
+  } finally {
+    await rm(temp, { recursive: true, force: true });
+  }
+});
+
+test('malformed relative-prefixed external cover URLs are not mistaken for valid CDN URLs', () => {
+  const gallery = path.join(root, 'presentations', 'index.html');
+  const bad = '../https://images.example.org/cover.webp';
+  const broken = auditHtml(root, gallery, '<img src="' + bad + '">', () => false);
+  assert.equal(broken.length, 1);
+  assert.equal(broken[0].reference, bad);
+  assert.ok(broken[0].target.startsWith('https:'));
+  assert.deepEqual(auditHtml(root, gallery, '<img src="https://images.example.org/cover.webp">', () => false), []);
 });
