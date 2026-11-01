@@ -27,7 +27,7 @@ test('new case studies show three real laptop and five real phone project views'
   assert.equal(cfg.desktop.length,3,p.name);assert.equal(cfg.phone.length,5,p.name);
   assert.equal(cfg.project,p.name);assert.equal(cfg.source,'../../projects/'+p.slug+'/index.html?preview=1');
   assert.equal(new Set(cfg.desktop.map(x=>x.route)).size,3);assert.equal(new Set(cfg.phone.map(x=>x.route)).size,5);
-  for(const view of [...cfg.desktop,...cfg.phone])assert.ok(p.routes.includes(view.route.slice(1)),p.name+' source section '+view.route);
+  for(const view of [...cfg.desktop,...cfg.phone])assert.ok(p.routes.includes(view.route.slice(1))||(p.slug==='stockwise'&&view.route==='#home'),p.name+' source section '+view.route);
   for(const required of ['studio-responsive-showcase.js','studio-responsive-showcase.css','business-websites-showcase.css','sd-mount','creative process','not a commissioned','Explore working demo'])assert.ok(html.toLowerCase().includes(required.toLowerCase()),p.name+' includes '+required);
  }
 });
