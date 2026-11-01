@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#25162e">
+<meta name="description" content="SPLICE: an original interactive record sleeve design study. Edit the typography, switch compositions, and export a real vector SVG. Unapproved Studio draft.">
+<title>SPLICE | Record sleeve lab | Studio draft</title>
+<style>
+:root{--ink:#25162e;--paper:#f7eadd;--lilac:#c8b2fa;--coral:#ff7358;--soft:#b5a9b9;--line:#6a596e}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--paper);font:15px/1.6 Arial,Helvetica,sans-serif}button,input{font:inherit}button{cursor:pointer}a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:4px}
+.skip{position:absolute;left:12px;top:-90px;background:var(--paper);color:var(--ink);padding:12px;z-index:20}.skip:focus{top:12px}
+.shell{width:min(1460px,calc(100% - 64px));margin-inline:auto}
+header{border-bottom:1px solid var(--line);padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.wordmark{font-weight:900;letter-spacing:-.08em;font-size:26px;text-decoration:none}.wordmark span{color:var(--coral)}.draft{font-size:11px;letter-spacing:.13em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:8px 13px}
+.eyebrow{color:var(--lilac);font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.intro{display:grid;grid-template-columns:1.2fr .8fr;align-items:end;gap:40px;padding:64px 0 54px}.intro h1{font:normal clamp(56px,7.8vw,125px)/.94 Georgia,serif;letter-spacing:-.075em;margin:14px 0 0}.intro h1 em{color:var(--coral);font-weight:normal}.intro p{color:#d8ccdb;max-width:460px;margin:0 0 9px;font-size:17px}
+.workbench{display:grid;grid-template-columns:minmax(255px,320px) minmax(350px,1fr) minmax(210px,280px);gap:clamp(22px,3vw,46px);align-items:start;padding:30px 0 84px;border-top:1px solid var(--line)}
+.panel{background:#34263b;border:1px solid #5a4a60;padding:25px;border-radius:2px}.panel h2,.preview h2,.phone-area h2{font:normal 25px Georgia,serif;letter-spacing:-.04em;margin:0 0 18px}.panel label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin:18px 0 7px}
+.panel input{display:block;width:100%;background:#211728;color:var(--paper);border:1px solid #8a788e;padding:12px 13px;min-height:46px;border-radius:0}.panel input::placeholder{color:#b6aab7}
+fieldset{border:0;margin:24px 0 0;padding:0}legend{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:11px}
+.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.choices button{min-height:48px;padding:8px 4px;background:transparent;color:var(--paper);border:1px solid #827187;font-size:11px;font-weight:700}.choices button[aria-pressed=true]{background:var(--lilac);border-color:var(--lilac);color:var(--ink)}
+.swatches button{font-size:0;position:relative;display:grid;place-items:center}.swatches button::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--swatch);border:2px solid #fff8}.swatches button[aria-pressed=true]{outline:2px solid var(--paper);outline-offset:-5px}
+.actions{display:grid;gap:9px;margin-top:29px}.actions button{min-height:50px;font-weight:800;border:1px solid var(--paper);background:var(--paper);color:var(--ink)}.actions .secondary{background:transparent;color:var(--paper)}
+.hint{font-size:12px;color:#c8bccc;margin:17px 0 0}#status{display:block;min-height:36px;font-size:12px;color:var(--lilac);margin-top:14px}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--lilac);margin:0 0 10px}
+.preview .cover{width:100%;max-width:650px;aspect-ratio:1;box-shadow:24px 26px 0 #100c18,25px 27px 0 #8a728f;line-height:0}.cover svg{width:100%;height:100%;display:block}
+.preview .meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#cbbfd0;font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-top:35px}
+.phone-area{min-width:0}.phone{background:#111019;border:8px solid #5b5364;border-radius:32px;padding:24px 16px 22px;box-shadow:12px 20px 0 #100c18;max-width:255px;margin:0 auto}.phone .topline{height:14px;border-top:3px solid #e8dce6;width:54px;border-radius:20px;margin:0 auto 24px}.phone-cover{aspect-ratio:1;line-height:0}.phone-cover svg{width:100%;height:100%;display:block}.phone .micro{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac);margin:18px 0 7px}.phone strong{font-size:16px;line-height:1.2;display:block}.phone small{display:block;color:#c7b8ca;margin-top:5px}.phone .track{height:2px;background:#74677b;margin-top:20px}.phone .track::before{content:"";display:block;width:36%;height:2px;background:var(--coral)}.phone .not-player{font-size:10px;color:#bcaec0;margin-top:12px}
+.about{background:var(--paper);color:var(--ink);padding:65px 0 75px}.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px}.about h2{font:normal clamp(36px,4vw,65px)/1.05 Georgia,serif;letter-spacing:-.05em;margin:8px 0 0}.about p{max-width:580px;font-size:16px;line-height:1.85}footer{padding:28px 0;color:#cfc1d2;font-size:12px;display:flex;justify-content:space-between;gap:15px}
+@media(max-width:1160px){.workbench{grid-template-columns:minmax(260px,340px) minmax(350px,1fr)}.phone-area{grid-column:2}.phone{margin:0;max-width:230px}.intro{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.shell{width:calc(100% - 32px)}.intro{grid-template-columns:1fr;gap:22px;padding:46px 0 40px}.intro h1{font-size:clamp(53px,12vw,85px)}.workbench{grid-template-columns:minmax(0,1fr);gap:36px}.phone-area{grid-column:auto}.phone{margin:0 auto}.about-inner{grid-template-columns:1fr;gap:10px}.preview .cover{box-shadow:12px 14px 0 #100c18,13px 15px 0 #8a728f}.preview .meta{margin-top:25px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the sleeve editor</a>
+<div class="shell">
+<header><a class="wordmark" href="../../" aria-label="The Impossible Studio homepage">SPLICE<span>✳</span></a><span class="draft">Studio draft · not published</span></header>
+<main id="main">
+<section class="intro"><div><span class="eyebrow">01 / A record sleeve playground</span><h1>Give sound<br><em>a shape.</em></h1></div><p>What does a song look like before anyone hears it? Make a record sleeve from three print-inspired compositions. Change the words, choose the ink, then keep the vector artwork.</p></section>
+<section class="workbench" aria-label="Live record sleeve design studio">
+<div class="panel"><h2>Make it yours.</h2>
+<label for="album-title">Release title</label><input id="album-title" maxlength="36" value="SOFT COLLISION" autocomplete="off">
+<label for="artist-name">Artist name</label><input id="artist-name" maxlength="28" value="LOW ORBIT" autocomplete="off">
+<fieldset><legend>Composition</legend><div class="choices" id="layouts">
+<button type="button" data-layout="collision" aria-pressed="true">Collision</button>
+<button type="button" data-layout="fold" aria-pressed="false">Fold</button>
+<button type="button" data-layout="frequency" aria-pressed="false">Frequency</button>
+</div></fieldset>
+<fieldset><legend>Ink and paper</legend><div class="choices swatches" id="palettes">
+<button type="button" data-palette="plum" aria-label="Plum and persimmon" aria-pressed="true" style="--swatch:#ff7358">Plum</button>
+<button type="button" data-palette="midnight" aria-label="Midnight and ice" aria-pressed="false" style="--swatch:#9dbbd9">Midnight</button>
+<button type="button" data-palette="umber" aria-label="Umber and gold" aria-pressed="false" style="--swatch:#e7c47b">Umber</button>
+</div></fieldset>
+<div class="actions"><button type="button" id="export">Download editable SVG ↓</button><button type="button" id="reset" class="secondary">Reset the sleeve</button></div>
+<p class="hint">This is a fictional album-art study, not a music service. Your edits stay in this browser tab.</p>
+<output id="status" role="status" aria-live="polite">Ready to make something.</output>
+</div>
+<div class="preview"><p class="section-label">02 / Desktop sleeve preview</p><h2>Original art. Your words.</h2><div class="cover" id="cover"></div><div class="meta"><span>900 × 900 / editable vector</span><span>Print-inspired composition</span></div></div>
+<aside class="phone-area" aria-label="Mobile artwork presentation"><p class="section-label">03 / Phone mockup</p><h2>Same design, smaller stage.</h2><div class="phone"><div class="topline"></div><div class="phone-cover" id="phone-cover" aria-hidden="true"></div><div class="micro">Concept preview / side A</div><strong id="phone-title">SOFT COLLISION</strong><small id="phone-artist">LOW ORBIT</small><div class="track"></div><p class="not-player">Visual mockup only · no audio playback</p></div></aside>
+</section>
+</main>
+</div>
+<section class="about"><div class="shell about-inner"><div><span class="eyebrow" style="color:#8e4a56">The idea behind the work</span><h2>Not a picture<br>of a product.</h2></div><p>SPLICE is a working piece of graphic design: editable type, original vector geometry and three deliberate compositional systems. Collision overlaps two opposing rhythms. Fold borrows from cut-paper sleeve art. Frequency turns repetition into a visual beat. Exported SVGs preserve shapes and text for further editing in vector software.</p></div></section>
+<div class="shell"><footer><span>SPLICE / The Impossible Studio / 2026</span><span>Unapproved draft. Not linked from the public gallery.</span></footer></div>
+<script type="module">
+import {renderSleeve,cleanText} from './app.mjs';
+const titleInput=document.getElementById('album-title');
+const artistInput=document.getElementById('artist-name');
+const status=document.getElementById('status');
+const state={layout:'collision',palette:'plum'};
+function render(announce=false){
+  const title=cleanText(titleInput.value,36)||'SOFT COLLISION';
+  const artist=cleanText(artistInput.value,28)||'LOW ORBIT';
+  const svg=renderSleeve({title,artist,layout:state.layout,palette:state.palette});
+  document.getElementById('cover').innerHTML=svg;
+  document.getElementById('phone-cover').innerHTML=svg;
+  document.getElementById('phone-title').textContent=title;
+  document.getElementById('phone-artist').textContent=artist;
+  for(const button of document.querySelectorAll('[data-layout]')) button.setAttribute('aria-pressed',String(button.dataset.layout===state.layout));
+  for(const button of document.querySelectorAll('[data-palette]')) button.setAttribute('aria-pressed',String(button.dataset.palette===state.palette));
+  if(announce) status.textContent='Preview updated: '+state.layout+' composition.';
+}
+titleInput.addEventListener('input',()=>render());
+artistInput.addEventListener('input',()=>render());
+for(const button of document.querySelectorAll('[data-layout]')) button.addEventListener('click',()=>{state.layout=button.dataset.layout;render(true);});
+for(const button of document.querySelectorAll('[data-palette]')) button.addEventListener('click',()=>{state.palette=button.dataset.palette;render(true);});
+document.getElementById('reset').addEventListener('click',()=>{
+  titleInput.value='SOFT COLLISION';artistInput.value='LOW ORBIT';state.layout='collision';state.palette='plum';
+  render(true);titleInput.focus();status.textContent='Sleeve reset to the original study.';
+});
+document.getElementById('export').addEventListener('click',()=>{
+  const svg=renderSleeve({title:titleInput.value,artist:artistInput.value,layout:state.layout,palette:state.palette});
+  const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const anchor=document.createElement('a');
+  anchor.href=url;anchor.download='splice-'+(cleanText(titleInput.value,36)||'soft-collision').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.svg';
+  document.body.appendChild(anchor);anchor.click();anchor.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  status.textContent='Editable SVG download prepared.';
+});
+render();
+</script>
+</body></html>
