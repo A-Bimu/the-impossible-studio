@@ -46,6 +46,7 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
       const page = await browser.newPage({ viewport: { width, height: 800 } });
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
+      await page.context().grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(base).origin });
       try {
         await page.goto(base, { waitUntil: 'domcontentloaded' });
         const triggers = page.locator('.gallery > .screencard > .zawadi-inspect');
@@ -79,6 +80,12 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
           'Shareable link identifies the selected original design');
         assert.equal(await shareLink.getAttribute('target'), '_blank');
         assert.match(await shareLink.getAttribute('rel'), /noopener/);
+        const copyButton = page.locator('.zawadi-viewer__copy');
+        await copyButton.click();
+        assert.equal(await page.evaluate(() => navigator.clipboard.readText()), shareUrl.href,
+          'Copy action writes the currently selected screen link');
+        assert.equal(await page.locator('.zawadi-viewer__copy-status').textContent(),
+          'Link copied for screen 15.', 'Copy feedback identifies the selected screen');
         const [sharedPage] = await Promise.all([page.waitForEvent('popup'), shareLink.click()]);
         try {
           await sharedPage.waitForLoadState('domcontentloaded');
@@ -100,7 +107,17 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
         } finally {
           await sharedPage.close();
         }
+        // Clipboard permissions may be denied; the existing shareable link remains available.
+        await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', {
+          configurable: true,
+          value: { writeText: async () => { throw new Error('denied'); } }
+        }));
+        await copyButton.click();
+        assert.match(await page.locator('.zawadi-viewer__copy-status').textContent(),
+          /Clipboard unavailable/, 'Denied clipboard access produces an accessible fallback');
         await picker.selectOption('0');
+        assert.equal(await page.locator('.zawadi-viewer__copy-status').textContent(), '',
+          'Copy feedback clears when the displayed screen changes');
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 1 of 28');
         await page.locator('.zawadi-viewer__close').focus();
 
