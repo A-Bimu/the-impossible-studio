@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {Script} from 'node:vm';
 const read=p=>readFile(new URL('../'+p,import.meta.url),'utf8');
-function config(html){const m=html.match(/<script class="sd-config" type="application\/json">([\s\S]*?)<\/script>/);assert.ok(m,'Responsive case-study config is present');return JSON.parse(m[1]);}
+function config(html){const m=html.match(/<script\b[^>]*class="sd-config"[^>]*>([\s\S]*?)<\/script>/);assert.ok(m,'Responsive case-study config is present');return JSON.parse(m[1]);}
 const pages=[
  'calendars/roots-2027/index.html','calendars/atlas-africa-2027/index.html','calendars/heritage-africa-2027/index.html',
  'work/poster-studies/index.html','work/childfree/index.html','work/zawadi/index.html'
@@ -46,7 +46,7 @@ test('poster study gallery previews point to eight actual independent original p
 test('Childfree uses 9 approved real pin cards with stable anchors, plus working dialog',async()=>{
  const html=await read('work/childfree/index.html');
  const cfg=config(html);
- assert.equal((html.match(/class="pin-card" id="pin-/g)||[]).length,9);
+ assert.equal((html.match(/class="sd-pin-anchor" id="pin-/g)||[]).length,9);
  for(const s of cfg.phone)assert.ok(html.includes('id="'+s.route.slice(1)+'"'));
  assert.ok(html.includes('dialog.showModal()'));
 });
