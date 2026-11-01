@@ -61,6 +61,22 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
         assert.equal(await page.locator('.zawadi-viewer__screen .device').count(), 1);
         assert.equal(await page.locator('.zawadi-viewer__close').evaluate(node => node === document.activeElement), true);
 
+        const picker = page.locator('.zawadi-viewer__jump-select');
+        assert.equal(await picker.locator('option').count(), 28, 'Picker lists every original screen');
+        assert.equal(await picker.inputValue(), '0');
+        assert.equal(await picker.evaluate(node => {
+          const arrow = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true });
+          node.dispatchEvent(arrow);
+          return arrow.defaultPrevented;
+        }), false, 'Picker arrow keys retain native keyboard behavior');
+        await picker.selectOption('14');
+        assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 15 of 28');
+        assert.equal(await page.locator('#zawadi-viewer-title').textContent(),
+          await page.locator('.gallery > .screencard .screen-caption h3').nth(14).textContent());
+        await picker.selectOption('0');
+        assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 1 of 28');
+        await page.locator('.zawadi-viewer__close').focus();
+
         const rect = await dialog.boundingBox();
         assert.ok(rect && rect.x >= -1 && rect.x + rect.width <= width + 1,
           'Dialog should fit ' + width + 'px viewport: ' + JSON.stringify(rect));
@@ -72,6 +88,7 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
 
         await page.keyboard.press('ArrowRight');
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 2 of 28');
+        assert.equal(await picker.inputValue(), '1', 'Picker follows arrow navigation');
         assert.equal(await page.locator('.zawadi-viewer__previous').isEnabled(), true);
         await page.keyboard.press('ArrowLeft');
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 1 of 28');
@@ -83,6 +100,7 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
         const last = triggers.last();
         await last.click();
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 28 of 28');
+        assert.equal(await picker.inputValue(), '27', 'Picker follows direct card selection');
         assert.equal(await page.locator('.zawadi-viewer__next').isDisabled(), true);
         await page.keyboard.press('ArrowRight');
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 28 of 28');
