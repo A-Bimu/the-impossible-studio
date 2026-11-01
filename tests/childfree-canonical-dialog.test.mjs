@@ -116,3 +116,13 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
   assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
   assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
 });
+
+test('keyboard skip link becomes visible and lands on a focusable collection target', () => {
+  assert.match(html, /<a class="sr-only" href="#collection">Skip to the pin collection<\/a>/);
+  assert.match(html, /<section class="pin-section" id="collection" tabindex="-1">/,
+    'the skip target must accept programmatic focus');
+  assert.match(html, /\.pin-page \.sr-only:focus-visible\{[^}]*position:fixed!important;[^}]*clip-path:none;[^}]*z-index:1000/s,
+    'keyboard focus must reveal the previously clipped link above the page');
+  assert.match(html, /\.pin-page \.pin-moods button:focus-visible,[\s\S]*?\.pin-page \.pin-close:focus-visible\{outline:3px solid var\(--accent\)/,
+    'collection controls must retain a visible keyboard focus indicator');
+});
