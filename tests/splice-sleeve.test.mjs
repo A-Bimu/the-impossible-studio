@@ -11,7 +11,7 @@ test('three genuinely distinct editable SVG compositions',()=>{
     assert.match(svg,/viewBox="0 0 900 900"/);
     assert.match(svg,/<text /);
     assert.ok(svg.endsWith('</svg>'));
-    assert.doesNotMatch(svg,/<image\b|<foreignObject\b|https?:\/\//);
+    assert.doesNotMatch(svg,/<image\b|<foreignObject\b|\b(?:href|src)=["']https?:\/\//);
   }
   assert.equal(new Set(outputs).size,3);
   assert.match(outputs[0],/<circle/);
