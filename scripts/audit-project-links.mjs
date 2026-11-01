@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
-const SCAN_DIRS = ['work', 'projects', 'collections', 'pitch-decks', 'calendars', 'daily', 'case-studies'];
+const SCAN_DIRS = ['work', 'projects', 'collections', 'pitch-decks', 'calendars', 'daily', 'case-studies', 'presentations'];
 const ROOT_PAGES = ['index.html'];
 const SHARED_STYLESHEETS = ['studio.css'];
 const ATTRIBUTE = /(?:^|[\s<])(?:href|src|poster)\s*=\s*(["'])(.*?)\1/gi;
