@@ -71,10 +71,10 @@ test('all remaining art-led homepage projects have truthful laptop and phone pre
   assert.ok(cfg.demoDescription.includes('No extra product screens'),path+' does not invent app states');
  }
 });
-test('central presentation collection links thirteen existing, distinct Studio projects',async()=>{
+test('central presentation collection links sixteen distinct Studio projects',async()=>{
  const html=await read('presentations/index.html');
  const targets=[...html.matchAll(/<a href="\.\.\/([^"]+)"[^>]*>View (?:case study|presentation)/g)].map(m=>m[1]);
- assert.equal(targets.length,13);
+ assert.equal(targets.length,16);
  for(const item of targets){const path=item.split('#')[0];let local=path.endsWith('/')?path+'index.html':path;
   const file=await read(local);assert.ok(file.length>200,'source exists: '+local);
  }
