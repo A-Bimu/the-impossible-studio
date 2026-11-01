@@ -91,6 +91,28 @@
   outline: 3px solid #c98b69;
   outline-offset: 3px;
 }
+.zawadi-viewer__share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 12px;
+}
+.zawadi-viewer__permalink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid #7383a0;
+  border-radius: 999px;
+  background: #fff;
+  color: #101c34;
+  font: 700 12px/1.4 Inter, Arial, sans-serif;
+  text-decoration: none;
+}
+.zawadi-viewer__permalink:hover { background: #101c34; color: #fff; }
+.zawadi-viewer__permalink:focus-visible { outline: 3px solid #c98b69; outline-offset: 3px; }
+.zawadi-viewer__share span { color: #586373; font-size: 11px; }
 .zawadi-viewer__screen {
   display: grid;
   place-items: center;
