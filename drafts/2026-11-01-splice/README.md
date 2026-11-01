@@ -14,6 +14,7 @@ What does a song look like before anyone hears it? SPLICE is a fictional indepen
 - Three distinct original vector compositions and three colourways.
 - A full-size sleeve preview and a separate mobile presentation mockup that both update with the same choices.
 - A genuine downloadable **900 × 900 SVG** with editable shapes and live text, not a screenshot or raster-only export.
+- Long release titles and artist names are constrained to the sleeve's typography area in both the live preview and downloaded SVG; ordinary short names retain their original lettering. This is a digital vector study, **not** a printer-certified bleed/CMYK package.
 - Reset action, keyboard-operable controls, visible focus, pressed-state semantics, status messages, and a responsive narrow-screen layout.
 - No external images, fonts, third-party libraries, accounts, storage, network calls, or paid services. No green palette. Input is XML-escaped before it enters SVG.
 
@@ -23,7 +24,7 @@ Run from the repository root with Node.js 22 or later:
 
     node --test tests/splice-sleeve.test.mjs
 
-The isolated pull-request workflow runs these checks. Automated source tests cover three compositions, safe text escaping, export wiring, and responsive markup. A second Chromium job exercises actual editing, SVG download contents, reset focus, and document overflow at 320px, 375px, and 768px. It captures desktop and mobile screenshots as the short-lived `splice-desktop-mobile-review` GitHub Actions artifact (seven-day retention). Run that browser check locally with `npm install --no-save --no-package-lock playwright@1.56.0`, `npx playwright install chromium`, then `node --test drafts/2026-11-01-splice/browser.test.mjs`. **Passing checks and screenshots do not establish visual approval or replace real-device, keyboard, or screen-reader testing.**
+The isolated pull-request workflow runs these checks. Automated source tests cover three compositions, safe text escaping, export wiring, and responsive markup. A second Chromium job exercises actual editing, SVG download contents, extreme-width text bounds, reset focus, and document overflow at 320px, 375px, and 768px. It captures desktop and mobile screenshots as the short-lived `splice-desktop-mobile-review` GitHub Actions artifact (seven-day retention). Run that browser check locally with `npm install --no-save --no-package-lock playwright@1.56.0`, `npx playwright install chromium`, then `node --test drafts/2026-11-01-splice/browser.test.mjs`. **Passing checks and screenshots do not establish visual approval or replace real-device, keyboard, or screen-reader testing.**
 
 ## Approval gate
 
