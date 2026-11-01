@@ -1,0 +1,46 @@
+name: Studio photographic & responsive browser QA
+on:
+  pull_request:
+    paths:
+      - 'projects/stockwise/**'
+      - 'projects/vela-health/**'
+      - 'projects/mova/**'
+      - 'work/stockwise/**'
+      - 'work/vela-health/**'
+      - 'work/mova/**'
+      - 'assets/studio-motion-2026.js'
+      - 'assets/studio-case-art-direction.css'
+      - 'scripts/studio-browser-qa.mjs'
+      - '.github/workflows/studio-visual-qa-2026.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium-responsive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser testing dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start checkout web server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/studio-qa-http.log 2>&1 &
+          sleep 2
+      - name: Run desktop, tablet, mobile and interaction QA
+        run: node scripts/studio-browser-qa.mjs
+      - name: Archive page screenshots and issue report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: studio-art-direction-browser-qa
+          path: artifacts/studio-browser-qa/
+          retention-days: 7
+          if-no-files-found: warn
