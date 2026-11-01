@@ -82,6 +82,7 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
         assert.match(await shareLink.getAttribute('rel'), /noopener/);
         const copyButton = page.locator('.zawadi-viewer__copy');
         await copyButton.click();
+        await page.waitForFunction(() => document.querySelector('.zawadi-viewer__copy-status')?.textContent === 'Link copied for screen 15.');
         assert.equal(await page.evaluate(() => navigator.clipboard.readText()), shareUrl.href,
           'Copy action writes the currently selected screen link');
         assert.equal(await page.locator('.zawadi-viewer__copy-status').textContent(),
@@ -113,6 +114,7 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
           value: { writeText: async () => { throw new Error('denied'); } }
         }));
         await copyButton.click();
+        await page.waitForFunction(() => document.querySelector('.zawadi-viewer__copy-status')?.textContent?.includes('Clipboard unavailable'));
         assert.match(await page.locator('.zawadi-viewer__copy-status').textContent(),
           /Clipboard unavailable/, 'Denied clipboard access produces an accessible fallback');
         await picker.selectOption('0');
