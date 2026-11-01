@@ -26,7 +26,9 @@
       </label>
       <div class="zawadi-viewer__share">
         <a class="zawadi-viewer__permalink" target="_blank" rel="noopener noreferrer">Open shareable screen link ↗</a>
-        <span>Opens this design in a new tab.</span>
+        <button type="button" class="zawadi-viewer__copy">Copy screen link</button>
+        <span class="zawadi-viewer__share-note">Opens this design in a new tab.</span>
+        <span class="zawadi-viewer__copy-status" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
       <div class="zawadi-viewer__screen"></div>
       <div class="zawadi-viewer__actions">
@@ -44,6 +46,8 @@
   const jump = dialog.querySelector('.zawadi-viewer__jump-select');
   const count = dialog.querySelector('.zawadi-viewer__count');
   const permalink = dialog.querySelector('.zawadi-viewer__permalink');
+  const copyLink = dialog.querySelector('.zawadi-viewer__copy');
+  const copyStatus = dialog.querySelector('.zawadi-viewer__copy-status');
   const previous = dialog.querySelector('.zawadi-viewer__previous');
   const next = dialog.querySelector('.zawadi-viewer__next');
   const close = dialog.querySelector('.zawadi-viewer__close');
@@ -74,6 +78,7 @@
     current = index;
     jump.value = String(index);
     permalink.href = screenUrl(index);
+    copyStatus.textContent = '';
     title.textContent = card.querySelector('.screen-caption h3')?.textContent?.trim() || 'App screen';
     description.textContent = card.querySelector('.screen-caption p')?.textContent?.trim() || '';
     const copy = device.cloneNode(true);
@@ -106,6 +111,18 @@
       close.focus();
     });
     card.append(button);
+  });
+
+  copyLink.addEventListener('click', async () => {
+    const link = screenUrl(current);
+    try {
+      if (typeof navigator.clipboard?.writeText !== 'function') throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(link);
+      copyStatus.textContent = `Link copied for screen ${current + 1}.`;
+    } catch {
+      // The ordinary shareable anchor remains usable when clipboard access is denied.
+      copyStatus.textContent = 'Clipboard unavailable. Open the shareable link and copy its address.';
+    }
   });
 
   jump.addEventListener('change', () => display(Number(jump.value)));
