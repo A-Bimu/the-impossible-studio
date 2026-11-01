@@ -18,6 +18,14 @@ test('three genuinely distinct editable SVG compositions',()=>{
   assert.match(outputs[1],/<path/);
   assert.match(outputs[2],/<rect/);
 });
+test('desktop and phone previews have unique SVG accessibility references',()=>{
+  const desktop=renderSleeve();
+  const phone=renderSleeve({preview:true});
+  assert.match(desktop,/aria-labelledby="sleeve-title sleeve-desc"/);
+  assert.match(phone,/aria-labelledby="phone-sleeve-title phone-sleeve-desc"/);
+  assert.match(phone,/id="phone-sleeve-title"/);
+  assert.doesNotMatch(phone,/id="sleeve-title"/);
+});
 test('user copy is escaped and cannot inject SVG markup',()=>{
   const svg=renderSleeve({title:'<script>alert(1)</script> &',artist:'A "quote" & <tag>'});
   assert.doesNotMatch(svg,/<script>|<tag>/);
