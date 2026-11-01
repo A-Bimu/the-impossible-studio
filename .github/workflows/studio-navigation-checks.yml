@@ -23,4 +23,4 @@ jobs:
         with:
           node-version: '22'
       - name: Verify homepage section links across Studio pages
-        run: node --test tests/studio-navigation.test.mjs tests/studio-website-presentations.test.mjs tests/studio-complete-web-presentations.test.mjs
+        run: node --test tests/studio-navigation.test.mjs tests/studio-website-presentations.test.mjs tests/studio-complete-web-presentations.test.mjs tests/studio-showcase-accessibility.test.mjs
