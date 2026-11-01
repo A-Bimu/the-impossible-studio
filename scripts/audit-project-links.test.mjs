@@ -131,3 +131,30 @@ test('covers root homepage and interactive project, collection and pitch-deck pa
     await rm(temp, { recursive: true, force: true });
   }
 });
+
+test('presentation collection pages are included in the asset audit', async () => {
+  const temp = await mkdtemp(path.join(os.tmpdir(), 'studio-presentations-'));
+  try {
+    await mkdir(path.join(temp, 'presentations'), { recursive: true });
+    await writeFile(path.join(temp, 'presentations', 'index.html'), '<img src="../assets/missing-cover.webp">');
+    const result = await auditProjectPages(temp);
+    assert.equal(result.pages, 1);
+    assert.deepEqual(result.broken, [{
+      page: 'presentations/index.html',
+      reference: '../assets/missing-cover.webp',
+      target: 'assets/missing-cover.webp',
+    }]);
+  } finally {
+    await rm(temp, { recursive: true, force: true });
+  }
+});
+
+test('malformed relative-prefixed external cover URLs are not mistaken for valid CDN URLs', () => {
+  const gallery = path.join(root, 'presentations', 'index.html');
+  const bad = '../https://images.example.org/cover.webp';
+  const broken = auditHtml(root, gallery, '<img src="' + bad + '">', () => false);
+  assert.equal(broken.length, 1);
+  assert.equal(broken[0].reference, bad);
+  assert.ok(broken[0].target.startsWith('https:'));
+  assert.deepEqual(auditHtml(root, gallery, '<img src="https://images.example.org/cover.webp">', () => false), []);
+});
