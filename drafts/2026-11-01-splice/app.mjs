@@ -47,13 +47,15 @@ export function renderSleeve(options={}) {
   const p=palettes[options.palette]||palettes.plum;
   const title=cleanText(options.title,36)||'SOFT COLLISION';
   const artist=cleanText(options.artist,28)||'LOW ORBIT';
+  const titleId=options.preview===true?'phone-sleeve-title':'sleeve-title';
+  const descId=options.preview===true?'phone-sleeve-desc':'sleeve-desc';
   const lines=titleLines(title);
   const fontSize=Math.max(...lines.map(line=>line.length))>20?49:62;
   const titles=lines.map((line,i)=>'<text x="56" y="'+(748+i*64)+'" font-family="Georgia,serif" font-size="'+fontSize+'" font-weight="700" letter-spacing="-2" fill="'+p.ink+'">'+escapeXml(line)+'</text>').join('');
   return [
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900" role="img" aria-labelledby="sleeve-title sleeve-desc">',
-    '<title id="sleeve-title">'+escapeXml(title)+' by '+escapeXml(artist)+'</title>',
-    '<desc id="sleeve-desc">Original '+escapeXml(layout)+' geometric record sleeve. Editable vector artwork and text.</desc>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900" role="img" aria-labelledby="'+titleId+' '+descId+'">',
+    '<title id="'+titleId+'">'+escapeXml(title)+' by '+escapeXml(artist)+'</title>',
+    '<desc id="'+descId+'">Original '+escapeXml(layout)+' geometric record sleeve. Editable vector artwork and text.</desc>',
     '<rect width="900" height="900" fill="'+p.ink+'"/>',
     '<text x="58" y="70" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="6" fill="'+p.paper+'">SPLICE / EDITION 001</text>',
     artwork(layout,p),
