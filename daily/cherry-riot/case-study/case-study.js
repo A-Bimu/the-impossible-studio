@@ -8,7 +8,9 @@ const laptopViews=[
 const phoneViews=[
 {view:'home',title:'MOBILE · HOMEPAGE',description:'Brand entry, hero and navigation'},
 {view:'product',title:'MOBILE · PRODUCT PAGE',description:'Flavour details and demo add to bag'},
-{view:'pairings',title:'MOBILE · PAIRINGS PAGE',description:'Inspiration and food pairings'}
+{view:'pairings',title:'MOBILE · PAIRINGS PAGE',description:'Inspiration and food pairings'},
+{view:'cart',preview:true,title:'MOBILE · SHOPPING BAG',description:'Demo basket and order summary'},
+{view:'story',title:'MOBILE · OUR STORY',description:'About the fictional preserves brand'}
 ];
 function urlFor(item){return shop+'?view='+encodeURIComponent(item.view)+(item.preview?'&preview=1':'')}
 function deviceHTML(type,item){const url=urlFor(item);const device=type==='laptop'?'<div class="laptop-lid"><div class="screen-viewport" data-screen-width="1200"><iframe class="screen-content" loading="lazy" src="'+url+'" title="'+item.title+' desktop responsive website preview" tabindex="-1"></iframe></div></div><div class="laptop-base"></div>':'<div class="phone-shell"><div class="phone-screen" data-screen-width="390"><iframe class="screen-content" loading="lazy" src="'+url+'" title="'+item.title+' phone responsive website preview" tabindex="-1"></iframe></div></div>';
