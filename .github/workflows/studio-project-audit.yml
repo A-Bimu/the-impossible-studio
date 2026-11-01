@@ -16,6 +16,7 @@ on:
       - 'calendars/**'
       - 'daily/**'
       - 'case-studies/**'
+      - 'presentations/**'
       - 'studio.css'
       - 'assets/**'
   workflow_dispatch:
