@@ -50,3 +50,13 @@ test('draft has functional editor, export, mobile mockup and no publication link
   assert.match(html,/Studio draft · not published/);
   assert.doesNotMatch(html,/<img\b|<iframe\b|<script[^>]+src=/);
 });
+
+test('long, wide release and artist names receive SVG width constraints',()=>{
+  const long=renderSleeve({title:'W'.repeat(36),artist:'W'.repeat(28)});
+  assert.match(long,/<text data-role="release-title"[^>]*textLength="788" lengthAdjust="spacingAndGlyphs"/);
+  assert.match(long,/<text data-role="artist"[^>]*textLength="710" lengthAdjust="spacingAndGlyphs"/);
+  const ordinary=renderSleeve({title:'SOFT COLLISION',artist:'LOW ORBIT'});
+  assert.doesNotMatch(ordinary,/<text data-role="release-title"[^>]*textLength=/);
+  assert.doesNotMatch(ordinary,/<text data-role="artist"[^>]*textLength=/);
+  assert.match(long,/<text data-role="release-title"/);
+});
