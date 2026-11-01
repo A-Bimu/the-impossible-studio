@@ -87,6 +87,10 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
           assert.equal(await sharedPage.locator('.zawadi-viewer__close')
             .evaluate(node => node === document.activeElement), true);
           await sharedPage.locator('.zawadi-viewer__close').click();
+          // The native dialog dispatches its close event asynchronously after the click.
+          await sharedPage.waitForFunction(() =>
+            document.activeElement === document.querySelectorAll('.gallery > .screencard > .zawadi-inspect')[14],
+            null, { timeout: 3000 });
           assert.equal(await sharedPage.locator('.gallery > .screencard > .zawadi-inspect')
             .nth(14).evaluate(node => node === document.activeElement), true,
           'Closing a deep-linked design returns focus to its gallery trigger');
