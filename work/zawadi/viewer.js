@@ -24,6 +24,10 @@
       <label class="zawadi-viewer__jump">Jump to screen
         <select class="zawadi-viewer__jump-select"></select>
       </label>
+      <div class="zawadi-viewer__share">
+        <a class="zawadi-viewer__permalink" target="_blank" rel="noopener noreferrer">Open shareable screen link ↗</a>
+        <span>Opens this design in a new tab.</span>
+      </div>
       <div class="zawadi-viewer__screen"></div>
       <div class="zawadi-viewer__actions">
         <button type="button" class="zawadi-viewer__previous">← Previous</button>
@@ -39,6 +43,7 @@
   const screen = dialog.querySelector('.zawadi-viewer__screen');
   const jump = dialog.querySelector('.zawadi-viewer__jump-select');
   const count = dialog.querySelector('.zawadi-viewer__count');
+  const permalink = dialog.querySelector('.zawadi-viewer__permalink');
   const previous = dialog.querySelector('.zawadi-viewer__previous');
   const next = dialog.querySelector('.zawadi-viewer__next');
   const close = dialog.querySelector('.zawadi-viewer__close');
@@ -53,6 +58,14 @@
     jump.append(option);
   });
 
+  // Reviewer links identify a screen without changing any original gallery anchors.
+  function screenUrl(index) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('screen', String(index + 1));
+    url.hash = '';
+    return url.href;
+  }
+
   function display(index) {
     if (index < 0 || index >= cards.length) return;
     const card = cards[index];
@@ -60,6 +73,7 @@
     if (!device) return;
     current = index;
     jump.value = String(index);
+    permalink.href = screenUrl(index);
     title.textContent = card.querySelector('.screen-caption h3')?.textContent?.trim() || 'App screen';
     description.textContent = card.querySelector('.screen-caption p')?.textContent?.trim() || '';
     const copy = device.cloneNode(true);
@@ -109,4 +123,18 @@
   dialog.addEventListener('close', () => {
     if (opener?.isConnected) opener.focus();
   });
+
+  // A ?screen=1..28 URL opens the corresponding original design for reviewers.
+  // Invalid values leave the regular gallery usable; no auto-open without dialog support.
+  const requested = new URL(window.location.href).searchParams.get('screen');
+  if (requested && /^(?:[1-9]|1\d|2[0-8])$/.test(requested)) {
+    const index = Number(requested) - 1;
+    const button = cards[index].querySelector('.zawadi-inspect');
+    if (button) {
+      opener = button;
+      display(index);
+      dialog.showModal();
+      close.focus();
+    }
+  }
 })();
