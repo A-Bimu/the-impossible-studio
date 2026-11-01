@@ -28,7 +28,7 @@ function fitTextAttributes(value, fontSize, maxWidth, tracking=0) {
   for(const glyph of value) {
     if(/[MWmw@%&]/u.test(glyph)) units+=1.05;
     else if(/[ilI1!.,:;'\x60|]/u.test(glyph)) units+=0.42;
-    else if(/\\s/u.test(glyph)) units+=0.38;
+    else if(/\s/u.test(glyph)) units+=0.38;
     else if(/[fjrt]/u.test(glyph)) units+=0.55;
     else if(/[A-Z0-9]/u.test(glyph)) units+=0.85;
     else if(/[a-z]/u.test(glyph)) units+=0.70;
