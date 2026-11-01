@@ -73,6 +73,29 @@ test('Zawadi screen explorer: original cards, arrows, boundaries, Escape, and mo
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 15 of 28');
         assert.equal(await page.locator('#zawadi-viewer-title').textContent(),
           await page.locator('.gallery > .screencard .screen-caption h3').nth(14).textContent());
+        const shareLink = page.locator('.zawadi-viewer__permalink');
+        const shareUrl = new URL(await shareLink.getAttribute('href'));
+        assert.equal(shareUrl.searchParams.get('screen'), '15',
+          'Shareable link identifies the selected original design');
+        assert.equal(await shareLink.getAttribute('target'), '_blank');
+        assert.match(await shareLink.getAttribute('rel'), /noopener/);
+        const [sharedPage] = await Promise.all([page.waitForEvent('popup'), shareLink.click()]);
+        try {
+          await sharedPage.waitForLoadState('domcontentloaded');
+          assert.equal(await sharedPage.locator('.zawadi-viewer__count').textContent(),
+            'Screen 15 of 28', 'A shared link opens the requested design');
+          assert.equal(await sharedPage.locator('.zawadi-viewer__close')
+            .evaluate(node => node === document.activeElement), true);
+          await sharedPage.locator('.zawadi-viewer__close').click();
+          assert.equal(await sharedPage.locator('.gallery > .screencard > .zawadi-inspect')
+            .nth(14).evaluate(node => node === document.activeElement), true,
+          'Closing a deep-linked design returns focus to its gallery trigger');
+          await sharedPage.goto(base + '?screen=29', { waitUntil: 'domcontentloaded' });
+          assert.equal(await sharedPage.locator('dialog.zawadi-viewer')
+            .evaluate(node => node.open), false, 'Out-of-range links leave the gallery usable');
+        } finally {
+          await sharedPage.close();
+        }
         await picker.selectOption('0');
         assert.equal(await page.locator('.zawadi-viewer__count').textContent(), 'Screen 1 of 28');
         await page.locator('.zawadi-viewer__close').focus();
