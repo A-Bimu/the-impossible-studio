@@ -126,3 +126,17 @@ test('keyboard skip link becomes visible and lands on a focusable collection tar
   assert.match(html, /\.pin-page \.pin-moods button:focus-visible,[\s\S]*?\.pin-page \.pin-close:focus-visible\{outline:3px solid var\(--accent\)/,
     'collection controls must retain a visible keyboard focus indicator');
 });
+
+
+test('each pin notes button has a unique contextual accessible name', () => {
+  const cards = [...html.matchAll(/<article class="pin-card"[\s\S]*?<\/article>/g)].map(match => match[0]);
+  assert.equal(cards.length, 9, 'all nine approved pin cards remain present');
+  const names = cards.map(card => {
+    const title = card.match(/<h3>([^<]+)<\/h3>/)?.[1];
+    const label = card.match(/<button class="pin-open"[^>]*aria-label="([^"]+)"/)?.[1];
+    assert.ok(title, 'each card has a title');
+    assert.equal(label, 'Open design notes for ' + title, 'button identifies its own pin');
+    return label;
+  });
+  assert.equal(new Set(names).size, 9, 'screen readers can distinguish every notes button');
+});
