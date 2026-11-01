@@ -12,6 +12,7 @@ The existing Zawadi page is a **fictional fintech brand and 28-screen product de
 - Previous/Next buttons and left/right arrow keys navigate between screens, with safe first/last boundaries.
 - A labeled **Jump to screen** selector lists all 28 original screen titles, so visitors can go directly to a particular design without 27 repeated clicks. The selector stays synchronized with buttons and arrow navigation and retains native keyboard behavior.
 - Escape and the Close button dismiss the dialog, returning keyboard focus to the originating screen.
+- **Open shareable screen link** opens the selected original design in a new tab using `?screen=1` through `?screen=28`. Direct links open that screen in the viewer when JavaScript and native dialogs are available; closing returns focus to its corresponding gallery button. Invalid query values leave the ordinary gallery visible. Without JavaScript, the page still presents all 28 screens rather than a broken modal.
 - The original gallery remains fully readable with JavaScript disabled or in browsers without `dialog.showModal()`.
 
 The phone screens remain **visual prototypes**; tapping a simulated payment control does not transfer money, sign into a bank or create a real transaction. This enhancement is a presentation viewer, not an implemented banking app.
