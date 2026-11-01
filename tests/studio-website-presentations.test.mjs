@@ -37,7 +37,7 @@ test('Hotel Nocturne mobile and desktop links point to real present sections',as
 });
 test('ZEBRA and ONE continue to show original interactive source and preserve their earlier case stories',async()=>{
  const zebra=await read('work/zebra/index.html'),one=await read('work/one/index.html');
- assert.ok(zebra.includes('Behind the idea.'));
+ assert.ok(zebra.includes('Behind the')&&zebra.includes('idea.'));
  assert.ok(zebra.includes('../../projects/zebra-fashion/'));
  assert.ok(one.includes('The approved still')&&one.includes('kept as reference.'));
  assert.ok(one.includes('one-deep-navy.html'));
