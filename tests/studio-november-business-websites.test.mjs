@@ -41,3 +41,30 @@ test('new cards are reachable from public Studio home, presentations and journal
  assert.ok(homepage.includes('work/zebra/')&&homepage.includes('work/deep-ink/'),'Preserve existing approved projects');
  const css=await read('assets/business-websites-showcase.css');assert.ok(css.includes('.brand-vela')&&css.includes('.brand-stockwise')&&css.includes('.brand-mova'));
 });
+
+test('art direction refresh uses three non-repeating identities, actual imagery and motion affordances',async()=>{
+ const [stock,vela,mova,homepage]=await Promise.all([
+  read('projects/stockwise/index.html'),read('projects/vela-health/index.html'),
+  read('projects/mova/index.html'),read('index.html')
+ ]);
+ const signatures=[
+  ['STOCKWISE',stock,['#ffe500','Archivo Black','sw-hero-visual','sw-marquee','brand-cover','photo-1441986300917-64674bd600d8']],
+  ['VELA HEALTH',vela,['#a20d45','Instrument Serif','vela-editorial','doctor-cards','Illustrative licensed stock photograph','photo-1559839734-2b71ea197ec2']],
+  ['MOVA',mova,['#1355e8','Barlow Condensed','mova-editorial','quick-track-form','mova-pulse','photo-1586528116311-ad8dd3c8310d']]
+ ];
+ for(const [brand,html,required] of signatures){
+  for(const value of required)assert.ok(html.includes(value),brand+' missing '+value);
+  assert.match(html,/<img [^>]*alt="[^"]+"/,brand+' photo should have alt text');
+  assert.ok(html.includes('prefers-reduced-motion'),brand+' respects reduced motion');
+  assert.ok(!html.includes('#f8f6f0')&&!html.includes('#f6f4f0'),brand+' does not retain nude visual tokens');
+  for(const js of inlineJs(html))assert.doesNotThrow(()=>new Script(js),brand+' scripts compile');
+ }
+ for(const slug of ['stockwise','vela-health','mova']){
+  const html=await read('work/'+slug+'/index.html');
+  assert.ok(html.includes('images.unsplash.com'),slug+' case study photography');
+  assert.ok(html.includes('unsplash.com/license'),slug+' imagery license note');
+  assert.ok(html.includes('3')||html.includes('desktop'),slug+' presentation');
+ }
+ assert.equal((homepage.match(/class="business-photo"/g)||[]).length,3,'home gallery has three new photographic covers');
+ assert.ok(!homepage.includes('STOCKWISE original purple inventory product brand cover'),'old gallery artwork not reused');
+});
