@@ -52,9 +52,22 @@ test('CSS URLs resolve relative to the stylesheet, not the HTML page', () => {
   ]);
 });
 
-test('mixed data-URI srcsets are skipped rather than producing fake missing paths', () => {
-  const html = '<img srcset="data:image/png;base64,AAAA 1x, ../../assets/other.webp 2x">';
-  assert.deepEqual(auditHtml(root, page, html, () => false), []);
+test('audits local srcset alternatives even when mixed with data URIs', () => {
+  const html = `<img srcset="data:image/png;base64,AAAA 1x, ../../assets/other.webp 2x">
+    <source srcset="../../assets/first.webp 1x, data:image/svg+xml,%3Csvg%3E 2x, ../../assets/third.webp 3x">
+    <img srcset="data:image/png;base64,AAAA, ../../assets/fallback.webp 2x">`;
+  assert.deepEqual(auditHtml(root, page, html, () => false).map(item => item.reference), [
+    '../../assets/other.webp', '../../assets/first.webp',
+    '../../assets/third.webp', '../../assets/fallback.webp',
+  ]);
+});
+
+test('data-only srcsets are ignored without losing ordinary compact srcsets', () => {
+  const html = `<img srcset="data:image/png;base64,AAAA 1x">
+    <img srcset="../../assets/one.webp 1x,../../assets/two.webp 2x">`;
+  assert.deepEqual(auditHtml(root, page, html, () => false).map(item => item.reference), [
+    '../../assets/one.webp', '../../assets/two.webp',
+  ]);
 });
 
 test('walker checks both HTML and CSS in scoped directories', async () => {
