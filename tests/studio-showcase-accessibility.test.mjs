@@ -17,6 +17,7 @@ class Element {
   }
   append(...children) { this.children.push(...children); }
   setAttribute(name, value) { this.attributes[name] = value; }
+  focus() { this.focused = true; }
   getBoundingClientRect() { return { width: 390 }; }
   querySelectorAll(tag) {
     return this.children.flatMap(child => [
@@ -66,6 +67,8 @@ async function setup() {
     status: elements.find(element => element.className === 'sd-demo-status'),
     frame: elements.find(element => element.tag === 'iframe' && element.title?.startsWith('Studio Sample')),
     open: elements.find(element => element.className === 'sd-demo-open'),
+    jump: elements.find(element => element.className === 'sd-jump-demo'),
+    galleryLinks: elements.filter(element => element.tag === 'a' && element.textContent === 'Open actual screen ↗'),
   };
 }
 
@@ -103,4 +106,29 @@ test('changing screens and device updates accessible context without losing the 
   assert.equal(status.textContent, 'Previewing Checkout on phone.');
   assert.equal(frame.title, 'Studio Sample: Checkout (phone preview)');
   assert.equal(open.href, '../real-project/?preview=1#checkout');
+});
+
+
+test('a visible skip control moves keyboard focus past the gallery to interactive controls', async () => {
+  const { jump, screenButtons } = await setup();
+  assert.equal(jump.tag, 'button');
+  assert.equal(jump.type, 'button');
+  assert.match(jump.textContent, /Skip previews/);
+  assert.equal(screenButtons[0].focused, undefined);
+  jump.onclick();
+  assert.equal(screenButtons[0].focused, true);
+});
+
+test('each static device preview has a distinct, descriptive link name', async () => {
+  const { galleryLinks } = await setup();
+  assert.equal(galleryLinks.length, 3);
+  assert.deepEqual(galleryLinks.map(link => link.attributes['aria-label']), [
+    'Open Overview laptop view in a new tab',
+    'Open Features laptop view in a new tab',
+    'Open Checkout phone view in a new tab',
+  ]);
+  for (const link of galleryLinks) {
+    assert.equal(link.target, '_blank');
+    assert.equal(link.rel, 'noopener');
+  }
 });
