@@ -60,3 +60,25 @@ test('nested preview mode prevents recursive iframes and shared script parses',a
  assert.doesNotThrow(()=>new Script(js));
  assert.ok(js.includes("new URLSearchParams(location.search).has('preview')"));
 });
+
+test('all remaining art-led homepage projects have truthful laptop and phone presentations',async()=>{
+ const items=['work/deep-ink/index.html','work/vinyl-lounge/index.html','work/lemon-sun/index.html'];
+ for(const path of items){const html=await read(path),cfg=config(html);
+  assert.equal(cfg.desktop.length,1,path+' original medium desktop view');
+  assert.equal(cfg.phone.length,1,path+' original medium phone view');
+  assert.ok(html.includes('sd-story'),path+' contains project context');
+  assert.ok(html.includes('studio-responsive-showcase.js'),path+' loads responsive viewer');
+  assert.ok(cfg.demoDescription.includes('No extra product screens'),path+' does not invent app states');
+ }
+});
+test('central presentation collection links thirteen existing, distinct Studio projects',async()=>{
+ const html=await read('presentations/index.html');
+ const targets=[...html.matchAll(/<a href="\.\.\/([^"]+)"[^>]*>View (?:case study|presentation)/g)].map(m=>m[1]);
+ assert.equal(targets.length,13);
+ for(const item of targets){const path=item.split('#')[0];let local=path.endsWith('/')?path+'index.html':path;
+  const file=await read(local);assert.ok(file.length>200,'source exists: '+local);
+ }
+ const homepage=await read('index.html'),journal=await read('daily/index.html');
+ assert.ok(homepage.includes('href="presentations/"'),'Studio homepage links presentation collection');
+ assert.ok(journal.includes('href="../presentations/"'),'Journal links presentation collection');
+});
