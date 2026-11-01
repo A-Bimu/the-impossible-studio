@@ -1,32 +1,37 @@
-# Studio website presentation audit — 2026-11-01
-Scope: **published website/product experiences**, derived from actual homepage / daily journal links. Do not treat static artwork as complete web applications.
+# Studio presentation inventory — 2026-11-01
 
-## Required deliverables for each eligible project
-- True project story, goal, creative direction, branding and honest process (do not invent research, sketches, client results or production impact).
-- **Three different desktop views** and **five different phone views** taken from the working site at genuine viewport sizes; use browser-sized iframes or actual captures, not generated interface screens.
-- Polished laptop and phone device presentation; explicit labels and full-size links for every view.
-- Working interactive demo; explicitly identify simulated purchases, bookings and business data.
-- Motion showcase using authentic implemented effects when available.
-- Final device QA, keyboard, accessibility, links, asset loading, navigation and deployment verification.
+## Scope and truth standard
+The Studio homepage and journal publish more than four interactive/page-based projects. The earlier four-only audit was incomplete. This inventory includes every project linked from the **public homepage or daily journal**, plus Zawadi (an accessible direct Studio route not currently promoted on the homepage). It distinguishes websites/app flows from media-centric pages.
 
-## Published website and app experiences — audit
-| Priority | Project / published route | Existing real working source | Status before this rollout | Action |
-|---|---|---|---|---|
-| 1 | CHERRY RIOT `daily/cherry-riot/` | Jam-scroll branded site and separate `shop/` with actual home, product, cart, pairings, story screens; `case-study/` exists | Editorial case study and 3 laptop / **3 phone** dynamic iframes, no fifth/sixth mobile completeness | Add 2 mobile views (cart + story), verify five unique views, preserve original |
-| 2 | HOTEL NOCTURNE `daily/2026-10-31-night-shift/` | Booking website with room list, check-in/out, guest choice and no-payment reservation dialog | No separate presentation or 3/5 device gallery | Build custom dark hospitality case study and real anchor-based responsive views |
-| 3 | ZEBRA `work/zebra/` | Source: `projects/zebra-fashion/`, interactive storefront with hash routes home, shop, product, lookbook, story, checkout | Strong existing case-study and switchable single preview, but no simultaneous 3 laptop + 5 mobile showcase | Add true responsive route showcase + working demo and motion notes |
-| 4 | ONE `work/one/` | Source: `collections/product-design/one-deep-navy.html` with live hash routes overview, sell, activity, inventory, customers, reports | Existing case-story and switchable demo; no simultaneous 3 + 5 showcase | Add true responsive screen gallery, preserve actual management UI, no fictional claims |
+**Presentation acceptance for genuine interactive/page-based web work:** source-grounded idea, art direction, actual design decisions, 3 genuinely distinct desktop views, 5 genuinely distinct responsive mobile views, realistic browser-scaled device frames, real source links, working original demo where one exists, interaction/motion description, tests, and deployment confirmation. Do not fabricate functionality, screens, outcomes or original approved art.
 
-## Not website/app presentation work
-- **Deep Ink**: original illustration and approved motion studies; needs an art/motion case-study format.
-- **Vinyl Lounge**: conceptual illustration, not a website product.
-- **Lemon Sun**: original illustration and editorial page, not a five-flow web app.
-- **Poster Studies**: eight posters; print/editorial presentation instead.
-- **Childfree, Unapologetically**: pin/catalogue concept; art/product presentation not fabricated checkout.
-- **2027 Calendars**: real navigable print/editorial experiences; should use calendar-specific layouts and actual monthly spreads, not invented ecommerce screens.
-- **Pitch Decks**: real editable slide products, requiring slide/device/presentation previews, not a fictitious five-screen app.
-- `drafts/2026-10-28-terra-spa/` and `drafts/2026-10-28-small-wins-bureau/`: draft-only, not claimed as public homepage launches.
-- `work/zawadi/`: separate accessible concept file but not linked from published homepage/daily journal; assess for future published inclusion, do not silently promote.
+## Project-by-project status
+| Published experience | Public route | Category | Presentation |
+|---|---|---|---|
+| CHERRY RIOT | `daily/cherry-riot/` and `daily/cherry-riot/case-study/` | Brand + ecommerce concept | 3 real desktop, 5 mobile screens; live shop demo and actual scroll-jam homepage; previously delivered |
+| Hotel Nocturne | `daily/2026-10-31-night-shift/` and `case-study/` | Hotel booking demonstration | 3 desktop, 5 mobile views; real sample reservation flow; previously delivered |
+| ZEBRA | `work/zebra/` | Fashion e-commerce demo | 3 desktop, 5 mobile source views; original storefront preserved; previously delivered |
+| ONE | `work/one/` | Business management prototype | 3 desktop, 5 mobile source views; original demo preserved; previously delivered |
+| ROOTS 2027 | `calendars/roots-2027/` | Interactive calendar website | Case-study text, 3 authentic month desktop previews, 5 different month mobile previews, 12-month original browser + A4 print set |
+| Atlas of Africa 2027 | `calendars/atlas-africa-2027/` | Interactive calendar website | Same source-grounded format, its own 8 authentic month states |
+| The Editorial Edition 2027 | `calendars/heritage-africa-2027/` | Interactive calendar website | Same source-grounded format, its own 8 authentic month states |
+| Poster Studies | `work/poster-studies/` | Editorial web collection | 8 distinct poster pages as 3 laptop / 5 phone views; original approved posters remain untouched |
+| Childfree, Unapologetically | `work/childfree/` | Interactive catalogue | 3 desktop project sections + 5 genuine mobile pin-card sections; mood filters and notes dialog preserved |
+| Zawadi | `work/zawadi/` (direct URL, **not homepage-linked**) | Fintech product visual case study | 3 desktop case-study sections + 5 mobile case-study flow sections; coded design concept only, not a working banking service |
 
-## Honest status and QA
-Code-only and CI assertion checks **do not substitute for screenshots**. QA should verify visible browser layout at desktop and phone viewports as well as actual links, images and interactive states. Any absent live publication remains explicitly unverified until the public Vercel alias points to the correct revision.
+## Art-led pages now given truthful device presentations
+- Deep Ink (`work/deep-ink/`): original illustration in laptop context and actual approved motion page in phone context; original video files untouched.
+- Vinyl Lounge (`work/vinyl-lounge/`): original illustration displayed in real laptop- and phone-width pages, preserving the independently animated record diagram.
+- The Lemon Sun (`work/lemon-sun/`): real approved artwork page on laptop and real companion editorial page on phone.
+- The consolidated public index `presentations/` links all 13 Studio presentations, distinguishes full experiences from art-first work, and is linked from the Studio homepage and journal.
+
+## Artwork pages that should not have invented five-screen applications
+- `work/deep-ink/` is an approved illustrated design-board and two original motion studies, not five coded product routes. It requires an art/motion presentation, not a fabricated interactive app.
+- `work/vinyl-lounge/` presents one approved conceptual illustration with a separate animated explanatory diagram; not an ecommerce app.
+- `work/lemon-sun/` presents a single original plate and the companion `editorial.html` page; these should remain separate without inventing a 5-route website.
+- Calendar print decks `calendars/*/print/` are print outputs of the same three calendar websites, not extra apps.
+- `pitch-decks/` contains six editable slide-deck products; use slide spreads and presentation mockups, not dummy phone checkout flows.
+- `drafts/2026-10-28-terra-spa/` and `drafts/2026-10-28-small-wins-bureau/` are **drafts**, not published homepage projects. Do not silently label them published or expose them as finished public studies.
+
+## QA and limitations
+The device frames are CSS-built browser-like laptop/phone mockups embedding the actual pages in responsive iframes. They are **not actual device photographs** or automatically captured screenshot files. CI checks links, page structure, unique view destinations and JS syntax; real desktop/mobile **browser-rendered visual inspection** and interactive testing remain a separate release QA task. Production is only confirmed when the public Vercel domain resolves to the merge commit.

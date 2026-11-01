@@ -19,7 +19,7 @@
    const link=h('a','','Open actual screen ↗');link.href=url;link.target='_blank';link.rel='noopener';caption.append(link);article.append(caption);
    allFrames.push({screen,frame,width});observed.push(frame);return article;
   }
-  function gallery(type,items){const label=h('div','sd-views-title');label.append(h('h3','',type==='phone'?'Five phone views':'Three laptop views'));label.append(h('span','',type==='phone'?'5 MOBILE EXPERIENCES / REAL VIEWPORT':'3 DESKTOP EXPERIENCES / REAL VIEWPORT'));mount.append(label);const grid=h('div','sd-grid '+(type==='phone'?'sd-grid-phone':'sd-grid-laptop'));items.forEach(i=>grid.append(card(i,type)));mount.append(grid)}
+  function gallery(type,items){const label=h('div','sd-views-title');label.append(h('h3','',items.length+' '+(type==='phone'?'phone':'laptop')+' view'+(items.length===1?'':'s')));label.append(h('span','',items.length+' '+(type==='phone'?'MOBILE':'DESKTOP')+' ACTUAL PROJECT VIEW'+(items.length===1?'':'S')+' / REAL VIEWPORT'));mount.append(label);const grid=h('div','sd-grid '+(type==='phone'?'sd-grid-phone':'sd-grid-laptop'));items.forEach(i=>grid.append(card(i,type)));mount.append(grid)}
   gallery('laptop',data.desktop);gallery('phone',data.phone);
   function size(){for(const {screen,frame,width} of allFrames){const scale=screen.getBoundingClientRect().width/width;frame.style.setProperty('--sd-scale',String(Math.max(.01,scale)))}}
   if('ResizeObserver'in window){const observer=new ResizeObserver(size);allFrames.forEach(x=>observer.observe(x.screen))}else window.addEventListener('resize',size);
@@ -37,5 +37,5 @@
   details.append(controls);details.append(controlsMobile);details.append(open);demo.append(details,area);mount.append(demo);
   if('IntersectionObserver'in window){const obs=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){demoFrame.src=base+selectedRoute;obs.disconnect()}},{rootMargin:'200px'});obs.observe(frameBox)}else demoFrame.src=base+selectedRoute;
  }
- document.querySelectorAll('.sd-showcase').forEach(init);
+ if(!new URLSearchParams(location.search).has('preview'))document.querySelectorAll('.sd-showcase').forEach(init);
 })();
