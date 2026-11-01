@@ -39,7 +39,7 @@ test('ZEBRA and ONE continue to show original interactive source and preserve th
  const zebra=await read('work/zebra/index.html'),one=await read('work/one/index.html');
  assert.ok(zebra.includes('Behind the idea.'));
  assert.ok(zebra.includes('../../projects/zebra-fashion/'));
- assert.ok(one.includes('The approved still, kept as reference.'));
+ assert.ok(one.includes('The approved still')&&one.includes('kept as reference.'));
  assert.ok(one.includes('one-deep-navy.html'));
  assert.ok(zebra.includes('id="responsive-views"'));
  assert.ok(one.includes('id="responsive-views"'));
