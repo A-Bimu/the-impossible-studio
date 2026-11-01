@@ -23,7 +23,7 @@ Run from the repository root with Node.js 22 or later:
 
     node --test tests/splice-sleeve.test.mjs
 
-The isolated pull-request workflow runs these checks. Automated source tests cover three compositions, safe text escaping, export wiring, and responsive markup. **They do not establish visual quality or replace real-device, keyboard, or screen-reader testing.**
+The isolated pull-request workflow runs these checks. Automated source tests cover three compositions, safe text escaping, export wiring, and responsive markup. A second Chromium job exercises actual editing, SVG download contents, reset focus, and document overflow at 320px, 375px, and 768px. It captures desktop and mobile screenshots as the short-lived `splice-desktop-mobile-review` GitHub Actions artifact (seven-day retention). Run that browser check locally with `npm install --no-save --no-package-lock playwright@1.56.0`, `npx playwright install chromium`, then `node --test drafts/2026-11-01-splice/browser.test.mjs`. **Passing checks and screenshots do not establish visual approval or replace real-device, keyboard, or screen-reader testing.**
 
 ## Approval gate
 
