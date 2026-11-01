@@ -37,5 +37,5 @@
   details.append(controls);details.append(controlsMobile);details.append(open);demo.append(details,area);mount.append(demo);
   if('IntersectionObserver'in window){const obs=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){demoFrame.src=base+selectedRoute;obs.disconnect()}},{rootMargin:'200px'});obs.observe(frameBox)}else demoFrame.src=base+selectedRoute;
  }
- document.querySelectorAll('.sd-showcase').forEach(init);
+ if(!new URLSearchParams(location.search).has('preview'))document.querySelectorAll('.sd-showcase').forEach(init);
 })();
