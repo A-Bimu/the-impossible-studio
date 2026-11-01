@@ -21,6 +21,9 @@
         <button type="button" class="zawadi-viewer__close" aria-label="Close screen explorer">Close ×</button>
       </div>
       <p class="zawadi-viewer__description"></p>
+      <label class="zawadi-viewer__jump">Jump to screen
+        <select class="zawadi-viewer__jump-select"></select>
+      </label>
       <div class="zawadi-viewer__screen"></div>
       <div class="zawadi-viewer__actions">
         <button type="button" class="zawadi-viewer__previous">← Previous</button>
@@ -34,6 +37,7 @@
   const title = dialog.querySelector('#zawadi-viewer-title');
   const description = dialog.querySelector('.zawadi-viewer__description');
   const screen = dialog.querySelector('.zawadi-viewer__screen');
+  const jump = dialog.querySelector('.zawadi-viewer__jump-select');
   const count = dialog.querySelector('.zawadi-viewer__count');
   const previous = dialog.querySelector('.zawadi-viewer__previous');
   const next = dialog.querySelector('.zawadi-viewer__next');
@@ -41,12 +45,21 @@
   let current = 0;
   let opener = null;
 
+  // Use the original screen captions as the navigation labels; never duplicate the artwork.
+  cards.forEach((card, index) => {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = `${index + 1}. ${card.querySelector('.screen-caption h3')?.textContent?.trim() || 'App screen'}`;
+    jump.append(option);
+  });
+
   function display(index) {
     if (index < 0 || index >= cards.length) return;
     const card = cards[index];
     const device = card.querySelector('.device');
     if (!device) return;
     current = index;
+    jump.value = String(index);
     title.textContent = card.querySelector('.screen-caption h3')?.textContent?.trim() || 'App screen';
     description.textContent = card.querySelector('.screen-caption p')?.textContent?.trim() || '';
     const copy = device.cloneNode(true);
@@ -81,11 +94,13 @@
     card.append(button);
   });
 
+  jump.addEventListener('change', () => display(Number(jump.value)));
   previous.addEventListener('click', () => display(current - 1));
   next.addEventListener('click', () => display(current + 1));
   close.addEventListener('click', () => dialog.close());
   dialog.addEventListener('keydown', event => {
-    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.altKey || event.ctrlKey || event.metaKey ||
+        event.target.closest('select, input, textarea, [contenteditable="true"]')) return;
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
       display(current + (event.key === 'ArrowRight' ? 1 : -1));
