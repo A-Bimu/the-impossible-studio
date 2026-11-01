@@ -55,6 +55,22 @@ test('SPLICE edits, exports and fits narrow mobile screens in Chromium',{timeout
     assert.match(exported,/<svg xmlns="http:\/\/www.w3.org\/2000\/svg"/);
     assert.match(exported,/NOVA &amp; THE MOON/);
     assert.match(exported,/fold geometric/);
+    // Stress the editable vector with maximum-width glyphs, not just average copy.
+    await page.locator('#album-title').fill('W'.repeat(36));
+    await page.locator('#artist-name').fill('W'.repeat(28));
+    const textBounds=await page.evaluate(()=>{
+      const svg=document.querySelector('#cover svg');
+      return [...svg.querySelectorAll('[data-role="release-title"],[data-role="artist"]')].map(node=>{
+        const bounds=node.getBBox();
+        return {role:node.dataset.role,right:bounds.x+bounds.width,width:bounds.width};
+      });
+    });
+    assert.equal(textBounds.length,3);
+    for(const item of textBounds){
+      const limit=item.role==='artist'?775:850;
+      assert.ok(item.right<=limit,'Text escapes sleeve safe area: '+JSON.stringify(item));
+    }
+    await capture(page,'desktop-1365-long-copy');
     await page.locator('#reset').click();
     assert.equal(await page.locator('#album-title').inputValue(),'SOFT COLLISION');
     assert.equal(await page.locator('#album-title').evaluate(node=>node===document.activeElement),true);
