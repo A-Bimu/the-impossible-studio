@@ -69,7 +69,7 @@ async function interactive(page) {
   assert.equal(await chilled.getAttribute('aria-pressed'), 'true');
   assert.equal(await all.getAttribute('aria-pressed'), 'false');
   assert.equal(await page.locator('.pin-card:not([hidden])').count(), 3);
-  assert.equal(await page.locator('#pin-count').innerText(), 'Showing 3 of 9 pins');
+  assert.equal(await page.locator('#pin-count').textContent(), 'Showing 3 of 9 pins');
   const opener = page.locator('.pin-card:not([hidden]) .pin-open').nth(1);
   await opener.click();
   assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), true, 'detail modal opens');
@@ -101,7 +101,7 @@ try {
     assert.equal(await page.locator('.pin-moods').isVisible(), true, 'filters work without native dialog');
     await page.locator('.pin-moods button[data-mood="bold"]').click();
     assert.equal(await page.locator('.pin-card:not([hidden])').count(), 3);
-    assert.equal(await page.locator('#pin-count').innerText(), 'Showing 3 of 9 pins');
+    assert.equal(await page.locator('#pin-count').textContent(), 'Showing 3 of 9 pins');
   });
 } finally {
   await browser.close();
