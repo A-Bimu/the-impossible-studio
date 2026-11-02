@@ -56,14 +56,35 @@ try {
     await summary.focus();
     assert.equal(await summary.evaluate(node => node === document.activeElement), true);
     await page.keyboard.press('Enter');
-    assert.equal(await page.locator('.mobile-sections').evaluate(node => node.open), true);
+    const menu = page.locator('.mobile-sections');
+    assert.equal(await menu.evaluate(node => node.open), true);
+    await page.keyboard.press('Escape');
+    assert.equal(await menu.evaluate(node => node.open), false, 'Escape dismisses the open menu');
+    assert.equal(await summary.evaluate(node => node === document.activeElement), true, 'Escape returns focus to the summary');
+    await page.keyboard.press('Enter');
+    assert.equal(await menu.evaluate(node => node.open), true);
     const cards = page.locator('.mobile-sections a[href="#cards"]');
     await cards.focus();
     assert.equal(await cards.evaluate(node => node === document.activeElement), true);
     await page.keyboard.press('Enter');
     assert.equal(new URL(page.url()).hash, '#cards');
     assert.equal(await page.locator('#cards').count(), 1);
+    await page.waitForFunction(() => document.activeElement?.id === 'cards');
+    assert.equal(await menu.evaluate(node => node.open), false, 'section selection dismisses the menu');
     await page.screenshot({path: screenshotDir + '/mobile-sections-keyboard.png', fullPage: true});
+  });
+
+  await scenario('narrow 320px mobile section navigation', {
+    viewport: {width: 320, height: 640}
+  }, async page => {
+    const menu = page.locator('.mobile-sections');
+    await menu.locator('summary').click();
+    assert.equal(await menu.locator('nav a:visible').count(), 6);
+    await menu.locator('a[href="#logo"]').click();
+    assert.equal(new URL(page.url()).hash, '#logo');
+    await page.waitForFunction(() => document.activeElement?.id === 'logo');
+    assert.equal(await menu.evaluate(node => node.open), false);
+    await page.screenshot({path: screenshotDir + '/mobile-sections-320px.png', fullPage: true});
   });
 
   await scenario('desktop navigation remains intact', {
