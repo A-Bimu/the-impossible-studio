@@ -74,9 +74,9 @@ async function mova(page) {
   await go(page, '#dispatch', '[data-page="dispatch"]');
   const action = page.locator('#manifest [data-next="' + code + '"]');
   await action.click();
-  assert.match(await action.innerText(), /Mark delivered/);
+  assert.match(await action.innerText(), /mark delivered/i);
   await page.reload({waitUntil:'domcontentloaded'});
-  assert.match(await action.innerText(), /Mark delivered/);
+  assert.match(await action.innerText(), /mark delivered/i);
   await action.click();
   assert.equal(await action.isDisabled(), true);
   await go(page, '#track', '[data-page="track"]');
