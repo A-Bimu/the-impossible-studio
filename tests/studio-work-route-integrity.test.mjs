@@ -14,19 +14,26 @@ const projects = [
   'poster-studies', 'stockwise', 'vela-health',
   'vinyl-lounge', 'zawadi', 'zebra',
 ];
-const homepage = await read('index.html');
-const homepageIds = new Set(
-  [...homepage.matchAll(/\bid=["']([^"']+)["']/g)].map(match => match[1]),
-);
+// Cache actual destination documents so cross-page fragment links are checked
+// against their target, not only the current page or the Studio homepage.
+const anchorCache = new Map();
+async function anchorsFor(page) {
+  if (!anchorCache.has(page)) {
+    const html = await read(page);
+    const ids = new Set([
+      ...[...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match => match[1]),
+      ...[...html.matchAll(/<a\b[^>]*\bname=["']([^"']+)["']/gi)].map(match => match[1]),
+    ]);
+    anchorCache.set(page, ids);
+  }
+  return anchorCache.get(page);
+}
 
 for (const project of projects) {
   const page = `work/${project}/index.html`;
 
   test(`${page}: local navigation destinations exist`, async () => {
     const html = await read(page);
-    const pageIds = new Set(
-      [...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match => match[1]),
-    );
     const links = [...html.matchAll(/<a\b[^>]*?\bhref\s*=\s*(["'])(.*?)\1/gi)];
     assert.ok(links.length > 0, `${page}: expected navigable links`);
 
@@ -46,12 +53,13 @@ for (const project of projects) {
         `${page}: missing local destination ${href}`,
       );
 
-      // Guard the two most important anchor journeys: within the case study
-      // and back to a real section of the existing Studio homepage.
-      if (destination.hash && (targetPage === page || targetPage === 'index.html')) {
+      // A gallery or presentation link may jump to another HTML page's
+      // section. Verify the destination's actual anchors as well as same-page
+      // and homepage anchors; do not silently accept a missing fragment.
+      if (destination.hash && /\.html?$/i.test(targetPage)) {
         const id = decodeURIComponent(destination.hash.slice(1));
-        const ids = targetPage === page ? pageIds : homepageIds;
-        assert.ok(ids.has(id), `${page}: broken section link ${href}`);
+        const ids = await anchorsFor(targetPage);
+        assert.ok(ids.has(id), `${page}: broken section link ${href} (missing #${id} in ${targetPage})`);
       }
     }
     assert.ok(localCount > 0, `${page}: expected internal navigation`);
