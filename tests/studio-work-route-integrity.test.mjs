@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 
 const root = new URL('../', import.meta.url);
-const origin = 'https://studio.invalid/';
+const siteRoot = new URL('https://studio.invalid/');
 const read = path => readFile(new URL(path, root), 'utf8');
 
 const projects = [
@@ -32,8 +32,8 @@ for (const project of projects) {
 
     let localCount = 0;
     for (const [, , href] of links) {
-      const destination = new URL(href, new URL(page, origin));
-      if (destination.origin !== origin) continue; // external, email, telephone
+      const destination = new URL(href, new URL(page, siteRoot));
+      if (destination.origin !== siteRoot.origin) continue; // external, email, telephone
       localCount += 1;
 
       // Resolve directory links to their index page, just as static hosting does.
