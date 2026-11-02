@@ -5,6 +5,7 @@ on:
     paths:
       - 'drafts/2026-11-02-room-for-error/**'
       - 'tests/room-for-error.test.mjs'
+      - 'scripts/room-for-error-browser-qa.mjs'
       - '.github/workflows/room-for-error-draft.yml'
   workflow_dispatch:
 
@@ -24,3 +25,32 @@ jobs:
           node-version: '22'
       - name: Test interactive print controls and structure
         run: node --test tests/room-for-error.test.mjs
+
+  chromium-print-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser QA dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Serve checked-out draft locally
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/room-for-error-http.log 2>&1 &
+          sleep 2
+      - name: Test responsive layout, keyboard controls, no-JS and A4 proof
+        run: node scripts/room-for-error-browser-qa.mjs
+      - name: Upload browser screenshots, PDF proof and QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: room-for-error-draft-browser-qa
+          path: artifacts/room-for-error-browser-qa/
+          retention-days: 7
+          if-no-files-found: warn
