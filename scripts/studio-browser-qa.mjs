@@ -64,11 +64,20 @@ for(const item of routes){
    await page.locator('[data-page="book"]').waitFor({state:'visible'});
    assert.equal(await page.locator('#service').inputValue(),"Women's health");
    await page.locator('#date').evaluate(el=>{const tomorrow=new Date(Date.now()+86400000);const pad=n=>String(n).padStart(2,'0');el.value=tomorrow.getFullYear()+'-'+pad(tomorrow.getMonth()+1)+'-'+pad(tomorrow.getDate());el.dispatchEvent(new Event('change',{bubbles:true}))});
-   await page.locator('#slots button:not([disabled])').first().click();
+   const firstSlot=page.locator('#slots button:not([disabled])').first();
+   await firstSlot.focus();
+   await page.keyboard.press('Enter');
+   assert.equal(await firstSlot.getAttribute('aria-pressed'),'true','Keyboard activates the sample time');
+   assert.equal(await firstSlot.evaluate(el=>el===document.activeElement),true,'Time selection preserves keyboard focus');
    await page.locator('#guest').fill('Studio QA Tester');
    await page.locator('#booking-form button[type="submit"]').click();
    await page.locator('[data-page="visits"]').waitFor({state:'visible'});
    assert.match(await page.locator('#visit-list').innerText(),/Studio QA Tester/);
+   const visitsHeading=page.locator('[data-page="visits"] h1');
+   assert.equal(await visitsHeading.evaluate(el=>el===document.activeElement),true,'Booking confirmation focuses the visits heading');
+   await page.locator('[data-cancel]').first().click();
+   assert.match(await page.locator('#visits-message').innerText(),/Sample booking cancelled/);
+   assert.equal(await visitsHeading.evaluate(el=>el===document.activeElement),true,'Cancelling the final booking restores focus to the visits heading');
   }else{
    await page.locator('#quick-track').fill('MOV-2002');
    await page.locator('#quick-track-form button').click();
