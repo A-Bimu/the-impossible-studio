@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="An interactive two-ink print experiment about the beauty of slight misalignment.">
+  <title>A Little Room for Error | The Impossible Studio</title>
+  <style>
+    :root {
+      --paper: #f4ed38;
+      --blue: #171ca6;
+      --red: #f04c36;
+      --ink: #111127;
+      --shift-x: 6px;
+      --shift-y: -4px;
+      --pressure: .75;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
+    button, input { font: inherit; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+    .skip { position: absolute; left: 16px; top: -90px; z-index: 9; background: white; padding: 12px 16px; }
+    .skip:focus { top: 12px; }
+    .masthead { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px clamp(20px, 4vw, 64px); border-bottom: 2px solid var(--ink); font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .masthead a { text-decoration-thickness: 2px; text-underline-offset: 4px; }
+    main { max-width: 1800px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px) 80px; }
+    .intro { display: grid; grid-template-columns: 1fr minmax(180px, 350px); gap: 32px; padding: 26px 0 32px; }
+    .eyebrow { font-size: 12px; letter-spacing: .13em; font-weight: 800; text-transform: uppercase; }
+    .intro p { margin: 0; font-size: clamp(16px, 1.6vw, 23px); line-height: 1.3; max-width: 27ch; }
+    .sheet { position: relative; isolation: isolate; overflow: hidden; border: 3px solid var(--ink); min-height: min(70vw, 790px); display: flex; flex-direction: column; justify-content: space-between; background: var(--paper); padding: clamp(18px, 3vw, 44px); }
+    .sheet::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .14; pointer-events: none; background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(10, 10, 20, .22) 3px 4px); mix-blend-mode: multiply; }
+    .sheet-top, .sheet-bottom { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; font-size: clamp(11px, 1vw, 15px); font-weight: 800; line-height: 1.2; text-transform: uppercase; letter-spacing: .09em; }
+    .sheet-top span:last-child, .sheet-bottom span:last-child { text-align: right; }
+    .poster-title { position: relative; margin: clamp(35px, 7vw, 100px) 0; font-family: Impact, "Arial Black", Arial, sans-serif; font-size: clamp(76px, 16.3vw, 310px); font-weight: 900; letter-spacing: -.055em; line-height: .77; text-transform: uppercase; }
+    .poster-title .line { position: relative; display: block; width: fit-content; max-width: 100%; }
+    .poster-title .line:nth-child(2) { margin-left: .07em; }
+    .poster-title .line:nth-child(3) { margin-left: .27em; }
+    .poster-title .front, .poster-title .ghost { display: block; white-space: nowrap; }
+    .poster-title .front { position: relative; z-index: 2; color: var(--blue); }
+    .poster-title .ghost { position: absolute; z-index: 1; top: 0; left: 0; color: var(--red); opacity: var(--pressure); transform: translate(var(--shift-x), var(--shift-y)); }
+    .poster-title .line:nth-child(2) .ghost { transform: translate(calc(var(--shift-x) * -1), calc(var(--shift-y) * -.6)); }
+    .poster-title .line:nth-child(3) .ghost { transform: translate(calc(var(--shift-x) * .55), calc(var(--shift-y) * 1.6)); }
+    .sheet-mark { position: absolute; right: 4%; top: 19%; width: clamp(58px, 9vw, 146px); aspect-ratio: 1; border: 3px solid var(--red); border-radius: 50%; display: grid; place-items: center; color: var(--red); font-size: clamp(10px, 1.2vw, 17px); font-weight: 900; text-align: center; transform: rotate(15deg); }
+    .sheet-bottom { padding-top: 18px; border-top: 2px solid var(--ink); }
+    .controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: 35px 0 18px; border-bottom: 2px solid var(--ink); }
+    .control label { display: flex; justify-content: space-between; gap: 16px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+    .control output { font-variant-numeric: tabular-nums; }
+    input[type="range"] { width: 100%; margin: 20px 0 7px; accent-color: var(--blue); cursor: pointer; }
+    .buttons { display: flex; gap: 9px; flex-wrap: wrap; }
+    button { min-height: 48px; border: 2px solid var(--ink); background: transparent; color: var(--ink); padding: 12px 17px; cursor: pointer; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    button.primary { background: var(--blue); color: white; border-color: var(--blue); }
+    button:hover { background: var(--red); color: white; border-color: var(--red); }
+    .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 25px 0 0; font-size: 14px; line-height: 1.5; }
+    .notes p { margin: 0; max-width: 60ch; }
+    .status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    @media (max-width: 1000px) {
+      .poster-title { font-size: clamp(65px, 16vw, 180px); }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .buttons { grid-column: 1 / -1; }
+    }
+    @media (max-width: 620px) {
+      .masthead { font-size: 10px; }
+      .intro { grid-template-columns: 1fr; gap: 12px; }
+      .sheet { min-height: 540px; padding: 16px; }
+      .sheet-top, .sheet-bottom { font-size: 9px; }
+      .poster-title { font-size: clamp(54px, 15.5vw, 96px); margin: 70px 0; }
+      .sheet-mark { top: 18%; right: 6%; }
+      .controls, .notes { grid-template-columns: 1fr; }
+      .buttons { grid-column: auto; }
+      button { flex: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      html, body { width: 210mm; height: 297mm; background: var(--paper) !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .skip, .masthead, .intro, .controls, .notes { display: none !important; }
+      main { padding: 0; margin: 0; }
+      .sheet { width: 210mm; height: 297mm; min-height: 297mm; border: 0; padding: 13mm; break-inside: avoid; }
+      .poster-title { font-size: 46mm; margin: 40mm 0; }
+      .sheet-top, .sheet-bottom { font-size: 10pt; }
+      .sheet-mark { width: 28mm; top: 19%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#press">Skip to print controls</a>
+  <header class="masthead">
+    <span>The Impossible Studio / Print Lab 001</span>
+    <a href="../../">Return to the Studio ↗</a>
+  </header>
+  <main>
+    <div class="intro">
+      <div class="eyebrow">Interactive broadside / Two-ink experiment / Draft for review</div>
+      <p>Perfect alignment is overrated. Pull the inks apart and discover what a mistake can make.</p>
+    </div>
+    <article class="sheet" aria-label="A Little Room for Error experimental screen-print poster">
+      <div class="sheet-top"><span>Press no. 001<br>Imperfect by design</span><span>Two inks / One sheet<br>Original digital study</span></div>
+      <h1 class="poster-title" aria-label="A little room for error">
+        <span class="line"><span class="ghost" aria-hidden="true">A LITTLE</span><span class="front" aria-hidden="true">A LITTLE</span></span>
+        <span class="line"><span class="ghost" aria-hidden="true">ROOM FOR</span><span class="front" aria-hidden="true">ROOM FOR</span></span>
+        <span class="line"><span class="ghost" aria-hidden="true">ERROR</span><span class="front" aria-hidden="true">ERROR</span></span>
+      </h1>
+      <div class="sheet-mark" aria-hidden="true">OFF<br>REGISTER</div>
+      <div class="sheet-bottom"><span>Good ideas aren't always tidy.</span><span>Edition of one<br>Make your own impression</span></div>
+    </article>
+    <section id="press" class="controls" aria-label="Adjust the print" tabindex="-1">
+      <div class="control">
+        <label for="registration">Ink misregistration <output id="registration-value" for="registration">6 px</output></label>
+        <input id="registration" type="range" min="0" max="24" value="6" step="1">
+      </div>
+      <div class="control">
+        <label for="pressure">Second ink opacity <output id="pressure-value" for="pressure">75%</output></label>
+        <input id="pressure" type="range" min="0" max="100" value="75" step="5">
+      </div>
+      <div class="buttons">
+        <button id="reset" type="button">Reset inks</button>
+        <button id="print" class="primary" type="button">Print A4 poster ↗</button>
+      </div>
+    </section>
+    <div class="notes">
+      <p><strong>The idea.</strong> A poster that refuses to hide its process. Two deliberately misaligned ink impressions turn an ordinary production fault into the artwork itself. This is a digital interpretation of print registration, not a scanned or physically printed screen-print.</p>
+      <p><strong>Try it.</strong> Move either slider with your keyboard or pointer. The printed A4 layout uses your current settings. Enable background graphics in your browser's print dialog to preserve the paper and ink colours.</p>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </main>
+  <script>
+    (() => {
+      const registration = document.getElementById('registration');
+      const pressure = document.getElementById('pressure');
+      const registrationValue = document.getElementById('registration-value');
+      const pressureValue = document.getElementById('pressure-value');
+      const status = document.getElementById('status');
+      const update = () => {
+        const offset = Number(registration.value);
+        const opacity = Number(pressure.value);
+        document.documentElement.style.setProperty('--shift-x', offset + 'px');
+        document.documentElement.style.setProperty('--shift-y', Math.round(offset * -2 / 3) + 'px');
+        document.documentElement.style.setProperty('--pressure', String(opacity / 100));
+        registrationValue.value = offset + ' px';
+        pressureValue.value = opacity + '%';
+      };
+      registration.addEventListener('input', update);
+      pressure.addEventListener('input', update);
+      document.getElementById('reset').addEventListener('click', () => {
+        registration.value = '6';
+        pressure.value = '75';
+        update();
+        status.textContent = 'Ink settings restored.';
+      });
+      document.getElementById('print').addEventListener('click', () => window.print());
+      update();
+    })();
+  </script>
+</body>
+</html>
