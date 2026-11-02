@@ -26,7 +26,7 @@ try {
       assert.equal(await page.locator('#reveal').isDisabled(),true);
       await words.nth(0).click();
       await words.nth(5).click();
-      assert.equal(await page.locator('#count').innerText(),'2 words kept');
+      assert.equal(await page.locator('#count').textContent(),'2 words kept');
       assert.equal(await page.locator('#reveal').isEnabled(),true);
       await page.locator('#reveal').click();
       assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('preview')),true);
@@ -42,9 +42,9 @@ try {
       assert.equal(await page.locator('#source').evaluate(el=>el.inert),false);
       assert.equal(await words.nth(5).evaluate(el=>document.activeElement===el),true,'edit restores last selected word focus');
       await words.nth(5).press('Space');
-      assert.equal(await page.locator('#count').innerText(),'1 word kept');
+      assert.equal(await page.locator('#count').textContent(),'1 word kept');
       await page.locator('#reset').click();
-      assert.equal(await page.locator('#count').innerText(),'0 words kept');
+      assert.equal(await page.locator('#count').textContent(),'0 words kept');
       assert.equal(await page.locator('#reveal').isDisabled(),true);
       const dimensions=await page.evaluate(()=>({viewport:innerWidth,body:document.body.scrollWidth,html:document.documentElement.scrollWidth}));
       assert.ok(dimensions.body<=dimensions.viewport+4 && dimensions.html<=dimensions.viewport+4,'no horizontal overflow '+JSON.stringify(dimensions));
