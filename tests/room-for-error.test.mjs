@@ -14,6 +14,8 @@ test('draft contains a genuine accessible interactive print and no remote depend
   }
   assert.match(html, /<label for="registration">/);
   assert.match(html, /<label for="pressure">/);
+  assert.match(html, /<noscript><style>\.controls \{ display: none !important; \}<\/style><\/noscript>/);
+  assert.match(html, /<noscript><p class="no-script-note">/);
   assert.match(html, /@media print/);
   assert.match(html, /@page\s*\{\s*size:\s*A4 portrait/);
   assert.doesNotMatch(html, /<script[^>]+src=|<link[^>]+href=["']https?:|<img[^>]+src=["']https?:/i);
