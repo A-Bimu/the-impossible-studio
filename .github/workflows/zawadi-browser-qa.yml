@@ -1,0 +1,44 @@
+# Draft-only browser QA for the Zawadi mobile navigation change.
+# No production deployment, merge or homepage modification.
+name: Zawadi responsive navigation browser QA
+
+on:
+  pull_request:
+    paths:
+      - 'work/zawadi/**'
+      - 'scripts/zawadi-browser-qa.mjs'
+      - '.github/workflows/zawadi-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser QA dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Serve checked-out Studio
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/zawadi-qa-http.log 2>&1 &
+          sleep 2
+      - name: Verify mobile, keyboard and desktop navigation
+        run: node scripts/zawadi-browser-qa.mjs
+      - name: Archive browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zawadi-chromium-qa
+          path: artifacts/zawadi-browser-qa/
+          retention-days: 7
+          if-no-files-found: warn
