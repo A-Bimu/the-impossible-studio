@@ -53,6 +53,7 @@
     button { min-height: 48px; border: 2px solid var(--ink); background: transparent; color: var(--ink); padding: 12px 17px; cursor: pointer; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
     button.primary { background: var(--blue); color: white; border-color: var(--blue); }
     button:hover { background: var(--red); color: white; border-color: var(--red); }
+    .no-script-note { margin: 22px 0 0; padding: 16px 18px; border: 2px solid var(--ink); font-size: 14px; line-height: 1.5; }
     .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 25px 0 0; font-size: 14px; line-height: 1.5; }
     .notes p { margin: 0; max-width: 60ch; }
     .status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -76,7 +77,7 @@
     @media print {
       @page { size: A4 portrait; margin: 0; }
       html, body { width: 210mm; height: 297mm; background: var(--paper) !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .skip, .masthead, .intro, .controls, .notes { display: none !important; }
+      .skip, .masthead, .intro, .controls, .notes, .no-script-note { display: none !important; }
       main { padding: 0; margin: 0; }
       .sheet { width: 210mm; height: 297mm; min-height: 297mm; border: 0; padding: 13mm; break-inside: avoid; }
       .poster-title { font-size: 38mm; margin: 40mm 0; }
@@ -84,6 +85,7 @@
       .sheet-mark { width: 28mm; top: 19%; }
     }
   </style>
+  <noscript><style>.controls { display: none !important; }</style></noscript>
 </head>
 <body>
   <a class="skip" href="#press">Skip to print controls</a>
@@ -120,6 +122,7 @@
         <button id="print" class="primary" type="button">Print A4 poster ↗</button>
       </div>
     </section>
+    <noscript><p class="no-script-note">The poster remains visible without JavaScript. Enable JavaScript to adjust the inks, or use your browser's Print command to print this original impression.</p></noscript>
     <div class="notes">
       <p><strong>The idea.</strong> A poster that refuses to hide its process. Two deliberately misaligned ink impressions turn an ordinary production fault into the artwork itself. This is a digital interpretation of print registration, not a scanned or physically printed screen-print.</p>
       <p><strong>Try it.</strong> Move either slider with your keyboard or pointer. The printed A4 layout uses your current settings. Enable background graphics in your browser's print dialog to preserve the paper and ink colours.</p>
