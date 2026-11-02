@@ -11,6 +11,7 @@ on:
       - 'assets/studio-motion-2026.js'
       - 'assets/studio-case-art-direction.css'
       - 'scripts/studio-browser-qa.mjs'
+      - 'scripts/studio-business-journeys-qa.cjs'
       - '.github/workflows/studio-visual-qa-2026.yml'
   workflow_dispatch:
 permissions:
@@ -36,6 +37,8 @@ jobs:
           sleep 2
       - name: Run desktop, tablet, mobile and interaction QA
         run: node scripts/studio-browser-qa.mjs
+      - name: Verify complete fictional business journeys
+        run: node scripts/studio-business-journeys-qa.cjs
       - name: Archive page screenshots and issue report
         if: always()
         uses: actions/upload-artifact@v4
