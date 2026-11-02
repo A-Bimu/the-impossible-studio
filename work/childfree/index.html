@@ -87,6 +87,9 @@
 /* Progressive enhancement: without a working dialog, every card's notes stay
    readable and no inert Open design notes button is offered. */
 .pin-page:not(.pin-enhanced) .pin-open{display:none}
+/* Hide controls until their handlers exist; the full nine-pin catalogue remains readable without JS. */
+.pin-page:not(.pin-filters-ready) .pin-filterbar{display:none}
+.pin-page.pin-filters-ready .pin-noscript{display:none}
 .pin-noscript{font-size:12px;color:#6a5b60;margin-top:16px}
 
 /* Pin artwork. Each card carries its own crop of the approved sheet, saved as a
@@ -129,6 +132,14 @@
 .pin-page:focus-within .pin-art{border-color:#c49aa1}
 .sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;
   clip-path:inset(50%);white-space:nowrap}
+/* Reveal the existing skip link to keyboard users; keep it visually hidden otherwise. */
+.pin-page .sr-only:focus-visible{position:fixed!important;top:12px;left:12px;z-index:1000;
+  width:auto;height:auto;overflow:visible;clip-path:none;white-space:normal;
+  padding:13px 18px;background:var(--ink);color:#fffaf9;
+  border:2px solid var(--gold-bright);outline:3px solid var(--accent);outline-offset:3px;
+  font:700 14px/1.4 'Manrope',sans-serif}
+.pin-page .pin-moods button:focus-visible,.pin-page .pin-open:focus-visible,
+.pin-page .pin-close:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 
 @media(max-width:1100px){
   .pin-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -210,7 +221,7 @@
 </div>
 </section>
 
-<section class="pin-section" id="collection">
+<section class="pin-section" id="collection" tabindex="-1">
 <div class="pin-head">
 <div>
 <div class="eyebrow">02 / Browse the collection</div>
@@ -243,7 +254,7 @@
 <dt>Enamel</dt><dd>Ivory, blush and garden green on gold plate</dd>
 </dl>
 <p class="pin-note">A banner holds the longest readable line in the set. Daisies soften the message without weakening it, so the pin reads as a small bouquet first and a statement second.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for Childfree, By Choice">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="whimsical"><span class="sd-pin-anchor" id="pin-02" aria-hidden="true"></span>
@@ -259,7 +270,7 @@
 <dt>Enamel</dt><dd>Black, blush and pink on gold plate</dd>
 </dl>
 <p class="pin-note">The bow sits above the line and a pair of earrings hangs below on a jump ring, so the joke lands twice: once as jewellery, once as a sentence.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for No Heirs, Just Earrings">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="whimsical"><span class="sd-pin-anchor" id="pin-03" aria-hidden="true"></span>
@@ -275,7 +286,7 @@
 <dt>Enamel</dt><dd>Lilac, pearl and gold</dd>
 </dl>
 <p class="pin-note">Cloud silhouettes need a generous outline to keep their shape at size. The stars are cut as small enamel wells, close enough to read as sparkle without turning into noise.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for Just Me, Enough">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="chilled"><span class="sd-pin-anchor" id="pin-04" aria-hidden="true"></span>
@@ -291,7 +302,7 @@
 <dt>Enamel</dt><dd>Blush, ivory and black on gold plate</dd>
 </dl>
 <p class="pin-note">A familiar household object carries the punchline. The mute mark replaces the clock face detail entirely, so the joke reads from across a room without any lettering competing for attention.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for My Biological Clock Is On Silent">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="chilled"><span class="sd-pin-anchor" id="pin-05" aria-hidden="true"></span>
@@ -307,7 +318,7 @@
 <dt>Enamel</dt><dd>Ivory, sage and blush</dd>
 </dl>
 <p class="pin-note">The second banner in the set, deliberately softer than the first: green foliage and an ivory ground instead of black, so the same kind of message reads calm rather than defiant.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for Motherhood Is Optional">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="chilled"><span class="sd-pin-anchor" id="pin-06" aria-hidden="true"></span>
@@ -323,7 +334,7 @@
 <dt>Enamel</dt><dd>Gold, green and sky on gold plate</dd>
 </dl>
 <p class="pin-note">The only full circle in the collection. A sunrise over hills answers the line on its own, which keeps the words small and the pin wearable every day.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for Complete As I Am">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="bold"><span class="sd-pin-anchor" id="pin-07" aria-hidden="true"></span>
@@ -339,7 +350,7 @@
 <dt>Enamel</dt><dd>Black, hibiscus red and gold</dd>
 </dl>
 <p class="pin-note">The one pin that states the idea with a symbol instead of a sentence. The inequality sign is the largest single element in the whole set, and the red hibiscus keeps it from feeling like a lecture.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for Womanhood is not Motherhood">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="bold"><span class="sd-pin-anchor" id="pin-08" aria-hidden="true"></span>
@@ -355,7 +366,7 @@
 <dt>Enamel</dt><dd>Ivory ground with primary accents</dd>
 </dl>
 <p class="pin-note">An artist palette used as a personal statement. The brush breaks the circle at one edge, which stops the shape from reading as a plain round badge and gives the pin a clear front and back.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for My Life, My Design">Open design notes ↗</button>
 </article>
 
 <article class="pin-card" data-mood="bold"><span class="sd-pin-anchor" id="pin-09" aria-hidden="true"></span>
@@ -371,11 +382,11 @@
 <dt>Enamel</dt><dd>Oxblood, ivory and gold</dd>
 </dl>
 <p class="pin-note">The closing note of the collection, and the warmest. A ribbon crosses the heart in the same banner language as pin 01, which brings the set back to where it started.</p>
-<button class="pin-open" type="button">Open design notes ↗</button>
+<button class="pin-open" type="button" aria-label="Open design notes for Childfree, Not Childless">Open design notes ↗</button>
 </article>
 
 </div>
-<p class="pin-noscript">Without JavaScript the filters and the detail panel stay closed. The sheet above still shows all nine designs, and every card below keeps its full description.</p>
+<p class="pin-noscript">JavaScript is needed to filter the collection or open the detail panel. All nine pin designs, descriptions and the approved sheet remain available without it.</p>
 </section>
 
 <section class="pin-section" id="making">
@@ -464,6 +475,9 @@
   buttons.forEach(function(b){
     b.addEventListener('click', function(){ applyFilter(b.dataset.mood); });
   });
+  // Reveal the filter controls only after their click handlers are attached.
+  // Filtering works even in browsers without native dialog support.
+  document.body.classList.add('pin-filters-ready');
 
   var dialog = document.getElementById('pin-detail');
   if(dialog && typeof dialog.showModal === 'function'){
