@@ -1,0 +1,26 @@
+name: Room for Error draft QA
+
+on:
+  pull_request:
+    paths:
+      - 'drafts/2026-11-02-room-for-error/**'
+      - 'tests/room-for-error.test.mjs'
+      - '.github/workflows/room-for-error-draft.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  draft-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test interactive print controls and structure
+        run: node --test tests/room-for-error.test.mjs
