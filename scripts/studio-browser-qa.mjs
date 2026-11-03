@@ -103,7 +103,7 @@ for(const item of routes){
    assert.equal(received.products.find(p=>p.id==='p102').stock,initial.products.find(p=>p.id==='p102').stock+7,'Receiving stock adds correct quantity');
    assert.ok(received.movements.some(m=>m.productId==='p102'&&m.reason==='Supplier delivery received'),'Receiving logged with reason');
    await page.locator('[data-nav="alerts"]').click();
-   assert.ok(!await page.locator('[data-stock="p102"]').count(),'Receiving sufficient stock clears reorder alert');
+   assert.ok(!await page.locator('[data-view="alerts"] [data-stock="p102"]').count(),'Receiving sufficient stock clears reorder alert');
    await inspect(page,'stockwise-operations-desktop');
   }else if(item.slug==='vela-health'){
    await page.locator('[data-vela-service="Women\'s health"]').click();
