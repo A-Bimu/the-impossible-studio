@@ -5,18 +5,18 @@ import {Script} from 'node:vm';
 const root=new URL('../',import.meta.url);
 const read=p=>readFile(new URL(p,root),'utf8');
 const projects=[
- {name:'STOCKWISE',slug:'stockwise',routes:['dashboard','inventory','invoices','customers','alerts'],functional:['data-adjust','data-paid','entry-form','localStorage','low-count']},
+ {name:'STOCKWISE',slug:'stockwise',routes:['dashboard','sales','inventory','invoices','customers','alerts','activity'],functional:['ws-sale-form','ws-invoice-form','ws-inventory-rows','ws-movement-rows','ws-customer-rows','ws-dialog']},
  {name:'VELA HEALTH',slug:'vela-health',routes:['home','services','doctors','book','visits'],functional:['doctor-search','booking-form','data-time','data-cancel','localStorage']},
  {name:'MOVA',slug:'mova',routes:['overview','shipments','track','new','dispatch'],functional:['new-form','tracking-code','data-next','data-track','localStorage']}
 ];
 function config(text){const m=text.match(/<script type="application\/json" class="sd-config">([\s\S]*?)<\/script>/);assert.ok(m,'source-grounded showcase JSON');return JSON.parse(m[1]);}
 function inlineJs(html){return [...html.matchAll(/<script(?![^>]*src=)(?![^>]*application\/json)[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]).filter(Boolean);}
 test('three responsive projects have distinct working source routes, scripts and honest demonstrations',async()=>{
- for(const p of projects){const code=await read('projects/'+p.slug+'/index.html');
+ for(const p of projects){const marketing=await read('projects/'+p.slug+'/index.html');const code=p.slug==='stockwise'?await read('projects/stockwise/workspace.html'):marketing;
   assert.ok(code.includes('name="viewport"'),p.name+' responsive viewport');
-  assert.ok(code.includes('@media(max-width:'),p.name+' mobile rules');
+  assert.ok((p.slug==='stockwise'?await read('assets/stockwise-retail-workspace.css'):code).includes('@media(max-width:'),p.name+' mobile rules');
   for(const route of p.routes)assert.ok(code.includes('data-'+(p.slug==='stockwise'?'view':'page')+'="'+route+'"'),p.name+' route '+route);
-  for(const interaction of p.functional)assert.ok(code.includes(interaction),p.name+' interaction '+interaction);
+  for(const interaction of p.functional)assert.ok(code.includes(interaction),p.name+' interaction '+interaction);if(p.slug==='stockwise'){const engine=await read('assets/stockwise-retail-workspace.js');assert.doesNotThrow(()=>new Script(engine),'stockwise real-life engine script parses');for(const keyword of ['Walk-in sale','Invoice goods handed over','Customer return / refunded sale','Supplier delivery received','stockwise-studio-v2','i.paid=true','fulfilled:true'])assert.ok(engine.includes(keyword),'stockwise supports '+keyword);assert.ok(marketing.includes('sw-practical')&&marketing.includes('workspace.html#sales'),'homepage explains a real store workflow')}
   for(const js of inlineJs(code))assert.doesNotThrow(()=>new Script(js),p.name+' valid inline JS');
   assert.ok(/fictional|sample|demo/i.test(code),p.name+' honest sample state');
   assert.ok(!/<input[^>]+type="password"/.test(code),'No credentials collected');

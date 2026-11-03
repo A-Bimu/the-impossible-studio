@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STOCKWISE — The Everyday Edit · Demo workspace</title>
+<meta name="description" content="Explore a realistic fictional retail workflow: sell a product, issue an invoice, receive deliveries, and watch the inventory ledger update. All actions stay in your browser.">
+<link rel="stylesheet" href="../../assets/stockwise-retail-workspace.css">
+<script defer src="../../assets/stockwise-retail-workspace.js"></script>
+</head>
+<body>
+<div class="ws-shell">
+<aside class="ws-side" aria-label="Application sidebar">
+ <a class="ws-logo" href="./">STOCKWISE<span>®</span></a>
+ <div class="ws-store">
+   <span class="ws-store-label">YOUR DEMO STORE / NAIROBI</span>
+   <strong>THE EVERYDAY<br>EDIT.</strong>
+   <small>Independent lifestyle &amp; accessories boutique</small>
+ </div>
+ <nav class="ws-nav" aria-label="Workspace navigation">
+  <a href="#dashboard" data-nav="dashboard"><span>◈</span> Overview</a>
+  <a href="#sales" data-nav="sales"><span>↗</span> Make a sale</a>
+  <a href="#inventory" data-nav="inventory"><span>▤</span> Inventory</a>
+  <a href="#invoices" data-nav="invoices"><span>▧</span> Invoices</a>
+  <a href="#customers" data-nav="customers"><span>♧</span> Customers</a>
+  <a href="#alerts" data-nav="alerts"><span>!</span> Low stock <b id="ws-alert-nav">0</b></a>
+  <a href="#activity" data-nav="activity"><span>⌁</span> Stock history</a>
+ </nav>
+ <div class="ws-side-bottom"><div class="ws-side-tag">INTERACTIVE CONCEPT / V2</div><p>Try a transaction. The numbers will change everywhere they should.</p><a href="./">← Back to brand website</a></div>
+</aside>
+<div class="ws-page">
+ <header class="ws-toolbar">
+  <div class="ws-mobile-brand"><a href="./">STOCKWISE<span>®</span></a><span>THE EVERYDAY EDIT</span></div>
+  <div class="ws-status"><span class="ws-dot" aria-hidden="true"></span> LOCAL SAMPLE STORE <span class="ws-toolbar-date" id="ws-header-date"></span></div>
+  <div class="ws-toolbar-actions"><button type="button" class="ws-link-button" id="ws-reset">↺ Reset sample</button><a class="ws-top-brand-link" href="./">BRAND STORY ↗</a><span class="ws-demo-pill">NOT A LIVE POS</span></div>
+ </header>
+ <nav class="ws-mobile-nav" aria-label="Workspace sections">
+  <a href="#dashboard" data-mobile-nav="dashboard">Overview</a><a href="#sales" data-mobile-nav="sales">Sale</a><a href="#inventory" data-mobile-nav="inventory">Inventory</a><a href="#invoices" data-mobile-nav="invoices">Invoices</a><a href="#customers" data-mobile-nav="customers">Customers</a><a href="#alerts" data-mobile-nav="alerts">Alerts</a><a href="#activity" data-mobile-nav="activity">History</a>
+ </nav>
+ <main class="ws-content" id="main-content">
+  <section class="ws-view" data-view="dashboard">
+    <div class="ws-heading"><div><span class="ws-eyebrow">01 / STORE OVERVIEW</span><h1>A better grip<br>on your <em>day.</em></h1><p>Know what's been collected, what is owed, and which shelves need attention.</p></div><a class="ws-button ws-button-yellow" href="#sales">+ RECORD A SALE ↗</a></div>
+    <div class="ws-today-note"><strong id="ws-greeting">YOUR STORE IS READY</strong><span>All figures come from the sample transactions you make. No invented analytics.</span></div>
+    <div id="ws-metrics" class="ws-metrics" aria-label="Live business indicators"></div>
+    <div class="ws-duo">
+      <section class="ws-panel"><div class="ws-panel-head"><div><span class="ws-eyebrow">IN THE SHOP</span><h2>What needs doing?</h2></div><span class="ws-small-star">✳</span></div><div id="ws-tasks" class="ws-task-list"></div></section>
+      <section class="ws-panel"><div class="ws-panel-head"><div><span class="ws-eyebrow">A REAL-WORLD FLOW</span><h2>Everything connects.</h2></div></div>
+       <div class="ws-explain-flow"><div><b>01</b><strong>Sell an item</strong><p>The completed sale deducts stock and records the payment method.</p></div><div><b>02</b><strong>Invoice a customer</strong><p>Payment and handing over goods are tracked separately.</p></div><div><b>03</b><strong>Receive deliveries</strong><p>New stock is logged with a reason and clears low-stock alerts.</p></div></div>
+      </section>
+    </div>
+    <section class="ws-panel ws-bottom"><div class="ws-panel-head"><div><span class="ws-eyebrow">RECENT MOVEMENT</span><h2>Shop activity</h2></div><a href="#activity" class="ws-textlink">COMPLETE HISTORY ↗</a></div><div id="ws-dashboard-activity" class="ws-activity-list"></div></section>
+  </section>
+
+  <section class="ws-view" data-view="sales" hidden>
+    <div class="ws-heading"><div><span class="ws-eyebrow">02 / WALK-IN CHECKOUT</span><h1>The sale,<br><em>simplified.</em></h1><p>Record a real sample sale, deduct units from inventory and log how the customer paid.</p></div></div>
+    <div class="ws-duo ws-sales-layout"><section class="ws-panel"><div class="ws-panel-head"><div><span class="ws-eyebrow">NEW WALK-IN SALE</span><h2>Checkout</h2></div><span class="ws-check-mark">↗</span></div>
+      <form id="ws-sale-form" class="ws-form">
+       <label>Product <select id="ws-sale-product" name="productId" required></select></label>
+       <label>Quantity <input id="ws-sale-qty" name="qty" type="number" min="1" step="1" value="1" required></label>
+       <label>Customer <select id="ws-sale-customer" name="customerId"><option value="">Walk-in / no customer record</option></select></label>
+       <label>Payment received by <select name="method" required><option value="M-Pesa">M-Pesa (manually recorded)</option><option value="Cash">Cash</option><option value="Card">Card (manually recorded)</option></select></label>
+       <div class="ws-checkout-summary"><div><span>AVAILABLE STOCK</span><strong id="ws-sale-available">—</strong></div><div><span>TOTAL TO RECORD</span><strong id="ws-sale-total">KES 0</strong></div></div>
+       <button type="submit" class="ws-button ws-button-yellow ws-submit">COMPLETE SAMPLE SALE ↗</button>
+       <p class="ws-hint">This records a fictional, already-paid sale. No M-Pesa request, card charge or real receipt is sent.</p>
+      </form>
+    </section><aside class="ws-tip-card"><div class="ws-tip-index">WHAT CHANGES WHEN YOU SELL?</div><h2>ONE SALE.<br>THREE<br><em>UPDATES.</em></h2><div class="ws-tip-line"><span>↘</span> Units on hand decrease</div><div class="ws-tip-line"><span>↗</span> Paid sales total increases</div><div class="ws-tip-line"><span>⌁</span> Stock movement is logged</div></aside></div>
+    <section class="ws-panel ws-bottom"><div class="ws-panel-head"><div><span class="ws-eyebrow">RECORDED SALES</span><h2>Sales ledger</h2></div><span class="ws-small-label">REFUNDS RESTORE STOCK ONCE</span></div><div class="ws-table-scroll"><table><thead><tr><th>Reference / date</th><th>Item</th><th>Quantity</th><th>Collected</th><th>Method</th><th>Action</th></tr></thead><tbody id="ws-sales-rows"></tbody></table></div></section>
+  </section>
+
+  <section class="ws-view" data-view="inventory" hidden>
+    <div class="ws-heading"><div><span class="ws-eyebrow">03 / INVENTORY CONTROL</span><h1>Know what's<br><em>on hand.</em></h1><p>Real stock counts, supplier details and movements with reasons—not anonymous plus/minus buttons.</p></div><button class="ws-button ws-button-yellow" type="button" data-open="product">+ ADD PRODUCT ↗</button></div>
+    <div class="ws-panel"><div class="ws-table-controls"><label>SEARCH ITEMS <input type="search" id="ws-product-search" placeholder="Search product, SKU or supplier…"></label><label>STOCK STATUS <select id="ws-stock-filter"><option value="all">All products</option><option value="low">Low stock</option><option value="out">Out of stock</option></select></label></div>
+     <div class="ws-table-scroll"><table><thead><tr><th>Product / SKU</th><th>Supplier</th><th>Unit cost</th><th>Selling price</th><th>On hand</th><th>Reorder at</th><th>Action</th></tr></thead><tbody id="ws-inventory-rows"></tbody></table></div></div>
+    <div class="ws-guidebar"><b>STOCK POLICY</b><span>Use <strong>Receive</strong> for deliveries; use <strong>Adjust</strong> for damage, returns or a stock count. Each change is recorded in History.</span><a href="#activity">VIEW HISTORY ↗</a></div>
+  </section>
+
+  <section class="ws-view" data-view="invoices" hidden>
+    <div class="ws-heading"><div><span class="ws-eyebrow">04 / CUSTOMER BILLING</span><h1>Clear bills.<br><em>No guesswork.</em></h1><p>Issue an invoice, record payment and mark goods as handed over. Those are separate real-world events.</p></div></div>
+    <div class="ws-duo ws-invoice-grid">
+      <section class="ws-panel"><div class="ws-panel-head"><div><span class="ws-eyebrow">NEW SAMPLE INVOICE</span><h2>Bill a customer</h2></div></div>
+       <form id="ws-invoice-form" class="ws-form">
+        <label>Customer <select id="ws-invoice-customer" name="customerId" required></select></label>
+        <label>Product <select id="ws-invoice-product" name="productId" required></select></label>
+        <label>Quantity <input id="ws-invoice-qty" name="qty" type="number" min="1" step="1" value="1" required></label>
+        <label>Payment due <input id="ws-invoice-due" name="due" type="date" required></label>
+        <div class="ws-checkout-summary"><div><span>INVOICE TOTAL</span><strong id="ws-invoice-total">KES 0</strong></div></div>
+        <button type="submit" class="ws-button ws-button-yellow ws-submit">ISSUE SAMPLE INVOICE ↗</button>
+        <p class="ws-hint">Issuing a bill does not change stock. Mark it <strong>Handed over</strong> when goods physically leave. Recording payment is separate.</p>
+       </form>
+      </section>
+      <aside class="ws-invoice-explainer"><span class="ws-eyebrow">WHY TWO STATUSES?</span><h2>PAID ≠<br>HANDED<br><em>OVER.</em></h2><p>A customer can pay before collecting, or collect before paying. That is why payment and inventory should never be the same button.</p><div><span>01 / PAYMENT</span><strong>Unpaid → Paid</strong></div><div><span>02 / DELIVERY</span><strong>Not handed over → Handed over</strong></div></aside>
+    </div>
+    <section class="ws-panel ws-bottom"><div class="ws-panel-head"><div><span class="ws-eyebrow">OPEN AND RECORDED BILLS</span><h2>Invoice register</h2></div></div><div class="ws-table-scroll"><table><thead><tr><th>Invoice / customer</th><th>Items</th><th>Amount</th><th>Due</th><th>Payment</th><th>Goods</th><th>Actions</th></tr></thead><tbody id="ws-invoice-rows"></tbody></table></div></section>
+  </section>
+
+  <section class="ws-view" data-view="customers" hidden>
+    <div class="ws-heading"><div><span class="ws-eyebrow">05 / CUSTOMER DIRECTORY</span><h1>People,<br>not just <em>orders.</em></h1><p>Know who bought from you, and whether any of their invoices remain unpaid.</p></div><button type="button" data-open="customer" class="ws-button ws-button-yellow">+ ADD CUSTOMER ↗</button></div>
+    <section class="ws-panel"><div class="ws-table-scroll"><table><thead><tr><th>Customer</th><th>Contact</th><th>Invoices</th><th>Outstanding</th></tr></thead><tbody id="ws-customer-rows"></tbody></table></div></section>
+  </section>
+
+  <section class="ws-view" data-view="alerts" hidden>
+    <div class="ws-heading"><div><span class="ws-eyebrow">06 / REORDER WATCH</span><h1>Don't run<br><em>out.</em></h1><p>Alerts are calculated from your live sample inventory. Receive a delivery to clear one.</p></div><button type="button" class="ws-button ws-button-outline" onclick="location.hash='#inventory'">VIEW ALL STOCK ↗</button></div>
+    <div class="ws-alert-intro"><div><strong id="ws-alert-summary">0</strong><span>PRODUCTS NEED ATTENTION</span></div><p>Each item's threshold is set individually. The suggested reorder amount aims for roughly twice the threshold; you can edit the received quantity.</p></div>
+    <div id="ws-alert-items" class="ws-alert-cards"></div>
+  </section>
+
+  <section class="ws-view" data-view="activity" hidden>
+    <div class="ws-heading"><div><span class="ws-eyebrow">07 / TRACEABLE MOVEMENTS</span><h1>Every change<br>has a <em>reason.</em></h1><p>A simple audit trail of sales, fulfillment, returns, deliveries, damage and stock corrections.</p></div></div>
+    <section class="ws-panel"><div class="ws-table-scroll"><table><thead><tr><th>When</th><th>Item</th><th>Reason</th><th>Change</th><th>Units after</th><th>Reference</th></tr></thead><tbody id="ws-movement-rows"></tbody></table></div></section>
+  </section>
+ </main>
+ <footer class="ws-footer"><strong>STOCKWISE® / THE IMPOSSIBLE STUDIO</strong><p>Fictional boutique. Sample records saved in this browser only. No real payments, notifications, tax filing or supplier orders.</p><a href="../../work/stockwise/">READ THE CASE STUDY ↗</a></footer>
+</div></div>
+<dialog id="ws-dialog" aria-labelledby="ws-dialog-title"><div class="ws-dialog-head"><span class="ws-eyebrow">STOCKWISE / SAMPLE STORE</span><button type="button" id="ws-dialog-close" aria-label="Close dialog">×</button></div><h2 id="ws-dialog-title"></h2><p id="ws-dialog-description"></p><form id="ws-dialog-form" class="ws-form"><div id="ws-dialog-fields"></div><div class="ws-dialog-actions"><button type="button" class="ws-button ws-button-outline" id="ws-dialog-cancel">CANCEL</button><button type="submit" class="ws-button ws-button-yellow" id="ws-dialog-submit">SAVE</button></div></form></dialog>
+<div id="ws-toast" class="ws-toast" role="status" aria-live="polite" hidden></div>
+</body></html>
