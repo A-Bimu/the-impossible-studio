@@ -10,6 +10,9 @@ on:
       - 'work/mova/**'
       - 'assets/stockwise-retail-workspace.js'
       - 'assets/stockwise-retail-workspace.css'
+      - 'assets/stockwise-ui-polish.css'
+      - 'assets/stockwise-ui-polish.js'
+      - 'scripts/stockwise-layout-qa.mjs'
       - 'assets/studio-motion-2026.js'
       - 'assets/studio-case-art-direction.css'
       - 'scripts/studio-browser-qa.mjs'
@@ -38,6 +41,8 @@ jobs:
           sleep 2
       - name: Run desktop, tablet, mobile and interaction QA
         run: node scripts/studio-browser-qa.mjs
+      - name: Check STOCKWISE heading geometry, mobile navigation, card actions and live device frames
+        run: node scripts/stockwise-layout-qa.mjs
       - name: Archive page screenshots and issue report
         if: always()
         uses: actions/upload-artifact@v4
