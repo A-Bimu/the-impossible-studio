@@ -14,7 +14,7 @@ function inlineJs(html){return [...html.matchAll(/<script(?![^>]*src=)(?![^>]*ap
 test('three responsive projects have distinct working source routes, scripts and honest demonstrations',async()=>{
  for(const p of projects){const marketing=await read('projects/'+p.slug+'/index.html');const code=p.slug==='stockwise'?await read('projects/stockwise/workspace.html'):marketing;
   assert.ok(code.includes('name="viewport"'),p.name+' responsive viewport');
-  assert.ok(code.includes('@media(max-width:'),p.name+' mobile rules');
+  assert.ok((p.slug==='stockwise'?await read('assets/stockwise-retail-workspace.css'):code).includes('@media(max-width:'),p.name+' mobile rules');
   for(const route of p.routes)assert.ok(code.includes('data-'+(p.slug==='stockwise'?'view':'page')+'="'+route+'"'),p.name+' route '+route);
   for(const interaction of p.functional)assert.ok(code.includes(interaction),p.name+' interaction '+interaction);if(p.slug==='stockwise'){const engine=await read('assets/stockwise-retail-workspace.js');assert.doesNotThrow(()=>new Script(engine),'stockwise real-life engine script parses');for(const keyword of ['Walk-in sale','Invoice goods handed over','Customer return / refunded sale','Supplier delivery received','stockwise-studio-v2','paid:true','fulfilled:true'])assert.ok(engine.includes(keyword),'stockwise supports '+keyword);assert.ok(marketing.includes('sw-practical')&&marketing.includes('workspace.html#sales'),'homepage explains a real store workflow')}
   for(const js of inlineJs(code))assert.doesNotThrow(()=>new Script(js),p.name+' valid inline JS');
