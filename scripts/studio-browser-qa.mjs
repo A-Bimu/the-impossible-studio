@@ -51,12 +51,60 @@ for(const item of routes){
  try{
   await page.goto(origin+item.url,{waitUntil:'domcontentloaded'});
   if(item.slug==='stockwise'){
-   await page.locator('a[href="#inventory"]').first().click();await page.locator('[data-view="inventory"]').waitFor({state:'visible'});
-   const old=await page.locator('#products tr').count();
-   await page.locator('[data-open="product"]').first().click();
-   assert.ok(await page.locator('#form-modal').evaluate(d=>d.open),'Product entry modal opens');
-   await page.locator('#cancel').click();assert.equal(await page.locator('#form-modal').evaluate(d=>d.open),false);
-   assert.ok(old>0,'Inventory has product rows');
+   // The marketing page must link to a complete, separate working retail demo.
+   await page.goto(origin+'/projects/stockwise/workspace.html#dashboard',{waitUntil:'domcontentloaded'});
+   await page.locator('.ws-view[data-view="dashboard"]').waitFor({state:'visible'});
+   const initial=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.ok(initial.products.length>=5&&initial.invoices.length>=1,'Plausible store seed');
+   page.on('dialog',dialog=>dialog.accept());
+   await page.locator('[data-nav="sales"]').click();
+   await page.locator('[data-view="sales"]').waitFor({state:'visible'});
+   await page.locator('#ws-sale-product').selectOption('p101');
+   await page.locator('#ws-sale-qty').fill('2');
+   await page.locator('#ws-sale-form button[type="submit"]').click();
+   const sold=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(sold.products.find(p=>p.id==='p101').stock,initial.products.find(p=>p.id==='p101').stock-2,'Real sale deducts stock');
+   assert.equal(sold.sales.length,initial.sales.length+1,'Real sale creates a ledger entry');
+   assert.equal(sold.movements.length,initial.movements.length+1,'Real sale logs a stock movement');
+   await page.locator('#ws-sale-qty').fill('9999');
+   await page.locator('#ws-sale-form button[type="submit"]').click();
+   const invalid=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(invalid.sales.length,sold.sales.length,'Overselling blocked');
+   assert.equal(invalid.products.find(p=>p.id==='p101').stock,sold.products.find(p=>p.id==='p101').stock,'Overselling does not change stock');
+   await page.locator('[data-nav="invoices"]').click();
+   await page.locator('[data-view="invoices"]').waitFor({state:'visible'});
+   await page.locator('#ws-invoice-customer').selectOption('c101');
+   await page.locator('#ws-invoice-product').selectOption('p103');
+   await page.locator('#ws-invoice-qty').fill('1');
+   await page.locator('#ws-invoice-form button[type="submit"]').click();
+   const issued=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(issued.products.find(p=>p.id==='p103').stock,sold.products.find(p=>p.id==='p103').stock,'Issuing invoice does not prematurely deduct stock');
+   assert.ok(issued.invoices.at(-1).paid===false&&issued.invoices.at(-1).fulfilled===false,'New invoice has separate unpaid and not handed over states');
+   const invoiceId=issued.invoices.at(-1).id;
+   await page.locator('[data-fulfill="'+invoiceId+'"]').click();
+   const delivered=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(delivered.products.find(p=>p.id==='p103').stock,sold.products.find(p=>p.id==='p103').stock-1,'Handing over goods deducts stock once');
+   await page.locator('[data-pay="'+invoiceId+'"]').click();
+   await page.locator('#ws-dialog-form button[type="submit"]').click();
+   const paid=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(paid.invoices.at(-1).paid,true,'Recording payment marks invoice paid');
+   assert.equal(paid.invoices.at(-1).fulfilled,true,'Payment preserves fulfillment state');
+   await page.locator('[data-nav="sales"]').click();
+   const saleId=sold.sales.at(-1).id;
+   await page.locator('[data-refund="'+saleId+'"]').click();
+   const returned=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(returned.products.find(p=>p.id==='p101').stock,initial.products.find(p=>p.id==='p101').stock,'Refund restores units exactly once');
+   assert.equal(returned.sales.at(-1).refunded,true,'Refund marks sale');
+   await page.locator('[data-nav="inventory"]').click();
+   await page.locator('[data-stock="p102"][data-reason="receive"]').first().click();
+   await page.locator('#ws-dialog-form input[name="quantity"]').fill('7');
+   await page.locator('#ws-dialog-form button[type="submit"]').click();
+   const received=await page.evaluate(()=>window.STOCKWISE_DEMO.snapshot());
+   assert.equal(received.products.find(p=>p.id==='p102').stock,initial.products.find(p=>p.id==='p102').stock+7,'Receiving stock adds correct quantity');
+   assert.ok(received.movements.some(m=>m.productId==='p102'&&m.reason==='Supplier delivery received'),'Receiving logged with reason');
+   await page.locator('[data-nav="alerts"]').click();
+   assert.ok(!await page.locator('[data-stock="p102"]').count(),'Receiving sufficient stock clears reorder alert');
+   await inspect(page,'stockwise-operations-desktop');
   }else if(item.slug==='vela-health'){
    await page.locator('[data-vela-service="Women\'s health"]').click();
    assert.equal(await page.locator('[data-vela-service="Women\'s health"]').getAttribute('aria-pressed'),'true');
@@ -80,6 +128,13 @@ for(const item of routes){
   }
   results.push({tag,passed:true});
  }catch(e){issues.push(tag+' interaction failed '+e.message)}finally{await page.close()}
+}
+for(const size of sizes){
+ const page=await browser.newPage({viewport:{width:size.width,height:size.height},isMobile:size.name==='phone',hasTouch:size.name==='phone'});
+ const tag='stockwise-workspace-'+size.name;
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ try{await page.goto(origin+'/projects/stockwise/workspace.html#dashboard',{waitUntil:'domcontentloaded'});await capture(page,tag,'.ws-view[data-view="dashboard"]');for(const error of errors)issues.push(tag+' JS error '+error)}
+ catch(e){issues.push(tag+' screenshot failure '+e.message)}finally{await page.close()}
 }
 for(const item of routes){
  const page=await browser.newPage({viewport:{width:390,height:844}});
