@@ -8,6 +8,8 @@ on:
       - 'work/stockwise/**'
       - 'work/vela-health/**'
       - 'work/mova/**'
+      - 'assets/stockwise-retail-workspace.js'
+      - 'assets/stockwise-retail-workspace.css'
       - 'assets/studio-motion-2026.js'
       - 'assets/studio-case-art-direction.css'
       - 'scripts/studio-browser-qa.mjs'
