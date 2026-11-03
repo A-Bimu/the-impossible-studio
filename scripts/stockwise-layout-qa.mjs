@@ -21,6 +21,13 @@ async function check(page,kind,name,width){
   const horizontal={viewport:document.documentElement.clientWidth,body:document.body.scrollWidth,root:document.documentElement.scrollWidth};
   horizontal.offenders=[...document.body.querySelectorAll('*')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName.toLowerCase(),selector:el.className?.toString().slice(0,90)||el.id||'',right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width)}}).filter(r=>r.right>innerWidth+4&&r.left<innerWidth-5).sort((a,b)=>a.right-b.right).slice(0,16);
   const diagnostics=kind==='case'?['body','main.shell','.hero','.visual','.factbar','.brand-board','.case-manifesto','.sd-showcase','.sd-mount','.sd-grid-laptop','.sd-grid-phone','.sd-demo','.sd-demo-info','.sd-interact-box','.sd-interact-frame'].map(sel=>{const el=document.querySelector(sel);if(!el)return {sel,missing:true};const r=el.getBoundingClientRect(),c=getComputedStyle(el);return {sel,left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,overflow:c.overflowX}}):[];
+  if(kind==='case'){
+   const main=document.querySelector('main.shell');
+   if(main)for(const [index,el] of [...main.children].entries()){
+    const r=el.getBoundingClientRect();
+    diagnostics.push({sel:'main child '+index+' '+el.tagName.toLowerCase()+'.'+el.className,left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),clientWidth:el.clientWidth,scrollWidth:el.scrollWidth,overflow:getComputedStyle(el).overflowX});
+   }
+  }
   const selectors=kind==='brand'?['#sw-campaign-title','.sw-yellow-message h2','#sw-practical-title','#sw-collection-title','.sw-ledger-intro h2','.sw-final-cta h2']:kind==='workspace'?['.ws-heading h1','.ws-panel-head h2']:['.hero h1','.visual-inner strong','.case-manifesto h2'];
   const headings=selectors.map(selector=>{
    const el=q(selector);if(!el)return {selector,missing:true};
