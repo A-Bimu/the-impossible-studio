@@ -1,0 +1,28 @@
+name: ONE progressive enhancement regression
+
+on:
+  pull_request:
+    paths:
+      - 'work/one/index.html'
+      - 'tests/one-progressive-enhancement.test.mjs'
+      - '.github/workflows/one-progressive-enhancement.yml'
+  push:
+    branches:
+      - 'studio/one-progressive-enhancement-20261103'
+    paths:
+      - 'work/one/index.html'
+      - 'tests/one-progressive-enhancement.test.mjs'
+      - '.github/workflows/one-progressive-enhancement.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  one-no-script-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ONE static regression checks
+        run: node --test tests/one-progressive-enhancement.test.mjs
