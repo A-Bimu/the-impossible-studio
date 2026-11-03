@@ -19,6 +19,7 @@ async function check(page,kind,name,width){
  const result=await page.evaluate(({kind})=>{
   const q=s=>document.querySelector(s);
   const horizontal={viewport:document.documentElement.clientWidth,body:document.body.scrollWidth,root:document.documentElement.scrollWidth};
+  horizontal.offenders=[...document.body.querySelectorAll('*')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName.toLowerCase(),selector:el.className?.toString().slice(0,90)||el.id||'',right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width)}}).filter(r=>r.right>innerWidth+4&&r.left>=0).sort((a,b)=>b.right-a.right).slice(0,10);
   const selectors=kind==='brand'?['#sw-campaign-title','.sw-yellow-message h2','#sw-practical-title','#sw-collection-title','.sw-ledger-intro h2','.sw-final-cta h2']:kind==='workspace'?['.ws-heading h1','.ws-panel-head h2']:['.hero h1','.visual-inner strong','.case-manifesto h2'];
   const headings=selectors.map(selector=>{
    const el=q(selector);if(!el)return {selector,missing:true};
