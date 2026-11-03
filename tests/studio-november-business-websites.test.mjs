@@ -68,3 +68,32 @@ test('art direction refresh uses three non-repeating identities, actual imagery 
  assert.equal((homepage.match(/class="business-photo"/g)||[]).length,3,'home gallery has three new photographic covers');
  assert.ok(!homepage.includes('STOCKWISE original purple inventory product brand cover'),'old gallery artwork not reused');
 });
+
+
+test('STOCKWISE targeted typography and mobile usability polish is wired across the three experiences',async()=>{
+ const [home,workspace,casePage,css,js,qa]=await Promise.all([
+  read('projects/stockwise/index.html'),read('projects/stockwise/workspace.html'),
+  read('work/stockwise/index.html'),read('assets/stockwise-ui-polish.css'),
+  read('assets/stockwise-ui-polish.js'),read('scripts/stockwise-layout-qa.mjs')
+ ]);
+ for(const [name,html]of [['homepage',home],['workspace',workspace],['case study',casePage]]){
+  assert.ok(html.includes('stockwise-ui-polish.css'),name+' uses responsive collision fixes');
+  assert.ok(html.includes('stockwise-ui-polish.js'),name+' uses behavior enhancements');
+ }
+ for(const phrase of ['data-sw-gallery-dir="-1"','data-sw-gallery-dir="1"','data-sw-gallery-status'])
+  assert.ok(home.includes(phrase),'working gallery control '+phrase);
+ for(const phrase of ['ws-mobile-nav-wrap','ws-mobile-nav-more'])
+  assert.ok(workspace.includes(phrase),'working mobile navigation '+phrase);
+ for(const phrase of ['.ws-shell .ws-heading h1','.sw-v3 .sw-yellow-message h2','.sw-v3 .sw-practical h2','.sw-v3 .sw-receipt-clip','.ws-shell .ws-table-scroll tbody td::before','.brand-stockwise .sd-screen.is-loaded iframe'])
+  assert.ok(css.includes(phrase),'targeted collision or affordance rule '+phrase);
+ for(const phrase of ['MutationObserver','data-label','scrollTo','sd-iframe','is-loaded'])
+  assert.ok(js.includes(phrase),'working mobile table or frame enhancement '+phrase);
+ assert.doesNotThrow(()=>new Script(js),'polish JS parses');
+ const presentation=await read('assets/studio-responsive-showcase.js');
+ assert.ok(presentation.includes('item.source||base')&&presentation.includes('selectedSource'),'showcase supports direct per-screen sources without redirect');
+ const showcaseConfig=config(casePage);
+ for(const item of [...showcaseConfig.desktop,...showcaseConfig.phone].filter(x=>x.route!=='#home'))
+  assert.equal(item.source,'../../projects/stockwise/workspace.html','stockwise demo preview loads direct workspace screen');
+ assert.ok(js.includes('sd-interact-frame')&&css.includes('.sd-interact-frame.is-loaded iframe'),'live case demo has loading state');
+ assert.ok(qa.includes('width:320')&&qa.includes('width:390')&&qa.includes('width:1440'),'tests narrow mobile, phone and desktop');
+});

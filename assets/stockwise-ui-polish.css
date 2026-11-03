@@ -1,0 +1,435 @@
+/* STOCKWISE / focused UX polish 2026-11-04.
+   Scoped to the STOCKWISE brand page, demo workspace and case study only.
+   Deliberately not a wholesale visual redesign. */
+
+/* 1 — Brand homepage: keep bold editorial typography without collisions. */
+.sw-v3 .sw-campaign h1{
+  font-size:clamp(48px,9.1vw,158px);
+  line-height:1.05;
+  letter-spacing:-.075em;
+  margin-block:48px 16px;
+  white-space:normal;
+  overflow-wrap:normal;
+}
+.sw-v3 .sw-campaign h1>span{display:block;position:relative}
+.sw-v3 .sw-asterisk{
+  font-size:.38em;
+  line-height:1;
+  vertical-align:top;
+  margin-left:.16em;
+  position:relative;
+  top:.06em;
+}
+.sw-v3 .sw-hero-top{gap:16px;position:relative;z-index:2;align-items:center}
+.sw-v3 .sw-hero-top>span:last-child{white-space:nowrap}
+.sw-v3 .sw-line-doodle{
+  font-size:clamp(40px,5vw,70px);
+  line-height:1.05;
+  width:max-content;
+  margin:0 0 24px auto;
+  text-align:right;
+  transform:none;
+  animation:none;
+}
+.sw-v3 .sw-yellow-message{padding-top:32px}
+.sw-v3 .sw-yellow-message h2{
+  font-size:clamp(44px,5.15vw,79px)!important;
+  line-height:1.13!important;
+  letter-spacing:-.07em!important;
+  overflow-wrap:normal;
+  margin:12px 0 24px;
+}
+.sw-v3 .sw-yellow-message h2 i{
+  display:inline-block;
+  line-height:1.08;
+  padding:.03em .1em;
+}
+.sw-v3 .sw-photo-sticker{
+  width:clamp(96px,10.5vw,145px);
+  font-size:clamp(11px,1.2vw,15px);
+  line-height:1.2;
+  right:24px;
+  top:28px;
+  padding:16px;
+  transform:rotate(8deg);
+  box-shadow:4px 6px 0 #151515;
+}
+.sw-v3 .sw-practical h2{
+  font-size:clamp(49px,6.8vw,112px);
+  line-height:1.14;
+  letter-spacing:-.073em;
+  text-wrap:balance;
+}
+.sw-v3 .sw-practical h2 em{
+  display:inline;
+  line-height:inherit;
+  padding:.02em .08em .06em;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+.sw-v3 .sw-practical-heading{row-gap:12px}
+.sw-v3 .sw-practical-note{
+  margin:36px 0 0;
+  border-top:1px solid #afb4bd;
+  padding:16px 0 0;
+  line-height:1.8;
+  max-width:760px;
+}
+.sw-v3 .sw-section-header h2,
+.sw-v3 .sw-ledger-intro h2{
+  line-height:1.08;
+  letter-spacing:-.07em;
+}
+.sw-v3 .sw-card-footer{align-items:flex-start;gap:16px}
+.sw-v3 .sw-card-footer strong{font-size:clamp(20px,2vw,31px);line-height:1.16;letter-spacing:-.052em}
+.sw-v3 .sw-card-footer span{flex-shrink:0;font-size:10px;line-height:1.6}
+.sw-v3 .sw-ledger-intro h2 em{display:inline-block;line-height:1.06;padding-inline:.06em}
+.sw-v3 .sw-receipt-wrap{overflow:visible}
+.sw-v3 .sw-receipt-clip{
+  top:-48px;
+  right:5px;
+  font-size:72px;
+  line-height:1;
+  z-index:0;
+  transform:rotate(-13deg);
+}
+.sw-v3 .sw-receipt{position:relative;z-index:1}
+.sw-v3 .sw-receipt-head b{font-size:clamp(24px,2.5vw,36px);line-height:1.15;letter-spacing:-.07em}
+.sw-v3 .sw-receipt small{display:block;line-height:1.7;overflow-wrap:anywhere}
+.sw-v3 .sw-receipt-rule{max-width:100%;overflow:hidden}
+.sw-v3 .sw-final-cta h2{
+  font-size:clamp(51px,8.2vw,133px);
+  line-height:1.12;
+  letter-spacing:-.073em;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+.sw-v3 .sw-final-cta a{max-width:100%;white-space:normal;line-height:1.5}
+.sw-v3 a:focus-visible,.sw-v3 button:focus-visible{
+  outline:3px solid #2456c8;
+  outline-offset:4px;
+}
+
+/* 2 — Mobile tool gallery: visible swipe affordance and actual controls. */
+.sw-v3 .sw-gallery-controls{display:none}
+.sw-v3 .sw-photo-collection{scroll-padding:0 6px}
+.sw-v3 .sw-product-card{scroll-snap-align:start}
+
+/* 3 — Practical workspace: readable headings and meaningful mobile nav. */
+.ws-shell .ws-heading h1{
+  font-size:clamp(42px,5vw,75px);
+  line-height:1.16;
+  letter-spacing:-.065em;
+  overflow-wrap:normal;
+  margin-top:22px;
+}
+.ws-shell .ws-heading h1 em{
+  font-size:.95em;
+  line-height:1.17;
+  vertical-align:baseline;
+  letter-spacing:-.02em;
+}
+.ws-shell .ws-panel-head h2{
+  line-height:1.19;
+  letter-spacing:-.052em;
+}
+.ws-shell .ws-today-note strong{line-height:1.4}
+.ws-shell .ws-metric strong{line-height:1.14;overflow-wrap:anywhere}
+.ws-shell .ws-activity-entry time{line-height:1.45}
+.ws-shell .ws-mobile-nav-wrap{display:none}
+.ws-shell .ws-mobile-nav a{
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  scroll-snap-align:center;
+  flex-shrink:0;
+}
+.ws-shell .ws-mobile-nav a:focus-visible{outline:3px solid #ffe500;outline-offset:-4px}
+.ws-shell .ws-mobile-nav-more{display:none}
+.ws-shell .ws-table-scroll{overscroll-behavior-inline:contain;scrollbar-color:#8b929e #edf0f6}
+.ws-shell .ws-mini-button{min-height:36px}
+.ws-shell .ws-pill{line-height:1.45}
+.ws-shell .ws-hint{line-height:1.8}
+
+/* 4 — Presentation typography, readability and live-preview affordance. */
+.brand-stockwise .hero h1{
+  font-size:clamp(41px,6.4vw,99px);
+  line-height:1.12;
+  letter-spacing:-.075em;
+  overflow-wrap:anywhere;
+}
+.brand-stockwise .hero h2{line-height:1.25}
+.brand-stockwise .visual:after{
+  width:100%;height:100%;inset:0;
+  border:0;border-radius:0;
+  transform:none;
+  background:linear-gradient(180deg,#09090955 0%,#070707a6 100%);
+}
+.brand-stockwise .visual-inner{
+  max-width:95%;padding:20px 15px;transform:none;
+  color:#fff;position:relative;z-index:2;
+  text-shadow:0 2px 12px #000c;
+}
+.brand-stockwise .visual-inner strong{
+  color:#fff;
+  font-size:clamp(30px,4vw,56px);
+  line-height:1.14;
+  letter-spacing:-.055em;
+  overflow-wrap:break-word;
+}
+.brand-stockwise .visual-inner .visual-pill{text-shadow:none}
+.brand-stockwise .brand-board strong{
+  font-size:clamp(24px,3vw,38px);
+  line-height:1.16;
+  letter-spacing:-.055em;
+  overflow-wrap:anywhere;
+}
+.brand-stockwise .case-manifesto h2{
+  font-size:clamp(45px,6.8vw,108px)!important;
+  line-height:1.1!important;
+  letter-spacing:-.065em;
+}
+.brand-stockwise .case-manifesto .case-eyebrow,
+.brand-stockwise .case-number{line-height:1.7}
+.brand-stockwise .sd-screen{
+  background:#24272d;
+}
+.brand-stockwise .sd-screen::before{
+  content:'LOADING LIVE VIEW';
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  color:#e4e8f0;
+  font:700 9px/1.6 'DM Mono',monospace;
+  letter-spacing:.09em;
+  text-align:center;
+  max-width:90%;
+  z-index:0;
+}
+.brand-stockwise .sd-screen.is-loaded::before{display:none}
+.brand-stockwise .sd-screen iframe{
+  opacity:0;
+  transition:opacity .24s ease;
+}
+.brand-stockwise .sd-screen.is-loaded iframe{opacity:1}
+.brand-stockwise .sd-interact-frame{background:#17181e;position:relative}
+.brand-stockwise .sd-interact-frame::before{
+ content:'LOADING INTERACTIVE DEMO…';position:absolute;z-index:0;top:50%;left:50%;
+ transform:translate(-50%,-50%);width:90%;text-align:center;
+ color:#e2e4eb;font:700 11px/1.65 'DM Mono',monospace;letter-spacing:.045em;
+}
+.brand-stockwise .sd-interact-frame.is-loaded::before{display:none}
+.brand-stockwise .sd-interact-frame iframe{position:relative;z-index:1;opacity:0;transition:opacity .24s ease}
+.brand-stockwise .sd-interact-frame.is-loaded iframe{opacity:1}
+
+.brand-stockwise .sw-case-hint{
+  display:none;
+  font:700 11px/1.6 'DM Mono',monospace;
+  color:#ffe500;
+  padding:0 0 16px;
+}
+.brand-stockwise .sd-caption p{line-height:1.65}
+.brand-stockwise .sd-showcase button{min-height:40px}
+.brand-stockwise .sd-showcase a{line-height:1.5}
+
+@media(max-width:1050px){
+  .sw-v3 .sw-yellow-message h2{font-size:clamp(43px,5vw,64px)!important;line-height:1.15!important}
+  .sw-v3 .sw-campaign h1{font-size:clamp(51px,8.7vw,95px)}
+  .sw-v3 .sw-receipt-clip{right:0;top:-45px}
+}
+@media(max-width:850px){
+  .ws-shell .ws-mobile-nav-wrap{display:flex;position:relative;align-items:stretch;background:#151515}
+  .ws-shell .ws-mobile-nav{
+    display:flex;flex:1;min-width:0;
+    scroll-snap-type:x proximity;
+    overscroll-behavior-inline:contain;
+    scrollbar-width:thin;
+    scroll-padding-inline:15px;
+    scroll-behavior:smooth;
+    padding-right:16px;
+  }
+  .ws-shell .ws-mobile-nav-more{
+    display:flex;align-items:center;justify-content:center;
+    background:#ffe500;color:#151515;
+    flex:0 0 auto;min-width:68px;padding:0 10px;
+    font:700 10px/1.4 'DM Mono',monospace;
+    border:0;border-left:2px solid #151515;
+  }
+  .ws-shell .ws-mobile-nav-more[disabled]{opacity:.6}
+}
+@media(max-width:760px){
+  .sw-v3 .sw-campaign{padding-top:25px}
+  .sw-v3 .sw-campaign h1{
+    font-size:clamp(36px,9.4vw,69px);
+    line-height:1.1;
+    letter-spacing:-.068em;
+    white-space:normal;
+    margin:38px 0 22px;
+  }
+  .sw-v3 .sw-asterisk{font-size:.3em;margin-left:.12em}
+  .sw-v3 .sw-photo-sticker{right:15px;top:17px;width:99px;font-size:10px;padding:12px;line-height:1.15;transform:rotate(6deg)}
+  .sw-v3 .sw-photo-id{font-size:9px;padding:9px 11px;max-width:86%;line-height:1.5}
+  .sw-v3 .sw-hero-yellow{min-height:0;padding:23px 25px 26px}
+  .sw-v3 .sw-hero-top{gap:24px}
+  .sw-v3 .sw-line-doodle{
+    font-size:43px;
+    line-height:1;
+    margin:14px 0 18px auto;
+    width:54px;
+    height:48px;
+  }
+  .sw-v3 .sw-yellow-message{padding:9px 0 22px}
+  .sw-v3 .sw-yellow-message h2{
+    font-size:clamp(40px,10.7vw,67px)!important;
+    line-height:1.12!important;
+    letter-spacing:-.062em!important;
+    margin:12px 0 25px;
+  }
+  .sw-v3 .sw-yellow-message h2 i{line-height:1.12;padding:.03em .1em .06em}
+  .sw-v3 .sw-practical h2{
+    font-size:clamp(38px,9.1vw,67px);
+    line-height:1.17;
+    letter-spacing:-.052em;
+    text-wrap:balance;
+    margin:23px 0 27px;
+  }
+  .sw-v3 .sw-practical h2 em{padding:.035em .07em .075em}
+  .sw-v3 .sw-practical-note{margin-top:35px;padding-top:19px;font-size:11px;line-height:1.85}
+  .sw-v3 .sw-section-header h2,.sw-v3 .sw-ledger-intro h2{font-size:clamp(48px,10vw,72px);line-height:1.14}
+  .sw-v3 .sw-photo-collection{
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+    scroll-padding-inline:6px;
+    scrollbar-width:thin;
+    gap:15px;
+    padding:8px 4px 22px;
+  }
+  .sw-v3 .sw-product-card{min-width:0;flex:0 0 86%;scroll-snap-stop:always}
+  .sw-v3 .sw-gallery-controls{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:13px;padding:12px 0 22px;
+  }
+  .sw-v3 .sw-gallery-controls span{font:700 11px/1.5 'DM Mono',monospace;color:#3c4758}
+  .sw-v3 .sw-gallery-buttons{display:flex;gap:8px}
+  .sw-v3 .sw-gallery-buttons button{
+    border:2px solid #151515;background:#ffe500;
+    color:#151515;min-width:44px;min-height:44px;font-size:22px;
+    cursor:pointer;
+  }
+  .sw-v3 .sw-card-footer{flex-wrap:wrap;gap:4px}
+  .sw-v3 .sw-card-footer strong{font-size:clamp(23px,5.5vw,32px)}
+  .sw-v3 .sw-card-footer span{font-size:10px}
+  .sw-v3 .sw-live-ledger{padding-top:90px}
+  .sw-v3 .sw-receipt-wrap{transform:none!important;margin-top:28px;padding-top:48px}
+  .sw-v3 .sw-receipt{width:min(380px,94%);padding:32px 23px 52px;box-shadow:10px 12px 0 #151515}
+  .sw-v3 .sw-receipt-clip{display:none}
+  .sw-v3 .sw-receipt-head b{font-size:clamp(24px,7.4vw,34px)}
+  .sw-v3 .sw-receipt-head span{font-size:10px}
+  .sw-v3 .sw-final-cta h2{font-size:clamp(42px,10vw,70px);line-height:1.16;letter-spacing:-.05em}
+  .ws-shell .ws-heading h1{font-size:clamp(40px,7.6vw,62px);line-height:1.2;letter-spacing:-.052em;margin:17px 0}
+  .ws-shell .ws-heading h1 em{font-size:.93em;line-height:1.21}
+  .ws-shell .ws-panel-head h2{font-size:clamp(23px,4vw,31px);line-height:1.2}
+  .ws-shell .ws-metric strong{font-size:clamp(22px,4.2vw,32px)}
+  .ws-shell .ws-today-note strong{font-size:15px}
+  /* Tables become genuine labelled, accessible stacked records on small screens.
+     This prevents the action column being marooned off-screen. */
+  .ws-shell .ws-table-scroll{overflow-x:visible}
+  .ws-shell .ws-table-scroll table{min-width:0;width:100%;display:block;border-collapse:separate}
+  .ws-shell .ws-table-scroll thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+  .ws-shell .ws-table-scroll tbody{display:grid;gap:14px}
+  .ws-shell .ws-table-scroll tbody tr{
+    display:grid;gap:0;background:#fff;border:1px solid #bec5d0;
+    padding:8px 14px;min-width:0;
+  }
+  .ws-shell .ws-table-scroll tbody td{
+    display:grid;grid-template-columns:minmax(85px,34%) minmax(0,1fr);
+    align-items:start;gap:10px;
+    border-bottom:1px solid #e4e8ef;
+    padding:11px 0;min-width:0;overflow-wrap:anywhere;
+  }
+  .ws-shell .ws-table-scroll tbody td:last-child{border-bottom:0}
+  .ws-shell .ws-table-scroll tbody td::before{
+    content:attr(data-label);
+    font:700 10px/1.45 'DM Mono',monospace;color:#586373;
+    letter-spacing:.03em;text-transform:uppercase;
+  }
+  .ws-shell .ws-table-scroll tbody td[colspan]{display:block}
+  .ws-shell .ws-table-scroll tbody td[colspan]::before{content:none}
+  .ws-shell .ws-table-scroll tbody td .ws-inline-actions{display:flex;justify-content:flex-start;gap:8px;flex-wrap:wrap}
+  .ws-shell .ws-mini-button{font-size:10px;min-height:40px;padding:9px 11px}
+  .ws-shell .ws-table-scroll tbody td small{font-size:11px;line-height:1.6}
+  .brand-stockwise .visual-inner strong{font-size:clamp(28px,6.8vw,49px);line-height:1.18}
+  .brand-stockwise .case-manifesto h2{font-size:clamp(48px,8.4vw,76px)!important;line-height:1.17!important}
+}
+@media(max-width:440px){
+  .sw-v3 .sw-campaign h1{font-size:clamp(35px,9.2vw,44px);line-height:1.14;margin-bottom:22px}
+  .sw-v3 .sw-asterisk{display:none}
+  .sw-v3 .sw-hero-yellow{padding:22px 21px 25px}
+  .sw-v3 .sw-yellow-message h2{
+    font-size:clamp(40px,10.6vw,50px)!important;
+    line-height:1.17!important;
+    letter-spacing:-.048em!important;
+  }
+  .sw-v3 .sw-practical h2{font-size:clamp(36px,9.2vw,48px);line-height:1.2}
+  .sw-v3 .sw-gallery-controls span{font-size:10px}
+  .sw-v3 .sw-product-photo{height:340px}
+  .sw-v3 .sw-receipt-row{font-size:11px;gap:9px}
+  .sw-v3 .sw-receipt-row strong{font-size:24px}
+  .sw-v3 .sw-receipt-total b{font-size:32px}
+  .sw-v3 .sw-final-cta h2{font-size:clamp(40px,10.2vw,52px);line-height:1.2}
+  .ws-shell .ws-heading h1{font-size:clamp(35px,9.4vw,44px);line-height:1.24;letter-spacing:-.048em}
+  .ws-shell .ws-heading h1 em{font-size:.91em;line-height:1.26}
+  .ws-shell .ws-toolbar-actions{gap:7px}
+  .ws-shell .ws-mobile-nav a{font-size:11px;min-height:48px;padding:12px 17px}
+  .ws-shell .ws-mobile-nav-more{min-width:82px;padding-inline:9px;gap:4px;white-space:nowrap;font-size:10px}
+  .ws-shell .ws-table-scroll tbody td{grid-template-columns:minmax(72px,32%) minmax(0,1fr);gap:8px}
+  .ws-shell .ws-table-scroll tbody td::before{font-size:9px}
+  .brand-stockwise .section h2{
+    font-size:clamp(35px,9.6vw,48px);
+    line-height:1.17;
+    letter-spacing:-.045em;
+    overflow-wrap:anywhere;
+  }
+  .brand-stockwise .brand-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .brand-stockwise .brand-board>div{min-width:0;padding:16px}
+  .brand-stockwise .brand-board strong{font-size:clamp(18px,5vw,26px);overflow-wrap:anywhere;line-height:1.2}
+  .brand-stockwise .factbar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .brand-stockwise .factbar>div{min-width:0;overflow-wrap:anywhere}
+  .brand-stockwise .hero h1{font-size:clamp(32px,9vw,43px);line-height:1.2}
+  .brand-stockwise .hero h2{font-size:clamp(21px,6.2vw,27px);line-height:1.32;letter-spacing:-.026em;overflow-wrap:break-word;max-width:100%}
+  .brand-stockwise .visual-inner{padding:18px 13px}
+  .brand-stockwise .visual-inner strong{font-size:clamp(26px,7vw,36px);line-height:1.2}
+  .brand-stockwise .case-manifesto h2{font-size:clamp(42px,11vw,54px)!important;line-height:1.18!important}
+  .brand-stockwise .sd-grid-phone{
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:18px;max-width:none;margin:0 -5px;
+    padding:15px 8px 25px;
+    scrollbar-width:thin;
+    scroll-padding:8px;
+  }
+  .brand-stockwise .sd-grid-phone .sd-item{
+    flex:0 0 min(68vw,245px);
+    min-width:0;scroll-snap-align:start;
+  }
+  .brand-stockwise .sw-case-hint{display:block}
+  .brand-stockwise .sd-mobile{max-width:210px}
+  .brand-stockwise .sd-caption strong{font-size:10px;line-height:1.5}
+  .brand-stockwise .sd-caption p{font-size:11px}
+}
+/* Keep the scrolling device gallery inside the actual case-study viewport. */
+@media(max-width:550px){
+ .brand-stockwise .sd-showcase{
+   display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+   contain:inline-size;overflow:hidden;
+ }
+ .brand-stockwise .sd-mount,.brand-stockwise .sd-demo,
+ .brand-stockwise .sd-demo-info,.brand-stockwise .sd-interact-box{
+   box-sizing:border-box;min-width:0;max-width:100%;width:100%;
+ }
+ .brand-stockwise .sd-grid-phone{
+   box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+   margin:0;overflow-x:auto;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+  .sw-v3 .sw-gallery-controls,.ws-shell .ws-mobile-nav{scroll-behavior:auto!important}
+  .brand-stockwise .sd-screen iframe{transition:none}
+}
