@@ -20,6 +20,7 @@ async function check(page,kind,name,width){
   const q=s=>document.querySelector(s);
   const horizontal={viewport:document.documentElement.clientWidth,body:document.body.scrollWidth,root:document.documentElement.scrollWidth};
   horizontal.offenders=[...document.body.querySelectorAll('*')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName.toLowerCase(),selector:el.className?.toString().slice(0,90)||el.id||'',right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width)}}).filter(r=>r.right>innerWidth+4&&r.left<innerWidth-5).sort((a,b)=>a.right-b.right).slice(0,16);
+  const diagnostics=kind==='case'?['body','main.shell','.hero','.visual','.factbar','.brand-board','.case-manifesto','.sd-showcase','.sd-mount','.sd-grid-laptop','.sd-grid-phone','.sd-demo','.sd-demo-info','.sd-interact-box','.sd-interact-frame'].map(sel=>{const el=document.querySelector(sel);if(!el)return {sel,missing:true};const r=el.getBoundingClientRect(),c=getComputedStyle(el);return {sel,left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,overflow:c.overflowX}}):[];
   const selectors=kind==='brand'?['#sw-campaign-title','.sw-yellow-message h2','#sw-practical-title','#sw-collection-title','.sw-ledger-intro h2','.sw-final-cta h2']:kind==='workspace'?['.ws-heading h1','.ws-panel-head h2']:['.hero h1','.visual-inner strong','.case-manifesto h2'];
   const headings=selectors.map(selector=>{
    const el=q(selector);if(!el)return {selector,missing:true};
@@ -32,9 +33,9 @@ async function check(page,kind,name,width){
    const intersects=(a,b)=>{const x=q(a)?.getBoundingClientRect(),y=q(b)?.getBoundingClientRect();return Boolean(x&&y&&x.left<y.right&&x.right>y.left&&x.top<y.bottom&&x.bottom>y.top)};
    decorations={yellowArrowCrossesHeader:intersects('.sw-hero-top','.sw-line-doodle'),stickerCrossesCaption:intersects('.sw-photo-sticker','.sw-photo-id'),receiptStarVisibleAtPhone:innerWidth<761&&getComputedStyle(q('.sw-receipt-clip')).display!=='none',carousel:!!q('[data-sw-gallery-status]')};
   }
-  return {horizontal,headings,decorations};
+  return {horizontal,headings,decorations,diagnostics};
  },{kind});
- if(result.horizontal.body>width+4||result.horizontal.root>width+4)issues.push(kind+' '+name+': horizontal document overflow '+JSON.stringify(result.horizontal));
+ if(result.horizontal.body>width+4||result.horizontal.root>width+4)issues.push(kind+' '+name+': horizontal document overflow '+JSON.stringify({horizontal:result.horizontal,diagnostics:result.diagnostics}));
  for(const h of result.headings){
   if(h.missing){issues.push(kind+' '+name+': missing heading '+h.selector);continue}
   if(h.ratio<1.025)issues.push(kind+' '+name+': too-tight heading line height '+h.selector+' '+h.ratio.toFixed(2));
