@@ -211,6 +211,16 @@
   transition:opacity .24s ease;
 }
 .brand-stockwise .sd-screen.is-loaded iframe{opacity:1}
+.brand-stockwise .sd-interact-frame{background:#17181e;position:relative}
+.brand-stockwise .sd-interact-frame::before{
+ content:'LOADING INTERACTIVE DEMO…';position:absolute;z-index:0;top:50%;left:50%;
+ transform:translate(-50%,-50%);width:90%;text-align:center;
+ color:#e2e4eb;font:700 11px/1.65 'DM Mono',monospace;letter-spacing:.045em;
+}
+.brand-stockwise .sd-interact-frame.is-loaded::before{display:none}
+.brand-stockwise .sd-interact-frame iframe{position:relative;z-index:1;opacity:0;transition:opacity .24s ease}
+.brand-stockwise .sd-interact-frame.is-loaded iframe{opacity:1}
+
 .brand-stockwise .sw-case-hint{
   display:none;
   font:700 11px/1.6 'DM Mono',monospace;
@@ -369,10 +379,11 @@
   .ws-shell .ws-heading h1 em{font-size:.91em;line-height:1.26}
   .ws-shell .ws-toolbar-actions{gap:7px}
   .ws-shell .ws-mobile-nav a{font-size:11px;min-height:48px;padding:12px 17px}
-  .ws-shell .ws-mobile-nav-more{min-width:63px;font-size:9px}
+  .ws-shell .ws-mobile-nav-more{min-width:82px;padding-inline:9px;gap:4px;white-space:nowrap;font-size:10px}
   .ws-shell .ws-table-scroll tbody td{grid-template-columns:minmax(72px,32%) minmax(0,1fr);gap:8px}
   .ws-shell .ws-table-scroll tbody td::before{font-size:9px}
   .brand-stockwise .hero h1{font-size:clamp(32px,9vw,43px);line-height:1.2}
+  .brand-stockwise .hero h2{font-size:clamp(21px,6.2vw,27px);line-height:1.32;letter-spacing:-.026em;overflow-wrap:break-word;max-width:100%}
   .brand-stockwise .visual-inner{padding:18px 13px}
   .brand-stockwise .visual-inner strong{font-size:clamp(26px,7vw,36px);line-height:1.2}
   .brand-stockwise .case-manifesto h2{font-size:clamp(42px,11vw,54px)!important;line-height:1.18!important}
