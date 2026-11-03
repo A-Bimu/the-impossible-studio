@@ -382,6 +382,11 @@
   .ws-shell .ws-mobile-nav-more{min-width:82px;padding-inline:9px;gap:4px;white-space:nowrap;font-size:10px}
   .ws-shell .ws-table-scroll tbody td{grid-template-columns:minmax(72px,32%) minmax(0,1fr);gap:8px}
   .ws-shell .ws-table-scroll tbody td::before{font-size:9px}
+  .brand-stockwise .brand-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .brand-stockwise .brand-board>div{min-width:0;padding:16px}
+  .brand-stockwise .brand-board strong{font-size:clamp(18px,5vw,26px);overflow-wrap:anywhere;line-height:1.2}
+  .brand-stockwise .factbar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .brand-stockwise .factbar>div{min-width:0;overflow-wrap:anywhere}
   .brand-stockwise .hero h1{font-size:clamp(32px,9vw,43px);line-height:1.2}
   .brand-stockwise .hero h2{font-size:clamp(21px,6.2vw,27px);line-height:1.32;letter-spacing:-.026em;overflow-wrap:break-word;max-width:100%}
   .brand-stockwise .visual-inner{padding:18px 13px}
