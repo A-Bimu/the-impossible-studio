@@ -89,5 +89,13 @@ test('STOCKWISE targeted typography and mobile usability polish is wired across 
  for(const phrase of ['MutationObserver','data-label','scrollTo','sd-iframe','is-loaded'])
   assert.ok(js.includes(phrase),'working mobile table or frame enhancement '+phrase);
  assert.doesNotThrow(()=>new Script(js),'polish JS parses');
+ const presentation=await read('assets/studio-responsive-showcase.js');
+ assert.ok(presentation.includes('item.source||base')&&presentation.includes('selectedSource'),'showcase supports direct per-screen sources without redirect');
+ const match=casePage.match(/<script type="application\\/json" class="sd-config">([\\s\\S]*?)<\\/script>/);
+ assert.ok(match,'stockwise responsive config present');
+ const config=JSON.parse(match[1]);
+ for(const item of [...config.desktop,...config.phone].filter(x=>x.route!=='#home'))
+  assert.equal(item.source,'../../projects/stockwise/workspace.html','stockwise demo preview loads direct workspace screen');
+ assert.ok(js.includes('sd-interact-frame')&&css.includes('.sd-interact-frame.is-loaded iframe'),'live case demo has loading state');
  assert.ok(qa.includes('width:320')&&qa.includes('width:390')&&qa.includes('width:1440'),'tests narrow mobile, phone and desktop');
 });
