@@ -11,6 +11,8 @@ test('ONE hides unusable interactive controls when scripting is disabled', () =>
   assert.match(page, /html:not\(\.one-js\)\s+\.demo-toolbar\s*,\s*html:not\(\.one-js\)\s+\.demo-stage\s*\{\s*display:\s*none/);
   assert.match(page, /<noscript>[\s\S]*?interactive preview requires JavaScript[\s\S]*?<\/noscript>/i);
   assert.match(page, /<noscript>[\s\S]*?one-deep-navy\.html[\s\S]*?<\/noscript>/);
+  assert.match(page, /<noscript>[\s\S]*?desktop-preview\.png[\s\S]*?<\/noscript>/);
+  assert.match(page, /<noscript>[\s\S]*?mobile-preview\.png[\s\S]*?<\/noscript>/);
 });
 
 test('ONE preserves a usable script-enabled demo and the approved archive', () => {
