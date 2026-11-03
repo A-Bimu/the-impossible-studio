@@ -15,6 +15,7 @@ on:
       - 'scripts/stockwise-layout-qa.mjs'
       - 'assets/studio-motion-2026.js'
       - 'assets/studio-case-art-direction.css'
+      - 'assets/studio-responsive-showcase.js'
       - 'scripts/studio-browser-qa.mjs'
       - '.github/workflows/studio-visual-qa-2026.yml'
   workflow_dispatch:
