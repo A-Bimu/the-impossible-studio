@@ -5,8 +5,8 @@ import { readFileSync } from 'node:fs';
 const page = readFileSync(new URL('../work/childfree/index.html', import.meta.url), 'utf8');
 
 test('Childfree filters are hidden until their handlers are attached', () => {
-  assert.match(page, /\.pin-moods\s*\{[^}]*display:\s*none/s);
-  assert.match(page, /\.pin-filter-ready\s+\.pin-moods\s*\{[^}]*display:\s*flex/s);
+  assert.match(page, /\.pin-page:not\(\.pin-filter-ready\) \.pin-moods\{display:none\}/);
+  assert.match(page, /classList\.add\('pin-filter-ready'\)/);
   const handler = page.indexOf("b.addEventListener('click', function(){ applyFilter");
   const ready = page.indexOf("classList.add('pin-filter-ready')");
   assert.ok(handler >= 0 && ready > handler, 'filters must appear after handler registration');
