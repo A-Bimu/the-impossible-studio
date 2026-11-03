@@ -8,7 +8,7 @@
  const $=id=>document.getElementById(id);
  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const money=value=>'KES '+Number(value||0).toLocaleString('en-KE',{maximumFractionDigits:0});
- const dateKey=date=>new Date(date).toLocaleDateString('en-CA',{timeZone:'Africa/Nairobi'});
+ const dateKey=date=>{const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Africa/Nairobi'}).formatToParts(new Date(date)).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));return parts.year+'-'+parts.month+'-'+parts.day};
  const fmtTime=value=>new Date(value).toLocaleString('en-KE',{dateStyle:'medium',timeStyle:'short',timeZone:'Africa/Nairobi'});
  const fmtDate=value=>{if(!value)return '—';const d=new Date(value+'T12:00:00+03:00');return d.toLocaleDateString('en-KE',{month:'short',day:'numeric',year:'numeric',timeZone:'Africa/Nairobi'})};
  const today=dateKey(new Date());
