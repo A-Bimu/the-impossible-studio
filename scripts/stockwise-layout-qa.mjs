@@ -87,7 +87,7 @@ for(const t of targets){
     if((await frames.count())!==3)issues.push(tag+': missing laptop previews');
     const first=frames.first();
     await first.waitFor({state:'attached'});
-    try{await page.waitForFunction(()=>{const f=document.querySelector('.sd-grid-laptop iframe');return Boolean(f&&f.getAttribute('src')&&f.closest('.sd-screen')?.classList.contains('is-loaded'))},{timeout:12500});}
+    try{await page.waitForFunction(()=>{const f=document.querySelector('.sd-grid-laptop iframe');return Boolean(f&&f.getAttribute('src')&&f.closest('.sd-screen')?.classList.contains('is-loaded'))},null,{timeout:12500});}
     catch{issues.push(tag+': first laptop preview did not load as live page')}
    }
    jsErrors.forEach(error=>issues.push(tag+': JS error '+error));
