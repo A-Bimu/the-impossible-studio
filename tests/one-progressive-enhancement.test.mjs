@@ -22,3 +22,12 @@ test('ONE preserves a usable script-enabled demo and the approved archive', () =
   assert.match(page, /data-screen="overview"/);
   assert.match(page, /data-size="phone"/);
 });
+
+
+test('ONE announces screen and viewport changes to assistive technology', () => {
+  assert.match(page, /id="one-demo-status"[^>]*role="status"[^>]*aria-live="polite"/);
+  assert.match(page, /function announce\(\)\s*\{/);
+  assert.match(page, /status\.textContent='Showing '/);
+  assert.match(page, /function load\(\)\s*\{[\s\S]*?announce\(\);/);
+  assert.match(page, /frame\.setAttribute\('title',[\s\S]*?announce\(\);/);
+});
