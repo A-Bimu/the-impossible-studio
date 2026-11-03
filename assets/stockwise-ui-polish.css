@@ -408,6 +408,21 @@
   .brand-stockwise .sd-caption strong{font-size:10px;line-height:1.5}
   .brand-stockwise .sd-caption p{font-size:11px}
 }
+/* Keep the scrolling device gallery inside the actual case-study viewport. */
+@media(max-width:550px){
+ .brand-stockwise .sd-showcase{
+   display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+   contain:inline-size;overflow:hidden;
+ }
+ .brand-stockwise .sd-mount,.brand-stockwise .sd-demo,
+ .brand-stockwise .sd-demo-info,.brand-stockwise .sd-interact-box{
+   box-sizing:border-box;min-width:0;max-width:100%;width:100%;
+ }
+ .brand-stockwise .sd-grid-phone{
+   box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+   margin:0;overflow-x:auto;
+ }
+}
 @media(prefers-reduced-motion:reduce){
   .sw-v3 .sw-gallery-controls,.ws-shell .ws-mobile-nav{scroll-behavior:auto!important}
   .brand-stockwise .sd-screen iframe{transition:none}
