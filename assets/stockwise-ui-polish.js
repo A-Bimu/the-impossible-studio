@@ -92,6 +92,24 @@
     frame.src=frame.dataset.src;
    }
   });
+  const demoBox=showcase.querySelector('.sd-interact-frame');
+  const demoFrame=demoBox?.querySelector('iframe');
+  if(demoFrame){
+   const ready=()=>{if(demoFrame.getAttribute('src'))demoBox.classList.add('is-loaded')};
+   demoFrame.addEventListener('load',ready);
+   const watcher=new MutationObserver(()=>{demoBox.classList.remove('is-loaded')});
+   watcher.observe(demoFrame,{attributes:true,attributeFilter:['src']});
+   // The first live view is preloaded, so the interactive showcase is populated
+   // before visitors reach it instead of presenting an empty white rectangle.
+   const configText=showcase.querySelector('.sd-config')?.textContent;
+   try{
+    const cfg=JSON.parse(configText||'{}'),first=cfg.desktop?.[0];
+    if(first&&!demoFrame.getAttribute('src')){
+     demoFrame.loading='eager';
+     demoFrame.src=(first.source||cfg.source)+first.route;
+    }
+   }catch{}
+  }
  }
  brand();workspace();caseStudy();
 })();
