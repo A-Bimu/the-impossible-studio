@@ -4,8 +4,8 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>STOCKWISE — The Everyday Edit · Demo workspace</title>
 <meta name="description" content="Explore a realistic fictional retail workflow: sell a product, issue an invoice, receive deliveries, and watch the inventory ledger update. All actions stay in your browser.">
-<link rel="stylesheet" href="../../assets/stockwise-retail-workspace.css">
-<script defer src="../../assets/stockwise-retail-workspace.js"></script>
+<link rel="stylesheet" href="../../assets/stockwise-retail-workspace.css"><link rel="stylesheet" href="../../assets/stockwise-ui-polish.css">
+<script defer src="../../assets/stockwise-retail-workspace.js"></script><script defer src="../../assets/stockwise-ui-polish.js"></script>
 </head>
 <body>
 <div class="ws-shell">
@@ -33,9 +33,9 @@
   <div class="ws-status"><span class="ws-dot" aria-hidden="true"></span> LOCAL SAMPLE STORE <span class="ws-toolbar-date" id="ws-header-date"></span></div>
   <div class="ws-toolbar-actions"><button type="button" class="ws-link-button" id="ws-reset">↺ Reset sample</button><a class="ws-top-brand-link" href="./">BRAND STORY ↗</a><span class="ws-demo-pill">NOT A LIVE POS</span></div>
  </header>
- <nav class="ws-mobile-nav" aria-label="Workspace sections">
+ <div class="ws-mobile-nav-wrap"><nav class="ws-mobile-nav" aria-label="Workspace sections">
   <a href="#dashboard" data-mobile-nav="dashboard">Overview</a><a href="#sales" data-mobile-nav="sales">Sale</a><a href="#inventory" data-mobile-nav="inventory">Inventory</a><a href="#invoices" data-mobile-nav="invoices">Invoices</a><a href="#customers" data-mobile-nav="customers">Customers</a><a href="#alerts" data-mobile-nav="alerts">Alerts</a><a href="#activity" data-mobile-nav="activity">History</a>
- </nav>
+ </nav><button class="ws-mobile-nav-more" type="button" aria-label="Scroll navigation to more sections">MORE <span aria-hidden="true">→</span></button></div>
  <main class="ws-content" id="main-content">
   <section class="ws-view" data-view="dashboard">
     <div class="ws-heading"><div><span class="ws-eyebrow">01 / STORE OVERVIEW</span><h1>A better grip<br>on your <em>day.</em></h1><p>Know what's been collected, what is owed, and which shelves need attention.</p></div><a class="ws-button ws-button-yellow" href="#sales">+ RECORD A SALE ↗</a></div>
