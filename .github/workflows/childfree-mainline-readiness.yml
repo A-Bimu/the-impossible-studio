@@ -1,0 +1,30 @@
+name: Childfree mainline readiness regression
+
+on:
+  pull_request:
+    paths:
+      - 'work/childfree/index.html'
+      - 'tests/childfree-mainline-readiness.test.mjs'
+      - '.github/workflows/childfree-mainline-readiness.yml'
+  push:
+    paths:
+      - 'work/childfree/index.html'
+      - 'tests/childfree-mainline-readiness.test.mjs'
+      - '.github/workflows/childfree-mainline-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Studio
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Childfree progressive enhancement
+        run: node --test tests/childfree-mainline-readiness.test.mjs
