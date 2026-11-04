@@ -65,7 +65,7 @@ for(const t of targets){
    await check(page,t.kind,vp.name,vp.width);
    if(vp.width===390||vp.width===1440){
     // Promote actual live frames into view before taking the full-page case-study shot.
-    if(t.kind==='case')await page.locator('.sd-grid-laptop').scrollIntoViewIfNeeded();
+    if(t.kind==='case')await page.locator('.sx-experience').scrollIntoViewIfNeeded();
     await page.screenshot({path:root+'/'+tag+'.png',fullPage:true,animations:'disabled',timeout:40000});
    }else await page.screenshot({path:root+'/'+tag+'.png',fullPage:false,animations:'disabled',timeout:25000});
    if(t.kind==='brand'&&vp.width<=390){
@@ -92,12 +92,11 @@ for(const t of targets){
     }
    }
    if(t.kind==='case'){
-    const frames=page.locator('.sd-grid-laptop .sd-iframe');
-    if((await frames.count())!==3)issues.push(tag+': missing laptop previews');
-    const first=frames.first();
-    await first.waitFor({state:'attached'});
-    try{await page.waitForFunction(()=>{const f=document.querySelector('.sd-grid-laptop iframe');return Boolean(f&&f.getAttribute('src')&&f.closest('.sd-screen')?.classList.contains('is-loaded'))},null,{timeout:12500});}
-    catch{issues.push(tag+': first laptop preview did not load as live page')}
+    const frames=page.locator('iframe.sx-live-frame');
+    if((await frames.count())!==1)issues.push(tag+': case study should use one live product frame');
+    try{await page.waitForFunction(()=>{const f=document.querySelector('iframe.sx-live-frame');return Boolean(f&&f.getAttribute('src')&&f.closest('.sx-device')?.classList.contains('sx-ready'))},null,{timeout:14000});}
+    catch{issues.push(tag+': unified live case study preview did not load')}
+    if(await page.locator('.sd-grid-phone,.sd-grid-laptop').count())issues.push(tag+': redundant device thumbnail gallery still visible');
    }
    jsErrors.forEach(error=>issues.push(tag+': JS error '+error));
   }catch(e){issues.push(tag+': '+e.message)}

@@ -16,6 +16,9 @@ on:
       - 'assets/studio-motion-2026.js'
       - 'assets/studio-case-art-direction.css'
       - 'assets/studio-responsive-showcase.js'
+      - 'assets/studio-unified-showcase.js'
+      - 'assets/studio-unified-showcase.css'
+      - 'scripts/studio-unified-qa.mjs'
       - 'scripts/studio-browser-qa.mjs'
       - '.github/workflows/studio-visual-qa-2026.yml'
   workflow_dispatch:
@@ -44,6 +47,8 @@ jobs:
         run: node scripts/studio-browser-qa.mjs
       - name: Check STOCKWISE heading geometry, mobile navigation, card actions and live device frames
         run: node scripts/stockwise-layout-qa.mjs
+      - name: Verify unified live journeys, device switching and expanded demo across all three case studies
+        run: node scripts/studio-unified-qa.mjs
       - name: Archive page screenshots and issue report
         if: always()
         uses: actions/upload-artifact@v4

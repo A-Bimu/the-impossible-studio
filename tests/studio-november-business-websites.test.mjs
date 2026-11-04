@@ -22,13 +22,26 @@ test('three responsive projects have distinct working source routes, scripts and
   assert.ok(!/<input[^>]+type="password"/.test(code),'No credentials collected');
  }
 });
-test('new case studies show three real laptop and five real phone project views',async()=>{
- for(const p of projects){const html=await read('work/'+p.slug+'/index.html'),cfg=config(html);
-  assert.equal(cfg.desktop.length,3,p.name);assert.equal(cfg.phone.length,5,p.name);
-  assert.equal(cfg.project,p.name);assert.equal(cfg.source,'../../projects/'+p.slug+'/index.html?preview=1');
-  assert.equal(new Set(cfg.desktop.map(x=>x.route)).size,3);assert.equal(new Set(cfg.phone.map(x=>x.route)).size,5);
-  for(const view of [...cfg.desktop,...cfg.phone])assert.ok(p.routes.includes(view.route.slice(1))||(p.slug==='stockwise'&&view.route==='#home'),p.name+' source section '+view.route);
-  for(const required of ['studio-responsive-showcase.js','studio-responsive-showcase.css','business-websites-showcase.css','sd-mount','creative process','not a commissioned','Explore working demo'])assert.ok(html.toLowerCase().includes(required.toLowerCase()),p.name+' includes '+required);
+test('three case studies provide a single interactive, expandable device explorer with distinct working journeys',async()=>{
+ const script=await read('assets/studio-unified-showcase.js');
+ const style=await read('assets/studio-unified-showcase.css');
+ assert.doesNotThrow(()=>new Script(script),'shared unified showcase compiles');
+ for(const token of ['showModal','sx-live-frame','sx-dialog-frame','sx-mode-btn','aria-pressed','sx-journey','setMode','setJourney'])
+  assert.ok(script.includes(token),'interactive demo component '+token);
+ assert.ok(style.includes('.sx-dialog-phone')&&style.includes('.sx-laptop')&&style.includes('.sx-phone')&&style.includes('pointer-events:auto'),'truly interactive device previews');
+ for(const p of projects){
+  const html=await read('work/'+p.slug+'/index.html'),cfg=config(html);
+  assert.equal(cfg.project,p.name);
+  assert.equal(cfg.source,p.slug==='stockwise'?'../../projects/stockwise/workspace.html':'../../projects/'+p.slug+'/index.html?preview=1');
+  assert.ok(Array.isArray(cfg.journeys)&&cfg.journeys.length>=4&&cfg.journeys.length<=5,p.name+' curated scenarios');
+  assert.equal(new Set(cfg.journeys.map(j=>j.route)).size,cfg.journeys.length,p.name+' no duplicate journey');
+  assert.ok(!cfg.journeys.some(view=>view.route==='#home'),p.name+' does not re-list marketing homepage');
+  for(const j of cfg.journeys){
+   assert.ok(p.routes.includes(j.route.slice(1)),p.name+' working source route '+j.route);
+   assert.ok(j.title&&j.summary&&j.description,p.name+' meaningful journey copy');
+  }
+  for(const required of ['studio-unified-showcase.js','studio-unified-showcase.css','business-websites-showcase.css','sd-mount','creative process','not a commissioned','Explore working demo','Explore the interactive experience'])
+   assert.ok(html.toLowerCase().includes(required.toLowerCase()),p.name+' includes '+required);
  }
 });
 test('new cards are reachable from public Studio home, presentations and journal',async()=>{
@@ -63,7 +76,7 @@ test('art direction refresh uses three non-repeating identities, actual imagery 
   const html=await read('work/'+slug+'/index.html');
   assert.ok(html.includes('images.unsplash.com'),slug+' case study photography');
   assert.ok(html.includes('unsplash.com/license'),slug+' imagery license note');
-  assert.ok(html.includes('3')||html.includes('desktop'),slug+' presentation');
+  assert.ok(html.includes('journeys')&&html.includes('studio-unified-showcase.js'),slug+' interactive presentation');
  }
  assert.equal((homepage.match(/class="business-photo"/g)||[]).length,3,'home gallery has three new photographic covers');
  assert.ok(!homepage.includes('STOCKWISE original purple inventory product brand cover'),'old gallery artwork not reused');
@@ -89,11 +102,10 @@ test('STOCKWISE targeted typography and mobile usability polish is wired across 
  for(const phrase of ['MutationObserver','data-label','scrollTo','sd-iframe','is-loaded'])
   assert.ok(js.includes(phrase),'working mobile table or frame enhancement '+phrase);
  assert.doesNotThrow(()=>new Script(js),'polish JS parses');
- const presentation=await read('assets/studio-responsive-showcase.js');
- assert.ok(presentation.includes('item.source||base')&&presentation.includes('selectedSource'),'showcase supports direct per-screen sources without redirect');
+ const unified=await read('assets/studio-unified-showcase.js');
+ assert.ok(unified.includes('showModal')&&unified.includes('setMode'),'case study has in-page expanded device flow');
  const showcaseConfig=config(casePage);
- for(const item of [...showcaseConfig.desktop,...showcaseConfig.phone].filter(x=>x.route!=='#home'))
-  assert.equal(item.source,'../../projects/stockwise/workspace.html','stockwise demo preview loads direct workspace screen');
- assert.ok(js.includes('sd-interact-frame')&&css.includes('.sd-interact-frame.is-loaded iframe'),'live case demo has loading state');
+ assert.equal(showcaseConfig.source,'../../projects/stockwise/workspace.html','stockwise uses the real workspace');
+ for(const item of showcaseConfig.journeys)assert.ok(item.route!=='#home','avoid homepage repetition');
  assert.ok(qa.includes('width:320')&&qa.includes('width:390')&&qa.includes('width:1440'),'tests narrow mobile, phone and desktop');
 });
