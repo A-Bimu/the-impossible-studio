@@ -106,13 +106,16 @@ test('filtering limits detail paging to the selected three pins', () => {
 
 
 test('no-JavaScript and unsupported-dialog fallback never offers inert detail controls', () => {
+  assert.match(html, /\.pin-page:not\(\.pin-filters-ready\) \.pin-moods\{display:none\}/, 'filters are hidden without JavaScript');
   assert.match(html, /\.pin-page:not\(\.pin-enhanced\) \.pin-open\{display:none\}/);
   assert.match(html, /document\.body\.classList\.add\('pin-enhanced'\)/);
   assert.match(html, /<p class="pin-note">[^<]+<\/p>/, 'notes remain readable without JavaScript');
   const supported = setup();
   assert.equal(supported.document.body.classList.contains('pin-enhanced'), true);
+  assert.equal(supported.document.body.classList.contains('pin-filters-ready'), true, 'filter handlers enable controls');
   const unsupported = setup({supportsDialog: false});
   assert.equal(unsupported.document.body.classList.contains('pin-enhanced'), false);
+  assert.equal(unsupported.document.body.classList.contains('pin-filters-ready'), true, 'filtering does not require dialog support');
   assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
   assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
 });
