@@ -92,11 +92,35 @@
   let loadingVersion=0;
   function loadFrame(url){
    const version=++loadingVersion;
-   device.classList.remove('sx-ready');waiting.textContent='LOADING THE LIVE PRODUCT…';
+   const target=new URL(url,location.href).href;
+   device.classList.remove('sx-ready');
+   waiting.textContent='LOADING THE LIVE PRODUCT…';
    frame.title=data.project+' — '+journeys[current].title+' ('+mode+')';
-   frame.onload=()=>{if(version===loadingVersion){device.classList.add('sx-ready');waiting.textContent='READY TO EXPLORE';scale()}};
+   const markReady=()=>{
+    if(version!==loadingVersion)return;
+    device.classList.add('sx-ready');
+    waiting.textContent='READY TO EXPLORE';
+    scale();
+   };
+   frame.onload=markReady;
    frame.onerror=()=>{if(version===loadingVersion)waiting.textContent='Preview unavailable — try Open in new tab.'};
    frame.src=url;
+   // Remote photography need not finish downloading before the usable HTML and
+   // interaction scripts are available. This also avoids prolonged white frames.
+   let attempts=0;
+   const check=()=>{
+    if(version!==loadingVersion||device.classList.contains('sx-ready'))return;
+    try{
+     const documentReady=frame.contentDocument;
+     const actual=frame.contentWindow.location.href;
+     if(actual===target&&documentReady&&documentReady.body&&
+        (documentReady.readyState==='interactive'||documentReady.readyState==='complete')){
+       markReady();return;
+     }
+    }catch{/* Cross-origin or temporarily navigating: keep loading indicator. */}
+    if(++attempts<100)setTimeout(check,100);
+   };
+   setTimeout(check,100);
   }
   function setJourney(index){
    current=index;
