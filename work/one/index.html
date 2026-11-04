@@ -8,8 +8,16 @@
 <title>ONE | The Impossible Studio</title>
 <meta name="description" content="Product interface / Management systems. A working Deep Navy management prototype for a fictional Kenyan business.">
 <link rel="stylesheet" href="../../studio.css">
+<script>document.documentElement.classList.add("one-js");</script>
 <style id="one-demo-frame">
 .demo-area{scroll-margin-top:90px}
+/* Without scripting, offer the approved archive and a truthful explanation,
+   rather than buttons that cannot change the embedded demo. */
+html:not(.one-js) .demo-toolbar,html:not(.one-js) .demo-stage{display:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.one-static-fallback{display:none}
+html:not(.one-js) .one-static-fallback{display:block;margin:22px 0;color:#cbd6de;line-height:1.7}
+.one-static-fallback a{text-decoration:underline;text-underline-offset:3px}
 .demo-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:26px 0 14px}
 .demo-screens{display:flex;flex-wrap:wrap;gap:6px}
 .demo-screens button{background:transparent;border:1px solid #4d5d68;color:#cfd7dc;border-radius:30px;padding:9px 14px;font:600 11px 'Manrope',sans-serif;letter-spacing:.02em}
@@ -65,6 +73,7 @@
 </div>
 <p>Pick a screen to load it inside the prototype. Selling, stock changes, new customers and expenses all update the running demo in your browser.</p>
 
+<noscript><div class="one-static-fallback" style="display:block"><p>The interactive preview requires JavaScript. You can still inspect the <a href="../../collections/product-design/desktop-preview.png">approved desktop preview</a> and <a href="../../collections/product-design/mobile-preview.png">mobile preview</a>, or browse the archived original artwork below. <a href="../../collections/product-design/one-deep-navy.html">Open the working prototype</a> when scripting is available.</p></div></noscript>
 <div class="demo-toolbar">
 <div class="demo-screens" role="group" aria-label="Demo screens">
 <button type="button" data-screen="overview" aria-pressed="true">Overview</button>
@@ -80,6 +89,7 @@
 </div>
 </div>
 
+<p id="one-demo-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true">Showing Overview at desktop width.</p>
 <div class="demo-stage" id="demo-stage">
 <iframe id="one-demo" title="ONE Deep Navy interactive prototype" src="../../collections/product-design/one-deep-navy.html#overview" loading="lazy"></iframe>
 </div>
@@ -171,9 +181,15 @@
   var stage=document.getElementById('demo-stage');
   var screen='overview';
   var size='desktop';
+  var status=document.getElementById('one-demo-status');
+  function announce(){
+    var label=document.querySelector('[data-screen="'+screen+'"]');
+    status.textContent='Showing '+(label?label.textContent.trim():screen)+' at '+(size==='phone'?'phone':'desktop')+' width.';
+  }
   function load(){
     var next=base+'#'+screen;
     if(frame.getAttribute('src')!==next) frame.setAttribute('src',next);
+    announce();
   }
   document.querySelectorAll('[data-screen]').forEach(function(btn){
     btn.addEventListener('click',function(){
@@ -188,6 +204,7 @@
       document.querySelectorAll('[data-size]').forEach(function(b){b.setAttribute('aria-pressed',String(b===btn))});
       stage.classList.toggle('phone',size==='phone');
       frame.setAttribute('title',size==='phone'?'ONE Deep Navy prototype, phone width':'ONE Deep Navy interactive prototype');
+      announce();
     });
   });
 })();
