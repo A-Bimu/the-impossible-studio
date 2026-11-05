@@ -101,8 +101,11 @@ async function interactive(page) {
   assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), false, 'close button dismisses dialog');
   assert.equal(await firstOpener.evaluate(el => document.activeElement === el), true, 'close button restores opener focus');
   const opener = page.locator('.pin-card:not([hidden]) .pin-open').nth(1);
-  await opener.click();
-  assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), true, 'detail modal opens');
+  // Exercise the same user journey without a mouse: focus the card and press Enter.
+  await opener.focus();
+  assert.equal(await opener.evaluate(el => document.activeElement === el), true, 'keyboard opener receives focus');
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), true, 'Enter opens detail modal');
   assert.equal(await page.locator('#pin-detail-position').innerText(), '2 of 3: ' + await page.locator('#pin-detail-title').innerText());
   await page.locator('#pin-detail-next').click();
   assert.match(await page.locator('#pin-detail-position').innerText(), /^3 of 3:/);
