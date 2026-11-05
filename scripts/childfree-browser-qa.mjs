@@ -91,6 +91,15 @@ async function interactive(page) {
   assert.equal(await all.getAttribute('aria-pressed'), 'false');
   assert.equal(await page.locator('.pin-card:not([hidden])').count(), 3);
   assert.equal(await page.locator('#pin-count').textContent(), 'Showing 3 of 9 pins');
+  // Boundary and focus regressions: the first item cannot navigate backward,
+  // and closing through the visible button returns focus to its opener.
+  const firstOpener = page.locator('.pin-card:not([hidden]) .pin-open').first();
+  await firstOpener.click();
+  assert.equal(await page.locator('#pin-detail-position').innerText(), '1 of 3: ' + await page.locator('#pin-detail-title').innerText());
+  assert.equal(await page.locator('#pin-detail-prev').isDisabled(), true, 'previous disabled at first item');
+  await page.locator('#pin-detail-close').click();
+  assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), false, 'close button dismisses dialog');
+  assert.equal(await firstOpener.evaluate(el => document.activeElement === el), true, 'close button restores opener focus');
   const opener = page.locator('.pin-card:not([hidden]) .pin-open').nth(1);
   await opener.click();
   assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), true, 'detail modal opens');
