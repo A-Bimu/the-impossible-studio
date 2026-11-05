@@ -15,6 +15,27 @@ async function verifyArtworkAndLayout(page) {
   const sheet = page.locator('.sheet-frame img');
   assert.equal(await sheet.evaluate(img => img.complete && img.naturalWidth > 0), true, 'approved source sheet loads');
   assert.equal(await page.locator('.pin-card').count(), 9, 'nine approved concepts remain in the catalogue');
+  // Lazy-loaded artwork may be outside the initial phone viewport. Visit every
+  // card before capturing the full-page screenshot, then require decoded pixels.
+  const cards = page.locator('.pin-card');
+  for (let i = 0; i < await cards.count(); i++) {
+    const image = cards.nth(i).locator('img');
+    assert.equal(await image.count(), 1, 'pin ' + (i + 1) + ' has an image');
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate(img => {
+      if (img.loading === 'lazy') img.loading = 'eager';
+    });
+    await image.evaluate(async img => {
+      if (!img.complete) await new Promise((resolve, reject) => {
+        img.addEventListener('load', resolve, {once: true});
+        img.addEventListener('error', reject, {once: true});
+      });
+      if (img.decode && img.naturalWidth > 0) await img.decode();
+    });
+    assert.equal(await image.evaluate(img => img.complete && img.naturalWidth > 0 && img.naturalHeight > 0),
+      true, 'pin ' + (i + 1) + ' artwork loaded');
+  }
+  await page.evaluate(() => scrollTo(0, 0));
   const metrics = await page.evaluate(() => ({
     viewport: innerWidth,
     document: document.documentElement.scrollWidth,
