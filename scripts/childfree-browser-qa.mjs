@@ -102,8 +102,33 @@ async function interactive(page) {
   assert.equal(await firstOpener.evaluate(el => document.activeElement === el), true, 'close button restores opener focus');
   const opener = page.locator('.pin-card:not([hidden]) .pin-open').nth(1);
   // Exercise the same user journey without a mouse: focus the card and press Enter.
+  // Capture the focus transition to diagnose intermittent small-screen failures.
+  // A failed assertion should identify the actual focus target, not only report false.
+  await page.evaluate(() => {
+    const events = [];
+    const listener = event => {
+      const target = event.target;
+      events.push({tag: target.tagName, id: target.id || null,
+        className: typeof target.className === 'string' ? target.className : null});
+    };
+    document.addEventListener('focusin', listener, true);
+    window.__childfreeFocusTraceCleanup = () => document.removeEventListener('focusin', listener, true);
+    window.__childfreeFocusTrace = events;
+    return events.length;
+  });
   await opener.focus();
-  assert.equal(await opener.evaluate(el => document.activeElement === el), true, 'keyboard opener receives focus');
+  const focusState = await opener.evaluate(el => ({
+    focused: document.activeElement === el,
+    activeTag: document.activeElement?.tagName || null,
+    activeId: document.activeElement?.id || null,
+    activeClass: typeof document.activeElement?.className === 'string' ? document.activeElement.className : null,
+    dialogOpen: document.querySelector('#pin-detail')?.open ?? null,
+    openerConnected: el.isConnected,
+    openerVisible: !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length),
+    trace: window.__childfreeFocusTrace || []
+  }));
+  await page.evaluate(() => window.__childfreeFocusTraceCleanup?.());
+  assert.equal(focusState.focused, true, 'keyboard opener receives focus: ' + JSON.stringify(focusState));
   await page.keyboard.press('Enter');
   assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), true, 'Enter opens detail modal');
   assert.equal(await page.locator('#pin-detail-position').innerText(), '2 of 3: ' + await page.locator('#pin-detail-title').innerText());
