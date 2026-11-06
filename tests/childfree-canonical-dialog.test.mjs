@@ -88,6 +88,8 @@ test('paging respects all nine boundaries and restores opener focus', () => {
 test('filtering limits detail paging to the selected three pins', () => {
   const {cards, buttons, ids} = setup();
   buttons[2].fire('click');
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['false', 'false', 'true', 'false'],
+    'selected mood is announced through aria-pressed');
   assert.equal(cards.filter(card => !card.hidden).length, 3);
   assert.equal(ids['pin-count'].textContent, 'Showing 3 of 9 pins');
   cards[4].open.fire('click');
