@@ -143,7 +143,14 @@ async function interactive(page) {
   await page.locator('#pin-detail-next').click();
   assert.match(await page.locator('#pin-detail-position').innerText(), /^3 of 3:/);
   assert.equal(await page.locator('#pin-detail-next').isDisabled(), true);
+  // Escape also closes the native dialog asynchronously. Wait for its close
+  // handler to restore focus before asserting, as with the close button above.
+  await page.evaluate(() => {
+    window.__childfreeClosed = new Promise(resolve =>
+      document.querySelector('#pin-detail').addEventListener('close', resolve, {once: true}));
+  });
   await page.keyboard.press('Escape');
+  await page.evaluate(() => window.__childfreeClosed);
   assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), false, 'Escape closes native modal');
   assert.equal(await opener.evaluate(el => document.activeElement === el), true, 'Escape restores opener focus');
   await all.click();
