@@ -97,7 +97,15 @@ async function interactive(page) {
   await firstOpener.click();
   assert.equal(await page.locator('#pin-detail-position').innerText(), '1 of 3: ' + await page.locator('#pin-detail-title').innerText());
   assert.equal(await page.locator('#pin-detail-prev').isDisabled(), true, 'previous disabled at first item');
+  // The native dialog's close event is queued asynchronously. Wait for the
+  // actual close handler (which restores focus) before focusing another card;
+  // otherwise its late focus() call can steal focus from the next opener.
+  await page.evaluate(() => {
+    window.__childfreeClosed = new Promise(resolve =>
+      document.querySelector('#pin-detail').addEventListener('close', resolve, {once: true}));
+  });
   await page.locator('#pin-detail-close').click();
+  await page.evaluate(() => window.__childfreeClosed);
   assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), false, 'close button dismisses dialog');
   assert.equal(await firstOpener.evaluate(el => document.activeElement === el), true, 'close button restores opener focus');
   const opener = page.locator('.pin-card:not([hidden]) .pin-open').nth(1);
