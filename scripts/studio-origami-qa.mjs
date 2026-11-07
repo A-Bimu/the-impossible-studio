@@ -38,6 +38,7 @@ for(const size of [{name:'desktop',width:1440,height:900},{name:'tablet',width:8
     const box=node.querySelector('#og-paper-box').getBoundingClientRect();
     return {scene:{x:r.x,y:r.y,width:r.width,height:r.height},parent:{width:parent.width},box:{x:box.x,y:box.y,width:box.width,height:box.height},viewport:innerWidth,overflow:document.documentElement.scrollWidth};
   });
+  assert.ok(geometry.overflow<=size.width+4,'origami must not trigger page-wide horizontal scroll: '+JSON.stringify(geometry));
   assert.ok(geometry.scene.width>245,'art visibly sized for responsive view');
   assert.ok(geometry.box.width>140&&geometry.box.height>70,'dimensional folded box visible');
   assert.ok(geometry.scene.x>=-2&&geometry.scene.x+geometry.scene.width<=size.width+3,'origami scene stays inside viewport');
