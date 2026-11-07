@@ -107,6 +107,18 @@ test('filtering limits detail paging to the selected three pins', () => {
 });
 
 
+test('resetting mood filter restores all cards and accessible pressed states', () => {
+  const {cards, buttons, ids} = setup();
+  buttons[3].fire('click');
+  assert.equal(cards.filter(card => !card.hidden).length, 3);
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['false', 'false', 'false', 'true']);
+  buttons[0].fire('click');
+  assert.equal(cards.filter(card => !card.hidden).length, 9, 'all nine pins are available after reset');
+  assert.equal(ids['pin-count'].textContent, 'Showing 9 of 9 pins');
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['true', 'false', 'false', 'false'],
+    'only All nine is announced as selected after reset');
+});
+
 test('no-JavaScript and unsupported-dialog fallback never offers inert detail controls', () => {
   assert.match(html, /\.pin-page:not\(\.pin-enhanced\) \.pin-open\{display:none\}/);
   assert.match(html, /document\.body\.classList\.add\('pin-enhanced'\)/);
