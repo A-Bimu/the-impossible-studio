@@ -1,88 +1,145 @@
-/* THE IMPOSSIBLE STUDIO / Origami idea box
-   This artwork is composed of live HTML/CSS paper folds, not a raster
-   or vector image. It is a visual part of the Studio philosophy section. */
-.about-art:has(.og-scene){aspect-ratio:auto;min-height:510px;overflow:visible;border-radius:0}
-.about-art:has(.og-scene)::after{content:none}
-.og-scene{--paper:#ece5d8;position:relative;width:100%;height:clamp(475px,38vw,610px);isolation:isolate;overflow:visible;perspective:1000px;user-select:none}
-.og-scene *{box-sizing:border-box}
-.og-scene::before{content:'';position:absolute;left:10%;right:4%;top:8%;height:80%;z-index:-2;background:radial-gradient(ellipse at 53% 53%,#d8c7f568,transparent 66%);filter:blur(11px);pointer-events:none}
-.og-scene::after{content:'';position:absolute;left:16%;bottom:4%;width:76%;height:9%;border-radius:50%;z-index:-1;background:#33204335;filter:blur(17px)}
-.og-caption-top{position:absolute;top:3%;left:5%;z-index:9;font:700 10px/1.5 'DM Mono',monospace;letter-spacing:.15em;color:#6a507c}
-.og-caption-top::before{content:'✳';font-size:16px;color:#b079db;margin-right:9px}
-.og-scribble{position:absolute;z-index:0;border:1px solid #7c5ca26b;border-radius:50%;pointer-events:none;transform:rotate(-19deg)}
-.og-scribble--one{left:12%;top:27%;width:74%;height:45%;border-top-color:transparent;border-right-color:#9877c4bf}
-.og-scribble--two{left:22%;top:9%;width:44%;height:66%;transform:rotate(24deg);border-left-color:transparent;border-bottom-color:transparent}
-.og-speck{position:absolute;width:5px;height:5px;border-radius:50%;background:#bd9b63;opacity:.8}
-.og-speck--a{top:19%;left:25%}.og-speck--b{top:37%;right:5%;width:3px;height:3px}.og-speck--c{top:52%;left:9%;width:4px;height:4px}.og-speck--d{top:14%;right:23%;width:8px;height:8px;background:#b18add}.og-speck--e{top:60%;right:9%;width:3px;height:3px}
-/* The collection: each piece is multiple folded paper faces. */
-.og-piece{position:absolute;display:block;z-index:2;filter:drop-shadow(0 11px 7px #2d19452b);transform-origin:50% 72%;transition:transform .85s cubic-bezier(.2,.85,.25,1);will-change:transform;pointer-events:none}
-.og-piece i{position:absolute;display:block;box-shadow:inset 0 0 1px #fff8}
-.og-crane{width:38%;height:35%}
-.og-crane .og-wing--left{left:3%;top:1%;width:59%;height:65%;clip-path:polygon(0 0,100% 75%,65% 100%,39% 45%);background:linear-gradient(150deg,#fff6dc 4%,var(--c-light) 44%,var(--c-mid) 100%)}
-.og-crane .og-wing--right{left:38%;top:2%;width:62%;height:60%;clip-path:polygon(0 38%,100% 0,76% 68%,8% 100%);background:linear-gradient(135deg,var(--c-light),var(--c) 66%,var(--c-mid))}
-.og-crane .og-body{left:29%;top:52%;width:53%;height:37%;clip-path:polygon(0 14%,47% 0,100% 25%,62% 100%,11% 80%);background:linear-gradient(160deg,var(--c-light),var(--c) 58%,var(--c-mid));filter:drop-shadow(0 1px 0 #ffffff99)}
-.og-crane .og-neck{left:69%;top:24%;width:14%;height:49%;clip-path:polygon(0 100%,32% 0,100% 2%,65% 100%);background:linear-gradient(90deg,var(--c-mid),var(--c-light))}
-.og-crane .og-head{left:72%;top:15%;width:18%;height:20%;clip-path:polygon(0 30%,46% 0,100% 41%,52% 50%,39% 100%,0 80%);background:var(--c-light)}
-.og-crane .og-tail{left:5%;top:50%;width:33%;height:34%;clip-path:polygon(0 5%,100% 65%,84% 100%,24% 44%);background:linear-gradient(120deg,var(--c-mid),var(--c))}
-.og-crane--plum{--c:#563178;--c-light:#9d79c8;--c-mid:#2d174e;left:12%;top:12%;z-index:2;transform:rotate(-17deg) scale(.96)}
-.og-crane--lilac{--c:#bba4ef;--c-light:#f2e6ff;--c-mid:#8565ba;left:50%;top:3%;z-index:1;transform:rotate(17deg) scale(.79)}
-.og-crane--orange{--c:#e8784e;--c-light:#ffd6a9;--c-mid:#b84e44;left:40%;top:26%;z-index:4;transform:rotate(12deg) scale(.73)}
-.og-crane--gold{--c:#edb95b;--c-light:#fff0c2;--c-mid:#c28340;left:5%;top:42%;z-index:4;transform:rotate(-25deg) scale(.63)}
-/* Distinct folded butterflies rather than cloned bird silhouettes. */
-.og-butterfly{width:23%;height:25%}
-.og-butterfly .og-bfly-left{left:0;top:10%;width:50%;height:72%;clip-path:polygon(85% 31%,22% 0,0 33%,44% 54%,7% 100%,75% 74%);background:linear-gradient(130deg,var(--c-light),var(--c) 65%,var(--c-mid))}
-.og-butterfly .og-bfly-right{right:0;top:10%;width:50%;height:72%;clip-path:polygon(15% 31%,78% 0,100% 33%,56% 54%,93% 100%,25% 74%);background:linear-gradient(220deg,var(--c-light),var(--c) 65%,var(--c-mid))}
-.og-butterfly .og-bfly-fold{left:45%;top:26%;width:10%;height:60%;clip-path:polygon(50% 0,100% 100%,50% 83%,0 100%);background:#322139}
-.og-butterfly--peach{--c:#f1a49d;--c-light:#ffe0d5;--c-mid:#d36a82;left:70%;top:28%;z-index:4;transform:rotate(16deg) scale(1)}
-.og-butterfly--purple{--c:#8b62cc;--c-light:#d1bcff;--c-mid:#553a85;left:30%;top:5%;z-index:5;transform:rotate(-19deg) scale(.65)}
-/* A folded paper boat peeking out of the box. */
-.og-boat{width:28%;height:27%;left:56%;top:47%;z-index:4;transform:rotate(13deg) scale(.8)}
-.og-boat .og-boat-sail--left{left:13%;top:2%;width:40%;height:56%;clip-path:polygon(100% 0,0 100%,100% 88%);background:linear-gradient(135deg,#f8e7b5,#c19b55)}
-.og-boat .og-boat-sail--right{left:52%;top:2%;width:38%;height:56%;clip-path:polygon(0 0,100% 100%,0 88%);background:linear-gradient(135deg,#ffefcf,#e4b866)}
-.og-boat .og-boat-hull{left:3%;top:49%;width:94%;height:47%;clip-path:polygon(0 0,100% 0,76% 100%,21% 100%);background:linear-gradient(160deg,#f8d68c,#d09251 75%)}
-.og-boat .og-boat-fold{left:12%;top:50%;width:78%;height:26%;clip-path:polygon(0 0,50% 100%,100% 0);background:#ffe9b17a}
-/* Pleated paper star and fan. */
-.og-star{width:18%;height:20%;left:82%;top:14%;z-index:3;transform:rotate(-8deg)}
-.og-star i{inset:0;clip-path:polygon(50% 0,62% 34%,100% 29%,72% 53%,89% 90%,52% 72%,16% 95%,28% 56%,0 29%,39% 33%);background:conic-gradient(from 35deg,#f9d7ad,#dd8365,#ffe0bf,#a35870,#f9d7ad)}
-.og-fan{width:26%;height:23%;left:22%;top:41%;z-index:3;transform:rotate(-8deg)}
-.og-fan i{bottom:6%;width:37%;height:94%;transform-origin:bottom center;clip-path:polygon(55% 0,100% 100%,0 100%);background:linear-gradient(160deg,#fff1ef,#d9b5ec 60%,#7552a0)}
-.og-fan i:nth-child(1){left:24%;transform:rotate(-43deg)}.og-fan i:nth-child(2){left:24%;transform:rotate(-19deg);background:linear-gradient(160deg,#ffe4e5,#be94e6 60%,#7859a9)}.og-fan i:nth-child(3){left:24%;transform:rotate(10deg);background:linear-gradient(160deg,#e9d9fb,#af83d6 60%,#7859a9)}.og-fan i:nth-child(4){left:24%;transform:rotate(38deg);background:linear-gradient(160deg,#fff6ed,#d5b2ec 60%,#8869b2)}
-/* Container assembled as dimensional paper, not a rectangular photo. */
-.og-box{position:absolute;left:16%;bottom:13%;width:70%;height:32%;z-index:6;transform:rotate(-4deg);filter:drop-shadow(6px 16px 11px #4a27623e)}
-.og-box-back{position:absolute;left:2%;top:-27%;width:97%;height:54%;clip-path:polygon(0 48%,50% 1%,100% 48%,51% 100%);background:linear-gradient(145deg,#d7c0fc,#8268bc 49%,#382b57);z-index:1}
-.og-box-inside{position:absolute;left:5%;top:-11%;width:90%;height:38%;clip-path:polygon(0 25%,50% 92%,100% 22%,52% 0);background:#251536;box-shadow:inset 0 10px 18px #070312;z-index:3}
-.og-box-flap--left{position:absolute;left:-12%;top:-26%;width:67%;height:50%;clip-path:polygon(0 28%,86% 0,100% 100%,29% 78%);background:linear-gradient(120deg,#efddff,#aa85dd 70%,#684a96);z-index:2;filter:drop-shadow(0 2px 0 #674c8b)}
-.og-box-flap--right{position:absolute;right:-11%;top:-26%;width:67%;height:50%;clip-path:polygon(15% 0,100% 28%,72% 79%,0 100%);background:linear-gradient(130deg,#f0d19a,#be9a70 65%,#9b7759);z-index:2;filter:drop-shadow(0 2px 0 #8f6445)}
-.og-box-face--left{position:absolute;left:0;top:11%;width:51%;height:90%;clip-path:polygon(0 0,100% 17%,100% 100%,0 81%);background:linear-gradient(125deg,#f0e1fc 0%,#bfa0e3 62%,#976abf 100%);z-index:6}
-.og-box-face--right{position:absolute;right:0;top:11%;width:50%;height:90%;clip-path:polygon(0 17%,100% 0,100% 81%,0 100%);background:linear-gradient(110deg,#9d76bc 0%,#684781 70%,#4b315f);z-index:6}
-.og-box-edge{position:absolute;left:49.6%;top:25%;height:73%;width:2px;background:#fcf2ff8a;z-index:7;transform:rotate(0deg)}
-.og-box-wordmark{position:absolute;left:12%;top:54%;z-index:8;transform:rotate(10deg);color:#332348;font:800 clamp(13px,1.6vw,22px)/1 'DM Sans',sans-serif;letter-spacing:-.08em}
-.og-box-wordmark small{display:block;margin-top:7px;font:500 8px/1.2 'DM Mono',monospace;letter-spacing:.12em}
-.og-box-stamp{position:absolute;right:12%;top:48%;z-index:8;color:#e3c7ff;font:400 clamp(40px,5vw,71px)/1 'DM Serif Display',serif;transform:rotate(-15deg)}
-.og-shadowground{position:absolute;bottom:5%;left:13%;width:75%;height:6%;z-index:-1;border-radius:50%;background:#7652914a;filter:blur(15px)}
-.og-control-row{position:absolute;left:2%;right:2%;bottom:-1%;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:12}
-.og-control-row span{font:700 9px/1.5 'DM Mono',monospace;letter-spacing:.1em;color:#725d75}
-.og-remix{border:1.5px solid #5b3e6f;background:#f4e9fa;color:#402855;padding:10px 12px;font:700 10px/1.4 'DM Mono',monospace;letter-spacing:.03em;border-radius:0;box-shadow:3px 3px 0 #8c6fa7;transition:transform .2s,box-shadow .2s}
-.og-remix:hover{transform:translateY(-2px);box-shadow:4px 5px 0 #8c6fa7}
-.og-remix:focus-visible{outline:3px solid #5d3bb0;outline-offset:4px}
-.og-piece .og-wing--left,.og-piece .og-wing--right,.og-butterfly .og-bfly-left,.og-butterfly .og-bfly-right{filter:drop-shadow(1px 1px 0 #ffffff70)}
-.og-scene:not(.og-reduced) .og-crane--plum,.og-scene:not(.og-reduced) .og-crane--lilac,.og-scene:not(.og-reduced) .og-butterfly--peach{animation:og-hover 4.6s ease-in-out infinite alternate}
-.og-scene:not(.og-reduced) .og-crane--lilac{animation-delay:-1.7s;animation-duration:5.6s}
-.og-scene:not(.og-reduced) .og-butterfly--peach{animation-delay:-.8s;animation-duration:3.9s}
-@keyframes og-hover{from{translate:0 -3px}to{translate:0 8px}}
-.og-scene[data-fold="1"] .og-crane--plum{transform:translate(12%,-7%) rotate(-4deg) scale(.93)}
-.og-scene[data-fold="1"] .og-crane--lilac{transform:translate(-20%,4%) rotate(6deg) scale(.9)}
-.og-scene[data-fold="1"] .og-butterfly--peach{transform:translate(-35%,-9%) rotate(-14deg) scale(1.1)}
-.og-scene[data-fold="1"] .og-crane--gold{transform:translate(17%,-20%) rotate(-8deg) scale(.72)}
-.og-scene[data-fold="1"] .og-crane--orange{transform:translate(16%,-13%) rotate(20deg) scale(.63)}
-.og-scene[data-fold="2"] .og-crane--plum{transform:translate(18%,-2%) rotate(-24deg) scale(1.05)}
-.og-scene[data-fold="2"] .og-crane--lilac{transform:translate(-26%,11%) rotate(32deg) scale(.78)}
-.og-scene[data-fold="2"] .og-butterfly--peach{transform:translate(-20%,-16%) rotate(29deg) scale(1)}
-.og-scene[data-fold="2"] .og-fan{transform:translate(-7%,-10%) rotate(-22deg) scale(1.02)}
-.og-scene[data-fold="2"] .og-star{transform:translate(-14%,10%) rotate(28deg) scale(1.1)}
-@media(max-width:1100px){.about-art:has(.og-scene){min-height:450px}.og-scene{height:470px}.og-box{left:13%;width:76%}.og-caption-top{left:1%}.og-control-row{bottom:0}}
-@media(max-width:680px){.about-art:has(.og-scene){margin-top:22px;min-height:0}.og-scene{height:clamp(375px,105vw,520px);width:min(100%,520px);margin:0 auto}.og-caption-top{top:1%;left:4%;font-size:9px}.og-box{left:16%;width:70%;bottom:15%}.og-control-row{bottom:-3%;left:3%;right:3%}.og-control-row span{font-size:8px}.og-remix{font-size:9px;padding:10px}.og-box-wordmark{font-size:clamp(12px,3.6vw,19px)}}
-@media(max-width:380px){.og-scene{height:360px}.og-control-row{bottom:-5%}.og-caption-top{font-size:8px}}
-@media(prefers-reduced-motion:reduce){.og-scene .og-piece{animation:none!important;transition:none!important}.og-remix{transition:none!important}}
-
-.og-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+/* THE IMPOSSIBLE STUDIO / Real paper origami installation — version 2.
+   The paper sculptures are inline SVG DOM with independently lit folds,
+   visible crease lines, a paper-grain filter and true layer occlusion.
+   No imported image or pre-rendered illustration is used. */
+.about-art:has(.og-real){
+  position:relative;
+  aspect-ratio:auto;
+  border-radius:0;
+  overflow:visible;
+  min-width:0;
+  min-height:530px;
+  display:block;
+  isolation:isolate;
+}
+.about-art:has(.og-real)::after{display:none;content:none}
+.og-scene.og-real{
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  height:clamp(530px,45vw,690px);
+  min-width:0;
+  overflow:visible;
+  background:none;
+  transform-style:preserve-3d;
+}
+.og-real .og-artwork{
+  display:block;
+  position:absolute;
+  width:128%;
+  max-width:none;
+  height:100%;
+  top:0;
+  left:-14%;
+  overflow:visible;
+  filter:drop-shadow(0 4px 3px #45315412);
+}
+.og-gallery-overline{
+  position:absolute;
+  top:2%;
+  left:0;
+  z-index:4;
+  font:700 10px/1.6 'DM Mono',monospace;
+  letter-spacing:.14em;
+  color:#765b82;
+  white-space:nowrap;
+}
+.og-gallery-overline span{font-size:21px;vertical-align:middle;margin-left:7px;color:#b78dbb}
+.og-real .og-sr-only{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+.og-real .og-control-row{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:8;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:15px 0 0;
+  border-top:1px solid #6c557843;
+}
+.og-real .og-control-row>span{
+  color:#765f7b;
+  font:700 10px/1.6 'DM Mono',monospace;
+  letter-spacing:.075em;
+  white-space:normal;
+}
+.og-real .og-remix{
+  border:1.5px solid #53376e;
+  color:#30203c;
+  background:#f3dfc4;
+  font:700 11px/1.5 'DM Mono',monospace;
+  padding:13px 15px;
+  min-height:44px;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  border-radius:0;
+  box-shadow:4px 4px 0 #ab91bc;
+  transition:transform .23s ease,box-shadow .23s ease,background .23s ease;
+  cursor:pointer;
+}
+.og-real .og-remix:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:6px 6px 0 #ab91bc;
+  background:#fff0dc;
+}
+.og-real .og-remix:focus-visible{outline:3px solid #6136a9;outline-offset:4px}
+.og-real .og-assemblage{
+  transform-box:fill-box;
+  transform-origin:center center;
+  transition:transform 900ms cubic-bezier(.2,.78,.23,1);
+}
+.og-real:not(.og-reduced) #og-bird-plum,
+.og-real:not(.og-reduced) #og-bird-lilac,
+.og-real:not(.og-reduced) #og-butterfly{animation:og-breathe 6.1s ease-in-out infinite alternate}
+.og-real:not(.og-reduced) #og-bird-lilac{animation-duration:7s;animation-delay:-2.4s}
+.og-real:not(.og-reduced) #og-butterfly{animation-duration:4.8s;animation-delay:-1.2s}
+@keyframes og-breathe{from{translate:0 -2px}to{translate:0 6px}}
+/* Prevent the CSS sculpture from intruding on the adjoining philosophy copy. */
+.about-grid:has(.og-real){grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:5%;align-items:center}
+.about-grid:has(.og-real)>div:first-child{position:relative;z-index:1;min-width:0}
+.about-grid:has(.og-real) .about h2{overflow-wrap:normal}
+@media(max-width:1100px){
+  .about-grid:has(.og-real){grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3%}
+  .og-scene.og-real{height:540px}
+  .og-real .og-artwork{width:133%;left:-16.5%}
+  .og-real .og-gallery-overline{top:4%}
+}
+@media(max-width:850px){
+  .about-grid:has(.og-real){grid-template-columns:1fr;gap:2%}
+  .about-art:has(.og-real){min-height:0;margin:8px auto 0;width:min(100%,620px)}
+  .og-scene.og-real{height:clamp(425px,74vw,590px)}
+  .og-real .og-artwork{width:116%;left:-8%;height:100%}
+  .og-real .og-gallery-overline{top:0;left:2%}
+}
+@media(max-width:520px){
+  .about-art:has(.og-real){width:100%;margin-top:15px}
+  .og-scene.og-real{height:clamp(372px,106vw,460px)}
+  .og-real .og-artwork{width:129%;left:-14.5%}
+  .og-real .og-control-row{bottom:0;gap:7px;padding-top:10px}
+  .og-real .og-control-row>span{font-size:8.7px;line-height:1.6;letter-spacing:.015em;max-width:140px}
+  .og-real .og-remix{padding:10px 10px;font-size:9px;min-height:42px;box-shadow:3px 3px 0 #ab91bc}
+  .og-gallery-overline{font-size:8px;letter-spacing:.09em}
+  .og-gallery-overline span{font-size:15px}
+}
+@media(max-width:360px){
+  .og-scene.og-real{height:350px}
+  .og-real .og-artwork{width:135%;left:-17.5%}
+  .og-real .og-control-row>span{font-size:8px;max-width:116px}
+  .og-real .og-remix{font-size:8.5px;padding:9px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .og-real .og-assemblage{animation:none!important;transition:none!important}
+  .og-real .og-remix{transition:none!important}
+}
