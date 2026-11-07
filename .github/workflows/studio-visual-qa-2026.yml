@@ -19,6 +19,7 @@ on:
       - 'assets/studio-unified-showcase.js'
       - 'assets/studio-unified-showcase.css'
       - 'assets/vela-health-revamp.css'
+      - 'assets/vela-case-revamp.css'
       - 'assets/vela-health-revamp.js'
       - 'scripts/vela-health-revamp-qa.mjs'
       - 'scripts/studio-unified-qa.mjs'
