@@ -1,3 +1,6 @@
+/* Contain wide sculptural illustration within the landing section, without
+   cropping paper wings against the narrower text column. */
+.about:has(.og-real){overflow-x:clip}
 /* THE IMPOSSIBLE STUDIO / Real paper origami installation — version 2.
    The paper sculptures are inline SVG DOM with independently lit folds,
    visible crease lines, a paper-grain filter and true layer occlusion.
