@@ -46,12 +46,20 @@ for(const size of views){
   const first=page.locator('#slots button:not([disabled])').first();
   const time=await first.innerText();await first.click();
   assert.match(await page.locator('#booking-summary').innerText(),/Video call/,'visit format displayed in summary');
+  const summaryAppearance=await page.locator('#booking-summary').evaluate(el=>{
+    const background=getComputedStyle(el).backgroundColor,foreground=getComputedStyle(el.querySelector('b')).color;
+    return {background,foreground};
+  });
+  assert.ok(summaryAppearance.background!=='rgb(255, 255, 255)'&&summaryAppearance.foreground==='rgb(255, 250, 252)','review selections use readable light text on a dark surface: '+JSON.stringify(summaryAppearance));
   await page.locator('#guest').fill('Sample Patient');
   await page.locator('#booking-form button[type="submit"]').click();
   await page.locator('[data-page="visits"]').waitFor({state:'visible'});
   assert.match(await page.locator('#visit-list').innerText(),/Video call/,'confirmation reflects chosen visit format');
   assert.match(await page.locator('#visit-list').innerText(),/Dr. Micah Patel/,'confirmation lists matching clinician');
   assert.match(await page.locator('#visit-list').innerText(),/Sample Patient/,'demo name displayed');
+  await page.evaluate(()=>{location.hash='#book'});
+  await page.locator('[data-page="book"]').waitFor({state:'visible'});
+  assert.equal(await page.locator('#booking-message').innerText(),'','new booking flow must not retain last success message');
   await page.goto(origin+'/projects/vela-health/index.html#book',{waitUntil:'domcontentloaded'});
   await page.locator('#service').selectOption("Women's health");
   await page.locator('#date').evaluate(el=>{const d=new Date(Date.now()+2*86400000),pad=n=>String(n).padStart(2,'0');el.value=[d.getFullYear(),pad(d.getMonth()+1),pad(d.getDate())].join('-');el.dispatchEvent(new Event('change',{bubbles:true}))});
