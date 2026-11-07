@@ -69,6 +69,11 @@ for(const size of views){
   await page.locator('#service').selectOption("Women's health");
   await page.locator('#date').evaluate(el=>{const d=new Date(Date.now()+2*86400000),pad=n=>String(n).padStart(2,'0');el.value=[d.getFullYear(),pad(d.getMonth()+1),pad(d.getDate())].join('-');el.dispatchEvent(new Event('change',{bubbles:true}))});
   assert.ok(await page.locator('#slots button[data-time="'+time+'"]').isEnabled(),'cancelling frees the sample slot');
+  await page.goto(origin+'/projects/vela-health/index.html#services',{waitUntil:'domcontentloaded'});
+  await page.locator('[data-service-link="Wellbeing"]').click();
+  await page.locator('[data-page="book"]').waitFor({state:'visible'});
+  assert.equal(await page.locator('#service').inputValue(),'Wellbeing','service-card link carries selection into booking');
+  assert.equal(await page.locator('#clinician').inputValue(),'noor','service-card link selects matching wellbeing clinician');
   for(const error of errors)issues.push(tag+' JS '+error);
   passed.push({tag,format:'Video call',dateAndSlot:'verified',pages:'home / book / visits'});
  }catch(error){issues.push(tag+' '+error.message)}
