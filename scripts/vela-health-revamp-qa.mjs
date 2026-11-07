@@ -61,7 +61,10 @@ for(const size of views){
    await page.screenshot({path:root+'/'+tag+'-booking.png',fullPage:true,animations:'disabled',timeout:30000});
   }
   page.on('dialog',d=>d.accept());
-  await page.locator('a[href="#visits"]').first().click();
+  if(size.width<=390){
+   await page.locator('#vela-mobile-menu').click();
+   await page.locator('#vela-nav a[href="#visits"]').click();
+  }else await page.locator('a[href="#visits"]').first().click();
   await page.locator('[data-page="visits"]').waitFor({state:'visible'});
   await page.locator('#visit-list [data-cancel]').first().click();
   assert.match(await page.locator('#visit-list').innerText(),/No bookings yet/,'cancellation removes local sample booking');
