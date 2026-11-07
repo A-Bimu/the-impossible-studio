@@ -84,3 +84,5 @@
 @media(max-width:680px){.about-art:has(.og-scene){margin-top:22px;min-height:0}.og-scene{height:clamp(375px,105vw,520px);width:min(100%,520px);margin:0 auto}.og-caption-top{top:1%;left:4%;font-size:9px}.og-box{left:16%;width:70%;bottom:15%}.og-control-row{bottom:-3%;left:3%;right:3%}.og-control-row span{font-size:8px}.og-remix{font-size:9px;padding:10px}.og-box-wordmark{font-size:clamp(12px,3.6vw,19px)}}
 @media(max-width:380px){.og-scene{height:360px}.og-control-row{bottom:-5%}.og-caption-top{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.og-scene .og-piece{animation:none!important;transition:none!important}.og-remix{transition:none!important}}
+
+.og-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
