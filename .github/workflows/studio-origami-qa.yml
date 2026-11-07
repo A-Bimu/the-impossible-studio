@@ -1,0 +1,41 @@
+name: Studio origami landing QA
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'assets/studio-origami-box.css'
+      - 'assets/studio-origami-box.js'
+      - 'scripts/studio-origami-qa.mjs'
+      - '.github/workflows/studio-origami-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  origami:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start local website
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/origami-qa.log 2>&1 &
+          sleep 2
+      - name: Check CSS-only composition and responsive interaction
+        run: node scripts/studio-origami-qa.mjs
+      - name: Archive responsive screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: studio-origami-visual-review
+          path: artifacts/studio-origami-qa/
+          retention-days: 7
+          if-no-files-found: warn
