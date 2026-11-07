@@ -1,0 +1,19 @@
+/* VELA HEALTH / original case-study journey design rationale */
+.brand-vela-health .vela-case-journey{margin:80px 0 105px;background:#fff0ec;color:#321727;padding:clamp(36px,5.3vw,80px);border:1px solid #e8c9cf}
+.brand-vela-health .vela-case-intro{display:grid;grid-template-columns:1.15fr .7fr;gap:5%;align-items:end}
+.brand-vela-health .vela-case-intro>span{grid-column:1/-1;font:700 10px/1.6 'DM Mono',monospace;color:#b41650;letter-spacing:.12em}
+.brand-vela-health .vela-case-intro h2{font:400 clamp(62px,7.5vw,113px)/1.04 'Instrument Serif',serif;letter-spacing:-.055em;margin:17px 0 29px}
+.brand-vela-health .vela-case-intro h2 em{color:#b31454;font-weight:400}
+.brand-vela-health .vela-case-intro p{max-width:400px;font-size:15px;line-height:1.8;color:#694452;margin-bottom:30px}
+.brand-vela-health .vela-case-journey-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid #321727;margin-top:40px}
+.brand-vela-health .vela-case-journey-grid article{padding:29px 20px 10px 0;border-right:1px solid #d5b6bf}
+.brand-vela-health .vela-case-journey-grid article:not(:first-child){padding-left:20px}
+.brand-vela-health .vela-case-journey-grid article:last-child{border-right:0}
+.brand-vela-health .vela-case-journey-grid span{font:700 10px/1.5 'DM Mono',monospace;color:#9e2d57;letter-spacing:.075em}
+.brand-vela-health .vela-case-journey-grid strong{font:400 clamp(23px,2.4vw,36px)/1.14 'Instrument Serif',serif;letter-spacing:-.03em;display:block;margin:22px 0}
+.brand-vela-health .vela-case-journey-grid p{font-size:12px;line-height:1.7;color:#614855;margin:0}
+.brand-vela-health .brand-board .swatches span{border:1px solid #4b2932}
+.brand-vela-health .hero h2{font-size:clamp(33px,3.9vw,58px);line-height:1.12}
+.brand-vela-health .hero p{line-height:1.85}
+@media(max-width:850px){.brand-vela-health .vela-case-intro{display:block}.brand-vela-health .vela-case-intro p{margin:10px 0 30px}.brand-vela-health .vela-case-journey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.brand-vela-health .vela-case-journey-grid article:nth-child(2){border-right:0}.brand-vela-health .vela-case-journey-grid article:nth-child(n+3){border-top:1px solid #d5b6bf}.brand-vela-health .vela-case-journey-grid article:nth-child(3){padding-left:0}}
+@media(max-width:520px){.brand-vela-health .vela-case-journey{margin:55px 0 70px;padding:25px 18px}.brand-vela-health .vela-case-intro h2{font-size:clamp(49px,11vw,69px);line-height:1.11}.brand-vela-health .vela-case-intro p{font-size:13px}.brand-vela-health .vela-case-journey-grid{display:grid;grid-template-columns:1fr}.brand-vela-health .vela-case-journey-grid article,.brand-vela-health .vela-case-journey-grid article:not(:first-child){padding:20px 0;border-right:0;border-bottom:1px solid #d5b6bf}.brand-vela-health .vela-case-journey-grid article:nth-child(n+3){border-top:0}.brand-vela-health .vela-case-journey-grid strong{font-size:31px;margin:11px 0}}
