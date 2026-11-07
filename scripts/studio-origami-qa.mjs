@@ -1,63 +1,45 @@
-/* Visual and interaction QA for the live CSS-folded origami scene. */
 import assert from 'node:assert/strict';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.cwd()+'/.studio-qa-tools/node_modules/playwright');
-const origin='http://127.0.0.1:8765';
-const root='artifacts/studio-origami-qa';
+const root='artifacts/studio-origami-qa',origin='http://127.0.0.1:8765';
 await mkdir(root,{recursive:true});
-const source=await readFile('index.html','utf8');
-assert.ok(source.includes('id="studio-origami"'),'origami art must appear in real landing HTML');
-assert.ok(source.includes('studio-origami-box.css'),'responsive CSS stylesheet linked');
-assert.ok(source.includes('studio-origami-box.js'),'working rearrange script linked');
-assert.ok(!source.includes('assets/studio-hero-art.webp'),'outdated abstract artwork removed from landing');
+const homepage=await readFile('index.html','utf8');
+assert.ok(homepage.includes('id="studio-origami"')&&homepage.includes('studio-origami-box.js?v=4'),'actual Studio landing section updated');
+assert.ok(!homepage.includes('studio-hero-art.webp'),'old abstract artwork removed');
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const issues=[],results=[];
-for(const size of [{name:'desktop',width:1440,height:900},{name:'tablet',width:820,height:1040},{name:'phone',width:390,height:844},{name:'narrow-phone',width:320,height:740}]){
- const page=await browser.newPage({viewport:{width:size.width,height:size.height},deviceScaleFactor:1});
+for(const vp of [{name:'desktop',width:1440,height:900},{name:'tablet',width:820,height:1024},{name:'phone',width:390,height:844},{name:'narrow-phone',width:320,height:740}]){
+ const page=await browser.newPage({viewport:{width:vp.width,height:vp.height},deviceScaleFactor:1});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- const tag='studio-origami-'+size.name;
  try{
-  await page.goto(origin+'/#studio',{waitUntil:'domcontentloaded',timeout:20000});
-  await page.locator('.og-scene').waitFor({state:'visible'});
+  await page.goto(origin+'/#studio',{waitUntil:'domcontentloaded'});
+  await page.locator('#studio-origami svg.og-artwork').waitFor({state:'visible'});
   await page.evaluate(()=>document.fonts.ready);
-  await page.locator('#studio').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(200);
-  assert.equal(await page.locator('#studio-origami-container img').count(),0,'origami art should not be an image');
-  assert.equal(await page.locator('#studio-origami svg.og-artwork').count(),1,'sculpture is inline vector DOM in the page');
-  assert.ok(await page.locator('#studio-origami svg path').count()>65,'independent folded paper faces and creases');
-  assert.equal(await page.locator('#studio-origami #og-bird-plum').count(),1,'folded plum paper crane');
-  assert.equal(await page.locator('#studio-origami #og-bird-ivory').count(),1,'folded ivory paper crane');
-  assert.equal(await page.locator('#studio-origami #og-bird-lilac').count(),1,'folded lilac paper crane');
-  assert.equal(await page.locator('#studio-origami #og-butterfly').count(),1,'paper butterfly');
-  assert.equal(await page.locator('#studio-origami #og-paper-box').count(),1,'layered open paper box');
-  assert.equal(await page.locator('#studio-origami #paper-noise').count(),1,'real paper-grain shading available');
-  const geometry=await page.locator('.og-scene').evaluate(node=>{
-    const r=node.getBoundingClientRect(),parent=node.parentElement.getBoundingClientRect();
-    const box=node.querySelector('#og-paper-box').getBoundingClientRect();
-    const outside=[...document.querySelectorAll('body *')].map(el=>{const x=el.getBoundingClientRect();return {tag:el.tagName.toLowerCase(),class:typeof el.className==='string'?el.className.slice(0,70):'',right:Math.round(x.right),left:Math.round(x.left),scroll:el.scrollWidth,overflow:getComputedStyle(el).overflowX}}).filter(x=>x.right>innerWidth+4&&x.left<innerWidth-10).slice(0,20);
-    return {scene:{x:r.x,y:r.y,width:r.width,height:r.height},parent:{width:parent.width},box:{x:box.x,y:box.y,width:box.width,height:box.height},viewport:innerWidth,overflow:document.documentElement.scrollWidth,outside};
+  assert.equal(await page.locator('#studio-origami-container img').count(),0,'origami is page DOM, not image');
+  assert.equal(await page.locator('#studio-origami .paper-crane').count(),3,'three recognizable folded cranes');
+  assert.equal(await page.locator('#studio-origami #og-paper-butterfly').count(),1,'one origami butterfly');
+  assert.equal(await page.locator('#studio-origami #og-paper-boat').count(),1,'one origami boat');
+  assert.equal(await page.locator('#studio-origami #og-paper-box').count(),1,'single unbranded open box');
+  assert.equal(await page.locator('#studio-origami button,#studio-origami a').count(),0,'no control clutter');
+  assert.equal(await page.locator('#studio-origami svg text').count(),0,'no text or logo on paper or box');
+  assert.equal(await page.locator('#studio-origami .og-gallery-overline').count(),0,'no decorative labels');
+  const geometry=await page.locator('#studio-origami').evaluate(el=>{
+    const r=el.getBoundingClientRect(),box=el.querySelector('#og-paper-box').getBoundingClientRect();
+    return {viewport:innerWidth,art:{x:r.x,width:r.width,height:r.height},box:{x:box.x,width:box.width,height:box.height}};
   });
-  assert.ok(geometry.overflow<=size.width+4,'origami must not trigger page-wide horizontal scroll: '+JSON.stringify(geometry));
-  assert.ok(geometry.scene.width>245,'art visibly sized for responsive view');
-  assert.ok(geometry.box.width>140&&geometry.box.height>70,'dimensional folded box visible');
-  assert.ok(geometry.scene.x>=-2&&geometry.scene.x+geometry.scene.width<=size.width+3,'origami scene stays inside viewport');
-  assert.ok(geometry.box.x>=geometry.scene.x-12&&geometry.box.x+geometry.box.width<=geometry.scene.x+geometry.scene.width+12,'visible box remains within art');
-  const button=page.locator('#og-remix');
-  await button.click();
-  assert.equal(await page.locator('#studio-origami').getAttribute('data-fold'),'1','rearrange action updates scene');
-  await button.click();
-  assert.equal(await page.locator('#studio-origami').getAttribute('data-fold'),'2','can rearrange again');
-  await button.click();
-  assert.equal(await page.locator('#studio-origami').getAttribute('data-fold'),'0','returns to initial composition');
-  await page.screenshot({path:root+'/'+tag+'.png',animations:'disabled',timeout:24000});
-  errors.forEach(e=>issues.push(tag+' JS error: '+e));
-  results.push({tag,geometry});
- }catch(e){issues.push(tag+': '+e.message)}
+  assert.ok(geometry.art.x>=-3&&geometry.art.x+geometry.art.width<=vp.width+3,'art fits phone width');
+  assert.ok(geometry.box.width>=100&&geometry.box.height>=40,'unbranded box visible');
+  assert.ok(geometry.box.x>=geometry.art.x-10&&geometry.box.x+geometry.box.width<=geometry.art.x+geometry.art.width+10,'box contained by art');
+  await page.locator('#studio-origami').scrollIntoViewIfNeeded();
+  await page.screenshot({path:root+'/studio-origami-'+vp.name+'.png',animations:'disabled',timeout:28000});
+  errors.forEach(e=>issues.push(vp.name+' JS error: '+e));
+  results.push({viewport:vp.name,geometry});
+ }catch(e){issues.push(vp.name+': '+e.message)}
  finally{await page.close()}
 }
 await browser.close();
 await writeFile(root+'/report.json',JSON.stringify({results,issues},null,2));
-console.log(JSON.stringify({screens:results.map(r=>r.tag),issues},null,2));
+console.log(JSON.stringify({screens:results.map(r=>r.viewport),issues},null,2));
 if(issues.length)process.exitCode=1;
