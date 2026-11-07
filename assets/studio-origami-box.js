@@ -4,9 +4,9 @@
 const mount=document.getElementById('studio-origami');
 if(!mount)return;
 const cranes=[
- {id:'ivory',x:284,y:95,scale:1.41,rot:-5},
- {id:'plum',x:164,y:203,scale:1.02,rot:-16},
- {id:'lilac',x:487,y:180,scale:1.06,rot:17}
+ {id:'ivory',x:284,y:188,scale:1.41,rot:-5},
+ {id:'plum',x:164,y:241,scale:1.02,rot:-16},
+ {id:'lilac',x:487,y:237,scale:1.06,rot:17}
 ];
 const crane=({id,x,y,scale,rot})=>`
  <g class="paper-object paper-crane" id="og-${id}-crane"
@@ -60,7 +60,7 @@ mount.classList.add('og-minimal');
 mount.removeAttribute('data-fold');
 mount.innerHTML=`
 <p class="og-sr-only" id="og-description">A plain open lavender paper box with three folded-paper cranes, a pink butterfly, and a gold paper boat emerging from inside it.</p>
-<svg class="og-artwork" viewBox="0 0 840 620" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="og-description">
+<svg class="og-artwork" viewBox="125 170 640 460" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="og-description">
  ${defs}
  <ellipse cx="468" cy="566" rx="269" ry="45" fill="url(#table-shadow)" opacity=".8"/>
  <g id="og-box-back" filter="url(#box-depth-shadow)">
@@ -69,7 +69,7 @@ mount.innerHTML=`
   <path d="M240 397L471 333L688 400" fill="none" stroke="#f9eefb" stroke-opacity=".58" stroke-width="2.2"/>
  </g>
  <g id="og-cranes">${cranes.map(crane).join('')}</g>
- <g id="og-paper-butterfly" class="paper-object" transform="translate(617 186) rotate(10 50 70) scale(.9)" filter="url(#soft-object-shadow)">
+ <g id="og-paper-butterfly" class="paper-object" transform="translate(617 246) rotate(10 50 70) scale(.9)" filter="url(#soft-object-shadow)">
   <path d="M49 78L24 5L0 42L16 91L46 94Z" fill="url(#pink-paper)" stroke="#ae7b8a4d" stroke-width="1.1"/>
   <path d="M24 5L46 77L16 91Z" fill="url(#pink-shade)" stroke="#b6809a36"/>
   <path d="M52 78L82 5L105 43L90 92L55 94Z" fill="url(#pink-paper)" stroke="#ae7b8a4d" stroke-width="1.1"/>
@@ -79,7 +79,7 @@ mount.innerHTML=`
   <path d="M49 76L54 76L55 114L51 126L47 113Z" fill="#a7798d"/>
   <path d="M24 5L49 78M82 5L54 78M18 91L45 93M89 92L57 94" stroke="#fff7ed88" stroke-width="1.2" fill="none"/>
  </g>
- <g id="og-paper-boat" class="paper-object" transform="translate(474 346) rotate(6 66 57) scale(.87)" filter="url(#soft-object-shadow)">
+ <g id="og-paper-boat" class="paper-object" transform="translate(474 326) rotate(6 66 57) scale(.87)" filter="url(#soft-object-shadow)">
   <path d="M14 63L66 4L66 72Z" fill="url(#gold-paper)" stroke="#a783604a" stroke-width="1"/>
   <path d="M66 4L118 62L66 72Z" fill="url(#gold-shade)" stroke="#a783604a" stroke-width="1"/>
   <path d="M0 70L132 70L107 111L28 111Z" fill="url(#gold-paper)" stroke="#a783604a" stroke-width="1.6"/>
