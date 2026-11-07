@@ -60,7 +60,9 @@
 /* Mood filters */
 .pin-filterbar{border-top:1px solid var(--line);padding:22px 0;
   display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
-.pin-moods{display:flex;flex-wrap:wrap;gap:8px}
+.pin-moods{display:none;flex-wrap:wrap;gap:8px}
+.pin-page.pin-filters-ready .pin-moods{display:flex}
+.pin-page.pin-enhanced .pin-noscript{display:none}
 .pin-moods button{background:transparent;border:1px solid #c49aa1;border-radius:30px;color:#4a3f43;
   padding:12px 17px;font:600 12px 'Manrope',sans-serif;min-height:44px}
 .pin-moods button:hover{border-color:var(--ink)}
@@ -464,6 +466,8 @@
   buttons.forEach(function(b){
     b.addEventListener('click', function(){ applyFilter(b.dataset.mood); });
   });
+  // Expose filters only after their event handlers are attached.
+  document.body.classList.add('pin-filters-ready');
 
   var dialog = document.getElementById('pin-detail');
   if(dialog && typeof dialog.showModal === 'function'){

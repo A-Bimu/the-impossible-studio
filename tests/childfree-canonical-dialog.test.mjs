@@ -88,6 +88,8 @@ test('paging respects all nine boundaries and restores opener focus', () => {
 test('filtering limits detail paging to the selected three pins', () => {
   const {cards, buttons, ids} = setup();
   buttons[2].fire('click');
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['false', 'false', 'true', 'false'],
+    'selected mood is announced through aria-pressed');
   assert.equal(cards.filter(card => !card.hidden).length, 3);
   assert.equal(ids['pin-count'].textContent, 'Showing 3 of 9 pins');
   cards[4].open.fire('click');
@@ -104,6 +106,18 @@ test('filtering limits detail paging to the selected three pins', () => {
   assert.equal(cards[4].open.focusCount, 1);
 });
 
+
+test('resetting mood filter restores all cards and accessible pressed states', () => {
+  const {cards, buttons, ids} = setup();
+  buttons[3].fire('click');
+  assert.equal(cards.filter(card => !card.hidden).length, 3);
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['false', 'false', 'false', 'true']);
+  buttons[0].fire('click');
+  assert.equal(cards.filter(card => !card.hidden).length, 9, 'all nine pins are available after reset');
+  assert.equal(ids['pin-count'].textContent, 'Showing 9 of 9 pins');
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['true', 'false', 'false', 'false'],
+    'only All nine is announced as selected after reset');
+});
 
 test('no-JavaScript and unsupported-dialog fallback never offers inert detail controls', () => {
   assert.match(html, /\.pin-page:not\(\.pin-enhanced\) \.pin-open\{display:none\}/);
