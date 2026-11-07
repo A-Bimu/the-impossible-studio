@@ -4,9 +4,8 @@
 const mount=document.getElementById('studio-origami');
 if(!mount)return;
 const cranes=[
- {id:'ivory',x:284,y:188,scale:1.41,rot:-5},
- {id:'plum',x:164,y:241,scale:1.02,rot:-16},
- {id:'lilac',x:487,y:237,scale:1.06,rot:17}
+ {id:'ivory',x:336,y:180,scale:1.09,rot:-4},
+ {id:'plum',x:220,y:240,scale:.90,rot:-14}
 ];
 const crane=({id,x,y,scale,rot})=>`
  <g class="paper-object paper-crane" id="og-${id}-crane"
@@ -47,10 +46,12 @@ const defs=`
  <linearGradient id="pink-shade" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#f1bdbe"/><stop offset=".54" stop-color="#c98f9f"/><stop offset="1" stop-color="#9f708a"/></linearGradient>
  <linearGradient id="gold-paper" x1="0" y1="0" x2=".92" y2="1"><stop stop-color="#fff2d6"/><stop offset=".5" stop-color="#eed3a4"/><stop offset="1" stop-color="#cda370"/></linearGradient>
  <linearGradient id="gold-shade" x1=".08" y1="0" x2=".92" y2="1"><stop stop-color="#ead0a4"/><stop offset=".54" stop-color="#cca06e"/><stop offset="1" stop-color="#ac805c"/></linearGradient>
- <linearGradient id="box-front" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#e7d7ee"/><stop offset=".46" stop-color="#c8aece"/><stop offset="1" stop-color="#ad8db7"/></linearGradient>
- <linearGradient id="box-side" x1="0" y1="0" x2="1" y2=".95"><stop stop-color="#ab88b9"/><stop offset=".52" stop-color="#916c9f"/><stop offset="1" stop-color="#755788"/></linearGradient>
- <linearGradient id="box-back" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#e9d9ec"/><stop offset=".52" stop-color="#bf9cc8"/><stop offset="1" stop-color="#8e719e"/></linearGradient>
- <linearGradient id="inner-shadow" x1="0" y1="0" x2=".78" y2="1"><stop stop-color="#58476a"/><stop offset=".52" stop-color="#3c314b"/><stop offset="1" stop-color="#65526f"/></linearGradient>
+ <linearGradient id="box-front" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fbf2f7"/><stop offset=".46" stop-color="#e4cede"/><stop offset="1" stop-color="#c3a6ce"/></linearGradient>
+ <linearGradient id="box-side" x1="0" y1="0" x2="1" y2=".95"><stop stop-color="#e8d3ed"/><stop offset=".52" stop-color="#c7a8d1"/><stop offset="1" stop-color="#ae91be"/></linearGradient>
+ <linearGradient id="box-back" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#fff9fc"/><stop offset=".52" stop-color="#efdeee"/><stop offset="1" stop-color="#d2b8d7"/></linearGradient>
+ <linearGradient id="inner-shadow" x1="0" y1="0" x2=".78" y2="1"><stop stop-color="#fef9f5"/><stop offset=".52" stop-color="#f5e9ee"/><stop offset="1" stop-color="#dac6db"/></linearGradient>
+ <linearGradient id="tray-floor" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fffaf6"/><stop offset=".58" stop-color="#f5e9eb"/><stop offset="1" stop-color="#ead9e6"/></linearGradient>
+ <linearGradient id="tray-back-wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5eafa"/><stop offset=".5" stop-color="#dfc8e9"/><stop offset="1" stop-color="#c1a4ca"/></linearGradient>
  <radialGradient id="table-shadow"><stop stop-color="#57435d" stop-opacity=".27"/><stop offset="1" stop-color="#57435d" stop-opacity="0"/></radialGradient>
  <filter id="soft-object-shadow" x="-42%" y="-42%" width="185%" height="190%"><feDropShadow dx="3.7" dy="7.5" stdDeviation="5.5" flood-color="#3e2f4c" flood-opacity=".22"/></filter>
  <filter id="box-depth-shadow" x="-40%" y="-45%" width="190%" height="195%"><feDropShadow dx="8" dy="15" stdDeviation="13" flood-color="#3c2d48" flood-opacity=".27"/></filter>
@@ -59,17 +60,21 @@ const defs=`
 mount.classList.add('og-minimal');
 mount.removeAttribute('data-fold');
 mount.innerHTML=`
-<p class="og-sr-only" id="og-description">A plain open lavender paper box with three folded-paper cranes, a pink butterfly, and a gold paper boat emerging from inside it.</p>
+<p class="og-sr-only" id="og-description">A shallow lilac keepsake tray with a pale, solid interior holding two folded-paper cranes, a lilac flower, a pink butterfly, and a golden paper boat. Their lower folds are tucked behind the tray walls.</p>
 <svg class="og-artwork" viewBox="125 170 640 460" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="og-description">
  ${defs}
  <ellipse cx="468" cy="566" rx="269" ry="45" fill="url(#table-shadow)" opacity=".8"/>
+ <!-- A low open keepsake tray: upright back and side walls enclose a pale, solid paper-lined floor. -->
  <g id="og-box-back" filter="url(#box-depth-shadow)">
-  <path d="M220 395L471 318L708 400L474 476Z" fill="url(#box-back)" stroke="#84698e" stroke-width="1.7"/>
-  <path d="M241 397L472 334L687 401L475 461Z" fill="url(#inner-shadow)" stroke="#785e83" stroke-width="1.5"/>
-  <path d="M240 397L471 333L688 400" fill="none" stroke="#f9eefb" stroke-opacity=".58" stroke-width="2.2"/>
+  <path d="M224 370 L472 299 L702 370 L681 412 L471 346 L246 410 Z" fill="url(#tray-back-wall)" stroke="#c4a8cf" stroke-width="1.6"/>
+  <path d="M246 410 L471 346 L681 412 L474 467 Z" id="og-tray-floor" fill="url(#tray-floor)" stroke="#ddcbd9" stroke-width="2"/>
+  <path d="M223 371 L471 301 L702 371" fill="none" stroke="#fffdfb" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M225 380 L471 310 L700 381" fill="none" stroke="#b99ec8" stroke-opacity=".53" stroke-width="1.5"/>
+  <path d="M247 407 L471 347 L679 409" fill="none" stroke="#fff" stroke-opacity=".76" stroke-width="3"/>
+  <ellipse cx="453" cy="410" rx="146" ry="31" fill="#9e809e" opacity=".08"/>
  </g>
  <g id="og-cranes">${cranes.map(crane).join('')}</g>
- <g id="og-paper-butterfly" class="paper-object" transform="translate(617 246) rotate(10 50 70) scale(.9)" filter="url(#soft-object-shadow)">
+ <g id="og-paper-butterfly" class="paper-object" transform="translate(568 310) rotate(12 50 70) scale(.74)" filter="url(#soft-object-shadow)">
   <path d="M49 78L24 5L0 42L16 91L46 94Z" fill="url(#pink-paper)" stroke="#ae7b8a4d" stroke-width="1.1"/>
   <path d="M24 5L46 77L16 91Z" fill="url(#pink-shade)" stroke="#b6809a36"/>
   <path d="M52 78L82 5L105 43L90 92L55 94Z" fill="url(#pink-paper)" stroke="#ae7b8a4d" stroke-width="1.1"/>
@@ -79,23 +84,34 @@ mount.innerHTML=`
   <path d="M49 76L54 76L55 114L51 126L47 113Z" fill="#a7798d"/>
   <path d="M24 5L49 78M82 5L54 78M18 91L45 93M89 92L57 94" stroke="#fff7ed88" stroke-width="1.2" fill="none"/>
  </g>
- <g id="og-paper-boat" class="paper-object" transform="translate(474 326) rotate(6 66 57) scale(.87)" filter="url(#soft-object-shadow)">
+ <g id="og-paper-boat" class="paper-object" transform="translate(473 367) rotate(5 66 57) scale(.66)" filter="url(#soft-object-shadow)">
   <path d="M14 63L66 4L66 72Z" fill="url(#gold-paper)" stroke="#a783604a" stroke-width="1"/>
   <path d="M66 4L118 62L66 72Z" fill="url(#gold-shade)" stroke="#a783604a" stroke-width="1"/>
   <path d="M0 70L132 70L107 111L28 111Z" fill="url(#gold-paper)" stroke="#a783604a" stroke-width="1.6"/>
   <path d="M0 70L68 91L132 70" fill="none" stroke="#fff6dc" stroke-width="1.7"/>
   <path d="M27 111L67 91L107 111" fill="none" stroke="#ae896a6b" stroke-width="1.5"/>
  </g>
+ <!-- Small folded lilac flower nestled between the two cranes. -->
+ <g id="og-paper-flower" class="paper-object" transform="translate(330 341) scale(.78)" filter="url(#soft-object-shadow)">
+  <path d="M56 84 L10 18 L74 44 L80 89 Z" fill="url(#lilac-light)" stroke="#80689e4d" stroke-width="1"/>
+  <path d="M56 83 L35 2 L89 45 L80 90 Z" fill="url(#lilac-mid)" stroke="#80689e4d" stroke-width="1"/>
+  <path d="M78 87 L109 3 L105 81 L85 99 Z" fill="url(#lilac-light)" stroke="#80689e4d" stroke-width="1"/>
+  <path d="M83 92 L153 27 L124 99 L87 106 Z" fill="url(#lilac-deep)" stroke="#80689e4d" stroke-width="1"/>
+  <path d="M65 87 L10 91 L68 127 L87 105 Z" fill="url(#lilac-mid)" stroke="#80689e4d" stroke-width="1"/>
+  <path d="M83 87 L145 109 L89 133 L75 109 Z" fill="url(#lilac-light)" stroke="#80689e4d" stroke-width="1"/>
+  <path d="M70 87 L86 71 L105 91 L87 116 Z" fill="url(#ivory-light)" stroke="#fff9" stroke-width="1"/>
+  <path d="M35 2L80 91L109 3M10 91L87 116L145 109" fill="none" stroke="#faf2ff9c" stroke-width="1.1"/>
+ </g> <!-- Low front and side walls visibly hold the objects, like a crib/tray. -->
  <g id="og-paper-box" filter="url(#box-depth-shadow)">
-  <path d="M219 396L474 476L708 399L708 527L473 611L219 530Z" fill="#725e82" opacity=".12"/>
-  <path d="M220 397L474 474L474 603L220 527Z" fill="url(#box-front)" stroke="#8b7695" stroke-width="1.7"/>
-  <path d="M474 474L708 399L708 524L474 603Z" fill="url(#box-side)" stroke="#745e83" stroke-width="1.7"/>
-  <path d="M220 397L474 474L708 399" fill="none" stroke="#fbf1fa" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M222 403L474 480L706 405" fill="none" stroke="#80698b" opacity=".55" stroke-width="2"/>
-  <path d="M474 477L474 603" stroke="#f4e9f6" stroke-opacity=".56" stroke-width="1.7"/>
-  <path d="M235 422L456 489M490 489L694 422" stroke="#fff8ff" opacity=".12" stroke-width="1.3"/>
-  <path d="M240 517L461 583M490 584L690 517" stroke="#634e7350" stroke-width="1.2" fill="none"/>
+  <path d="M224 371 L474 462 L702 370 L702 473 L474 557 L224 468 Z" fill="#cfb5d2" opacity=".18"/>
+  <path d="M224 371 L474 462 L474 557 L224 468 Z" id="og-tray-front" fill="url(#box-front)" stroke="#b797c2" stroke-width="1.6"/>
+  <path d="M474 462 L702 370 L702 473 L474 557 Z" id="og-tray-side" fill="url(#box-side)" stroke="#9e82ad" stroke-width="1.6"/>
+  <path d="M224 371 L474 462 L702 370" fill="none" stroke="#fffdfb" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M226 379 L474 471 L700 379" fill="none" stroke="#ab92b7" opacity=".48" stroke-width="2.1"/>
+  <path d="M474 462 L474 557" fill="none" stroke="#fff6ff" stroke-opacity=".6" stroke-width="2"/>
+  <path d="M239 391 L458 471 M490 471 L686 392" fill="none" stroke="#fff" stroke-opacity=".24" stroke-width="1.3"/>
+  <path d="M242 452 L454 528 M492 532 L684 460" fill="none" stroke="#ac90b6" opacity=".23" stroke-width="1.1"/>
  </g>
- <rect x="195" y="330" width="522" height="282" filter="url(#paper-grain)" opacity=".2" pointer-events="none"/>
+ <rect x="220" y="375" width="484" height="182" filter="url(#paper-grain)" opacity=".12" pointer-events="none"/>
 </svg>`;
 })();

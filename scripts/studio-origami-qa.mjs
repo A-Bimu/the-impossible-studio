@@ -6,7 +6,7 @@ const {chromium}=require(process.cwd()+'/.studio-qa-tools/node_modules/playwrigh
 const root='artifacts/studio-origami-qa',origin='http://127.0.0.1:8765';
 await mkdir(root,{recursive:true});
 const homepage=await readFile('index.html','utf8');
-assert.ok(homepage.includes('id="studio-origami"')&&homepage.includes('studio-origami-box.js?v=4'),'actual Studio landing section updated');
+assert.ok(homepage.includes('id="studio-origami"')&&homepage.includes('studio-origami-box.js?v=5'),'actual Studio landing section updated');
 assert.ok(!homepage.includes('studio-hero-art.webp'),'old abstract artwork removed');
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const issues=[],results=[];
@@ -18,10 +18,18 @@ for(const vp of [{name:'desktop',width:1440,height:900},{name:'tablet',width:820
   await page.locator('#studio-origami svg.og-artwork').waitFor({state:'visible'});
   await page.evaluate(()=>document.fonts.ready);
   assert.equal(await page.locator('#studio-origami-container img').count(),0,'origami is page DOM, not image');
-  assert.equal(await page.locator('#studio-origami .paper-crane').count(),3,'three recognizable folded cranes');
+  assert.equal(await page.locator('#studio-origami .paper-crane').count(),2,'two recognizable folded cranes nested inside the tray');
   assert.equal(await page.locator('#studio-origami #og-paper-butterfly').count(),1,'one origami butterfly');
   assert.equal(await page.locator('#studio-origami #og-paper-boat').count(),1,'one origami boat');
+  assert.equal(await page.locator('#studio-origami #og-paper-flower').count(),1,'one folded paper flower');
   assert.equal(await page.locator('#studio-origami #og-paper-box').count(),1,'single unbranded open box');
+  assert.equal(await page.locator('#studio-origami #og-tray-floor').count(),1,'light solid floor closes hollow bottom');
+  assert.equal(await page.locator('#studio-origami #og-tray-front').count(),1,'low front crib wall');
+  assert.equal(await page.locator('#studio-origami #og-tray-side').count(),1,'side crib wall');
+  assert.equal(await page.locator('#studio-origami #og-tray-floor').getAttribute('fill'),'url(#tray-floor)','pale floor rather than black/dark hollow');
+  assert.ok(await page.locator('#studio-origami .paper-object').count()===5,'exactly five origami pieces');
+  const layering=await page.evaluate(()=>{let svg=document.querySelector('#studio-origami svg');let a=svg.querySelector('#og-paper-flower'),b=svg.querySelector('#og-paper-box');return !!(a.compareDocumentPosition(b)&Node.DOCUMENT_POSITION_FOLLOWING)});
+  assert.ok(layering,'front tray walls draw over lower origami folds');
   assert.equal(await page.locator('#studio-origami button,#studio-origami a').count(),0,'no control clutter');
   assert.equal(await page.locator('#studio-origami svg text').count(),0,'no text or logo on paper or box');
   assert.equal(await page.locator('#studio-origami .og-gallery-overline').count(),0,'no decorative labels');
