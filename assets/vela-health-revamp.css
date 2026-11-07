@@ -141,9 +141,10 @@ body{background:#fffaf7;color:var(--vela-ink)}
 .aside{background:#32192b;padding:clamp(25px,3vw,43px);align-self:start;position:sticky;top:105px}
 .aside h2{font:400 clamp(41px,4.3vw,63px)/1.05 'Instrument Serif',serif;margin:22px 0}
 .aside .eyebrow{color:#ffadcb}
-.aside .summary>div{border-color:#76576a}
-.aside .summary span{color:#e9cdd8}
-.aside .summary b{color:#fff}
+.aside .summary{background:#42283b;border:1px solid #765469;border-radius:4px;padding:16px 20px;box-shadow:none;color:#fff}
+.aside .summary>div{border-bottom:1px solid #725365;align-items:baseline;padding:14px 0}
+.aside .summary span{color:#f6c6d8;font-size:11px;line-height:1.5}
+.aside .summary b{color:#fffafc;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
 .vela-privacy-note{font:500 11px/1.75 'DM Sans',sans-serif;color:#e4c9d4;margin-top:25px}
 .appointment{border:1px solid #e9c6d1;background:#fff;border-left:5px solid #ab0a4c;border-radius:3px;box-shadow:5px 6px 0 #f7e7ed}
 .appointment .btn.light{border-radius:3px}
