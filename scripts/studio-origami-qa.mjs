@@ -36,7 +36,8 @@ for(const size of [{name:'desktop',width:1440,height:900},{name:'tablet',width:8
   const geometry=await page.locator('.og-scene').evaluate(node=>{
     const r=node.getBoundingClientRect(),parent=node.parentElement.getBoundingClientRect();
     const box=node.querySelector('#og-paper-box').getBoundingClientRect();
-    return {scene:{x:r.x,y:r.y,width:r.width,height:r.height},parent:{width:parent.width},box:{x:box.x,y:box.y,width:box.width,height:box.height},viewport:innerWidth,overflow:document.documentElement.scrollWidth};
+    const outside=[...document.querySelectorAll('body *')].map(el=>{const x=el.getBoundingClientRect();return {tag:el.tagName.toLowerCase(),class:typeof el.className==='string'?el.className.slice(0,70):'',right:Math.round(x.right),left:Math.round(x.left),scroll:el.scrollWidth,overflow:getComputedStyle(el).overflowX}}).filter(x=>x.right>innerWidth+4&&x.left<innerWidth-10).slice(0,20);
+    return {scene:{x:r.x,y:r.y,width:r.width,height:r.height},parent:{width:parent.width},box:{x:box.x,y:box.y,width:box.width,height:box.height},viewport:innerWidth,overflow:document.documentElement.scrollWidth,outside};
   });
   assert.ok(geometry.overflow<=size.width+4,'origami must not trigger page-wide horizontal scroll: '+JSON.stringify(geometry));
   assert.ok(geometry.scene.width>245,'art visibly sized for responsive view');
