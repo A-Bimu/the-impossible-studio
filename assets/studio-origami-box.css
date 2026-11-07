@@ -1,6 +1,8 @@
-/* Contain wide sculptural illustration within the landing section, without
-   cropping paper wings against the narrower text column. */
-.about:has(.og-real){overflow-x:clip}
+/* Keep the dimensional origami artwork and pre-existing gallery transforms
+   from widening the document on narrow devices. The paper can still
+   bleed outside its illustration column up to the actual page edge. */
+html:has(.og-real),body:has(.og-real){max-width:100%;overflow-x:clip}
+.about:has(.og-real),.chapters:has(~ .about .og-real){overflow-x:clip}
 /* THE IMPOSSIBLE STUDIO / Real paper origami installation — version 2.
    The paper sculptures are inline SVG DOM with independently lit folds,
    visible crease lines, a paper-grain filter and true layer occlusion.
@@ -129,7 +131,7 @@
 @media(max-width:520px){
   .about-art:has(.og-real){width:100%;margin-top:15px}
   .og-scene.og-real{height:clamp(372px,106vw,460px)}
-  .og-real .og-artwork{width:129%;left:-14.5%}
+  .og-real .og-artwork{width:110%;left:-5%;overflow:hidden}
   .og-real .og-control-row{bottom:0;gap:7px;padding-top:10px}
   .og-real .og-control-row>span{font-size:8.7px;line-height:1.6;letter-spacing:.015em;max-width:140px}
   .og-real .og-remix{padding:10px 10px;font-size:9px;min-height:42px;box-shadow:3px 3px 0 #ab91bc}
@@ -138,7 +140,9 @@
 }
 @media(max-width:360px){
   .og-scene.og-real{height:350px}
-  .og-real .og-artwork{width:135%;left:-17.5%}
+  .og-real .og-artwork{width:107%;left:-3.5%}
+  .header:has(~ main .og-real){flex-wrap:wrap;gap:14px}
+  .header:has(~ main .og-real) nav{gap:11px;flex-wrap:wrap;max-width:100%}
   .og-real .og-control-row>span{font-size:8px;max-width:116px}
   .og-real .og-remix{font-size:8.5px;padding:9px 8px}
 }
