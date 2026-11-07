@@ -49,7 +49,7 @@
    <feGaussianBlur stdDeviation="1.35"/>
   </filter>
   <style>
-    .og-face{stroke:#fff9;stroke-width:1.4;stroke-linejoin:round}
+    .og-face{stroke:#f8ede4a0;stroke-width:.85;stroke-linejoin:round;filter:url(#paper-noise)}
     .og-fold{stroke:#6c486f;stroke-opacity:.24;stroke-width:1.65;fill:none;stroke-linecap:round}
     .og-fold-light{stroke:#fffbed;stroke-opacity:.85;stroke-width:1.5;fill:none;stroke-linecap:round}
     .og-assemblage{transform-box:fill-box;transform-origin:center center;transition:transform 900ms cubic-bezier(.18,.75,.23,1)}
