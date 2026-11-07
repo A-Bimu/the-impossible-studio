@@ -259,3 +259,8 @@ body{background:#fffaf7;color:var(--vela-ink)}
 @media(prefers-reduced-motion:reduce){
  .vela-r4-cover .vela-photo-large img,.vela-r4-cover .vela-photo-small img,.vela-care-choice,.vela-path-steps a{transition:none!important}
 }
+
+.vela-demo-indicator{padding:12px max(4.5vw,calc((100vw - 1200px)/2));background:#4c2c40;color:#f4d8e2;font:700 10px/1.6 'DM Mono',monospace;letter-spacing:.045em;text-align:center}
+.vela-demo-indicator>span{display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:50%;background:#ffb4c5;box-shadow:0 0 0 3px #ffffff12;vertical-align:1px}
+.vela-booking-progress span:focus-within{outline:2px solid #d7195a}
+@media(max-width:700px){.vela-demo-indicator{font-size:9px;padding:11px 14px}}
