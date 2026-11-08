@@ -87,6 +87,9 @@
 /* Progressive enhancement: without a working dialog, every card's notes stay
    readable and no inert Open design notes button is offered. */
 .pin-page:not(.pin-enhanced) .pin-open{display:none}
+/* Filtering requires JavaScript; do not show controls that cannot respond. */
+.pin-page:not(.pin-filter-ready) .pin-moods{display:none}
+.pin-page.pin-enhanced .pin-noscript{display:none}
 .pin-noscript{font-size:12px;color:#6a5b60;margin-top:16px}
 
 /* Pin artwork. Each card carries its own crop of the approved sheet, saved as a
@@ -464,6 +467,8 @@
   buttons.forEach(function(b){
     b.addEventListener('click', function(){ applyFilter(b.dataset.mood); });
   });
+  // Show filter controls only once their click handlers are attached.
+  document.body.classList.add('pin-filter-ready');
 
   var dialog = document.getElementById('pin-detail');
   if(dialog && typeof dialog.showModal === 'function'){
