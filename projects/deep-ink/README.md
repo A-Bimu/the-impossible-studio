@@ -10,6 +10,10 @@
 
 The case-study HTML references `assets/deep-ink-original.webp` and `assets/deep-ink-cover.webp` for visual presentation. Its players reference the archive bases `videos/concept-01-full-bleed.mp4.b64` (13 parts) and `videos/concept-02-full-bleed.mp4.b64` (8 parts), relative to this project directory. These are **references in source**, not proof that all bytes were fetched or that playback passed a browser test.
 
+## Repository-path spot check (8 November 2026)
+
+On this branch, GitHub returned **404** for the four legacy standalone paths `artwork/concept-01-wonders-beneath-the-surface.png`, `artwork/concept-02-ideas-have-a-way-of-escaping.png`, `videos/concept-01-full-bleed.mp4` and `videos/concept-02-full-bleed.mp4`. This **does not prove the approved media are absent**: the current presentation uses WebP display assets and browser-reconstructed, multipart video archives instead of those standalone filenames. GitHub successfully returned the HTML for `work/deep-ink/index.html` and `projects/deep-ink/videos/index.html`. Binary image fetches could not be decoded by the text-only connector; their existence, provenance and visual fidelity remain unverified by this check. No browser playback or full archive-part enumeration was performed.
+
 ## Archive status and verification still needed
 
 `APPROVALS.md` records the original PNGs and MP4s as uploaded and viewable, but the earlier text in this README said they had not been uploaded. The Studio case study describes reconstructing the original MP4s from base64 parts in the browser. The archive should therefore be assessed in its **current storage format**, rather than assuming four standalone binary files must exist.
