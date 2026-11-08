@@ -1,0 +1,46 @@
+name: Childfree real-browser catalogue QA
+
+on:
+  pull_request:
+    paths:
+      - 'work/childfree/**'
+      - 'scripts/childfree-browser-qa.mjs'
+      - 'tests/childfree-canonical-dialog.test.mjs'
+      - 'tests/childfree-artwork-integrity.test.mjs'
+      - '.github/workflows/childfree-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chromium-catalogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify canonical dialog logic and original artwork
+        run: node --test tests/childfree-canonical-dialog.test.mjs tests/childfree-artwork-integrity.test.mjs
+      - name: Install pinned browser testing dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start local checkout web server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/childfree-qa-http.log 2>&1 &
+          sleep 2
+      - name: Verify desktop, mobile, keyboard and progressive enhancement
+        run: node scripts/childfree-browser-qa.mjs
+      - name: Archive browser screenshots and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: childfree-catalogue-browser-qa
+          path: artifacts/childfree-browser-qa/
+          retention-days: 7
+          if-no-files-found: warn
