@@ -27,4 +27,8 @@ Before closing artwork-import issues #1 or #2, verify:
 
 **This README update is documentation reconciliation only.** It does not certify asset integrity, complete the browser acceptance tests, or authorize replacing approved artwork.
 
+## Loader-path spot check (8 November 2026)
+
+The playback script `videos/player.js` constructs chunk URLs as `<data-src>/part-NN.txt` (for example, `videos/concept-01-full-bleed.mp4.b64/part-01.txt`), **not** `<data-src>.part01`. A GitHub contents request returned blob `11bbedb249d9cac576e169fdea2da5cdb12ef3e8` for Concept 01 part 01, confirming that one actual loader-path chunk exists. A separate request for `videos/concept-02-full-bleed.mp4.b64/part-08.txt` returned HTTP 404. This is a potential missing terminal chunk for Concept 02, but the entire archive has **not** been enumerated and the request alone does not prove the deployed page fails. Confirm the expected part count, exact case-sensitive path and branch before remediation; do not generate substitute video bytes. No browser playback or MP4 integrity check was performed.
+
 [Studio index](../../)
