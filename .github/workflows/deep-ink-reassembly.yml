@@ -1,0 +1,25 @@
+name: Deep Ink archive reassembly tests
+
+on:
+  pull_request:
+    paths:
+      - 'projects/deep-ink/videos/player.js'
+      - 'projects/deep-ink/videos/player.test.cjs'
+      - '.github/workflows/deep-ink-reassembly.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reassembly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test archived video reassembly contract
+        run: node --test projects/deep-ink/videos/player.test.cjs
