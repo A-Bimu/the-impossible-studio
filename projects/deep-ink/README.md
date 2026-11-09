@@ -27,14 +27,16 @@ Before closing artwork-import issues #1 or #2, verify:
 
 **This README update is documentation reconciliation only.** It does not certify asset integrity, complete the browser acceptance tests, or authorize replacing approved artwork.
 
-## Loader-path spot check (8 November 2026)
+## Complete archive directory audit (9 November 2026)
 
-The playback script `videos/player.js` constructs chunk URLs as `<data-src>/part-NN.txt` (for example, `videos/concept-01-full-bleed.mp4.b64/part-01.txt`), **not** `<data-src>.part01`. A GitHub contents request returned blob `11bbedb249d9cac576e169fdea2da5cdb12ef3e8` for Concept 01 part 01, confirming that one actual loader-path chunk exists. A separate request for `videos/concept-02-full-bleed.mp4.b64/part-08.txt` returned HTTP 404. This is a potential missing terminal chunk for Concept 02, but the entire archive has **not** been enumerated and the request alone does not prove the deployed page fails. Confirm the expected part count, exact case-sensitive path and branch before remediation; do not generate substitute video bytes. No browser playback or MP4 integrity check was performed.
+**Correction to the earlier missing-terminal-part diagnosis:** The loader in `videos/player.js` is **zero-indexed**, using `for (var i = 0; i < count; i += 1)`. Thus a `data-parts="13"` player requests `part-00.txt` through `part-12.txt`, **not** `part-01.txt` through `part-13.txt`; the eight-part player requests `part-00.txt` through `part-07.txt`, **not** `part-08.txt`. The earlier 404s for `part-13.txt` and `part-08.txt` were checks for files **outside the expected range** and do not indicate missing video data. The prior claim that either loader necessarily fails is withdrawn.
+
+The GitHub Contents API directory listings on `main` show **all 21 expected files**, with no gaps:
+
+- Concept 01: 13 files, `part-00.txt`–`part-12.txt`; first 12 files are 860,000 text bytes each, final `part-12.txt` is 765,452 bytes.
+- Concept 02: 8 files, `part-00.txt`–`part-07.txt`; first 7 files are 860,000 text bytes each, final `part-07.txt` is 328,024 bytes.
+- The standalone HTML pages declare `data-parts="13"` and `data-parts="8"` respectively, matching these listings and the zero-indexed loader.
+
+**Verification scope:** Directory presence, naming, sizes and markup/loader count consistency are confirmed. This does **not** verify all chunk bytes, base64 decoding, resulting MP4 metadata, provenance to the approved originals, actual HTTP serving, or real-browser playback and download. Those acceptance tests remain outstanding. Do not replace, truncate or regenerate the approved originals. Do not close artwork issues #1/#2 solely on the strength of this audit.
 
 [Studio index](../../)
-
-## Terminal-part verification against `main` (8 November 2026)
-
-A follow-up GitHub contents check on **`main`** confirms that `videos/concept-01-full-bleed.mp4.b64/part-13.txt` and `videos/concept-02-full-bleed.mp4.b64/part-08.txt` both return **404**. By contrast, `videos/concept-02-full-bleed.mp4.b64/part-07.txt` exists (blob `4488d1840d788570e364734a125bf065afc4c2a2`). `videos/player.js` explicitly requests every part from `1` through the `data-parts` count using `part-NN.txt`, and `videos/concept-02.html` specifies `data-parts="8"`. Therefore, **with the current declared counts and paths, the browser loader cannot successfully reassemble either video from `main`**: any missing required part causes `Promise.all` to reject before a playable blob is created. This is a source-level failure diagnosis, **not** a completed live-browser test. The other 19 paths have not all been enumerated.
-
-**Remediation gate:** Retrieve the exact approved original archive parts or independently establish the correct part count and filenames from the original media manifest. Never fabricate, truncate, or substitute video content, and do not merely lower `data-parts` to silence the error. After restoring verified source bytes, enumerate every requested chunk, check decoded MP4 integrity and duration, and perform actual browser playback/download checks for both embedded and standalone players. Until then, treat the `APPROVALS.md` claim that both videos are viewable as **unverified and contradicted by the current source-path checks**; keep artwork issues open and do not merge or deploy this documentation PR as a media fix.
