@@ -138,3 +138,36 @@ test('mood filters keep pressed state, visible cards, and live count synchronize
   assert.match(html, /id="pin-count" aria-live="polite"/, 'filter count is announced to assistive technology');
   assert.match(html, /class="pin-moods" role="group" aria-label="Filter pins by mood"/);
 });
+
+test('switching moods after closing detail resets paging to the new visible collection', () => {
+  const {cards, buttons, ids, dialog} = setup();
+  buttons[1].fire('click');
+  cards[2].open.fire('click');
+  assert.equal(ids['pin-detail-position'].textContent, '3 of 3: Pin concept 3');
+  assert.equal(ids['pin-detail-next'].disabled, true);
+  ids['pin-detail-close'].fire('click');
+  assert.equal(dialog.open, false);
+  assert.equal(cards[2].open.focusCount, 1, 'closing returns focus to the original card');
+
+  buttons[3].fire('click');
+  assert.equal(cards[2].hidden, true, 'previous mood is no longer visible');
+  cards[6].open.fire('click');
+  assert.equal(dialog.open, true);
+  assert.equal(ids['pin-detail-position'].textContent, '1 of 3: Pin concept 7');
+  assert.equal(ids['pin-detail-prev'].disabled, true);
+  assert.equal(ids['pin-detail-next'].disabled, false);
+  ids['pin-detail-next'].fire('click');
+  assert.equal(ids['pin-detail-position'].textContent, '2 of 3: Pin concept 8');
+  ids['pin-detail-close'].fire('click');
+  assert.equal(cards[6].open.focusCount, 1, 'focus follows the latest opener');
+});
+
+test('backdrop dismissal restores focus without treating dialog content clicks as dismissal', () => {
+  const {cards, dialog} = setup();
+  cards[5].open.fire('click');
+  dialog.fire('click', {target: cards[5].open});
+  assert.equal(dialog.open, true, 'clicking dialog contents does not dismiss it');
+  dialog.fire('click', {target: dialog});
+  assert.equal(dialog.open, false, 'backdrop click closes the dialog');
+  assert.equal(cards[5].open.focusCount, 1, 'backdrop dismissal restores focus');
+});
