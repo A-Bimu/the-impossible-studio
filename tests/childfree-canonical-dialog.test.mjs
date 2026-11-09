@@ -116,3 +116,25 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
   assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
   assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
 });
+
+test('mood filters keep pressed state, visible cards, and live count synchronized', () => {
+  const {cards, buttons, ids} = setup();
+  const expectations = [
+    {button: 1, mood: 'whimsical', count: 3},
+    {button: 3, mood: 'bold', count: 3},
+    {button: 0, mood: 'all', count: 9}
+  ];
+  for (const {button, mood, count} of expectations) {
+    buttons[button].fire('click');
+    assert.equal(cards.filter(card => !card.hidden).length, count);
+    assert.equal(ids['pin-count'].textContent, 'Showing ' + count + ' of 9 pins');
+    buttons.forEach((item, index) => {
+      assert.equal(item['aria-pressed'], String(index === button), 'only selected mood is pressed');
+    });
+    cards.forEach(card => {
+      assert.equal(card.hidden, mood !== 'all' && card.dataset.mood !== mood);
+    });
+  }
+  assert.match(html, /id="pin-count" aria-live="polite"/, 'filter count is announced to assistive technology');
+  assert.match(html, /class="pin-moods" role="group" aria-label="Filter pins by mood"/);
+});
