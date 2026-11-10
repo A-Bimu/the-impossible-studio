@@ -30,3 +30,20 @@ Run NVDA + a supported Windows browser **or** VoiceOver + Safari; record the exa
 ## Evidence and release gate
 
 Record each scenario's outcome, reproducible defects, browser screenshots or short recordings, and any assistive-technology-specific limitations in PR #73. CI success is separate evidence. Before changing draft status, also reconcile PRs #65/#69, verify the **exact approved** Childfree concept-sheet PNG (do not substitute generated artwork), and obtain explicit approval for merge/deployment. Preserve the Studio homepage and approved original media.
+
+## Execution log (complete only after hands-on testing)
+
+Use one row per **actual** device/browser combination. Do not infer a manual PASS from Chromium CI. For each row, attach a screenshot, recording, or reproducible written observation in PR #73. Mark unexecuted rows NOT RUN, not PASS.
+
+| Scenario | Environment / viewport | Outcome | Evidence link or observed defect |
+| --- | --- | --- | --- |
+| Keyboard: filters, count and pressed state | Desktop, exact width: ___ | NOT RUN | ___ |
+| Keyboard: dialog paging, boundaries, Escape and opener focus | Desktop, exact width: ___ | NOT RUN | ___ |
+| Keyboard: filters, dialog and focus | Mobile 390px | NOT RUN | ___ |
+| Keyboard: filters, dialog and focus | Mobile 320px | NOT RUN | ___ |
+| Keyboard: 200% zoom and overflow | Browser / effective viewport: ___ | NOT RUN | ___ |
+| Screen reader: headings, filter states, dialog announcements, paging and return focus | NVDA or VoiceOver, version: ___ | NOT RUN | ___ |
+| No-JavaScript and unsupported-dialog fallback | Browser / method: ___ | NOT RUN | ___ |
+| Approved concept-sheet identity and provenance | Exact source filename / checksum: ___ | BLOCKED | Original approved PNG not recorded in APPROVALS.md |
+
+**Release decision:** ___ (BLOCKED until manual checks, exact approved PNG, competing-PR reconciliation and explicit approval are documented). **Reviewer/date:** ___.
