@@ -192,6 +192,7 @@ try {
   await runScenario('phone-interactive', 390, 844, {}, interactive);
   await runScenario('small-phone-interactive', 320, 720, {}, interactive);
   await runScenario('phone-no-javascript', 390, 844, {noJS: true}, staticFallback);
+  await runScenario('small-phone-no-javascript', 320, 720, {noJS: true}, staticFallback);
   await runScenario('phone-unsupported-dialog', 390, 844, {noDialog: true}, async page => {
     assert.equal(await page.locator('.pin-open').first().isVisible(), false, 'unsupported dialog controls hidden');
     assert.equal(await page.locator('.pin-moods').isVisible(), true, 'filters work without native dialog');
