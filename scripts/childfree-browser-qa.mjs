@@ -155,6 +155,29 @@ async function interactive(page) {
   assert.equal(await opener.evaluate(el => document.activeElement === el), true, 'Escape restores opener focus');
   await all.click();
   assert.equal(await page.locator('.pin-card:not([hidden])').count(), 9, 'all filter restores collection');
+  // A new filter must start a fresh detail-paging session, not retain the
+  // index or focus target from the previously opened Chilled collection.
+  const bold = page.locator('.pin-moods button[data-mood="bold"]');
+  await bold.click();
+  assert.equal(await page.locator('.pin-card:not([hidden])').count(), 3, 'Bold displays three cards');
+  const boldOpener = page.locator('.pin-card:not([hidden]) .pin-open').first();
+  await boldOpener.focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('#pin-detail').evaluate(d => d.open), true);
+  assert.match(await page.locator('#pin-detail-position').innerText(), /^1 of 3:/,
+    'new filter starts detail paging at its first visible card');
+  assert.equal(await page.locator('#pin-detail-prev').isDisabled(), true);
+  assert.equal(await page.locator('#pin-detail-next').isDisabled(), false);
+  await page.evaluate(() => {
+    window.__childfreeClosed = new Promise(resolve =>
+      document.querySelector('#pin-detail').addEventListener('close', resolve, {once: true}));
+  });
+  await page.keyboard.press('Escape');
+  await page.evaluate(() => window.__childfreeClosed);
+  assert.equal(await boldOpener.evaluate(el => document.activeElement === el), true,
+    'new filter restores focus to its own opener');
+  await all.click();
+  assert.equal(await page.locator('.pin-card:not([hidden])').count(), 9);
 }
 
 async function staticFallback(page) {
