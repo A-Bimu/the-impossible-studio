@@ -184,7 +184,15 @@ async function staticFallback(page) {
   assert.equal(await page.locator('.pin-moods').isVisible(), false, 'inert filters are not displayed');
   assert.equal(await page.locator('.pin-open').first().isVisible(), false, 'inert dialog buttons are not displayed');
   assert.equal(await page.locator('.pin-card:not([hidden])').count(), 9);
-  assert.equal(await page.locator('.pin-note').first().isVisible(), true, 'descriptions remain readable');
+  // Every product needs readable fallback copy, not just the first card.
+  const notes = page.locator('.pin-card .pin-note');
+  assert.equal(await notes.count(), 9, 'all nine cards include fallback descriptions');
+  for (let i = 0; i < await notes.count(); i++) {
+    assert.equal(await notes.nth(i).isVisible(), true,
+      'fallback description visible for card ' + (i + 1));
+    assert.ok((await notes.nth(i).innerText()).trim().length > 0,
+      'fallback description contains text for card ' + (i + 1));
+  }
 }
 
 try {
