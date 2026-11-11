@@ -61,6 +61,8 @@
 .pin-filterbar{border-top:1px solid var(--line);padding:22px 0;
   display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
 .pin-moods{display:flex;flex-wrap:wrap;gap:8px}
+/* Do not offer inactive mood controls when JavaScript is unavailable. */
+.pin-page:not(.pin-filters-ready) .pin-moods{display:none}
 .pin-moods button{background:transparent;border:1px solid #c49aa1;border-radius:30px;color:#4a3f43;
   padding:12px 17px;font:600 12px 'Manrope',sans-serif;min-height:44px}
 .pin-moods button:hover{border-color:var(--ink)}
@@ -375,7 +377,7 @@
 </article>
 
 </div>
-<p class="pin-noscript">Without JavaScript the filters and the detail panel stay closed. The sheet above still shows all nine designs, and every card below keeps its full description.</p>
+<p class="pin-noscript">Without JavaScript, mood filters and detail buttons are hidden. The approved sheet and all nine cards remain readable with their full descriptions.</p>
 </section>
 
 <section class="pin-section" id="making">
@@ -432,6 +434,7 @@
 <span id="pin-detail-position" role="status" aria-live="polite" aria-atomic="true"></span>
 <button type="button" id="pin-detail-next" aria-label="Next pin concept">Next →</button>
 </div>
+<p class="mini">Keyboard: use the left and right arrow keys to browse visible pins.</p>
 <dl class="pin-spec" id="pin-detail-spec"></dl>
 <p class="pin-note" id="pin-detail-note"></p>
 <p class="mini">Detail cut from the approved concept sheet: the crop follows the pin's own outline, and the sheet's background texture around it has been cleaned away. The pin artwork itself is unchanged.</p>
@@ -464,6 +467,8 @@
   buttons.forEach(function(b){
     b.addEventListener('click', function(){ applyFilter(b.dataset.mood); });
   });
+  // Filtering works independently of the native detail dialog.
+  document.body.classList.add('pin-filters-ready');
 
   var dialog = document.getElementById('pin-detail');
   if(dialog && typeof dialog.showModal === 'function'){
@@ -520,6 +525,20 @@
         displayConcept(visibleCards[activeIndex + 1]);
         if(nextBtn.disabled){ previousBtn.focus(); }
       }
+    });
+
+    // Keyboard paging respects the active mood filter and never wraps past a boundary.
+    // Do not intercept modified arrow shortcuts or ordinary dialog scrolling at an edge.
+    dialog.addEventListener('keydown', function(event){
+      if(!dialog.open || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey){ return; }
+      var step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+      if(!step){ return; }
+      var targetIndex = activeIndex + step;
+      if(targetIndex < 0 || targetIndex >= visibleCards.length){ return; }
+      event.preventDefault();
+      displayConcept(visibleCards[targetIndex]);
+      if(event.target === nextBtn && nextBtn.disabled){ previousBtn.focus(); }
+      if(event.target === previousBtn && previousBtn.disabled){ nextBtn.focus(); }
     });
 
     closeBtn.addEventListener('click', function(){ dialog.close(); });

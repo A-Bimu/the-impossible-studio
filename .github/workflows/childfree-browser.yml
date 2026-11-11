@@ -1,0 +1,34 @@
+# Real Chromium checks for the approved Childfree collection.
+# No publication, merge, homepage edits or artwork transformations.
+name: Childfree browser accessibility and mobile checks
+
+on:
+  pull_request:
+    paths:
+      - 'work/childfree/**'
+      - 'tests/childfree-browser.test.mjs'
+      - '.github/workflows/childfree-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser test dependency
+        run: |
+          npm init --yes --silent > /dev/null
+          npm install --no-save --package-lock=false playwright@1.56.1
+      - name: Install Chromium and required system libraries
+        run: npx playwright install --with-deps chromium
+      - name: Check real-browser filters, keyboard focus and mobile layout
+        run: node --test tests/childfree-browser.test.mjs
