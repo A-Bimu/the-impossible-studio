@@ -203,6 +203,23 @@ try {
   await runScenario('desktop-no-javascript', 1440, 900, {noJS: true}, staticFallback);
   await runScenario('phone-no-javascript', 390, 844, {noJS: true}, staticFallback);
   await runScenario('small-phone-no-javascript', 320, 720, {noJS: true}, staticFallback);
+  // At the narrowest supported viewport, filters must remain usable even
+  // when native modal dialogs are unavailable; hidden buttons must not trap focus.
+  await runScenario('small-phone-unsupported-dialog', 320, 720, {noDialog: true}, async page => {
+    assert.equal(await page.locator('.pin-open').first().isVisible(), false,
+      'unsupported detail buttons remain hidden');
+    assert.equal(await page.locator('.pin-moods').isVisible(), true,
+      'mood filters remain usable without native dialogs');
+    const bold = page.locator('.pin-moods button[data-mood="bold"]');
+    const all = page.locator('.pin-moods button[data-mood="all"]');
+    await bold.click();
+    assert.equal(await bold.getAttribute('aria-pressed'), 'true');
+    assert.equal(await page.locator('.pin-card:not([hidden])').count(), 3);
+    await all.click();
+    assert.equal(await all.getAttribute('aria-pressed'), 'true');
+    assert.equal(await page.locator('.pin-card:not([hidden])').count(), 9,
+      'all nine cards return after clearing the filter');
+  });
   await runScenario('phone-unsupported-dialog', 390, 844, {noDialog: true}, async page => {
     assert.equal(await page.locator('.pin-open').first().isVisible(), false, 'unsupported dialog controls hidden');
     assert.equal(await page.locator('.pin-moods').isVisible(), true, 'filters work without native dialog');
