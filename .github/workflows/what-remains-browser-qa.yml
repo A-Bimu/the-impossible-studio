@@ -1,0 +1,41 @@
+name: What Remains draft browser QA
+on:
+  pull_request:
+    paths:
+      - 'drafts/2026-11-02-what-remains/**'
+      - 'scripts/what-remains-browser-qa.mjs'
+      - '.github/workflows/what-remains-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chromium-draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start local static server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/what-remains-http.log 2>&1 &
+          sleep 2
+      - name: Test erasure, keyboard, no-JS and A4 print
+        run: node scripts/what-remains-browser-qa.mjs
+      - name: Archive screenshots, A4 proof and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: what-remains-browser-proof
+          path: artifacts/what-remains-qa/
+          retention-days: 7
+          if-no-files-found: warn
