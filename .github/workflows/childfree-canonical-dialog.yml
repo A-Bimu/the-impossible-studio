@@ -5,6 +5,7 @@ on:
       - 'work/childfree/**'
       - 'tests/childfree-canonical-dialog.test.mjs'
       - 'tests/childfree-artwork-integrity.test.mjs'
+      - 'scripts/childfree-browser-qa.mjs'
       - '.github/workflows/childfree-canonical-dialog.yml'
   push:
     branches:
@@ -21,3 +22,31 @@ jobs:
           node-version: '22'
       - name: Verify filtered dialog paging and focus
         run: node --test tests/childfree-canonical-dialog.test.mjs tests/childfree-artwork-integrity.test.mjs
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Chromium testing dependency
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Serve checked-out Studio
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/childfree-qa-http.log 2>&1 &
+          sleep 2
+      - name: Check no-JavaScript, keyboard and responsive catalogue journeys
+        run: node scripts/childfree-browser-qa.mjs
+      - name: Archive browser QA screenshots on failure or success
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: childfree-chromium-qa
+          path: artifacts/childfree-browser-qa/
+          retention-days: 7
+          if-no-files-found: warn

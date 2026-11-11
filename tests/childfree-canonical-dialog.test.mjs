@@ -116,3 +116,49 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
   assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
   assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
 });
+
+
+test('mood controls are hidden until interactive, even when native dialogs are unsupported', () => {
+  assert.match(html, /<body class="pin-page">/, 'no-JavaScript document has no ready classes');
+  assert.match(html, /\.pin-page:not\(\.pin-filters-ready\) \.pin-filterbar\{display:none\}/,
+    'filter buttons cannot appear as inert controls without JavaScript');
+  assert.match(html, /\.pin-page\.pin-filters-ready \.pin-noscript\{display:none\}/,
+    'the no-JavaScript fallback message disappears once filtering works');
+  assert.match(html, /JavaScript is needed to filter the collection or open the detail panel/,
+    'fallback clearly describes the unavailable interactions');
+
+  const supported = setup();
+  assert.equal(supported.document.body.classList.contains('pin-filters-ready'), true);
+  const noDialog = setup({supportsDialog: false});
+  assert.equal(noDialog.document.body.classList.contains('pin-filters-ready'), true,
+    'filtering must not depend on native dialog support');
+  assert.equal(noDialog.document.body.classList.contains('pin-enhanced'), false,
+    'unsupported detail controls remain hidden');
+  noDialog.buttons[3].fire('click');
+  assert.equal(noDialog.cards.filter(card => !card.hidden).length, 3);
+  assert.equal(noDialog.ids['pin-count'].textContent, 'Showing 3 of 9 pins');
+});
+
+test('keyboard skip link becomes visible and lands on a focusable collection target', () => {
+  assert.match(html, /<a class="sr-only" href="#collection">Skip to the pin collection<\/a>/);
+  assert.match(html, /<section class="pin-section" id="collection" tabindex="-1">/,
+    'the skip target must accept programmatic focus');
+  assert.match(html, /\.pin-page \.sr-only:focus-visible\{[^}]*position:fixed!important;[^}]*z-index:1000;[^}]*clip-path:none/s,
+    'keyboard focus must reveal the previously clipped link above the page');
+  assert.match(html, /\.pin-page \.pin-moods button:focus-visible,[\s\S]*?\.pin-page \.pin-close:focus-visible\{outline:3px solid var\(--accent\)/,
+    'collection controls must retain a visible keyboard focus indicator');
+});
+
+
+test('each pin notes button has a unique contextual accessible name', () => {
+  const cards = [...html.matchAll(/<article class="pin-card"[\s\S]*?<\/article>/g)].map(match => match[0]);
+  assert.equal(cards.length, 9, 'all nine approved pin cards remain present');
+  const names = cards.map(card => {
+    const title = card.match(/<h3>([^<]+)<\/h3>/)?.[1];
+    const label = card.match(/<button class="pin-open"[^>]*aria-label="([^"]+)"/)?.[1];
+    assert.ok(title, 'each card has a title');
+    assert.equal(label, 'Open design notes for ' + title, 'button identifies its own pin');
+    return label;
+  });
+  assert.equal(new Set(names).size, 9, 'screen readers can distinguish every notes button');
+});
