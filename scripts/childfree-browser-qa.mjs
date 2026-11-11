@@ -199,6 +199,8 @@ try {
   await runScenario('desktop-interactive', 1440, 900, {}, interactive);
   await runScenario('phone-interactive', 390, 844, {}, interactive);
   await runScenario('small-phone-interactive', 320, 720, {}, interactive);
+  // Desktop visitors also need a fully readable catalogue when scripting is disabled.
+  await runScenario('desktop-no-javascript', 1440, 900, {noJS: true}, staticFallback);
   await runScenario('phone-no-javascript', 390, 844, {noJS: true}, staticFallback);
   await runScenario('small-phone-no-javascript', 320, 720, {noJS: true}, staticFallback);
   await runScenario('phone-unsupported-dialog', 390, 844, {noDialog: true}, async page => {
