@@ -53,3 +53,24 @@ for (const page of pages) {
     }
   });
 }
+
+
+// Issue #6: art-first case studies previously linked to homepage #archive and
+// #about, but the current homepage uses #work and #studio. Keep these links
+// aligned without changing any approved artwork or homepage content.
+for (const page of [
+  'work/deep-ink/index.html',
+  'work/lemon-sun/index.html',
+  'work/vinyl-lounge/index.html',
+]) {
+  test(`${page}: navigation targets existing homepage sections`, async () => {
+    const html = await read(page);
+    const homeLinks = [...html.matchAll(/<a\b[^>]*\bhref=(["'])\.\.\/\.\.\/#([^"']+)\1/gi)];
+    assert.ok(homeLinks.length >= 3, `${page}: expected homepage navigation links`);
+    for (const link of homeLinks) {
+      assert.ok(targetIds.has(link[2]), `${page}: homepage #${link[2]} does not exist`);
+    }
+    assert.match(html, /href="\.\.\/\.\.\/#work">Experiments<\/a>/);
+    assert.match(html, /href="\.\.\/\.\.\/#studio">About<\/a>/);
+  });
+}
