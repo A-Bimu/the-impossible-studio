@@ -62,6 +62,14 @@ function setup({supportsDialog = true} = {}) {
   return {cards, buttons, ids, dialog, document};
 }
 
+test('mood filters expose a named group and identify the controlled collection', () => {
+  assert.match(html, /class="pin-moods" role="group" aria-label="Filter pins by mood"/,
+    'assistive technology can identify the purpose of the filter group');
+  assert.match(html, /class="pin-grid" id="pin-grid"/, 'filter target exists');
+  const controls = [...html.matchAll(/<button type="button" data-mood="(?:all|whimsical|chilled|bold)" aria-pressed="(?:true|false)" aria-controls="pin-grid">/g)];
+  assert.equal(controls.length, 4, 'each mood button identifies the collection it filters');
+});
+
 test('detail controls are accessible and announce current concept', () => {
   assert.match(html, /id="pin-detail-prev" aria-label="Previous pin concept"/);
   assert.match(html, /id="pin-detail-next" aria-label="Next pin concept"/);
