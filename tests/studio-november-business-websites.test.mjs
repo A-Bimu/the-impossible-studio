@@ -14,7 +14,8 @@ function inlineJs(html){return [...html.matchAll(/<script(?![^>]*src=)(?![^>]*ap
 test('three responsive projects have distinct working source routes, scripts and honest demonstrations',async()=>{
  for(const p of projects){const marketing=await read('projects/'+p.slug+'/index.html');const code=p.slug==='stockwise'?await read('projects/stockwise/workspace.html'):marketing;
   assert.ok(code.includes('name="viewport"'),p.name+' responsive viewport');
-  assert.ok((p.slug==='stockwise'?await read('assets/stockwise-retail-workspace.css'):code).includes('@media(max-width:'),p.name+' mobile rules');
+  const responsiveSource=p.slug==='stockwise'?await read('assets/stockwise-retail-workspace.css'):p.slug==='vela-health'?await read('assets/vela-health-v5.css'):code;
+  assert.ok(responsiveSource.includes('@media(max-width:'),p.name+' mobile rules');
   for(const route of p.routes)assert.ok(code.includes('data-'+(p.slug==='stockwise'?'view':'page')+'="'+route+'"'),p.name+' route '+route);
   for(const interaction of p.functional)assert.ok(code.includes(interaction),p.name+' interaction '+interaction);if(p.slug==='stockwise'){const engine=await read('assets/stockwise-retail-workspace.js');assert.doesNotThrow(()=>new Script(engine),'stockwise real-life engine script parses');for(const keyword of ['Walk-in sale','Invoice goods handed over','Customer return / refunded sale','Supplier delivery received','stockwise-studio-v2','i.paid=true','fulfilled:true'])assert.ok(engine.includes(keyword),'stockwise supports '+keyword);assert.ok(marketing.includes('sw-practical')&&marketing.includes('workspace.html#sales'),'homepage explains a real store workflow')}
   for(const js of inlineJs(code))assert.doesNotThrow(()=>new Script(js),p.name+' valid inline JS');
@@ -62,14 +63,21 @@ test('art direction refresh uses three non-repeating identities, actual imagery 
  ]);
  const signatures=[
   ['STOCKWISE',stock,['#ffe500','Archivo Black','sw-hero-visual','sw-marquee','brand-cover','photo-1441986300917-64674bd600d8']],
-  ['VELA HEALTH',vela,['#a20d45','Instrument Serif','vela-editorial','doctor-cards','Illustrative licensed stock photograph','photo-1559839734-2b71ea197ec2']],
+  ['VELA HEALTH',vela,['vela-health-v5.css','v5-hero','v5-care-choice','doctor-cards','Illustrative licensed stock photograph','photo-1576091160399-112ba8d25d1d']],
   ['MOVA',mova,['#1355e8','Barlow Condensed','mova-editorial','quick-track-form','mova-pulse','photo-1586528116311-ad8dd3c8310d']]
  ];
  for(const [brand,html,required] of signatures){
   for(const value of required)assert.ok(html.includes(value),brand+' missing '+value);
   assert.match(html,/<img [^>]*alt="[^"]+"/,brand+' photo should have alt text');
-  assert.ok(html.includes('prefers-reduced-motion'),brand+' respects reduced motion');
-  assert.ok(html.indexOf('/* '+(brand==='STOCKWISE'?'STOCKWISE':brand==='VELA HEALTH'?'VELA HEALTH':'MOVA')+' 02')>0,brand+' has a dedicated refreshed design system');
+  const motionStyles=brand==='VELA HEALTH'?await read('assets/vela-health-v5.css'):html;
+  assert.ok(motionStyles.includes('prefers-reduced-motion'),brand+' respects reduced motion');
+  if(brand==='VELA HEALTH') {
+   const velaCss=await read('assets/vela-health-v5.css');
+   assert.ok(velaCss.includes('VELA 05')&&velaCss.includes('--vela-violet')&&velaCss.includes('prefers-reduced-motion'),'VELA has a standalone no-subtitles design system');
+   assert.ok(!html.includes('vela-reel-top')&&!html.includes('vela-kicker'),'VELA removes legacy decorative subtitles');
+  } else {
+   assert.ok(html.indexOf('/* '+(brand==='STOCKWISE'?'STOCKWISE':'MOVA')+' 02')>0,brand+' has a dedicated refreshed design system');
+  }
   for(const js of inlineJs(html))assert.doesNotThrow(()=>new Script(js),brand+' scripts compile');
  }
  for(const slug of ['stockwise','vela-health','mova']){

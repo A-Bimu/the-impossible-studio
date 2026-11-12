@@ -14,7 +14,7 @@
   window.addEventListener('hashchange',close);
   window.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.dataset.open==='true'){close();menu.focus()}});
   document.addEventListener('click',e=>{if(nav.dataset.open==='true'&&!e.target.closest('.site-head'))close()});
-  window.addEventListener('resize',()=>{if(innerWidth>700)close()});
+  window.addEventListener('resize',()=>{if(innerWidth>720)close()});
  }
  // The care-picker's chosen service is already propagated to the existing
  // booking select; this badge simply makes that connection visible.

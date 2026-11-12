@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&display=swap');
+/* VELA Studio case / subtitle-free design presentation. Only .vela-case-v5 */
+body.vela-case-v5{--ink:#23223d;--violet:#5548e6;--yellow:#ffd874;--lilac:#e8e5ff;--coral:#ff947b;margin:0;background:#faf9ff;color:var(--ink);font:400 16px/1.6 'Outfit',sans-serif;overflow-x:clip}
+body.vela-case-v5 *{box-sizing:border-box}
+body.vela-case-v5 a{color:inherit;text-decoration:none}
+body.vela-case-v5 :where(a,button):focus-visible{outline:3px solid #5548e6;outline-offset:4px}
+body.vela-case-v5 h1,body.vela-case-v5 h2,body.vela-case-v5 h3,body.vela-case-v5 p{margin:0}
+body.vela-case-v5 h1,body.vela-case-v5 h2,body.vela-case-v5 h3{font-family:'Outfit',sans-serif;letter-spacing:-.065em}
+body.vela-case-v5 h2 em{font-family:'Fraunces',Georgia,serif;letter-spacing:-.06em;font-weight:500;color:#5b4ce6}
+body.vela-case-v5 .v5c-head{width:100%;max-width:none;display:flex;align-items:center;justify-content:space-between;padding:24px max(4.5vw,calc((100vw - 1340px)/2));gap:20px;border-bottom:1px solid #d7d2ed;background:#faf9ff;position:sticky;top:0;z-index:20}
+body.vela-case-v5 .v5c-studio-brand{font-size:16px;font-weight:800;letter-spacing:-.065em;line-height:1.2;white-space:nowrap}
+body.vela-case-v5 .v5c-studio-brand span{color:#5548e6}
+body.vela-case-v5 .v5c-head nav{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+body.vela-case-v5 .v5c-head nav a{font-size:13px;font-weight:600}
+body.vela-case-v5 .v5c-head a:hover{text-decoration:underline;text-underline-offset:5px}
+body.vela-case-v5 .v5c-main{width:100%;max-width:none;margin:0;padding:0}
+body.vela-case-v5 .v5c-hero{background:#ece9ff;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);min-height:735px;overflow:hidden}
+body.vela-case-v5 .v5c-hero-copy{display:flex;flex-direction:column;align-items:start;justify-content:center;padding:90px 15px 100px max(4.5vw,calc((100vw - 1340px)/2));position:relative;z-index:2}
+body.vela-case-v5 .v5c-hero h1{font-size:clamp(90px,11.5vw,182px);font-weight:800;letter-spacing:-.09em;line-height:.81;color:#23223d;position:relative;margin-bottom:42px}
+body.vela-case-v5 .v5c-hero h1 span{color:#5c4ce5}
+body.vela-case-v5 .v5c-hero-copy>p{max-width:540px;font-size:19px;line-height:1.75;color:#57516f;margin:0 0 32px}
+body.vela-case-v5 .v5c-actions{display:flex;flex-wrap:wrap;align-items:center;gap:25px}
+body.vela-case-v5 .v5c-primary{display:inline-flex;gap:20px;align-items:center;background:#5548e6;color:#fff!important;padding:18px 23px;border-radius:12px;box-shadow:6px 6px 0 #c6c0fa;font-size:14px;font-weight:700}
+body.vela-case-v5 .v5c-primary:hover{background:#4032b7}
+body.vela-case-v5 .v5c-secondary{font-weight:700;font-size:13px;border-bottom:2px solid #5548e6;padding-bottom:5px}
+body.vela-case-v5 .v5c-secondary span{margin-left:6px}
+body.vela-case-v5 .v5c-hero-visual{position:relative;overflow:hidden;min-height:700px;isolation:isolate}
+body.vela-case-v5 .v5c-hero-disc{position:absolute;inset:9% -10% 6% 5%;background:var(--yellow);border-radius:50% 0 0 50%;transform:rotate(-10deg)}
+body.vela-case-v5 .v5c-hero-visual>img{position:absolute;inset:11% 0 0 6%;width:94%;height:89%;object-fit:cover;object-position:center 40%;border-radius:48% 0 0 0}
+body.vela-case-v5 .v5c-hero-seal{position:absolute;z-index:1;right:11%;top:7%;height:120px;width:120px;display:grid;place-items:center;background:#ff947b;color:#24213e;border-radius:50%;font:600 82px/1 'Fraunces',serif;box-shadow:0 14px 30px #23223d2c}
+body.vela-case-v5 .v5c-story,body.vela-case-v5 .v5c-identity,body.vela-case-v5 .v5c-flow,body.vela-case-v5 .v5c-demo-lead,body.vela-case-v5 .v5c-outro{padding-left:max(4.5vw,calc((100vw - 1340px)/2));padding-right:max(4.5vw,calc((100vw - 1340px)/2))}
+body.vela-case-v5 .v5c-story{display:grid;grid-template-columns:1fr 1fr;gap:10%;padding-top:130px;padding-bottom:130px}
+body.vela-case-v5 .v5c-story h2{font:700 clamp(49px,5.7vw,84px)/1.03 'Outfit',sans-serif;letter-spacing:-.07em;margin-bottom:33px}
+body.vela-case-v5 .v5c-story p{color:#615d72;max-width:450px;line-height:1.87;font-size:17px}
+body.vela-case-v5 .v5c-identity{padding-top:115px;padding-bottom:115px;background:#23223d;color:#fff;display:grid;grid-template-columns:minmax(0,.97fr) minmax(0,1.03fr);gap:10%;align-items:center}
+body.vela-case-v5 .v5c-identity-photo{min-height:560px;overflow:hidden;border-radius:280px 280px 20px 20px;background:#d9cce6;box-shadow:-20px 16px 0 #565080}
+body.vela-case-v5 .v5c-identity-photo img{width:100%;height:100%;object-fit:cover;object-position:center 29%;display:block}
+body.vela-case-v5 .v5c-identity-copy h2{font:700 clamp(62px,6.7vw,103px)/1.02 'Outfit',sans-serif;letter-spacing:-.065em;margin:0 0 25px}
+body.vela-case-v5 .v5c-identity-copy h2 em{color:#ffd874}
+body.vela-case-v5 .v5c-identity-copy p{font-size:17px;line-height:1.85;color:#e2dfef;max-width:490px}
+body.vela-case-v5 .v5c-swatches{display:flex;gap:11px;margin-top:40px}
+body.vela-case-v5 .v5c-swatches span{display:block;width:45px;height:45px;border-radius:50%;border:2px solid #ffffff59}
+body.vela-case-v5 .v5c-flow{padding-top:125px;padding-bottom:125px;background:#fff}
+body.vela-case-v5 .v5c-flow-title{display:flex;align-items:end;justify-content:space-between;gap:70px;margin-bottom:67px}
+body.vela-case-v5 .v5c-flow-title h2{font:700 clamp(57px,7vw,108px)/1.02 'Outfit',sans-serif;letter-spacing:-.07em}
+body.vela-case-v5 .v5c-flow-title p{max-width:350px;font-size:17px;line-height:1.8;color:#67637a}
+body.vela-case-v5 .v5c-flow-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid #23223d}
+body.vela-case-v5 .v5c-flow-grid article{padding:29px 17px 20px 0;border-right:1px solid #dfdbea}
+body.vela-case-v5 .v5c-flow-grid article:not(:first-child){padding-left:19px}
+body.vela-case-v5 .v5c-flow-grid article:last-child{border:0}
+body.vela-case-v5 .v5c-flow-grid h3{font:700 clamp(27px,2.55vw,37px)/1.1 'Outfit',sans-serif;letter-spacing:-.054em;margin:0 0 19px;color:#5145d3}
+body.vela-case-v5 .v5c-flow-grid p{font-size:14px;line-height:1.78;color:#676179}
+body.vela-case-v5 .v5c-demo-lead{padding-top:100px;padding-bottom:50px;background:#eae7ff;display:flex;justify-content:space-between;align-items:end;gap:65px}
+body.vela-case-v5 .v5c-demo-lead h2{font:700 clamp(65px,8.5vw,135px)/1.02 'Outfit',sans-serif;letter-spacing:-.08em}
+body.vela-case-v5 .v5c-demo-lead p{font-size:17px;line-height:1.8;max-width:400px;color:#615b79}
+body.vela-case-v5 .sd-showcase{max-width:none;margin:0!important;padding:max(4vw,30px) max(4.5vw,calc((100vw - 1340px)/2)) 110px!important;background:#23223d!important}
+body.vela-case-v5 .v5c-outro{padding-top:120px;padding-bottom:135px;background:#faf9ff;display:flex;flex-direction:column;align-items:flex-start}
+body.vela-case-v5 .v5c-outro h2{font:700 clamp(61px,7.7vw,120px)/1.01 'Outfit',sans-serif;letter-spacing:-.074em;margin-bottom:40px}
+body.vela-case-v5 .v5c-outro p{color:#5c576e;line-height:1.84;max-width:710px;font-size:15px;margin:0 0 19px}
+body.vela-case-v5 .v5c-outro p a{text-decoration:underline;text-underline-offset:4px}
+body.vela-case-v5 .v5c-outro>.v5c-primary{margin-top:29px}
+body.vela-case-v5 .v5c-footer{background:#23223d;color:#fff;padding:35px max(4.5vw,calc((100vw - 1340px)/2));display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px}
+body.vela-case-v5 .v5c-footer a:hover{text-decoration:underline}
+@media(max-width:1150px){body.vela-case-v5 .v5c-hero{min-height:640px}body.vela-case-v5 .v5c-hero h1{font-size:clamp(78px,11vw,140px)}body.vela-case-v5 .v5c-hero-visual{min-height:620px}body.vela-case-v5 .v5c-hero-copy>p{font-size:16px}body.vela-case-v5 .v5c-identity-photo{min-height:450px}body.vela-case-v5 .v5c-flow-grid h3{font-size:26px}}
+@media(max-width:780px){body.vela-case-v5 .v5c-head{flex-wrap:wrap;padding:19px 5vw}body.vela-case-v5 .v5c-head nav{gap:15px}body.vela-case-v5 .v5c-hero{display:block;min-height:0}body.vela-case-v5 .v5c-hero-copy{padding:90px 6vw 70px}body.vela-case-v5 .v5c-hero h1{font-size:clamp(85px,15vw,135px)}body.vela-case-v5 .v5c-hero-visual{height:530px;min-height:530px;margin-left:5vw}body.vela-case-v5 .v5c-story{display:block;padding:90px 6vw}body.vela-case-v5 .v5c-story article+article{margin-top:80px}body.vela-case-v5 .v5c-story h2{font-size:clamp(55px,9vw,75px)}body.vela-case-v5 .v5c-identity{display:block;padding:90px 6vw}body.vela-case-v5 .v5c-identity-photo{min-height:0;height:510px;max-width:600px}body.vela-case-v5 .v5c-identity-copy{margin-top:80px}body.vela-case-v5 .v5c-flow{padding:90px 6vw}body.vela-case-v5 .v5c-flow-title{display:block}body.vela-case-v5 .v5c-flow-title p{margin-top:24px}body.vela-case-v5 .v5c-flow-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body.vela-case-v5 .v5c-flow-grid article:nth-child(2){border:0}body.vela-case-v5 .v5c-flow-grid article:nth-child(n+3){border-top:1px solid #dfdbea}body.vela-case-v5 .v5c-flow-grid article:nth-child(3){padding-left:0}body.vela-case-v5 .v5c-demo-lead{display:block;padding:75px 6vw 35px}body.vela-case-v5 .v5c-demo-lead p{margin-top:27px}body.vela-case-v5 .v5c-outro{padding:95px 6vw}body.vela-case-v5 .sd-showcase{padding:35px 5vw 85px!important}}
+@media(max-width:480px){body.vela-case-v5 .v5c-head{gap:14px}body.vela-case-v5 .v5c-studio-brand{font-size:14px}body.vela-case-v5 .v5c-head nav{gap:13px}body.vela-case-v5 .v5c-head nav a{font-size:11px}body.vela-case-v5 .v5c-hero-copy{padding:70px 5vw 50px}body.vela-case-v5 .v5c-hero h1{font-size:clamp(70px,16.2vw,100px);margin-bottom:26px}body.vela-case-v5 .v5c-hero-copy>p{font-size:15px}body.vela-case-v5 .v5c-actions{gap:22px}body.vela-case-v5 .v5c-primary{padding:15px 18px;font-size:12px}body.vela-case-v5 .v5c-secondary{font-size:12px}body.vela-case-v5 .v5c-hero-visual{height:380px;min-height:380px}body.vela-case-v5 .v5c-hero-seal{height:70px;width:70px;font-size:51px}body.vela-case-v5 .v5c-story{padding:70px 5vw}body.vela-case-v5 .v5c-story h2{font-size:52px}body.vela-case-v5 .v5c-story p{font-size:15px}body.vela-case-v5 .v5c-identity{padding:70px 5vw}body.vela-case-v5 .v5c-identity-photo{height:350px}body.vela-case-v5 .v5c-identity-copy h2{font-size:60px}body.vela-case-v5 .v5c-identity-copy p{font-size:15px}body.vela-case-v5 .v5c-flow{padding:75px 5vw}body.vela-case-v5 .v5c-flow-title h2{font-size:58px}body.vela-case-v5 .v5c-flow-grid{grid-template-columns:1fr}body.vela-case-v5 .v5c-flow-grid article,body.vela-case-v5 .v5c-flow-grid article:not(:first-child){padding:21px 0;border-right:0;border-top:1px solid #dfdbea}body.vela-case-v5 .v5c-flow-grid article:first-child{border-top:0}body.vela-case-v5 .v5c-flow-grid h3{font-size:33px}body.vela-case-v5 .v5c-demo-lead{padding:70px 5vw 30px}body.vela-case-v5 .v5c-demo-lead h2{font-size:66px}body.vela-case-v5 .v5c-outro{padding:80px 5vw}body.vela-case-v5 .v5c-outro h2{font-size:60px}body.vela-case-v5 .v5c-footer{padding:25px 5vw}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
