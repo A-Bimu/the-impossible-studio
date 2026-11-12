@@ -19,6 +19,8 @@ on:
       - 'assets/studio-unified-showcase.js'
       - 'assets/studio-unified-showcase.css'
       - 'assets/vela-health-revamp.css'
+      - 'assets/vela-health-v5.css'
+      - 'assets/vela-case-v5.css'
       - 'assets/vela-case-revamp.css'
       - 'assets/vela-health-revamp.js'
       - 'scripts/vela-health-revamp-qa.mjs'
@@ -53,7 +55,7 @@ jobs:
         run: node scripts/stockwise-layout-qa.mjs
       - name: Verify unified live journeys, device switching and expanded demo across all three case studies
         run: node scripts/studio-unified-qa.mjs
-      - name: Verify redesigned VELA healthcare journey on four viewport widths
+      - name: Verify VELA V5 subtitle-free design, bookings and case study on laptop and phone
         run: node scripts/vela-health-revamp-qa.mjs
       - name: Archive page screenshots and issue report
         if: always()
