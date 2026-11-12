@@ -69,7 +69,8 @@ test('art direction refresh uses three non-repeating identities, actual imagery 
  for(const [brand,html,required] of signatures){
   for(const value of required)assert.ok(html.includes(value),brand+' missing '+value);
   assert.match(html,/<img [^>]*alt="[^"]+"/,brand+' photo should have alt text');
-  assert.ok(html.includes('prefers-reduced-motion'),brand+' respects reduced motion');
+  const motionStyles=brand==='VELA HEALTH'?await read('assets/vela-health-v5.css'):html;
+  assert.ok(motionStyles.includes('prefers-reduced-motion'),brand+' respects reduced motion');
   if(brand==='VELA HEALTH') {
    const velaCss=await read('assets/vela-health-v5.css');
    assert.ok(velaCss.includes('VELA 05')&&velaCss.includes('--vela-violet')&&velaCss.includes('prefers-reduced-motion'),'VELA has a standalone no-subtitles design system');
