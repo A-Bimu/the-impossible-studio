@@ -11,7 +11,7 @@ const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const sizes=[{name:'desktop',width:1440,height:900},{name:'tablet',width:820,height:1080},{name:'phone',width:390,height:844}];
 const routes=[
  {slug:'stockwise',url:'/projects/stockwise/',ready:'.sw-campaign',images:['.sw-hero-photo img','.sw-product-photo img']},
- {slug:'vela-health',url:'/projects/vela-health/',ready:'.vela-cover',images:['.vela-photo-large img','.vela-portrait-image img']},
+ {slug:'vela-health',url:'/projects/vela-health/',ready:'.v5-hero',images:['.v5-hero-photo img','.v5-people-photo img']},
  {slug:'mova',url:'/projects/mova/',ready:'.mova-cinematic-hero',images:['.mova-cinematic-photo img','.mova-journal-photo img']}
 ];
 async function inspect(page,tag){
