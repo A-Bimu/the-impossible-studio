@@ -163,3 +163,19 @@ test('backdrop dismissal restores focus without treating dialog content clicks a
   assert.equal(dialog.open, false, 'backdrop click closes the dialog');
   assert.equal(cards[5].open.focusCount, 1, 'backdrop dismissal restores focus');
 });
+
+test('switching from Whimsical to Bold to All synchronizes every card and live count', () => {
+  const {cards, buttons, ids} = setup();
+  for (const [index, mood, count] of [[1, 'whimsical', 3], [3, 'bold', 3], [0, 'all', 9]]) {
+    buttons[index].fire('click');
+    assert.equal(ids['pin-count'].textContent, 'Showing ' + count + ' of 9 pins');
+    buttons.forEach((button, buttonIndex) => {
+      assert.equal(button['aria-pressed'], String(buttonIndex === index), 'exactly one filter is pressed');
+    });
+    cards.forEach(card => {
+      assert.equal(card.hidden, mood !== 'all' && card.dataset.mood !== mood,
+        'each card matches the active mood');
+    });
+  }
+  assert.match(html, /id="pin-count" aria-live="polite"/, 'count changes are announced');
+});
