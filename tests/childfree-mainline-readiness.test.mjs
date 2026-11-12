@@ -24,3 +24,12 @@ test('nine approved pin concepts remain in the catalogue', () => {
   assert.match(html, /mood === 'all' \|\| card\.dataset\.mood === mood/);
   assert.match(html, /card\.hidden = !match/);
 });
+
+test('filter and dialog accessibility contracts survive progressive enhancement', () => {
+  assert.match(html, /setAttribute\('aria-pressed', String\(b\.dataset\.mood === mood\)\)/,
+    'filter selection is exposed through aria-pressed');
+  assert.match(html, /typeof dialog\.showModal === 'function'/,
+    'native dialog capability is checked before enhancement');
+  assert.match(html, /dialog\.addEventListener\('close', function\(\)\{\s*if\(opener\)\{ opener\.focus\(\); \}/,
+    'closing the dialog returns focus to the originating control');
+});
