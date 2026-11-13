@@ -117,3 +117,22 @@ test('STOCKWISE targeted typography and mobile usability polish is wired across 
  for(const item of showcaseConfig.journeys)assert.ok(item.route!=='#home','avoid homepage repetition');
  assert.ok(qa.includes('width:320')&&qa.includes('width:390')&&qa.includes('width:1440'),'tests narrow mobile, phone and desktop');
 });
+
+test('all three demos have replayable flows, clear status updates and keyboard-safe completion',async()=>{
+ const sw=await read('projects/stockwise/workspace.html');
+ const engine=await read('assets/stockwise-retail-workspace.js');
+ assert.match(sw,/id="ws-reset"/,'STOCKWISE exposes sample-store reset');
+ assert.match(engine,/Sample shop restored/,'STOCKWISE resets its working inventory and sales demo');
+ const vela=await read('projects/vela-health/index.html');
+ assert.match(vela,/id="visits-heading" tabindex="-1"/,'VELA has a reachable post-booking heading');
+ assert.match(vela,/id="visit-feedback"[^>]*role="status"/,'VELA announces booking and cancellation');
+ assert.match(vela,/id="vela-reset-bookings"/,'VELA can reset fictional appointments');
+ assert.match(vela,/focusAfterRoute=true/,'VELA brings keyboard focus to the visit result');
+ assert.match(vela,/Sample visit cancelled\. The time is available again/,'VELA confirms freed time');
+ const mova=await read('projects/mova/index.html');
+ assert.match(mova,/id="tracking-result"[^>]*tabindex="-1"/,'MOVA tracking results are focusable');
+ assert.match(mova,/id="mova-reset"/,'MOVA can restore sample shipments');
+ assert.match(mova,/focusAfterTrack=true/,'MOVA moves keyboard focus to the new shipment');
+ assert.match(mova,/items=JSON\.parse\(JSON\.stringify\(seed\)\)/,'MOVA reset restores seed data');
+ for(const html of [vela,mova])for(const source of inlineJs(html))assert.doesNotThrow(()=>new Script(source),'interactive script parses');
+});
