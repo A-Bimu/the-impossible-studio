@@ -62,6 +62,14 @@ function setup({supportsDialog = true} = {}) {
   return {cards, buttons, ids, dialog, document};
 }
 
+test('mood filters expose a named group and identify the controlled collection', () => {
+  assert.match(html, /class="pin-moods" role="group" aria-label="Filter pins by mood"/,
+    'assistive technology can identify the purpose of the filter group');
+  assert.match(html, /class="pin-grid" id="pin-grid"/, 'filter target exists');
+  const controls = [...html.matchAll(/<button type="button" data-mood="(?:all|whimsical|chilled|bold)" aria-pressed="(?:true|false)" aria-controls="pin-grid">/g)];
+  assert.equal(controls.length, 4, 'each mood button identifies the collection it filters');
+});
+
 test('detail controls are accessible and announce current concept', () => {
   assert.match(html, /id="pin-detail-prev" aria-label="Previous pin concept"/);
   assert.match(html, /id="pin-detail-next" aria-label="Next pin concept"/);
@@ -88,6 +96,8 @@ test('paging respects all nine boundaries and restores opener focus', () => {
 test('filtering limits detail paging to the selected three pins', () => {
   const {cards, buttons, ids} = setup();
   buttons[2].fire('click');
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['false', 'false', 'true', 'false'],
+    'selected mood is announced through aria-pressed');
   assert.equal(cards.filter(card => !card.hidden).length, 3);
   assert.equal(ids['pin-count'].textContent, 'Showing 3 of 9 pins');
   cards[4].open.fire('click');
@@ -105,6 +115,18 @@ test('filtering limits detail paging to the selected three pins', () => {
 });
 
 
+test('resetting mood filter restores all cards and accessible pressed states', () => {
+  const {cards, buttons, ids} = setup();
+  buttons[3].fire('click');
+  assert.equal(cards.filter(card => !card.hidden).length, 3);
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['false', 'false', 'false', 'true']);
+  buttons[0].fire('click');
+  assert.equal(cards.filter(card => !card.hidden).length, 9, 'all nine pins are available after reset');
+  assert.equal(ids['pin-count'].textContent, 'Showing 9 of 9 pins');
+  assert.deepEqual(buttons.map(button => button['aria-pressed']), ['true', 'false', 'false', 'false'],
+    'only All nine is announced as selected after reset');
+});
+
 test('no-JavaScript and unsupported-dialog fallback never offers inert detail controls', () => {
   assert.match(html, /\.pin-page:not\(\.pin-enhanced\) \.pin-open\{display:none\}/);
   assert.match(html, /document\.body\.classList\.add\('pin-enhanced'\)/);
@@ -115,4 +137,53 @@ test('no-JavaScript and unsupported-dialog fallback never offers inert detail co
   assert.equal(unsupported.document.body.classList.contains('pin-enhanced'), false);
   assert.equal(unsupported.cards.filter(card => card.open.disabled).length, 9, 'all nine unsupported-dialog controls are disabled');
   assert.equal(unsupported.buttons.some(button => button.disabled), false, 'mood filters remain usable without a dialog');
+});
+
+test('switching moods after closing detail resets paging to the new visible collection', () => {
+  const {cards, buttons, ids, dialog} = setup();
+  buttons[1].fire('click');
+  cards[2].open.fire('click');
+  assert.equal(ids['pin-detail-position'].textContent, '3 of 3: Pin concept 3');
+  assert.equal(ids['pin-detail-next'].disabled, true);
+  ids['pin-detail-close'].fire('click');
+  assert.equal(dialog.open, false);
+  assert.equal(cards[2].open.focusCount, 1, 'closing returns focus to the original card');
+
+  buttons[3].fire('click');
+  assert.equal(cards[2].hidden, true, 'previous mood is no longer visible');
+  cards[6].open.fire('click');
+  assert.equal(dialog.open, true);
+  assert.equal(ids['pin-detail-position'].textContent, '1 of 3: Pin concept 7');
+  assert.equal(ids['pin-detail-prev'].disabled, true);
+  assert.equal(ids['pin-detail-next'].disabled, false);
+  ids['pin-detail-next'].fire('click');
+  assert.equal(ids['pin-detail-position'].textContent, '2 of 3: Pin concept 8');
+  ids['pin-detail-close'].fire('click');
+  assert.equal(cards[6].open.focusCount, 1, 'focus follows the latest opener');
+});
+
+test('backdrop dismissal restores focus without treating dialog content clicks as dismissal', () => {
+  const {cards, dialog} = setup();
+  cards[5].open.fire('click');
+  dialog.fire('click', {target: cards[5].open});
+  assert.equal(dialog.open, true, 'clicking dialog contents does not dismiss it');
+  dialog.fire('click', {target: dialog});
+  assert.equal(dialog.open, false, 'backdrop click closes the dialog');
+  assert.equal(cards[5].open.focusCount, 1, 'backdrop dismissal restores focus');
+});
+
+test('switching from Whimsical to Bold to All synchronizes every card and live count', () => {
+  const {cards, buttons, ids} = setup();
+  for (const [index, mood, count] of [[1, 'whimsical', 3], [3, 'bold', 3], [0, 'all', 9]]) {
+    buttons[index].fire('click');
+    assert.equal(ids['pin-count'].textContent, 'Showing ' + count + ' of 9 pins');
+    buttons.forEach((button, buttonIndex) => {
+      assert.equal(button['aria-pressed'], String(buttonIndex === index), 'exactly one filter is pressed');
+    });
+    cards.forEach(card => {
+      assert.equal(card.hidden, mood !== 'all' && card.dataset.mood !== mood,
+        'each card matches the active mood');
+    });
+  }
+  assert.match(html, /id="pin-count" aria-live="polite"/, 'count changes are announced');
 });
