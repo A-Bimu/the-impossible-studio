@@ -39,10 +39,10 @@ body.yelo-edition .photo-credit{position:absolute;z-index:6;bottom:16px;left:15p
 body.yelo-edition .photo-index{position:absolute;top:18px;left:18px;z-index:6;background:var(--paper);color:var(--black);padding:6px 10px;font:700 11px 'Space Grotesk'}
 body.yelo-edition .hero-device-column{grid-column:2/3;grid-row:1;align-self:stretch;background:var(--orange);display:flex;align-items:center;justify-content:center;min-height:710px;border-left:2px solid var(--black);overflow:visible;position:relative}
 body.yelo-edition .hero-device-column:after{content:"PRODUCT PREVIEW / 001";font:700 11px 'Space Grotesk';letter-spacing:.11em;position:absolute;right:22px;top:18px}
-body.yelo-edition .hero-card-wrap{position:absolute;z-index:9;bottom:6%;left:-14%;right:auto;width:min(62%,360px);transform:rotate(-13deg);filter:drop-shadow(7px 13px 1px #0005)}
+body.yelo-edition .hero-card-wrap{position:absolute;z-index:3;pointer-events:none;bottom:6%;left:-14%;right:auto;width:min(62%,360px);transform:rotate(-13deg);filter:drop-shadow(7px 13px 1px #0005)}
 body.yelo-edition .hero-card-wrap .graffiti-card{box-shadow:2px 2px 0 #000;border:1px solid #fff5}
 body.yelo-edition .crown-doodle,body.yelo-edition .hero-star,body.yelo-edition .spray-tag,body.yelo-edition .sticker{display:none}
-body.yelo-edition .hero-device-column .phone{width:min(343px,68%);margin:48px 0;transform:rotate(4deg);z-index:5}
+body.yelo-edition .hero-device-column .phone{width:min(343px,68%);margin:48px 0;transform:rotate(4deg);z-index:8}
 body.yelo-edition .edition-stamp{position:absolute;z-index:11;bottom:12px;right:16px;font:400 32px 'Anton',sans-serif;letter-spacing:.02em;transform:rotate(-6deg);border:3px solid var(--black);padding:3px 12px;background:var(--yellow)}
 body.yelo-edition .edition-rule{background:var(--black);color:var(--paper);font:700 12px 'Space Grotesk';letter-spacing:.09em;padding:18px 0;border-top:2px solid var(--black);border-bottom:2px solid var(--black)}
 body.yelo-edition .edition-rule .wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
@@ -210,3 +210,5 @@ body.yelo-edition .phone-title{border-bottom:1px solid var(--black);padding-bott
 body.yelo-edition .phone-title h2{font:400 31px 'Anton',sans-serif}
 body.yelo-edition .phone-screen .back-home{font-size:9px}
 body.yelo-edition .phone-screen .mini-panel h3{font:700 15px 'Space Grotesk'}
+
+body.yelo-edition .toast{pointer-events:none}
