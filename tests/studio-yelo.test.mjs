@@ -25,6 +25,7 @@ test('YELO landing has original edited streetwear composition and functioning de
  assert.match(art,/<svg/);
  assert.match(art,/stroke="#ef6828"/);
  assert.doesNotThrow(()=>new Script(js),'banking flow engine parses');
+ assert.ok(js.includes('const screenRender={home,move,goals,cards,insights};'),'all five routes are wired to the renderer');
  for(const route of ['home','move','goals','cards','insights']){
   assert.ok(js.includes("'"+route+"'"),'implemented '+route+' route');
   assert.ok(html.includes('data-preview-route="'+route+'"'),'link to '+route+' exists');
