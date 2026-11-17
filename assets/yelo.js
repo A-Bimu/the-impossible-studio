@@ -62,7 +62,7 @@
    '<div class="mini-panel"><h3>Spending snapshot</h3><p>Illustrative categories from a fictional month.</p><div class="metric-bars">'+
    [['Food & coffee','KSh 2,800'],['Transport','KSh 1,850'],['Subscriptions','KSh 750']].map((r,i)=>'<div class="metric-row"><span>'+r[0]+'</span><div class="metric-track"><i style="width:'+widths[i]+'%"></i></div><b>'+r[1]+'</b></div>').join('')+'</div></div>'+
    '<div class="mini-panel"><h3>Your demo activity</h3><p>Sample outgoing moves this session: '+money(sum)+'</p>'+activities()+'</div>'+
-   '<div class="info-bubble"><b>What's new in this design?</b>We propose proactive spending insights and understandable pre-payment fees. No actual financial forecast is performed.</div>';
+   '<div class="info-bubble"><b>What is new in this design?</b>We propose proactive spending insights and understandable pre-payment fees. No actual financial forecast is performed.</div>';
  }
  const screenRender={home,move,goals,cards,insights};
  function render(){
