@@ -87,7 +87,7 @@ body.yelo-edition .try-section{padding:110px 0;background:var(--paper);color:var
 body.yelo-edition .try-grid{grid-template-columns:.8fr 1.2fr;gap:6vw}
 body.yelo-edition .try-section .micro{color:var(--black)}
 body.yelo-edition .try-section h2{font:400 clamp(70px,7vw,125px)/.9 'Anton',sans-serif;letter-spacing:-.04em}
-body.yelo-edition .try-section h2 em{font:400 inherit;color:var(--orange)}
+body.yelo-edition .try-section h2 em{font-family:'Anton',Impact,sans-serif;font-weight:400;font-style:normal;color:var(--orange);letter-spacing:-.03em}
 body.yelo-edition .try-copy p{font-size:15px}
 body.yelo-edition .try-journeys{border-top:2px solid var(--black);gap:0}
 body.yelo-edition .journey-btn{border:0;border-bottom:1px solid var(--black);background:transparent;border-radius:0;color:var(--black);font:700 13px 'Space Grotesk';padding:18px 10px}
