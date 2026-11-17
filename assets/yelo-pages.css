@@ -64,7 +64,7 @@ body.yelo-edition .more-project h2,
 body.yelo-edition .type-ledger h2{line-height:1.05;letter-spacing:-.035em}
 @media(max-width:620px){
  body.yelo-edition .page-title{line-height:1.09;letter-spacing:-.025em}
- body.yelo-edition .page-title em{display:block}
+ body.yelo-edition .page-title em{display:inline}
  body.yelo-edition .sheet-head h2,
  body.yelo-edition .big-product h2,
  body.yelo-edition .page-embed h2,
