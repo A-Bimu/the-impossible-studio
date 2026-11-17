@@ -31,7 +31,7 @@ async function run(width,height){
   await page.locator('#yelo-screen [data-action="freeze"]').click();
   assert.equal(await page.locator('#yelo-screen .card-frozen').count(),1,'card freeze toggles');
   await page.locator('.phone-navbar [data-route="move"]').click();
-  await page.locator('#yelo-screen [data-action="send"]').click();
+  await page.locator('#yelo-screen [data-action="send"]').first().click();
   await page.locator('#demo-form input[name="recipient"]').fill('Fictional Alex');
   await page.locator('#demo-form input[name="amount"]').fill('400');
   await page.locator('#modal-submit').click();
