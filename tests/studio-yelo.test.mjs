@@ -69,7 +69,7 @@ test('research-based case study has real photography, anti-template decisions an
  assert.match(html,/studio-unified-showcase.js/);
  assert.match(html,/not a Co-op Bank redesign or official app/);
  assert.match(html,/co-opbank\.co\.ke\/personal-banking/);
- assert.match(html,/yelo-graffiti.svg/); 
+ assert.match(css,/yelo-graffiti.svg/); 
  assert.ok((html.match(/images\.unsplash\.com\/photo-/g)||[]).length>=3,'real location-grounded editorial portraits');
  assert.match(html,/href="\.\.\/\.\.\/projects\/yelo\/money\.html"/);
  assert.match(html,/href="\.\.\/\.\.\/projects\/yelo\/culture\.html"/);
