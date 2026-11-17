@@ -20,50 +20,56 @@
  const safe=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch{toast('Demo storage is unavailable; changes may not persist.')}};
  const addEntry=(kind,name,amount)=>{state.entries.unshift({kind,name,amount,at:'Just now'});state.entries=state.entries.slice(0,18)};
  const action=(label,kind,icon)=>'<button type="button" class="phone-action" data-action="'+kind+'"><span class="act-icon" aria-hidden="true">'+icon+'</span>'+label+'</button>';
- const card=()=>'<div class="graffiti-card"><div class="card-head"><strong class="card-logo">YELO</strong><span class="card-crown" aria-hidden="true">♛</span></div><div class="chip" aria-hidden="true"></div><div class="card-bottom"><span>•••• 4837<br><small>DEMO DEBIT</small></span><span class="card-tag" aria-hidden="true">Y!</span></div>'+(state.frozen?'<div class="card-frozen">CARD FROZEN</div>':'')+'</div>';
+ const card=()=>'<div class="graffiti-card"><div class="card-head"><strong class="card-logo">YELO</strong><span class="card-crown" aria-hidden="true">01 / KE</span></div><div class="chip" aria-hidden="true"></div><div class="card-bottom"><span>•••• 4837<br><small>DEMO DEBIT</small></span><span class="card-tag" aria-hidden="true">Y!</span></div>'+(state.frozen?'<div class="card-frozen">CARD FROZEN</div>':'')+'</div>';
  const balance=()=>'<div class="phone-panel"><div class="balance-row"><span>Your balance (KES)</span><button type="button" class="eye" data-action="visibility" aria-label="'+(state.showBalance?'Hide':'Show')+' sample balance">'+(state.showBalance?'◉':'◌')+'</button></div><div class="balance-amount">'+val(state.balance)+'</div><button type="button" class="orange-button" data-action="add">+ Add sample money</button></div>';
  const goalPct=()=>Math.min(100,Math.round(state.goal/state.target*100));
  const goal=()=>'<button type="button" class="goal-widget" data-route="goals" aria-label="Open laptop savings goal"><div class="mini-row"><strong>◎ Laptop fund</strong><span>'+goalPct()+'%</span></div><p>'+val(state.goal)+' saved of '+money(state.target)+'</p><div class="progress"><i style="width:'+goalPct()+'%"></i></div></button>';
  const activities=()=>state.entries.length?state.entries.slice(0,7).map(t=>'<div class="flow-item"><div><strong>'+esc(t.name)+'</strong><small>'+esc(t.at)+'</small></div><b>'+(t.kind==='in'?'+':'−')+money(t.amount)+'</b></div>').join(''):'<p class="hint">No sample activity.</p>';
  function home(){
-  return '<div><h2>Sasa, Amani 👋</h2><p class="small">Bank. Save. Grow. Build.</p></div>'+
-    balance()+
-    '<div class="phone-card-preview"><strong>YELO ↗</strong><button type="button" data-route="cards">Virtual card →</button></div>'+
-    '<div class="phone-action-grid">'+action('Send','send','↗')+action('Pay bills','bills','▤')+action('Save','save','◎')+action('Cards','cards','▣')+
-    action('Invest','invest','▥')+action('Business','business','⌁')+action('Perks','perks','✳')+action('Insights','insights','≋')+'</div>'+
-    goal()+
-    '<div class="hub-card"><strong>Yelo Creators Hub ✳</strong><span>People, culture and money tools for the next move.</span></div>'+
-    '<p class="hint">Fictional accounts · interactive sample experience</p>';
- }
+  return '<div class="app-welcome"><p class="app-label">TUESDAY / SAMPLE ACCOUNT</p><h2>Sasa, Amani.</h2><p class="small">Your shillings. Your decisions.</p></div>'+
+   balance()+
+   '<div class="app-utility-title"><span>QUICK MOVES</span><span>01—04</span></div>'+
+   '<div class="phone-action-grid">'+action('Send','send','↗')+action('Bills','bills','▤')+action('Save','save','◎')+action('Card','cards','▣')+'</div>'+
+   '<div class="phone-card-preview"><div><span class="app-label">YOUR CARD / 4837</span><strong>YELO.</strong></div><button type="button" data-route="cards">VIEW CARD ↗</button></div>'+
+   '<div class="app-utility-title"><span>IN PROGRESS</span><span>ONE GOAL</span></div>'+goal()+
+   '<div class="app-utility-title"><span>RECENT MOVES</span><button type="button" data-route="move">ALL ACTIVITY ↗</button></div>'+
+   '<div class="app-mini-transactions">'+state.entries.slice(0,2).map(t=>'<div class="app-mini-transaction"><div><strong>'+esc(t.name)+'</strong><small>'+esc(t.at)+'</small></div><b>'+(t.kind==='in'?'+':'−')+money(t.amount)+'</b></div>').join('')+'</div>'+
+   '<p class="hint">LOCAL DEMO / NO REAL BANKING</p>';
+}
  function move(){
-  return '<div class="phone-title"><h2>Move your money ↗</h2><button type="button" class="back-home" data-route="home">Home</button></div>'+
-   '<p class="small">Fictional transfers, real interaction design.</p>'+balance()+
-   '<div class="phone-action-grid">'+action('Send','send','↗')+action('M-Pesa','send','⇄')+action('Pay bills','bills','▤')+action('Add','add','＋')+'</div>'+
-   '<div class="mini-panel"><h3>Recent moves</h3><p>Every sample transaction appears here as you explore.</p>'+activities()+'</div>'+
-   '<button type="button" class="back-home" data-action="reset">↺ Reset demo</button>';
- }
+ return '<div class="phone-title"><h2>Make a move.</h2><button type="button" class="back-home" data-route="home">← BACK</button></div>'+
+ '<p class="small">Your account / fictional KES transactions.</p>'+balance()+
+ '<div class="app-utility-title"><span>CHOOSE AN ACTION</span><span>01—04</span></div>'+
+ '<div class="phone-action-grid">'+action('Send','send','↗')+action('M-Pesa','send','⇄')+action('Bills','bills','▤')+action('Top up','add','＋')+'</div>'+
+ '<div class="app-utility-title"><span>TRANSACTION LOG</span><span>SAMPLE</span></div>'+
+ '<div class="app-transactions">'+activities()+'</div>'+
+ '<button type="button" class="back-home" data-action="reset" style="margin-top:15px">RESET SAMPLE DATA ↺</button>';
+}
  function goals(){
-  return '<div class="phone-title"><h2>Stack your goals ◎</h2><button type="button" class="back-home" data-route="home">Home</button></div>'+
-   '<p class="small">Little by little becomes something big.</p>'+
-   '<div class="mini-panel"><h3>YOUR LAPTOP FUND</h3><p>Study, edit, create. You are '+goalPct()+'% of the way there.</p><p class="flow-balance">'+val(state.goal)+'</p><div class="progress"><i style="width:'+goalPct()+'%"></i></div><p class="hint">Target: '+money(state.target)+'</p><button type="button" class="orange-button" data-action="save">+ Add to this goal</button></div>'+
-   '<div class="mini-panel"><h3>The point of goals</h3><p>This concept turns a savings target into a real thing you can track. Transfers are recorded locally and deduct from available sample balance.</p></div>'+
-   '<p class="hint">This is simulated, not a real savings account or interest product.</p>';
- }
+ return '<div class="phone-title"><h2>Get there.</h2><button type="button" class="back-home" data-route="home">← BACK</button></div>'+
+ '<p class="small">One small step. Then the next.</p>'+
+ '<div class="goal-hero"><span class="app-label">GOAL 01 / PERSONAL</span><h3>Laptop fund.</h3><p>For the edits, the classes and the ideas.</p><div class="goal-numbers"><strong>'+val(state.goal)+'</strong><span>'+goalPct()+'% FUNDED</span></div><div class="progress"><i style="width:'+goalPct()+'%"></i></div><p class="hint">TARGET '+money(state.target)+'</p><button type="button" class="orange-button" data-action="save">ADD MONEY TO GOAL ↗</button></div>'+
+ '<div class="info-bubble"><b>Money set aside / fictional</b>Funding this goal moves the amount from the demo balance. There is no real savings account behind this design.</div>';
+}
  function cards(){
-  return '<div class="phone-title"><h2>Card with character ▣</h2><button type="button" class="back-home" data-route="home">Home</button></div>'+
-   '<div class="card-in-phone">'+card()+'</div>'+
-   '<div class="mini-panel"><h3>YELO · virtual debit concept</h3><p>**** 4837 · Fictional number · Nothing can be charged.</p><button type="button" class="orange-button" data-action="freeze">'+(state.frozen?'Unfreeze':'Freeze')+' sample card</button></div>'+
-   '<div class="info-bubble"><b>Street outside. Control inside.</b>Real-life card controls inspired this idea, but these do not communicate with a card issuer.</div>';
- }
+ return '<div class="phone-title"><h2>Not a basic card.</h2><button type="button" class="back-home" data-route="home">← BACK</button></div>'+
+ '<p class="small">Look loud. Stay in control.</p>'+
+ '<div class="card-in-phone">'+card()+'</div>'+
+ '<div class="app-utility-title"><span>YOUR CONTROLS</span><span>CARD 4837</span></div>'+
+ '<div class="mini-panel"><h3>Fictional virtual debit</h3><p>'+ (state.frozen?'CARD STATUS: FROZEN':'CARD STATUS: ACTIVE') +' · No payments possible.</p><button type="button" class="orange-button" data-action="freeze">'+(state.frozen?'UNFREEZE SAMPLE CARD ↗':'FREEZE SAMPLE CARD ↗')+'</button></div>'+
+ '<div class="info-bubble"><b>Design note</b>The paint is visual. The controls are practical. No card number or PIN is ever shown or collected.</div>';
+}
  function insights(){
-  const sum=state.entries.filter(e=>e.kind==='out').reduce((n,e)=>n+e.amount,0);
-  const widths=[75,48,29];
-  return '<div class="phone-title"><h2>See your moves ▥</h2><button type="button" class="back-home" data-route="home">Home</button></div>'+
-   '<div class="mini-panel"><h3>Spending snapshot</h3><p>Illustrative categories from a fictional month.</p><div class="metric-bars">'+
-   [['Food & coffee','KSh 2,800'],['Transport','KSh 1,850'],['Subscriptions','KSh 750']].map((r,i)=>'<div class="metric-row"><span>'+r[0]+'</span><div class="metric-track"><i style="width:'+widths[i]+'%"></i></div><b>'+r[1]+'</b></div>').join('')+'</div></div>'+
-   '<div class="mini-panel"><h3>Your demo activity</h3><p>Sample outgoing moves this session: '+money(sum)+'</p>'+activities()+'</div>'+
-   '<div class="info-bubble"><b>What is new in this design?</b>We propose proactive spending insights and understandable pre-payment fees. No actual financial forecast is performed.</div>';
- }
+ const sum=state.entries.filter(e=>e.kind==='out').reduce((n,e)=>n+e.amount,0);
+ const widths=[75,48,29];
+ return '<div class="phone-title"><h2>The breakdown.</h2><button type="button" class="back-home" data-route="home">← BACK</button></div>'+
+ '<p class="small">Example categories / browser-local activity.</p>'+
+ '<div class="mini-panel"><h3>SAMPLE MONTH / KES</h3><div class="metric-bars">'+
+ [['Food + coffee','2,800'],['Transport','1,850'],['Subscriptions','750']].map((r,i)=>'<div class="metric-row"><span>'+r[0]+'</span><div class="metric-track"><i style="width:'+widths[i]+'%"></i></div><b>'+r[1]+'</b></div>').join('')+'</div><p class="hint">Illustrative numbers, not derived from an account.</p></div>'+
+ '<div class="app-utility-title"><span>YOUR DEMO ACTIVITY</span><span>OUTGOING '+money(sum)+'</span></div>'+
+ '<div class="app-transactions">'+activities()+'</div>'+
+ '<div class="info-bubble"><b>Proposed feature</b>Spending insights should make money clearer before you spend it, not give you more charts to decode.</div>';
+}
  const screenRender={home,move,goals,cards,insights};
  function render(){
   const main=$('yelo-screen');if(!main)return;
@@ -128,7 +134,7 @@
   const routeBtn=e.target.closest('[data-route],[data-preview-route]');
   if(routeBtn){
    const target=routeBtn.dataset.previewRoute||routeBtn.dataset.route;
-   if(routeBtn.dataset.previewRoute){document.querySelectorAll('[data-preview-route]').forEach(x=>x.setAttribute('aria-pressed',String(x===routeBtn)));$('yelo-live-preview').src='index.html?preview=1#'+target}
+   if(routeBtn.dataset.previewRoute){document.querySelectorAll('[data-preview-route]').forEach(x=>x.setAttribute('aria-pressed',String(x===routeBtn)));if($('yelo-live-preview'))$('yelo-live-preview').src='index.html?preview=1#'+target;if(routeBtn.classList.contains('feature-row'))$('experience')?.scrollIntoView({behavior:'smooth',block:'start'})}
    else navigate(target);
    return;
   }

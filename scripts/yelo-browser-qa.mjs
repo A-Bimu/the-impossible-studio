@@ -13,7 +13,8 @@ async function run(width,height){
  page.on('pageerror',e=>errors.push(tag+': '+e.message));
  try{
   await page.goto(origin+'/projects/yelo/',{waitUntil:'domcontentloaded',timeout:25000});
-  await page.locator('#yelo-screen .balance-amount').waitFor({timeout:12000});
+  await page.locator('#yelo-screen .app-welcome').waitFor({timeout:12000});
+  await page.locator('#yelo-screen [data-action="add"]').waitFor({timeout:12000});
   const original=await page.locator('.balance-amount').first().innerText();
   assert.match(original,/24,500/,'initial fictional balance');
   assert.equal(await page.locator('.hero-card-wrap .graffiti-card').count(),1,'hero graffiti card exists');
@@ -45,6 +46,23 @@ async function run(width,height){
 await run(1440,900);
 await run(390,840);
 await run(320,740);
+for(const slug of ['money','card','culture']){
+ const page=await browser.newPage({viewport:{width:390,height:844}});
+ page.on('pageerror',e=>errors.push(slug+': '+e.message));
+ try{
+  const resp=await page.goto(origin+'/projects/yelo/'+slug+'.html',{waitUntil:'domcontentloaded',timeout:25000});
+  assert.equal(resp?.status(),200,'working '+slug+' page');
+  assert.ok(await page.locator('main h1').isVisible(),slug+' has main headline');
+  await page.locator('#menu-toggle').click();
+  assert.equal(await page.locator('#menu-toggle').getAttribute('aria-expanded'),'true','mobile navigation opens on '+slug);
+  assert.ok(await page.locator('#site-nav').isVisible(),slug+' has visible mobile navigation');
+  await page.locator('#menu-toggle').click();
+  const metrics=await page.evaluate(()=>({viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
+  assert.ok(metrics.scrollWidth<=metrics.viewport+8,slug+' has no mobile overflow: '+JSON.stringify(metrics));
+  await page.screenshot({path:'artifacts/yelo/'+slug+'-phone.png',fullPage:true,timeout:20000});
+  results.push({page:slug,metrics});
+ }finally{await page.close()}
+}
 const casePage=await browser.newPage({viewport:{width:390,height:844}});
 casePage.on('pageerror',e=>errors.push('case: '+e.message));
 try{
