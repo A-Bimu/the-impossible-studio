@@ -70,6 +70,7 @@
  '<div class="app-transactions">'+activities()+'</div>'+
  '<div class="info-bubble"><b>Proposed feature</b>Spending insights should make money clearer before you spend it, not give you more charts to decode.</div>';
 }
+ const screenRender={home,move,goals,cards,insights};
  function render(){
   const main=$('yelo-screen');if(!main)return;
   main.innerHTML=screenRender[activeRoute]();
