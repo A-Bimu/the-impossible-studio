@@ -212,3 +212,25 @@ body.yelo-edition .phone-screen .back-home{font-size:9px}
 body.yelo-edition .phone-screen .mini-panel h3{font:700 15px 'Space Grotesk'}
 
 body.yelo-edition .toast{pointer-events:none}
+
+/* Typography QA: Anton's actual cap height needs honest line spacing; avoid colliding words. */
+body.yelo-edition .hero-title,
+body.yelo-edition .editorial-split .copy h2,
+body.yelo-edition .section-line h2,
+body.yelo-edition .card-feature h2,
+body.yelo-edition .moment-copy blockquote,
+body.yelo-edition .try-section h2,
+body.yelo-edition .feature-row .name{line-height:1.06}
+body.yelo-edition .underline-mark{border-bottom-width:6px}
+@media(max-width:600px){
+ body.yelo-edition .hero-title{font-size:clamp(72px,15vw,99px);line-height:1.07;letter-spacing:-.035em}
+ body.yelo-edition .hero-title b{display:block}
+ body.yelo-edition .editorial-split .copy h2,
+ body.yelo-edition .section-line h2,
+ body.yelo-edition .card-feature h2,
+ body.yelo-edition .moment-copy blockquote,
+ body.yelo-edition .try-section h2{line-height:1.09;letter-spacing:-.02em}
+ body.yelo-edition .editorial-split .copy h2{font-size:clamp(53px,12vw,74px)}
+ body.yelo-edition .card-feature h2{font-size:72px}
+ body.yelo-edition .section-line h2{font-size:67px}
+}
