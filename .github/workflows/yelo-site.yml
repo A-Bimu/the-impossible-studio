@@ -1,0 +1,66 @@
+name: YELO youth fintech website checks
+on:
+  pull_request:
+    paths:
+      - 'projects/yelo/**'
+      - 'work/yelo/**'
+      - 'assets/yelo.css'
+      - 'assets/yelo.js'
+      - 'assets/yelo-case.css'
+      - 'index.html'
+      - 'presentations/index.html'
+      - 'daily/index.html'
+      - 'tests/studio-yelo.test.mjs'
+      - 'scripts/yelo-browser-qa.mjs'
+      - '.github/workflows/yelo-site.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'projects/yelo/**'
+      - 'work/yelo/**'
+      - 'assets/yelo.css'
+      - 'assets/yelo.js'
+      - 'assets/yelo-case.css'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/studio-yelo.test.mjs tests/studio-mova-on-hold.test.mjs
+  real-browser-demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Playwright
+        run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Start static website
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/yelo-http.log 2>&1 &
+          sleep 2
+      - name: Run laptop and phone interaction checks
+        run: node scripts/yelo-browser-qa.mjs
+      - name: Archive browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yelo-laptop-phone-qa
+          path: artifacts/yelo/
+          retention-days: 7
+          if-no-files-found: warn
