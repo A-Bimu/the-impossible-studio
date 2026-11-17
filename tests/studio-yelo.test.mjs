@@ -28,7 +28,7 @@ test('YELO source has responsive real-photo campaign, original card and a workin
  for(const action of ['send','bills','save','add','freeze','reset']){
   assert.ok(js.includes(action),'real sample '+action+' interaction exists');
  }
- for(const guard of ['Number.isFinite','amount>state.balance','state.goal+amount>state.target','localStorage.setItem','dialog.showModal','esc(v)']){
+ for(const guard of ['Number.isFinite','amount>state.balance','state.goal+amount>state.target','localStorage.setItem','dialog.showModal','esc(t.name)']){
   assert.ok(js.includes(guard),'sample financial safety or interaction check '+guard);
  }
  assert.ok(!/type=["']password/.test(html),'does not request credentials');
