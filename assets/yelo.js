@@ -20,7 +20,7 @@
  const safe=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch{toast('Demo storage is unavailable; changes may not persist.')}};
  const addEntry=(kind,name,amount)=>{state.entries.unshift({kind,name,amount,at:'Just now'});state.entries=state.entries.slice(0,18)};
  const action=(label,kind,icon)=>'<button type="button" class="phone-action" data-action="'+kind+'"><span class="act-icon" aria-hidden="true">'+icon+'</span>'+label+'</button>';
- const card=()=>'<div class="graffiti-card"><div class="card-head"><strong class="card-logo">YELO</strong><span class="card-crown" aria-hidden="true">01 / KE</span></div><div class="chip" aria-hidden="true"></div><div class="card-bottom"><span>•••• 4837<br><small>DEMO DEBIT</small></span><span class="card-tag" aria-hidden="true">Y!</span></div>'+(state.frozen?'<div class="card-frozen">CARD FROZEN</div>':'')+'</div>';
+ const card=()=>'<div data-yelo-card data-card-mode="compact" aria-label="Realistically rendered fictional YELO card with front and back views"></div>'+(state.frozen?'<div class="card-frozen">SAMPLE CARD FROZEN</div>':'');
  const balance=()=>'<div class="phone-panel"><div class="balance-row"><span>Your balance (KES)</span><button type="button" class="eye" data-action="visibility" aria-label="'+(state.showBalance?'Hide':'Show')+' sample balance">'+(state.showBalance?'◉':'◌')+'</button></div><div class="balance-amount">'+val(state.balance)+'</div><button type="button" class="orange-button" data-action="add">+ Add sample money</button></div>';
  const goalPct=()=>Math.min(100,Math.round(state.goal/state.target*100));
  const goal=()=>'<button type="button" class="goal-widget" data-route="goals" aria-label="Open laptop savings goal"><div class="mini-row"><strong>◎ Laptop fund</strong><span>'+goalPct()+'%</span></div><p>'+val(state.goal)+' saved of '+money(state.target)+'</p><div class="progress"><i style="width:'+goalPct()+'%"></i></div></button>';
@@ -74,6 +74,7 @@
  function render(){
   const main=$('yelo-screen');if(!main)return;
   main.innerHTML=screenRender[activeRoute]();
+  window.YeloCard?.mount(main);
   document.querySelectorAll('.nav-btn[data-route]').forEach(b=>b.setAttribute('aria-current',b.dataset.route===activeRoute?'page':'false'));
   document.querySelectorAll('[data-preview-route]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.previewRoute===activeRoute)));
   main.scrollTop=0;
