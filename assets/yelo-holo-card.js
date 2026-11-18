@@ -4,9 +4,21 @@
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  const fine=matchMedia('(hover: hover) and (pointer: fine)');
  let raf=0;
- const inner=()=>'<div class="yelo-card-stage" tabindex="0" aria-label="Original YELO fictional debit card, front and back can be viewed with the flip button"><div class="yelo-card-shell"><div class="yelo-card-core">'+
-  '<div class="yelo-card-face yelo-card-front"><span class="yelo-card-mark">YELO.</span><span class="yelo-card-edition">DROP 002<br>NAIROBI / KE</span><span class="yelo-card-chip" aria-hidden="true"></span><span class="yelo-card-contactless" aria-hidden="true">)))</span><span class="yelo-card-number">•••• &nbsp; •••• &nbsp; •••• &nbsp; 4837</span><div class="yelo-card-bottomline"><span>AMANI W. / FICTIONAL<br>DESIGN CONCEPT / NOT ISSUED</span><strong>MOVE!</strong></div></div>'+
-  '<div class="yelo-card-face yelo-card-back"><span class="magnetic" aria-hidden="true"></span><span class="signature">YELO / SAMPLE CARD</span><span class="signature-code">XXX</span><span class="back-copy">THIS IS A FICTIONAL DESIGN / IT CANNOT BE USED TO PAY.<br>THE IMPOSSIBLE STUDIO · ISSUE 002 · 2026</span></div>'+
+ const inner=()=>'<div class="yelo-card-stage" tabindex="0" aria-label="YELO fictional debit-card concept, front and back available with flip control"><div class="yelo-card-shell"><div class="yelo-card-core">'+
+  '<div class="yelo-card-face yelo-card-front">'+
+    '<span class="yelo-card-mark">YELO.</span><span class="yelo-card-edition">YELO / CONCEPT</span>'+
+    '<div class="yelo-front-graffiti" aria-hidden="true"><span class="yelo-tag-one">MAKE</span><span class="yelo-tag-two">MOVES!</span><span class="yelo-tag-mini">NO SMALL DREAMS</span><span class="yelo-tag-slash">↗</span></div>'+
+    '<span class="yelo-card-chip" aria-hidden="true"></span><span class="yelo-card-contactless" aria-hidden="true">)))</span>'+
+    '<span class="yelo-card-number">•••• &nbsp; •••• &nbsp; •••• &nbsp; 4837</span>'+
+    '<div class="yelo-card-bottomline"><span>AMANI W.<br>SAMPLE CARD / NOT ISSUED</span><strong>MOVE!</strong></div>'+
+  '</div>'+
+  '<div class="yelo-card-face yelo-card-back">'+
+    '<div class="yelo-card-backtop"><strong>YELO.</strong><span>YOUR MONEY. YOUR MOVES.</span></div>'+
+    '<span class="magnetic" aria-hidden="true"></span>'+
+    '<div class="yelo-back-signature-row"><div class="signature">AMANI W. <small>DEMO SIGNATURE</small></div><span class="signature-code" aria-label="No security code on this fictional card">XXX</span></div>'+
+    '<div class="yelo-card-back-graffiti" aria-hidden="true"><span>STAY LOUD!</span><b>★</b><i>RUN YOUR OWN RACE</i></div>'+
+    '<div class="back-copy"><span>•••• 4837 &nbsp; / &nbsp; SAMPLE DEBIT CONCEPT</span><small>THIS IS AN UNISSUED DESIGN. IT CANNOT BE USED FOR PAYMENTS.</small></div>'+
+  '</div>'+
   '</div></div></div>';
  function mount(root=document){
   const nodes=[...(root.matches?.('[data-yelo-card]')?[root]:[]),...(root.querySelectorAll?.('[data-yelo-card]')||[])];
