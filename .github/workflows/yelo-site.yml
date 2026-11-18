@@ -26,7 +26,7 @@ permissions:
   contents: read
 jobs:
   source-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
           node-version: '22'
       - run: node --test tests/studio-yelo.test.mjs tests/studio-mova-on-hold.test.mjs
   real-browser-demo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -49,7 +49,7 @@ jobs:
       - name: Install pinned Playwright
         run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
       - name: Install Chromium
-        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install chromium
       - name: Start static website
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/yelo-http.log 2>&1 &

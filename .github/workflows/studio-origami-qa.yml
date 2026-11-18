@@ -12,7 +12,7 @@ permissions:
   contents: read
 jobs:
   origami:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
       - name: Install browser test dependency
         run: npm install --prefix .studio-qa-tools --no-save --no-package-lock --no-audit --no-fund playwright@1.56.1
       - name: Install Chromium
-        run: .studio-qa-tools/node_modules/.bin/playwright install --with-deps chromium
+        run: .studio-qa-tools/node_modules/.bin/playwright install chromium
       - name: Start local website
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/origami-qa.log 2>&1 &

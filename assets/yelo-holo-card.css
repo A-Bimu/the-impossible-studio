@@ -1,0 +1,57 @@
+/* YELO / DROP 002 — photorealistic speculative debit-card render.
+   Motion is limited to a product preview; no money interaction depends on animation. */
+.yelo-card-showcase{--card-width:clamp(224px,100%,455px);--tilt-x:0deg;--tilt-y:0deg;--glare-x:50%;--glare-y:50%;display:flex;flex-direction:column;align-items:center;gap:18px;isolation:isolate}
+.yelo-card-stage{width:var(--card-width);aspect-ratio:1.586;perspective:1200px;position:relative;touch-action:pan-y;filter:drop-shadow(0 15px 18px #000b);cursor:default}
+.yelo-card-shell{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transition:transform .42s cubic-bezier(.22,.72,.14,1);will-change:transform;animation:yelo-float 7.5s ease-in-out infinite}
+.yelo-card-showcase.is-interacting .yelo-card-shell{animation:none;transition:transform .11s ease-out}
+@keyframes yelo-float{0%,100%{transform:rotateX(-4deg) rotateY(-9deg) translateY(2px)}50%{transform:rotateX(4deg) rotateY(8deg) translateY(-9px)}}
+.yelo-card-core{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(0deg);transition:transform .85s cubic-bezier(.22,.73,.19,1);border-radius:17px}
+.yelo-card-showcase.is-flipped .yelo-card-core{transform:rotateY(180deg)}
+.yelo-card-core:before{content:"";position:absolute;inset:3px 0 -4px 3px;border-radius:17px;background:linear-gradient(110deg,#171122 6%,#6241a6 35%,#0a0721 73%,#ae54ce 97%);transform:translateZ(-5px);box-shadow:6px 9px 0 #07040ab3;pointer-events:none}
+.yelo-card-face{position:absolute;inset:0;overflow:hidden;border-radius:17px;-webkit-backface-visibility:hidden;backface-visibility:hidden;border:1px solid #dcb2f65c;transform:translateZ(2px);box-shadow:inset 0 0 0 1px #fff3,inset 1px 2px 5px #ffffff3b,inset -5px -5px 20px #130420b5,0 23px 40px #000b;color:#fff;text-align:left}
+.yelo-card-front{background:linear-gradient(147deg,#130038cc,#08031a75 52%,#2c0869cb),url('./yelo-graffiti.svg') center/cover no-repeat,#190638}
+.yelo-card-face:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(142deg,#ffffff00 0 2px,#ffffff0b 3px 3.4px,#00000000 4px 9px);mix-blend-mode:screen;opacity:.21}
+.yelo-card-face:after{content:"";position:absolute;inset:-35%;background:radial-gradient(ellipse 37% 28% at var(--glare-x) var(--glare-y),#fff9,transparent 79%),linear-gradient(114deg,transparent 28%,#ffffff00 38%,#f8d9ff7a 48%,#fff1 54%,transparent 65%);opacity:.42;mix-blend-mode:screen;pointer-events:none;transform:rotate(-13deg);transition:opacity .3s}
+.yelo-card-showcase.is-interacting .yelo-card-face:after{opacity:.73}
+.yelo-card-mark{position:absolute;top:10%;left:8.6%;font:italic 900 clamp(33px,4.1vw,66px)/.86 Impact,'Arial Black',sans-serif;letter-spacing:-.055em;text-shadow:3px 3px 0 #ff2996,5px 5px 0 #220341;-webkit-text-stroke:.5px #fff8;transform:skew(-9deg) rotate(-4deg);z-index:3}
+.yelo-card-edition{position:absolute;right:7.5%;top:10%;font:900 clamp(8px,1vw,12px)/1.4 'Space Grotesk',Arial,sans-serif;letter-spacing:.09em;text-align:right;color:#fff;text-shadow:0 1px 3px #09041a}
+.yelo-card-chip{position:absolute;top:43%;left:10%;width:14%;height:18%;border-radius:6px;background:linear-gradient(139deg,#fff0a0 4%,#f4c268 26%,#ae7b32 49%,#ffdc7e 62%,#9b6d28 100%);border:1px solid #f8d17b;box-shadow:0 0 0 1px #332014bb,inset 0 1px 1px #ffffb9,inset -2px -2px 4px #4b350d9c;z-index:4}
+.yelo-card-chip:before{content:"";position:absolute;inset:12% 23%;border:1.1px solid #9d6e2c;border-radius:3px;box-shadow:inset 0 0 0 .5px #ffc966}
+.yelo-card-chip:after{content:"";position:absolute;top:50%;left:0;right:0;height:1px;background:#9e702ea8;box-shadow:0 -6px 0 #9b753155,0 6px 0 #9b753155}
+.yelo-card-contactless{position:absolute;top:44%;left:26%;font:900 clamp(13px,2vw,27px) Arial,sans-serif;transform:rotate(90deg);color:#e8e3ff;text-shadow:0 1px 2px #070014;z-index:3}
+.yelo-card-number{position:absolute;left:8.7%;bottom:22%;font:800 clamp(11px,1.42vw,20px)/1.1 'Space Grotesk',Arial,sans-serif;letter-spacing:.2em;z-index:3;text-shadow:1px 2px 3px #040014}
+.yelo-card-bottomline{position:absolute;left:8.7%;right:8%;bottom:7.6%;display:flex;align-items:end;justify-content:space-between;gap:6px;z-index:3}
+.yelo-card-bottomline span{font:800 clamp(8px,1vw,12px)/1.2 'Space Grotesk',Arial,sans-serif;letter-spacing:.1em}
+.yelo-card-bottomline strong{font:italic 900 clamp(19px,2.3vw,31px)/.85 Impact,Arial,sans-serif;letter-spacing:-.03em;text-shadow:2px 2px 0 #ff2a8d}
+.yelo-card-back{transform:rotateY(180deg) translateZ(2px);background:linear-gradient(145deg,#3c086d,#180630 62%,#5716a9)}
+.yelo-card-back .magnetic{position:absolute;top:16%;left:0;width:100%;height:21%;background:linear-gradient(#060608 3%,#211b25 14%,#050509 47%,#18141c 87%,#030307);box-shadow:0 0 8px #0008}
+.yelo-card-back .signature{position:absolute;top:45%;left:8%;width:71%;height:16%;background:repeating-linear-gradient(0deg,#c6b3ee 0 4px,#8b70ca 4px 7px);display:flex;align-items:center;padding:0 10px;color:#1b0d2f;font:800 clamp(11px,1.4vw,16px) 'Space Grotesk',sans-serif;letter-spacing:.06em}
+.yelo-card-back .signature-code{position:absolute;right:7%;top:46%;background:#f6c725;color:#0d081b;padding:7px 8px;font:800 clamp(8px,1vw,13px) 'Space Grotesk'}
+.yelo-card-back .back-copy{position:absolute;left:8%;right:8%;bottom:11%;font:600 clamp(8px,1.05vw,12px)/1.4 'Space Grotesk',Arial,sans-serif;letter-spacing:.055em}
+.yelo-card-controls{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center}
+.yelo-card-flip{background:#FFDE16;color:#10091b;border:2px solid #090609;border-radius:0;padding:12px 18px;font:900 12px 'Space Grotesk',Arial,sans-serif;letter-spacing:.025em;box-shadow:4px 4px 0 #080510;cursor:pointer}
+.yelo-card-flip:hover{background:#FF3298}
+.yelo-card-flip:focus-visible{outline:3px solid #37B8FF;outline-offset:4px}
+.yelo-card-motion-hint{font:800 10px/1.4 'Space Grotesk',Arial,sans-serif;color:#c6b1f9;letter-spacing:.1em}
+.yelo-card-showcase.is-decorative .yelo-card-flip,.yelo-card-showcase.is-decorative .yelo-card-motion-hint{display:none}
+.yelo-card-showcase.is-decorative{pointer-events:none}
+.yelo-card-showcase.is-decorative .yelo-card-shell{animation-duration:9s}
+.yelo-card-showcase.is-compact{--card-width:100%;gap:8px}
+.yelo-card-showcase.is-compact .yelo-card-mark{font-size:clamp(23px,6vw,38px)}
+.yelo-card-showcase.is-compact .yelo-card-edition{font-size:8px}
+.yelo-card-showcase.is-compact .yelo-card-number{font-size:clamp(10px,3.5vw,14px)}
+.yelo-card-showcase.is-compact .yelo-card-bottomline strong{font-size:clamp(15px,4vw,23px)}
+.yelo-card-showcase.is-compact .yelo-card-bottomline span{font-size:8px}
+.yelo-card-showcase.is-compact .yelo-card-chip{border-radius:4px}
+.yelo-card-showcase.is-compact .yelo-card-flip{padding:9px 12px;font-size:10px}
+@media(hover:none),(pointer:coarse){.yelo-card-stage{touch-action:pan-y}.yelo-card-motion-hint{display:none}.yelo-card-showcase .yelo-card-shell{animation-duration:9s}}
+@media(prefers-reduced-motion:reduce){.yelo-card-shell{animation:none!important;transition:none!important;transform:none!important}.yelo-card-core{transition:none!important}.yelo-card-face:after{transition:none}.yelo-card-showcase.is-interacting .yelo-card-shell{transform:none!important}}
+
+/* Pointer motion never fights an active CSS keyframe. Autoplay has a user pause control. */
+.yelo-card-showcase.is-paused .yelo-card-shell{animation:none!important;transform:none!important;transition:transform .25s ease-out}
+.yelo-card-showcase.is-decorative .yelo-card-shell{animation-duration:1.8s;animation-iteration-count:1}
+.yelo-card-pause{background:transparent;border:1px solid #C88DFF;color:#F5EAFE;padding:11px 12px;font:800 10px 'Space Grotesk',sans-serif;letter-spacing:.02em;cursor:pointer}
+.yelo-card-pause:focus-visible{outline:3px solid #FFDF17;outline-offset:3px}
+.yelo-card-showcase.is-compact .yelo-card-pause{padding:7px 10px;font-size:9px}
+.yelo-card-showcase.is-decorative .yelo-card-pause{display:none}
+@media(prefers-reduced-motion:reduce){.yelo-card-pause{display:none}}
