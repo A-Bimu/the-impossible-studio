@@ -26,7 +26,7 @@ permissions:
   contents: read
 jobs:
   source-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
           node-version: '22'
       - run: node --test tests/studio-yelo.test.mjs tests/studio-mova-on-hold.test.mjs
   real-browser-demo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
