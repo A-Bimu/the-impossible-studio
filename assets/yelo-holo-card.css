@@ -105,3 +105,7 @@
 /* Keep masked account digits clean and bank-card legibility ahead of decorative stickers. */
 .yelo-front-graffiti .yelo-tag-mini{display:none!important}
 .yelo-card-back .magnetic{isolation:isolate}
+
+/* Fix 3D depth occlusion: the edge must sit BETWEEN front and rear face planes.
+   Local -5px appeared IN FRONT of the rear after a 180-degree flip and hid its design. */
+.yelo-card-core:before{transform:translateZ(0)!important;pointer-events:none}
