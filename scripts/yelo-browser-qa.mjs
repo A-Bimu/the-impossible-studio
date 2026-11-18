@@ -41,6 +41,9 @@ async function run(width,height){
   assert.equal(bodyBackground,'rgb(8, 7, 16)','ink-black YELO website background at '+tag);
   const photo=await page.locator('.hero-person').evaluate(img=>({src:img.currentSrc,loaded:img.complete && img.naturalWidth>0}));
   assert.match(photo.src,/1770283553879/,'real Nairobi street fashion photography');
+  assert.equal(await page.locator('.edition-topline, .subhead, .section-no, .micro, .photo-credit, figcaption').count(),0,'No visible editorial overlines, photo captions or section numbers at '+tag);
+  const divider=await page.locator('.feature-row').first().evaluate(el=>({top:getComputedStyle(el).borderTopWidth,bottom:getComputedStyle(el).borderBottomWidth}));
+  assert.deepEqual(divider,{top:'0px',bottom:'0px'},'No feature row divider lines at '+tag);
   if(width===1440){
    const card=page.locator('.card-feature .yelo-card-stage');
    await card.scrollIntoViewIfNeeded();
@@ -54,8 +57,13 @@ async function run(width,height){
    await flip.click();
    assert.ok(await page.locator('.card-feature .yelo-card-showcase.is-flipped').count(),'card rotates to show back');
    assert.equal(await flip.getAttribute('aria-pressed'),'true','flip state is accessible');
+   assert.match(await page.locator('.card-feature .yelo-card-back-graffiti').innerText(),/STAY LOUD!/,'Streetwise graffiti lettering appears on card back');
+   assert.match(await page.locator('.card-feature .yelo-card-back .signature').innerText(),/AMANI W/,'Physical signature panel included');
+   await page.locator('.card-feature .yelo-card-stage').screenshot({path:'artifacts/yelo/realistic-card-back.png',timeout:20000});
    await flip.click();
    assert.equal(await flip.getAttribute('aria-pressed'),'false','card can return to front');
+   assert.match(await page.locator('.card-feature .yelo-front-graffiti').innerText(),/MAKE[\s\S]*MOVES/,'Front of physical card contains actual graffiti words');
+   await page.locator('.card-feature .yelo-card-stage').screenshot({path:'artifacts/yelo/realistic-card-front.png',timeout:20000});
    const pause=page.locator('.card-feature [data-card-pause]');
    await pause.click();
    assert.equal(await pause.getAttribute('aria-pressed'),'true','autoplay can be paused');
@@ -85,6 +93,7 @@ for(const slug of ['money','card','culture']){
   assert.ok(metrics.scrollWidth<=metrics.viewport+8,slug+' has no mobile overflow: '+JSON.stringify(metrics));
   const bodyBg=await page.evaluate(()=>getComputedStyle(document.body).backgroundColor);
   assert.equal(bodyBg,'rgb(8, 7, 16)','no cream, nude or beige page background on '+slug);
+  assert.equal(await page.locator('figcaption, .subhead, .section-no').count(),0,'No image captions or editorial numbering on '+slug);
   if(slug==='card'){
    await page.locator('.big-product .yelo-card-stage').waitFor({timeout:8000});
    const flip=page.locator('.big-product [data-card-flip]');
@@ -103,6 +112,7 @@ try{
  await casePage.goto(origin+'/work/yelo/',{waitUntil:'domcontentloaded'});
  await casePage.locator('.sd-showcase .sx-journey').first().waitFor({timeout:12000});
  await casePage.locator('.card-display-grid [data-card-flip]').waitFor({timeout:10000});
+ assert.equal(await casePage.locator('.folio,.chapter-num,figcaption,.fact-strip').count(),0,'Case study removes captions and numbered metadata dividers');
  assert.equal(await casePage.evaluate(()=>getComputedStyle(document.body).backgroundColor),'rgb(8, 6, 17)','case study is ink black');
  assert.equal(await casePage.locator('.sd-showcase .sx-journey').count(),5);
  await casePage.locator('.sd-showcase .sx-journey').nth(3).click();
