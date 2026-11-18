@@ -1,0 +1,31 @@
+/* YELO CASE STUDY / V4. Remove small chapter labels, photo credits over images and numbered dividers. */
+.folio,.chapter-num,.hero-photography figcaption,.raw-photo figcaption,
+.hero-caption-block small,.identity-logo small,.pages-grid .num{display:none!important}
+.masthead{border-bottom:0}
+.case-hero .heading{padding-top:40px}
+.hero-photography{border:0}
+.fact-strip{display:none}
+.editorial-section,.raw-section,.card-display,.design-notes,.footer{border:0!important}
+.process-lines{border:0;margin-top:55px;display:grid;gap:28px}
+.process-line{
+ display:grid;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ gap:40px;
+ border:0!important;
+ padding:12px 0 30px;
+}
+.process-line strong{font-size:clamp(29px,3.9vw,56px);line-height:1.02}
+.process-line p{max-width:480px;line-height:1.55}
+.pages-grid a{border:0;box-shadow:none;min-height:325px}
+.pages-grid a:hover{box-shadow:none}
+.identity-logo{justify-content:center;align-items:flex-start;gap:20px}
+.raw-photo{overflow:hidden}
+.card-display-grid .yelo-card-showcase{margin-inline:auto}
+.design-notes{padding-top:80px}
+@media(max-width:700px){
+ .case-hero .heading{padding-top:26px}
+ .process-lines{gap:22px}
+ .process-line{grid-template-columns:1fr;gap:14px;padding:12px 0 24px}
+ .process-line strong{font-size:37px}
+ .pages-grid a{min-height:230px}
+}
