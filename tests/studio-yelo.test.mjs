@@ -23,7 +23,7 @@ test('YELO landing has original edited streetwear composition and functioning de
  assert.match(css,/editorial-split/);
  assert.match(css,/background:var\(--paper\)/);
  assert.match(art,/<svg/);
- assert.match(art,/stroke="#ef6828"/);
+ assert.match(art,/stroke="url\(#hot\)"/);
  assert.doesNotThrow(()=>new Script(js),'banking flow engine parses');
  assert.ok(js.includes('const screenRender={home,move,goals,cards,insights};'),'all five routes are wired to the renderer');
  for(const route of ['home','move','goals','cards','insights']){
@@ -53,7 +53,7 @@ test('new YELO Money, Card and Culture pages are distinct and linked',async()=>{
  }
  assert.match(money,/index\.html\?preview=1#move/);
  assert.match(card,/index\.html\?preview=1#cards/);
- assert.match(card,/class="graffiti-card"/);
+ assert.match(card,/data-yelo-card/);
  assert.ok((culture.match(/images\.unsplash\.com\/photo-/g)||[]).length>=3);
  assert.match(culture,/Dwayne joe/);
  assert.match(pagesCSS,/@media\(max-width:620px\)/);
@@ -95,4 +95,48 @@ test('Studio shows YELO but maintains temporary MOVA display hold',async()=>{
  assert.match(daily,/href="\.\.\/work\/yelo\/"/);
  for(const html of [home,presentations,daily])assert.ok(html.includes('data-studio-on-hold="mova" hidden'),'MOVA stays unpublished');
  assert.match(home,/class="yelo-cover-photo"/);
+});
+
+test('DROP 002 researched streetwear palette and practical motion card implementation',async()=>{
+ const paths=['projects/yelo/index.html','projects/yelo/money.html','projects/yelo/card.html','projects/yelo/culture.html'];
+ const [css,caseCss,cardCss,cardJs,art,study,...pages]=await Promise.all([
+  read('assets/yelo-neon-v3.css'),read('assets/yelo-case-neon-v3.css'),
+  read('assets/yelo-holo-card.css'),read('assets/yelo-holo-card.js'),
+  read('assets/yelo-graffiti.svg'),read('work/yelo/index.html'),
+  ...paths.map(read)
+ ]);
+ for(const [name,style] of [['project',css],['case study',caseCss]]){
+  assert.match(style,/background:#08071[01]/i,name+' uses ink-black foundation');
+  assert.ok(!/#[Ff]1[Ee][Ee][Ee]6|#[Ee][8-9][Dd][Dd][Cc][Cc]|#[Ff][Aa][Ff]4[Ee][Bb]/.test(style),name+' does not use old cream/beige palette');
+  assert.ok(!/(?:background|color):(?:\\s*)green\\b/i.test(style),name+' has no green surface');
+ }
+ for(const [index,page] of pages.entries()){
+  assert.match(page,/yelo-neon-v3\.css/,'dark style loaded '+paths[index]);
+  assert.match(page,/yelo-holo-card\.css/,'physical card style loaded '+paths[index]);
+  assert.match(page,/yelo-holo-card\.js/,'card interaction loaded '+paths[index]);
+  assert.match(page,/content="#080710"/,'dark mobile browser chrome '+paths[index]);
+ }
+ assert.match(study,/yelo-case-neon-v3\.css/,'case study dark mode');
+ assert.match(study,/yelo-holo-card\.js/,'case study can flip physical card');
+ assert.match(study,/data-yelo-card/,'case study has physical card preview');
+ assert.match(pages[0],/data-card-mode="decorative"/,'hero uses visual floating card');
+ assert.match(pages[0],/data-card-mode="full"/,'home showcases interactive physical card');
+ assert.match(pages[2],/data-card-mode="full"/,'card page interactive physical card');
+ assert.match(art,/fill="#FF54AB"/,'vivid original spray art');
+ assert.match(art,/stop-color="#FF286F"/,'fuchsia gradient in actual artwork');
+ for(const token of ['#FF279E','#156AFF','#7737FF','#FFE019']){
+  assert.ok(css.includes(token),'saturated palette includes '+token);
+ }
+ assert.match(cardCss,/backface-visibility:hidden/,'3D card has physical front and back');
+ assert.match(cardCss,/perspective:1200px/,'real perspective');
+ assert.match(cardCss,/box-shadow:/,'realistic physical depth');
+ assert.match(cardCss,/yelo-card-chip/,'EMV-style fake chip');
+ assert.match(cardCss,/prefers-reduced-motion:reduce/,'accessible motion reduction');
+ assert.match(cardJs,/data-card-flip/,'card flip button');
+ assert.match(cardJs,/data-card-pause/,'explicit pause animation control');
+ assert.match(cardJs,/pointermove/,'interactive pointer tilt');
+ assert.doesNotThrow(()=>new Script(cardJs),'motion engine parses');
+ assert.doesNotThrow(()=>new Script(await read('assets/yelo.js')),'banking engine still parses');
+ const research=await read('creative-direction/YELO-DROP-002-RESEARCH.md');
+ for(const domain of ['sprayground.com','palaceskateboards.com','unsplash.com','w3.org'])assert.ok(research.includes(domain),'source-grounded research '+domain);
 });
