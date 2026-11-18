@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const $=id=>document.getElementById(id),esc=v=>String(v).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;':'&quot;',"'":'&#39;'}[x]));
+const $=id=>document.getElementById(id),esc=v=>String(v).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const fmt=n=>Number(n).toLocaleString('en-KE',{maximumFractionDigits:0});
 const nav=$('menu-toggle'),menu=$('main-menu');
 nav?.addEventListener('click',()=>{const opened=menu.classList.toggle('is-open');nav.setAttribute('aria-expanded',String(opened));nav.textContent=opened?'CLOSE ✕':'MENU ☰'});
