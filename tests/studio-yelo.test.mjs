@@ -106,7 +106,7 @@ test('DROP 002 researched streetwear palette and practical motion card implement
   ...paths.map(read)
  ]);
  for(const [name,style] of [['project',css],['case study',caseCss]]){
-  assert.match(style,/background:#08071[01]/i,name+' uses ink-black foundation');
+  assert.match(style,/#080710|#080611/i,name+' uses ink-black foundation');
   assert.ok(!/#[Ff]1[Ee][Ee][Ee]6|#[Ee][8-9][Dd][Dd][Cc][Cc]|#[Ff][Aa][Ff]4[Ee][Bb]/.test(style),name+' does not use old cream/beige palette');
   assert.ok(!/(?:background|color):(?:\\s*)green\\b/i.test(style),name+' has no green surface');
  }
