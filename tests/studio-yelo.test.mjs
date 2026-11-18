@@ -62,10 +62,10 @@ test('new YELO Money, Card and Culture pages are distinct and linked',async()=>{
 test('research-based case study has real photography, anti-template decisions and five working journeys',async()=>{
  const html=await read('work/yelo/index.html');
  const css=await read('assets/yelo-case-rebuild.css');
- assert.match(html,/01 \/ COVER STORY/);
- assert.match(html,/02 \/ THE REAL-WORLD CONTEXT/);
- assert.match(html,/03 \/ CREATIVE DIRECTION/);
- assert.match(html,/04 \/ THE BRAND SYSTEM/);
+
+
+
+
  assert.match(html,/THE CARD/);
  assert.match(html,/studio-unified-showcase.js/);
  assert.match(html,/not a Co-op Bank redesign or official app/);
@@ -140,4 +140,47 @@ test('DROP 002 researched streetwear palette and practical motion card implement
  assert.doesNotThrow(()=>new Script(bankingJs),'banking engine still parses');
  const research=await read('creative-direction/YELO-DROP-002-RESEARCH.md');
  for(const domain of ['sprayground.com','palaceskateboards.com','unsplash.com','w3.org'])assert.ok(research.includes(domain),'source-grounded research '+domain);
+});
+
+
+test('YELO v4 removes overlines, numbered topics, image captions and divider stripes across every page',async()=>{
+ const pages=['projects/yelo/index.html','projects/yelo/money.html','projects/yelo/card.html','projects/yelo/culture.html','work/yelo/index.html'];
+ for(const path of pages){
+  const html=await read(path);
+  assert.ok(!html.includes('edition-topline'),'No independent fintech overline on '+path);
+  assert.ok(!html.includes('AN INDEPENDENT FINTECH CONCEPT'),'No independent fintech promotional label');
+  assert.ok(!html.includes('FOR THE PEOPLE WHO ARE MAKING IT HAPPEN'),'No introductory tagline');
+  assert.ok(!/<figcaption(?:\s|>)/.test(html),'No overlaid photo caption on '+path);
+  assert.ok(!/class="(?:section-no|chapter-num|hero-kicker|subhead|micro|folio|edition-rule|photo-index|photo-credit)"/.test(html),'No small editorial headings or section labels on '+path);
+  assert.ok(!/<span class="num">(?:PAGE )?0[1-9]/.test(html),'No visible section numerals on '+path);
+  assert.match(html,/assets\/yelo-holo-card\.css/,'Realistic debit card style retained');
+  assert.ok(html.includes('yelo-clean-v4.css')||html.includes('yelo-case-clean-v4.css'),'Unnumbered layout style');
+ }
+ const home=await read('projects/yelo/index.html');
+ assert.match(home,/data-preview-route="move"/,'Functional navigation persists');
+ assert.ok(!/>0[1-9] \/ (?:MY MONEY|TRANSFERS|LAPTOP)/.test(home),'No numbering on interactive journey list');
+ const caseCss=await read('assets/yelo-case-clean-v4.css');
+ const pageCss=await read('assets/yelo-clean-v4.css');
+ assert.match(caseCss,/\.process-line\{/,'Research content retained without numbers');
+ assert.match(pageCss,/\.feature-row\{/,'Feature interactions retained without line separators');
+ assert.match(pageCss,/border:0!important/,'Divider lines suppressed');
+ const culture=await read('projects/yelo/culture.html');
+ assert.match(culture,/Photography: <a href=/,'Photo credits live in footer instead of image overlays');
+});
+
+test('YELO v4 card front and back carry real graffiti words plus card hardware',async()=>{
+ const js=await read('assets/yelo-holo-card.js');
+ const css=await read('assets/yelo-holo-card.css');
+ for(const text of ['MAKE','MOVES!','NO SMALL DREAMS','STAY LOUD!','RUN YOUR OWN RACE']){
+  assert.ok(js.includes(text),'Physical card includes actual graffiti lettering: '+text);
+ }
+ for(const marker of ['yelo-back-signature-row','yelo-card-backtop','magnetic','signature-code','yelo-card-chip','yelo-card-number','back-copy']){
+  assert.ok(js.includes(marker),'Card has real front/back detail '+marker);
+ }
+ for(const marker of ['yelo-front-graffiti','yelo-card-back-graffiti','Permanent+Marker','yelo-card-back .magnetic']){
+  assert.ok(css.includes(marker),'Handstyle and tangible card material '+marker);
+ }
+ assert.match(js,/data-card-flip/,'Card flip controls remain');
+ assert.match(js,/data-card-pause/,'Card pause controls remain');
+ assert.doesNotThrow(()=>new Script(js),'3D card engine parses');
 });
