@@ -1,0 +1,210 @@
+/* YELO / DROP 002 · HIGH SATURATION STREET / No cream, beige, nude, or green surfaces. */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+:root{--paper:#080710;--black:#FAF9FF;--orange:#FF561B;--yellow:#FFE019;--violet:#7737FF;--grey:#C1B5EB;--purple:#681FFF;--pink:#FF279E;--blue:#156AFF;--night:#080710;--line:#5C36AC;--aqua:#36B5FF}
+html,body,body.yelo-edition{background:#080710!important;color:#FAF9FF}
+body.yelo-edition{background-image:none!important}
+body.yelo-edition .head,body.yelo-edition .edition-topline{background:#080710;color:#fff;border-color:#5C2EB1}
+body.yelo-edition .head nav a{color:#fff}
+body.yelo-edition .head .head-cta{background:#FF2DA3;border-color:#FF2DA3;color:#090714}
+body.yelo-edition .head .head-cta:hover{background:#FFE019;color:#090714}
+body.yelo-edition .wordmark:after{background:#FF279E}
+body.yelo-edition .hero{background:#080710;color:#fff}
+body.yelo-edition .hero-title{color:#fff;text-shadow:6px 7px 0 #7229FF}
+body.yelo-edition .hero-title b{color:#FFDF15;text-shadow:5px 6px 0 #FF2E9B}
+body.yelo-edition .hero-kicker:before{background:#FF2F9D}
+body.yelo-edition .hero-sub{color:#fff}
+body.yelo-edition .hero-sub strong{color:#FFDF18}
+body.yelo-edition .hero-copy-row{border-color:#9A42FF}
+body.yelo-edition .pill-link{background:#FFDF17;border-color:#080710;color:#080710;box-shadow:5px 5px 0 #FF2E9D}
+body.yelo-edition .pill-link.secondary{background:#6521E8;color:#fff;border-color:#C08CFF;box-shadow:5px 5px 0 #FF2C99}
+body.yelo-edition .pill-link:hover{background:#FF2F9D;color:#080710}
+body.yelo-edition .hero-photo-column:before{background:#260967}
+body.yelo-edition .hero-photo-column:after{background:linear-gradient(0deg,#14042bb3,transparent 45%)}
+body.yelo-edition .hero-device-column{background:#7124EF;border-left:3px solid #FF32A1}
+body.yelo-edition .hero-device-column:after{color:#fff;font-weight:800}
+body.yelo-edition .hero-card-wrap{z-index:5;pointer-events:none}
+body.yelo-edition .hero-device-column .phone{z-index:8}
+body.yelo-edition .edition-stamp{background:#FF2B9F;color:#080710;border-color:#080710}
+body.yelo-edition .edition-rule{background:#FF2F9C;color:#0A0714;border-color:#FF2F9C}
+body.yelo-edition .editorial-split{border-color:#FF2F9C;background:#100923}
+body.yelo-edition .editorial-split .copy{background:#0B0619;color:#fff}
+body.yelo-edition .editorial-split .copy h2{color:#fff}
+body.yelo-edition .editorial-split .copy p{color:#DCD2F9}
+body.yelo-edition .editorial-split .image-wrap{background:#5B12CC}
+body.yelo-edition .editorial-split .image-wrap figcaption{background:#FFDF18;color:#0D0617}
+body.yelo-edition .underline-mark{border-color:#FF2D99}
+body.yelo-edition .editorial-index{background:#090714;color:#FAF9FF}
+body.yelo-edition .section-line h2{color:#fff}
+body.yelo-edition .section-line p{color:#D4C8EC}
+body.yelo-edition .feature-list{border-color:#FF2A97}
+body.yelo-edition .feature-row{border-color:#7636DA;color:#fff}
+body.yelo-edition .feature-row:hover{background:#43109C;color:#fff}
+body.yelo-edition .feature-row:nth-child(2):hover,body.yelo-edition .feature-row:nth-child(4):hover{background:#801ED6}
+body.yelo-edition .feature-row .name{color:#FAF9FF}
+body.yelo-edition .feature-row .num{color:#FFDF17}
+body.yelo-edition .feature-row .desc{color:#C4ABEB}
+body.yelo-edition .feature-row .arrow{color:#FF2E9A}
+body.yelo-edition .card-feature{background:#160534;color:#fff;border-top:3px solid #FE3197;border-bottom:3px solid #FE3197}
+body.yelo-edition .card-feature h2{color:#FFDF18}
+body.yelo-edition .card-feature p{color:#EEE7FF}
+body.yelo-edition .card-feature .pill-link{background:#FF2C9D;color:#090713;box-shadow:4px 4px 0 #FFE019}
+body.yelo-edition .moment{background:#1461F3;color:#fff}
+body.yelo-edition .moment-copy{background:#1846D5;color:#fff}
+body.yelo-edition .moment-copy blockquote{color:#FFDF18}
+body.yelo-edition .moment-copy p{color:#fff}
+body.yelo-edition .try-section{background:#090614;color:#fff;border-top:3px solid #FF2A99}
+body.yelo-edition .try-section h2{color:#fff}
+body.yelo-edition .try-section h2 em{color:#FF2C9F}
+body.yelo-edition .try-copy p{color:#D5C8EE}
+body.yelo-edition .try-journeys{border-color:#FF2A99}
+body.yelo-edition .journey-btn{color:#fff;border-color:#57329B}
+body.yelo-edition .journey-btn:hover{background:#310D73}
+body.yelo-edition .journey-btn[aria-pressed=true]{background:#FFDF18;color:#10051F}
+body.yelo-edition .journey-frame{background:#1C0B3B;border-color:#FF2F98;box-shadow:12px 12px 0 #6422DC}
+body.yelo-edition .journey-frame iframe{background:#0E081D}
+body.yelo-edition .journey-foot{color:#E2D9F4}
+body.yelo-edition .journey-foot a{color:#FFDF16}
+body.yelo-edition .footer{background:#070511;color:#fff;border-top:3px solid #C52BEE}
+body.yelo-edition .footer p{color:#CBB9E9}
+body.yelo-edition .footer a{color:#FFE016}
+body.yelo-edition .footer .wordmark{color:#fff}
+body.yelo-edition .subhead{background:#2D0A78;color:#fff;border-color:#FF2C9C}
+body.yelo-edition .page-hero{background:#080710}
+body.yelo-edition .page-title{color:#fff;text-shadow:7px 7px 0 #6218D4}
+body.yelo-edition .page-title em{color:#FFDE14}
+body.yelo-edition .page-intro{border-color:#FF319F}
+body.yelo-edition .page-intro p{color:#fff}
+body.yelo-edition .page-intro p.meta{color:#C5B1EA}
+body.yelo-edition .page-photo{background:#280966}
+body.yelo-edition .page-photo figcaption{background:#FFDF17;color:#12091C}
+body.yelo-edition .sheets{background:#0E071D;color:#fff}
+body.yelo-edition .sheet-head h2{color:#fff}
+body.yelo-edition .sheet-head p{color:#E6D9FC}
+body.yelo-edition .sheet-index{border-color:#FF2C9B}
+body.yelo-edition .sheet-item{border-color:#713AC6}
+body.yelo-edition .sheet-item h3{color:#FFDF17}
+body.yelo-edition .sheet-item p{color:#E0D5F3}
+body.yelo-edition .big-product{background:#C224F7;color:#fff;border-color:#FFDF18}
+body.yelo-edition .big-product h2{color:#FFDF18}
+body.yelo-edition .big-product p{color:#fff}
+body.yelo-edition .page-embed{background:#120824;color:#fff}
+body.yelo-edition .page-embed h2{color:#fff}
+body.yelo-edition .page-embed p{color:#DCCDF2}
+body.yelo-edition .page-embed iframe{background:#080710;border-color:#FF2DA0;box-shadow:15px 17px 0 #681CEC}
+body.yelo-edition .type-ledger{background:#280A64;color:#fff}
+body.yelo-edition .type-ledger .ledger-row{border-color:#7738D9}
+body.yelo-edition .type-ledger .ledger-row strong{color:#FFDF15}
+body.yelo-edition .type-ledger p{color:#D6C6EF}
+body.yelo-edition .photo-essay{background:#17052B;color:#fff}
+body.yelo-edition .photo-essay .essay-text{background:#1B0740;color:#fff}
+body.yelo-edition .photo-essay .essay-text p{color:#DCCAF8}
+body.yelo-edition .photo-essay figcaption{background:#FFDF17;color:#0C0717}
+body.yelo-edition .credit-rail{background:#FFDF18;color:#0A0611}
+body.yelo-edition .credit-rail a{color:#0A0611}
+body.yelo-edition .more-project{background:#0B0719;color:#fff;border-color:#FF2B9B}
+body.yelo-edition .more-project h2{color:#fff}
+body.yelo-edition .more-project a{color:inherit}
+body.yelo-edition .more-project .pill-link{color:#0C0712}
+body.yelo-edition .more-project .pill-link.secondary{color:#fff}
+body.yelo-edition .photo-essay[style*="background"]{background:#3510A8!important;color:#fff!important}
+body.yelo-edition .photo-essay[style*="background"] .essay-text{background:#3510A8;color:#fff}
+body.yelo-edition .photo-essay[style*="background"] p{color:#F0E7FF}
+body.yelo-edition .head nav.is-open{background:#160534;color:#fff;border-color:#FF2D9D;box-shadow:7px 7px 0 #6E20E7}
+body.yelo-edition .menu-toggle{background:#FFDF17;color:#10051D;border-color:#10051D}
+body.yelo-edition .toast{background:#FFDF16;color:#0B0715;border-color:#0A0715;pointer-events:none}
+/* Actual product UI: quiet information hierarchy and only the card carries full graffiti. */
+body.yelo-edition .phone{border-color:#3F2281;background:#090713;box-shadow:0 0 0 2px #BF72FF,12px 15px 0 #040109cc}
+body.yelo-edition .phone-inner,body.yelo-edition .phone-status,body.yelo-edition .phone-header,body.yelo-edition .phone-screen,body.yelo-edition .phone-navbar{background:#130923;color:#fff}
+body.yelo-edition .phone-header{border-color:#6434AF}
+body.yelo-edition .phone-logo{color:#fff}
+body.yelo-edition .phone-logo:after{background:#FF2FA4}
+body.yelo-edition .notification{color:#fff}
+body.yelo-edition .phone-screen .small{color:#C7B1EB}
+body.yelo-edition .phone-panel{background:#5716CD;color:#fff;border:1px solid #A366FF}
+body.yelo-edition .balance-row span{color:#DCCAFB}
+body.yelo-edition .eye{color:#fff}
+body.yelo-edition .balance-amount{color:#fff}
+body.yelo-edition .orange-button{background:#FFDF15;color:#120A20}
+body.yelo-edition .phone-action-grid{background:#170B2B;border-color:#5726A4}
+body.yelo-edition .phone-action{background:#150A29;color:#fff;border-color:#562AA0}
+body.yelo-edition .phone-action .act-icon{color:#FF2A9A}
+body.yelo-edition .phone-action:hover{background:#7629E4}
+body.yelo-edition .phone-action[aria-pressed=true]{background:#7629E4}
+body.yelo-edition .phone-card-preview{background:#6E18D4;border:1px solid #BB70F7;color:#fff}
+body.yelo-edition .phone-card-preview .app-label{color:#fff}
+body.yelo-edition .phone-card-preview button{background:#FFDF17;color:#100621}
+body.yelo-edition .goal-widget{background:#271048;border-color:#6D3BC7;color:#fff}
+body.yelo-edition .goal-widget .mini-row span{color:#FFDF17}
+body.yelo-edition .goal-widget p{color:#CDB7ED}
+body.yelo-edition .progress{background:#512581}
+body.yelo-edition .progress i{background:#FFDF17}
+body.yelo-edition .hub-card{background:#FF2C9F;color:#fff}
+body.yelo-edition .phone-navbar{border-color:#6032A6}
+body.yelo-edition .nav-btn{color:#BBA7D6}
+body.yelo-edition .nav-btn[aria-current=page]{color:#FFDF17}
+body.yelo-edition .nav-btn[aria-current=page]:after{background:#FF2F9D}
+body.yelo-edition .app-welcome{border-color:#53317A}
+body.yelo-edition .app-label{color:#E6CCFB}
+body.yelo-edition .app-utility-title{border-color:#6840A0;color:#F5EAFF}
+body.yelo-edition .app-utility-title button{color:#FFDF17}
+body.yelo-edition .app-mini-transactions{border-color:#43286C}
+body.yelo-edition .app-mini-transaction{border-color:#43286C}
+body.yelo-edition .app-mini-transaction strong,body.yelo-edition .app-mini-transaction b{color:#fff}
+body.yelo-edition .app-mini-transaction small{color:#B69FD8}
+body.yelo-edition .goal-hero{background:#290F54;border-color:#793CE3;color:#fff}
+body.yelo-edition .goal-hero h3{color:#FFDF17}
+body.yelo-edition .goal-hero>p{color:#D8C6F1}
+body.yelo-edition .goal-hero .hint{color:#D8C6F1}
+body.yelo-edition .goal-hero .orange-button{background:#FFDF17;color:#10081E}
+body.yelo-edition .app-transactions{border-color:#5C2C9A}
+body.yelo-edition .flow-item{border-color:#523180;color:#fff}
+body.yelo-edition .flow-item small{color:#BBA4D7}
+body.yelo-edition .phone-screen .hint{color:#C0ADDB}
+body.yelo-edition .back-home{background:#5A22CB;color:#fff}
+body.yelo-edition .mini-panel{background:#211039;color:#fff;border-color:#6936AA}
+body.yelo-edition .mini-panel h3{color:#FFDF17}
+body.yelo-edition .mini-panel p{color:#D4C2EB}
+body.yelo-edition .metric-track{background:#462676}
+body.yelo-edition .metric-track i{background:#FF2C9C}
+body.yelo-edition .metric-row:nth-child(2) .metric-track i{background:#1E8AFF}
+body.yelo-edition .metric-row:nth-child(3) .metric-track i{background:#FFDF17}
+body.yelo-edition .info-bubble{background:#2A164A;color:#fff;border-color:#6533AD}
+body.yelo-edition .card-in-phone{position:relative;margin:18px auto 13px;max-width:340px}
+body.yelo-edition .card-in-phone .card-frozen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#06030bd9;color:#FFDF17;letter-spacing:.1em;font-weight:800;font-size:12px;pointer-events:none;z-index:4}
+body.yelo-edition #action-dialog{background:#120924;color:#fff;border-color:#CA66FF}
+body.yelo-edition .modal-content h2{color:#FFDF17}
+body.yelo-edition .modal-content p,body.yelo-edition .demo-note{color:#D3BFF0}
+body.yelo-edition .demo-form input,body.yelo-edition .demo-form select{background:#230D41;color:#fff;border-color:#8F43EA}
+body.yelo-edition .demo-submit{background:#FFDF17;color:#0E0617}
+body.yelo-edition .modal-close{background:#FF2B9A;color:#0E0714}
+body.yelo-edition .app-mini-transaction b{font-variant-numeric:tabular-nums}
+/* The card preview includes real 3D depth; position it above the marketing art but below controls. */
+body.yelo-edition .hero-card-wrap .yelo-card-showcase{--card-width:100%}
+body.yelo-edition .hero-card-wrap{filter:none}
+body.yelo-edition .card-feature-visual{overflow:visible}
+body.yelo-edition .card-feature-visual .yelo-card-showcase{width:100%;--card-width:min(100%,630px)}
+body.yelo-edition .card-feature-visual .yelo-card-stage{filter:drop-shadow(10px 19px 16px #0009)}
+body.yelo-edition .big-product .wrap>.yelo-card-showcase{--card-width:min(100%,640px);margin:25px auto}
+body.yelo-edition .big-product .wrap{overflow:visible}
+body.yelo-edition .card-feature-visual .yelo-card-controls{margin-top:15px}
+body.yelo-edition .yelo-card-showcase{color:#fff}
+body.yelo-edition .hero-card-wrap .yelo-card-showcase{pointer-events:none}
+body.yelo-edition .page-embed-grid iframe{color-scheme:dark}
+body.preview-mode.yelo-edition .hero,body.preview-mode.yelo-edition .hero-stage,body.preview-mode.yelo-edition .hero-device-column{background:#080710!important}
+body.preview-mode.yelo-edition .hero-device-column{border:0!important}
+/* Body chrome avoids beige remnants when inherited page styles have inline surface values. */
+body.yelo-edition .photo-credit{background:#11091C99;color:#fff}
+body.yelo-edition .photo-index{background:#FF2F9D;color:#070311}
+body.yelo-edition .page-photo,.yelo-edition .photo-essay figure{background:#170B3E}
+body.yelo-edition .photo-essay img{object-position:center}
+@media(max-width:800px){body.yelo-edition .head nav{background:#1A073A;color:#fff}}
+@media(max-width:600px){body.yelo-edition .hero-title{font-size:clamp(73px,15vw,104px);text-shadow:3px 3px 0 #6921CB}
+body.yelo-edition .card-feature-visual .yelo-card-showcase{max-width:430px;margin:auto}
+body.yelo-edition .hero-card-wrap{width:47%;left:0;bottom:12%}
+body.yelo-edition .yelo-card-edition{font-size:7px}
+body.yelo-edition .hero-device-column{background:#7323DF}
+body.yelo-edition .hero-device-column:after{color:#fff}
+body.yelo-edition .moment-copy{background:#1947CB}
+body.yelo-edition .photo-essay[style*="background"]{background:#2F0B8E!important;color:#fff!important}
+}
+@media(prefers-reduced-motion:reduce){body.yelo-edition .hero-title,body.yelo-edition .hero-title b{transform:none!important}}
