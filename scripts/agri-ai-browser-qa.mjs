@@ -52,7 +52,7 @@ for(const width of [1440,390,320]){
   assert.match(output,/tomato/);
   assert.match(output,/Kisii/);
   assert.match(output,/No image recognition or live agricultural model ran/);
-  assert.match(output,/extension worker/);
+  assert.match(output,/extension officer|agronomist/,'Triage directs the farmer to a qualified local professional');
   const svg=Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><rect width="20" height="20" fill="#ffca18"/></svg>');
   await page.locator('#crop-photo').setInputFiles({name:'crop-reference.svg',mimeType:'image/svg+xml',buffer:svg});
   await page.locator('#crop-preview img').waitFor({timeout:7000});
