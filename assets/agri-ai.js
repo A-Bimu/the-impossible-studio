@@ -78,4 +78,13 @@ function calculateMarket(){
  marketResult.innerHTML='<span class="badge">Calculator / Example only</span><h3>KSh '+fmt(gross)+'</h3><p>Illustrative gross sale value: '+fmt(qty)+' kg × KSh '+fmt(price)+'/kg of '+esc(crop)+'.</p><p>This is <strong>not profit</strong>. It excludes transport, bags, labour, losses, commission and other costs.</p><div class="warn">The starting prices are invented examples, not current Kenyan market prices, farmgate quotations or buyer offers. Enter an independently verified local offer for a useful estimate.</div>';
 }
 if(marketResult)calculateMarket();
+const params=new URLSearchParams(location.search);
+if(form&&params.has('symptom')){
+ const symptom=params.get('symptom');
+ if(Object.hasOwn(triage,symptom)){const field=$('crop-symptom');if(field)field.value=symptom;form.requestSubmit()}
+}
+if(planner&&params.has('stage')){
+ const stage=params.get('stage');
+ if(Object.hasOwn(sets,stage)){const field=$('plan-stage');if(field)field.value=stage;renderPlan()}
+}
 })();
