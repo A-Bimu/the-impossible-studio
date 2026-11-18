@@ -3,7 +3,7 @@
 .yelo-card-showcase{--card-width:clamp(224px,100%,455px);--tilt-x:0deg;--tilt-y:0deg;--glare-x:50%;--glare-y:50%;display:flex;flex-direction:column;align-items:center;gap:18px;isolation:isolate}
 .yelo-card-stage{width:var(--card-width);aspect-ratio:1.586;perspective:1200px;position:relative;touch-action:pan-y;filter:drop-shadow(0 15px 18px #000b);cursor:default}
 .yelo-card-shell{width:100%;height:100%;position:relative;transform-style:preserve-3d;transform:rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transition:transform .42s cubic-bezier(.22,.72,.14,1);will-change:transform;animation:yelo-float 7.5s ease-in-out infinite}
-.yelo-card-showcase.is-interacting .yelo-card-shell{animation-play-state:paused;transition:transform .11s ease-out}
+.yelo-card-showcase.is-interacting .yelo-card-shell{animation:none;transition:transform .11s ease-out}
 @keyframes yelo-float{0%,100%{transform:rotateX(-4deg) rotateY(-9deg) translateY(2px)}50%{transform:rotateX(4deg) rotateY(8deg) translateY(-9px)}}
 .yelo-card-core{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(0deg);transition:transform .85s cubic-bezier(.22,.73,.19,1);border-radius:17px}
 .yelo-card-showcase.is-flipped .yelo-card-core{transform:rotateY(180deg)}
@@ -46,3 +46,12 @@
 .yelo-card-showcase.is-compact .yelo-card-flip{padding:9px 12px;font-size:10px}
 @media(hover:none),(pointer:coarse){.yelo-card-stage{touch-action:pan-y}.yelo-card-motion-hint{display:none}.yelo-card-showcase .yelo-card-shell{animation-duration:9s}}
 @media(prefers-reduced-motion:reduce){.yelo-card-shell{animation:none!important;transition:none!important;transform:none!important}.yelo-card-core{transition:none!important}.yelo-card-face:after{transition:none}.yelo-card-showcase.is-interacting .yelo-card-shell{transform:none!important}}
+
+/* Pointer motion never fights an active CSS keyframe. Autoplay has a user pause control. */
+.yelo-card-showcase.is-paused .yelo-card-shell{animation:none!important;transform:none!important;transition:transform .25s ease-out}
+.yelo-card-showcase.is-decorative .yelo-card-shell{animation-duration:1.8s;animation-iteration-count:1}
+.yelo-card-pause{background:transparent;border:1px solid #C88DFF;color:#F5EAFE;padding:11px 12px;font:800 10px 'Space Grotesk',sans-serif;letter-spacing:.02em;cursor:pointer}
+.yelo-card-pause:focus-visible{outline:3px solid #FFDF17;outline-offset:3px}
+.yelo-card-showcase.is-compact .yelo-card-pause{padding:7px 10px;font-size:9px}
+.yelo-card-showcase.is-decorative .yelo-card-pause{display:none}
+@media(prefers-reduced-motion:reduce){.yelo-card-pause{display:none}}
