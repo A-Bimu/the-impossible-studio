@@ -136,7 +136,8 @@ test('DROP 002 researched streetwear palette and practical motion card implement
  assert.match(cardJs,/data-card-pause/,'explicit pause animation control');
  assert.match(cardJs,/pointermove/,'interactive pointer tilt');
  assert.doesNotThrow(()=>new Script(cardJs),'motion engine parses');
- assert.doesNotThrow(()=>new Script(await read('assets/yelo.js')),'banking engine still parses');
+ const bankingJs=await read('assets/yelo.js');
+ assert.doesNotThrow(()=>new Script(bankingJs),'banking engine still parses');
  const research=await read('creative-direction/YELO-DROP-002-RESEARCH.md');
  for(const domain of ['sprayground.com','palaceskateboards.com','unsplash.com','w3.org'])assert.ok(research.includes(domain),'source-grounded research '+domain);
 });
