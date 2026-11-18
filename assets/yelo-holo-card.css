@@ -101,3 +101,7 @@
 .yelo-card-showcase.is-compact .yelo-card-back .back-copy small{font-size:6px}
 @media(max-width:600px){.yelo-front-graffiti .yelo-tag-one{font-size:clamp(18px,6vw,31px)}.yelo-front-graffiti .yelo-tag-two{font-size:clamp(23px,7vw,39px)}.yelo-card-back-graffiti span{font-size:clamp(23px,6vw,35px)}.yelo-card-back-graffiti i{font-size:6px;right:0;top:24px}.yelo-card-back .signature small{font-size:6px}.yelo-card-back .back-copy{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.yelo-front-graffiti,.yelo-card-back-graffiti{transition:none}}
+
+/* Keep masked account digits clean and bank-card legibility ahead of decorative stickers. */
+.yelo-front-graffiti .yelo-tag-mini{display:none!important}
+.yelo-card-back .magnetic{isolation:isolate}
