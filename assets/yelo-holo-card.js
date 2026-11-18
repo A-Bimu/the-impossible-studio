@@ -17,7 +17,7 @@
    el.classList.add('yelo-card-showcase');
    if(decorative)el.classList.add('is-decorative');
    if(compact)el.classList.add('is-compact');
-   el.innerHTML=inner()+(decorative?'':'<div class="yelo-card-controls"><button type="button" class="yelo-card-flip" data-card-flip aria-pressed="false" aria-label="Show back of fictional YELO card">SEE CARD BACK ↗</button><span class="yelo-card-motion-hint">MOVE YOUR CURSOR / FLIP THE CARD</span></div>');
+   el.innerHTML=inner()+(decorative?'':'<div class="yelo-card-controls"><button type="button" class="yelo-card-flip" data-card-flip aria-pressed="false" aria-label="Show back of fictional YELO card">SEE CARD BACK ↗</button><button type="button" class="yelo-card-pause" data-card-pause aria-pressed="false">PAUSE MOTION ‖</button><span class="yelo-card-motion-hint">MOVE CURSOR / FLIP CARD</span></div>');
    el.dataset.cardMounted='yes';
   });
  }
@@ -34,7 +34,7 @@
  document.addEventListener('pointermove',e=>{
   if(reduce.matches||!fine.matches||e.pointerType!=='mouse')return;
   const stage=e.target.closest?.('.yelo-card-stage');
-  if(!stage||stage.closest('.is-decorative'))return;
+  if(!stage||stage.closest('.is-decorative')||stage.closest('.is-paused'))return;
   const host=stage.closest('.yelo-card-showcase'),r=stage.getBoundingClientRect();
   if(!r.width||!r.height)return;
   const x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
@@ -49,6 +49,8 @@
   queue(stage,0,0,50,50);
  });
  document.addEventListener('click',e=>{
+  const pause=e.target.closest?.('[data-card-pause]');
+  if(pause){const host=pause.closest('.yelo-card-showcase');if(!host)return;const paused=host.classList.toggle('is-paused');host.classList.remove('is-interacting');pause.setAttribute('aria-pressed',String(paused));pause.textContent=paused?'PLAY MOTION ↻':'PAUSE MOTION ‖';return}
   const flip=e.target.closest?.('[data-card-flip]');
   if(!flip)return;
   const host=flip.closest('.yelo-card-showcase');if(!host)return;
