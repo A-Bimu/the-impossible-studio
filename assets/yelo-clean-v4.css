@@ -1,0 +1,98 @@
+/* YELO / CLEAN CAMPAIGN V4.
+   Remove editorial numbering, mini headings and divider lines without hiding product controls. */
+body.yelo-edition .edition-topline,
+body.yelo-edition .edition-rule,
+body.yelo-edition .subhead,
+body.yelo-edition .photo-index,
+body.yelo-edition .photo-credit,
+body.yelo-edition .credit-rail,
+body.yelo-edition .section-no,
+body.yelo-edition .micro,
+body.yelo-edition .hero-kicker,
+body.yelo-edition figcaption,
+body.yelo-edition .edition-stamp{display:none!important}
+body.yelo-edition .head{border-bottom:0;box-shadow:none}
+body.yelo-edition .head-inner{min-height:78px}
+body.yelo-edition .hero-top{padding-top:38px}
+body.yelo-edition .hero-copy-row{border-top:0;padding-top:0;margin-top:24px}
+body.yelo-edition .hero-stage{margin-top:45px}
+body.yelo-edition .editorial-split,
+body.yelo-edition .card-feature,
+body.yelo-edition .try-section,
+body.yelo-edition .more-project,
+body.yelo-edition .big-product,
+body.yelo-edition .photo-essay,
+body.yelo-edition .footer{border:0!important}
+body.yelo-edition .editorial-split .copy{gap:30px}
+body.yelo-edition .section-line{gap:24px;margin-bottom:50px}
+body.yelo-edition .feature-list{border:0}
+body.yelo-edition .feature-row{
+ display:grid;
+ grid-template-columns:minmax(0,1.7fr) minmax(130px,1fr) 38px;
+ gap:22px;align-items:center;
+ border:0!important;
+ padding:25px 19px;
+ margin:0 0 13px;
+ background:#210E4C;
+ box-shadow:inset 5px 0 0 #FF2D9B;
+ transition:background-color .15s ease,transform .15s ease;
+}
+body.yelo-edition .feature-row:nth-child(even){background:#2A0B68;box-shadow:inset 5px 0 0 #FFE018}
+body.yelo-edition .feature-row:hover{background:#5720CB;transform:translateX(3px)}
+body.yelo-edition .feature-row .name{font-size:clamp(34px,4.6vw,69px)}
+body.yelo-edition .feature-row .desc{font-size:14px}
+body.yelo-edition .try-journeys{border:0}
+body.yelo-edition .journey-btn{border:0;margin:0 0 9px;background:#26104B;padding:19px 17px;text-align:left}
+body.yelo-edition .journey-btn[aria-pressed="true"]{background:#FFDE18}
+body.yelo-edition .page-hero{padding-top:45px}
+body.yelo-edition .page-intro{border-top:0;padding-top:5px}
+body.yelo-edition .sheet-index{border:0}
+body.yelo-edition .sheet-item{
+ border:0!important;
+ display:grid;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ gap:22px;
+ align-items:start;
+ padding:20px 0 26px;
+ margin-bottom:38px
+}
+body.yelo-edition .sheet-item h3{margin:0}
+body.yelo-edition .sheet-item p{margin:0;max-width:580px}
+body.yelo-edition .type-ledger .ledger-row{border:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:24px 0;margin-bottom:18px}
+body.yelo-edition .type-ledger .ledger-row strong{font-size:clamp(30px,4.2vw,55px)}
+body.yelo-edition .type-ledger .ledger-row p{margin:5px 0 0}
+body.yelo-edition .page-photo figcaption,
+body.yelo-edition .photo-essay figcaption{display:none}
+body.yelo-edition .photo-credits-footer{font-size:11px;opacity:.72;max-width:440px;margin-top:17px}
+body.yelo-edition .hero-photo-column .photo-credit,
+body.yelo-edition .editorial-split .image-wrap figcaption,
+body.yelo-edition .moment-photo small{display:none!important}
+body.yelo-edition .phone .app-label,
+body.yelo-edition .phone .app-utility-title,
+body.yelo-edition .phone .mini-panel h3,
+body.yelo-edition .phone .balance-row span{display:initial}
+body.yelo-edition .phone .app-utility-title{display:flex}
+/* 3D card has no ornamental inscription hovering above it; all writing is printed on faces. */
+body.yelo-edition .card-feature-visual .scribble-note{display:none!important}
+@media(max-width:850px){
+ body.yelo-edition .feature-row{grid-template-columns:minmax(0,1fr) 30px;gap:14px}
+ body.yelo-edition .feature-row .desc{grid-column:1;grid-row:2;display:block;font-size:13px}
+ body.yelo-edition .feature-row .arrow{grid-column:2;grid-row:1/3;align-self:center}
+}
+@media(max-width:620px){
+ body.yelo-edition .hero-top{padding-top:30px}
+ body.yelo-edition .hero-stage{margin-top:29px}
+ body.yelo-edition .feature-row{padding:19px 14px;margin-bottom:9px}
+ body.yelo-edition .feature-row .name{font-size:clamp(30px,9vw,43px);line-height:1.1}
+ body.yelo-edition .feature-row .desc{font-size:12px}
+ body.yelo-edition .sheet-item{display:block;margin-bottom:34px}
+ body.yelo-edition .sheet-item h3{font-size:clamp(32px,9vw,46px);margin-bottom:10px}
+ body.yelo-edition .sheet-item p{font-size:14px}
+ body.yelo-edition .type-ledger .ledger-row{display:block;padding:15px 0;margin:0 0 23px}
+ body.yelo-edition .type-ledger .ledger-row p{margin-top:12px}
+ body.yelo-edition .page-intro{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.yelo-edition .feature-row{transition:none}
+ body.yelo-edition .feature-row:hover{transform:none}
+}

@@ -55,3 +55,57 @@
 .yelo-card-showcase.is-compact .yelo-card-pause{padding:7px 10px;font-size:9px}
 .yelo-card-showcase.is-decorative .yelo-card-pause{display:none}
 @media(prefers-reduced-motion:reduce){.yelo-card-pause{display:none}}
+
+/* YELO / STREET TAG CARD. Full graffiti handstyle is part of both physical faces. */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+.yelo-card-front{background:linear-gradient(138deg,#17033d9c,#16054518 52%,#210252d6),url('./yelo-graffiti.svg') center/cover no-repeat,#1D0549}
+.yelo-card-mark{top:7%;left:8%;font-size:clamp(32px,4.2vw,66px);z-index:5}
+.yelo-card-edition{top:10%;right:8%;font-size:clamp(7px,.8vw,10px);letter-spacing:.11em}
+.yelo-front-graffiti{position:absolute;inset:20% 5% 16% 36%;z-index:2;transform:rotate(-9deg);pointer-events:none;filter:drop-shadow(2px 3px 0 #08030f)}
+.yelo-front-graffiti span{display:block;position:absolute;color:#FFDD10;font-family:'Permanent Marker','Comic Sans MS',cursive;font-weight:400;white-space:nowrap;line-height:.9;-webkit-text-stroke:.35px #fff7;text-shadow:3px 3px 0 #FA218D,6px 6px 0 #14014F}
+.yelo-tag-one{top:9%;left:7%;font-size:clamp(19px,3.4vw,41px);transform:rotate(-5deg)}
+.yelo-tag-two{top:33%;left:14%;font-size:clamp(25px,4.3vw,56px);transform:rotate(5deg)}
+.yelo-front-graffiti .yelo-tag-mini{font:900 clamp(7px,1.2vw,13px) 'Space Grotesk',Arial,sans-serif;letter-spacing:.08em;background:#FF298F;padding:5px 8px;color:#fff;top:76%;left:24%;transform:rotate(-4deg);text-shadow:none;-webkit-text-stroke:0}
+.yelo-front-graffiti .yelo-tag-slash{font-size:clamp(20px,3vw,37px);right:10%;top:-1%;color:#26B8FF}
+.yelo-card-chip{top:44%;left:9%;z-index:5}
+.yelo-card-contactless{top:47%;left:24%;z-index:5}
+.yelo-card-number{bottom:23%;font-weight:900;color:#fff;z-index:5;text-shadow:2px 2px 2px #090015,0 0 8px #180429}
+.yelo-card-bottomline{bottom:6%;z-index:5}
+.yelo-card-bottomline span{color:#F8ECFF}
+.yelo-card-bottomline strong{color:#FFDF16}
+.yelo-card-back{background:linear-gradient(130deg,#080515dd,#19064133 57%,#170535dc),url('./yelo-graffiti.svg') center/cover no-repeat,#270657}
+.yelo-card-backtop{position:absolute;top:7.5%;left:8%;right:8%;display:flex;justify-content:space-between;align-items:start;gap:10px;z-index:3}
+.yelo-card-backtop strong{font:italic 900 clamp(21px,3.1vw,42px)/1 Impact,'Arial Black',sans-serif;letter-spacing:-.02em;text-shadow:2px 3px 0 #FF2D98}
+.yelo-card-backtop span{font:800 clamp(7px,1vw,11px) 'Space Grotesk',Arial,sans-serif;letter-spacing:.06em;max-width:43%;text-align:right}
+.yelo-card-back .magnetic{top:24%;height:17%;left:0;right:0;z-index:4;box-shadow:inset 0 2px 0 #30223a,inset 0 -2px 0 #0C0712,0 1px 4px #06030daa}
+.yelo-back-signature-row{position:absolute;left:8%;right:8%;top:47%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:11px;z-index:3}
+.yelo-card-back .signature{position:static;width:auto;height:auto;min-height:35px;background:repeating-linear-gradient(0deg,#D1C0FF 0 5px,#9B83D4 5px 8px);font:900 clamp(10px,1.1vw,15px) 'Permanent Marker',cursive;letter-spacing:0;padding:5px 10px;display:flex;justify-content:space-between;align-items:center;color:#170435;white-space:nowrap;gap:7px}
+.yelo-card-back .signature small{font:800 clamp(6px,.75vw,9px) 'Space Grotesk';letter-spacing:.025em}
+.yelo-card-back .signature-code{position:static;background:#FFDF16;color:#140927;border-radius:2px;padding:9px 13px;font:900 clamp(9px,1.1vw,14px) 'Space Grotesk',Arial}
+.yelo-card-back-graffiti{position:absolute;left:9%;right:9%;top:67%;z-index:3;transform:rotate(-4deg);pointer-events:none}
+.yelo-card-back-graffiti span{font:400 clamp(24px,3.7vw,49px)/.85 'Permanent Marker',cursive;letter-spacing:-.045em;color:#FFE019;text-shadow:3px 3px 0 #FF2899,5px 4px 0 #1F0460;white-space:nowrap}
+.yelo-card-back-graffiti b{color:#26ADFF;font-size:clamp(16px,2.2vw,27px);margin-left:7px}
+.yelo-card-back-graffiti i{position:absolute;right:0;top:9px;font:900 clamp(7px,.9vw,10px) 'Space Grotesk';letter-spacing:.04em;color:#FF6BAF;transform:rotate(6deg)}
+.yelo-card-back .back-copy{left:8%;right:8%;bottom:4%;display:flex;justify-content:space-between;gap:7px;align-items:end;font:800 clamp(7px,.9vw,11px)/1.25 'Space Grotesk',Arial}
+.yelo-card-back .back-copy span{font-size:inherit;max-width:55%}
+.yelo-card-back .back-copy small{font-size:clamp(6px,.73vw,9px);max-width:43%;text-align:right;line-height:1.2;color:#E8CFFD}
+.yelo-card-showcase.is-compact .yelo-front-graffiti .yelo-tag-one{font-size:clamp(15px,5.5vw,28px)}
+.yelo-card-showcase.is-compact .yelo-front-graffiti .yelo-tag-two{font-size:clamp(17px,6vw,36px)}
+.yelo-card-showcase.is-compact .yelo-front-graffiti .yelo-tag-mini{font-size:6px;padding:3px 5px}
+.yelo-card-showcase.is-compact .yelo-card-back-graffiti span{font-size:clamp(15px,5.5vw,30px)}
+.yelo-card-showcase.is-compact .yelo-card-back-graffiti i{font-size:6px}
+.yelo-card-showcase.is-compact .yelo-card-back .signature{min-height:23px;font-size:9px;padding:4px}
+.yelo-card-showcase.is-compact .yelo-card-back .signature small{font-size:5px}
+.yelo-card-showcase.is-compact .yelo-card-back .signature-code{padding:5px;font-size:8px}
+.yelo-card-showcase.is-compact .yelo-card-back .back-copy{font-size:7px}
+.yelo-card-showcase.is-compact .yelo-card-back .back-copy small{font-size:6px}
+@media(max-width:600px){.yelo-front-graffiti .yelo-tag-one{font-size:clamp(18px,6vw,31px)}.yelo-front-graffiti .yelo-tag-two{font-size:clamp(23px,7vw,39px)}.yelo-card-back-graffiti span{font-size:clamp(23px,6vw,35px)}.yelo-card-back-graffiti i{font-size:6px;right:0;top:24px}.yelo-card-back .signature small{font-size:6px}.yelo-card-back .back-copy{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.yelo-front-graffiti,.yelo-card-back-graffiti{transition:none}}
+
+/* Keep masked account digits clean and bank-card legibility ahead of decorative stickers. */
+.yelo-front-graffiti .yelo-tag-mini{display:none!important}
+.yelo-card-back .magnetic{isolation:isolate}
+
+/* Fix 3D depth occlusion: the edge must sit BETWEEN front and rear face planes.
+   Local -5px appeared IN FRONT of the rear after a 180-degree flip and hid its design. */
+.yelo-card-core:before{transform:translateZ(0)!important;pointer-events:none}
